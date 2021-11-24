@@ -1,9 +1,11 @@
 import React, {Fragment} from 'react';
-import {StyleSheet, View, Dimensions, TouchableHighlight} from 'react-native';
+import {StyleSheet,StatusBar, View, Dimensions, TouchableHighlight} from 'react-native';
 import styled from 'styled-components/native';
-
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import SafeAreaView from 'react-native-safe-area-view';
 import Video from 'react-native-video';
 const {width, height} = Dimensions.get('window');
+import {Button} from '../../components/forms/Button/Button';
 
 const Welcome = ({navigation}) => {
   const onPressHandler = () => {
@@ -11,42 +13,39 @@ const Welcome = ({navigation}) => {
   };
 
   return (
-    <View>
-      <Video
-        source={require('../../assets/welcome.mp4')}
-        style={styles.backgroundVideo}
-        repeat={true}
-        rate={1.0}
-        resizeMode={'cover'}
-        ignoreSilentSwitch={'obey'}
-      />
+    <SafeAreaView>
+    <Video
+    source={require('../../assets/welcome.mp4')}
+    style={styles.backgroundVideo}
+    repeat={true}
+    rate={1.0}
+    resizeMode={'cover'}
+    ignoreSilentSwitch={'obey'}
+  />
 
-      <Wrapper>
-        <Logo
-          source={require('../../assets/lyop.png')}
-          width={500}
-          height={500}
-          resizeMode="contain"
-        />
+  <Wrapper>
+    <Logo
+      source={require('../../assets/lyop.png')}
+      width={500}
+      height={500}
+      resizeMode="contain"
+    />
 
-        <TextDescription>
-          REZA is a community aimed to inspire and forge new connections.
-        </TextDescription>
+    <TextDescription>
+      REZA is a community aimed to inspire and forge new connections.
+    </TextDescription>
 
-        <TextDescription>
-          The full app will be released March 2022.
-        </TextDescription>
+    <TextDescription>
+      The full app will be released March 2022.
+    </TextDescription>
 
-        <ButtonWrapper>
-        <TouchableHighlight onPress={onPressHandler}> 
+    <ButtonWrapper>
         <Fragment>
-        <Button title="REDEEM YOUR NFT"  onPress={onPressHandler}/>
-      </Fragment>
-        </TouchableHighlight>
-           
-          </ButtonWrapper>
-      </Wrapper>
-    </View>
+          <Button onPress={onPressHandler} title="Redeem your NFT" />
+        </Fragment>
+    </ButtonWrapper>
+  </Wrapper>
+    </SafeAreaView>
   );
 };
 
@@ -104,30 +103,5 @@ export const ButtonWrapper = styled.View`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-top: 220px;
+  margin-top: 200px;
 `;
-
-const StyledButton = styled.TouchableHighlight`
- width:250px;
- background-color:${props => (props.transparent ? 'transparent' : '#f3f8ff')};
- padding:15px;
-border:${props => (props.transparent ? '1px solid #f3f8ff ' : 0)}
- justify-content:center;
- margin-bottom:20px;
- border-radius:24px
-`;
-const StyledTitle = styled.Text`
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: bold;
-  letter-spacing: 3;
-  color: ${props => (props.transparent ? '#f3f8ff ' : '#666')};
-`;
-
-export const Button = ({onPress, color, ...props}) => {
-  return (
-    <StyledButton {...props}>
-      <StyledTitle {...props}>{props.title}</StyledTitle>
-    </StyledButton>
-  );
-};
