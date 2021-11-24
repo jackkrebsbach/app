@@ -1,11 +1,16 @@
 import * as React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {Logo} from '@components/Logo'
+import {Wrapper} from '@components/Wrappers'
 
-const Login: React.FC<Props> = ({navigation}) => {
+const Login = ({navigation}) => {
   return (
-    <View style={styles.root}>
-      <Text>Login</Text>
-    </View>
+    <SafeAreaView >
+    <Wrapper>
+      <Logo />
+    </Wrapper>   
+    </SafeAreaView>
   );
 };
 

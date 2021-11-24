@@ -5,15 +5,20 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 import Video from 'react-native-video';
 const {width, height} = Dimensions.get('window');
-import {Button} from '../../components/forms/Button/Button';
+import {Button} from '@components/forms';
+import {Logo} from '@components/Logo';
+import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 
 const Welcome = ({navigation}) => {
   const onPressHandler = () => {
     navigation.navigate('Login');
   };
 
+  const bottom = {position: 'absolute',
+  bottom:0}
   return (
     <SafeAreaView>
+    <StatusBar  barStyle="light-content" translucent={true}/>
     <Video
     source={require('../../assets/welcome.mp4')}
     style={styles.backgroundVideo}
@@ -24,12 +29,7 @@ const Welcome = ({navigation}) => {
   />
 
   <Wrapper>
-    <Logo
-      source={require('../../assets/lyop.png')}
-      width={500}
-      height={500}
-      resizeMode="contain"
-    />
+    <Logo />
 
     <TextDescription>
       REZA is a community aimed to inspire and forge new connections.
@@ -39,10 +39,8 @@ const Welcome = ({navigation}) => {
       The full app will be released March 2022.
     </TextDescription>
 
-    <ButtonWrapper>
-        <Fragment>
-          <Button onPress={onPressHandler} title="Redeem your NFT" />
-        </Fragment>
+    <ButtonWrapper style={{paddingTop: 100}} >
+          <Button onPress={onPressHandler}   title="Redeem your NFT" />
     </ButtonWrapper>
   </Wrapper>
     </SafeAreaView>
@@ -76,19 +74,10 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Wrapper = styled.View`
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-`;
-export const Logo = styled.Image`
-  max-width: 300px;
-  width: 300px;
-  height: 300px;
-`;
+
 
 export const TextDescription = styled.Text`
-  letter-spacing: 3;
+  letterSpacing: 3;
   paddingTop: 50px;
   paddingLeft: 30px;
   paddingRight: 30px;
@@ -99,9 +88,3 @@ export const TextDescription = styled.Text`
   text-transform: uppercase;
 `;
 
-export const ButtonWrapper = styled.View`
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 200px;
-`;
