@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 3;
+  letterSpacing: 3px;
   paddingTop: 50px;
   paddingLeft: 40px;
   paddingRight: 40px;

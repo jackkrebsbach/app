@@ -57,6 +57,7 @@ const styles = StyleSheet.create({
           <Text style={styles.text} > {props.title} </Text>
           <TextInput
               type={props.type}
+              onChangeText={props.onChangeText}
               style={styles.textInput}
               placeholder= {props.placeholder}
               underlineColorAndroid="transparent"
