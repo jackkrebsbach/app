@@ -7,7 +7,7 @@ const LogoStyle = styled.Image`
   max-width: 300px;
   width: 300px;
   height: 300px;
-  marginTop: -100px
+  marginTop: -100px;
 `;
 
 

@@ -12,6 +12,7 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme} from '@react-navigation/native';
+import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useColorScheme} from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -25,7 +26,7 @@ const App = () => {
   const scheme = useColorScheme();
 
   return (
-    <SafeAreaProvider>
+  <PaperProvider>
       <NavigationContainer theme={DarkTheme}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen
@@ -38,7 +39,7 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
-    </SafeAreaProvider>
+  </PaperProvider>
 
   );
 };

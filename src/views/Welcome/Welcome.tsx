@@ -19,6 +19,8 @@ const Welcome = ({navigation}) => {
   return (
     <SafeAreaView>
     <StatusBar  barStyle="light-content" translucent={true}/>
+    <Wrapper>
+
     <Video
     source={require('../../assets/welcome.mp4')}
     style={styles.backgroundVideo}
@@ -28,18 +30,22 @@ const Welcome = ({navigation}) => {
     ignoreSilentSwitch={'obey'}
   />
 
-  <Wrapper>
     <Logo />
 
-    <TextDescription>
-      REZA is a community aimed to inspire and forge new connections.
-    </TextDescription>
+    <View style={{flexDirection:'column',
+    justifyContent: 'center', //Centered vertically
+    alignItems: 'center', // Centered horizontally
+    }}>
+        <TextDescription>
+        REZA is a community aimed to inspire and forge new connections.
+      </TextDescription>
+      <TextDescription>
+        The full app will be released March 2022.
+      </TextDescription>
+    </View>
 
-    <TextDescription>
-      The full app will be released March 2022.
-    </TextDescription>
 
-    <ButtonWrapper style={{paddingTop: 100}} >
+    <ButtonWrapper >
           <Button onPress={onPressHandler}   title="Redeem your NFT" />
     </ButtonWrapper>
   </Wrapper>
@@ -60,17 +66,6 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     bottom: 0,
     right: 0,
-  },
-  buttons: {
-    flexDirection: 'row',
-    minHeight: 70,
-    alignItems: 'stretch',
-    alignSelf: 'center',
-    borderWidth: 5,
-  },
-  button: {
-    flex: 1,
-    paddingVertical: 0,
   },
 });
 
