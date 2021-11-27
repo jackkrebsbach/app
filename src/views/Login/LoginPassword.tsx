@@ -9,12 +9,14 @@ import {Button, TextInputc} from '@components/forms';
 import {Title} from '@components/Text';
 
 
-const Login = ({navigation}) => {
+const Login = ({route, navigation}) => {
 
   const [text, setText] = React.useState("test");
+  const {email} = route.params
 
   const onPressHandler = () => {
-    navigation.navigate('Login');
+    console.log("test mail:", email);
+    navigation.navigate('Experience');
   };
 
   return (
@@ -23,11 +25,14 @@ const Login = ({navigation}) => {
      <Logo  />
 
     <View  style={{justifyContent: 'center',     position: 'absolute', top: 100}}>
-      <Title  title="ACCESS YOUR ACCOUNT" />
+      <Title  title={email} />
      </View>
 
      <TextInputc
-     type="email"
+     type="password"
+     title="Password"
+     placeholder="Enter your password"
+     secureTextEntry={true}
      style={{position: 'absolute', justifyContent: 'center'}}
      onChangeText={setText}
      value={text}
@@ -36,7 +41,7 @@ const Login = ({navigation}) => {
 
       
       <ButtonWrapper style={{paddingTop: 200}}>
-        <Button  onPress={onPressHandler} title="Next"/>
+        <Button  onPress={onPressHandler} title="Enter the Network" />
       </ButtonWrapper>
 
 

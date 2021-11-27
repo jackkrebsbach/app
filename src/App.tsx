@@ -19,7 +19,10 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
 
 import Welcome from './views/Welcome/Welcome';
-import Login from './views/Login/Login';
+import Login from './views/Login/LoginEmail';
+import LoginPassword from './views/Login/LoginPassword';
+import Experience from './views/Experience/Experience';
+
 const App = () => {
   const Stack = createNativeStackNavigator();
 
@@ -34,9 +37,18 @@ const App = () => {
             component={Welcome}
           />
           <Stack.Screen
-            name="Login"
+            name="LoginEmail"
             component={Login}
           />
+          <Stack.Screen
+          name="LoginPassword"
+          component={LoginPassword}
+        />
+
+        <Stack.Screen
+        name="Experience"
+        component={Experience}
+      />
         </Stack.Navigator>
       </NavigationContainer>
   </PaperProvider>

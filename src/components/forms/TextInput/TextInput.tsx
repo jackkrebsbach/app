@@ -49,16 +49,18 @@ const styles = StyleSheet.create({
   }
   });
 
- const TextInputc = () => {
+ const TextInputc = (props) => {
     return(
         <View style={styles.container}>
             <View style={styles.SectionStyle}>
 
-          <Text style={styles.text} > Email : </Text>
+          <Text style={styles.text} > {props.title} </Text>
           <TextInput
+              type={props.type}
               style={styles.textInput}
-              placeholder="Enter Your Email Here"
+              placeholder= {props.placeholder}
               underlineColorAndroid="transparent"
+              secureTextEntry={props.secureTextEntry}
           />
         </View>
 
