@@ -1,3 +1,3 @@
-import { getCode } from "./Authentication";
+import { getCode, login } from "./Authentication";
 
-export { getCode }
+export { getCode, login }

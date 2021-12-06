@@ -10,31 +10,39 @@ import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import { useEffect } from 'react';
 
+import { ActivityIndicator } from "react-native";
+
 
 
 const Login = ({ navigation }) => {
 
+
+
+
   const [email, setEmail] = React.useState('coucou');
   const [isValid, setValid] = React.useState(false);
+  const [isLoading, setLoading] = React.useState(false);
 
   //   useEffect(() => {
   //     console.log("useEffect", email);
   // }, [])
 
   const onPressHandler = () => {
-
+    setLoading(true)
     console.log("test", email);
     sendCode()
-    navigation.navigate('LoginPassword', { email: email });
 
 
   };
 
   async function sendCode() {
     getCode(email).then((res) => {
+      setLoading(false);
       console.log("success", res);
+      navigation.navigate('LoginPassword', { email: email });
     }).catch (err => {
-      console.log("test" , email)
+      setLoading(false);
+      console.log("test" , email);
       console.log(err.response)
     });
   };
@@ -44,12 +52,12 @@ const Login = ({ navigation }) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(email) === false) {
       console.log("Email is Not Correct");
-      setEmail(email);
+      setEmail(email.toLowerCase());
       setValid(false);
       return false;
     }
     else {
-      setEmail(email);
+      setEmail(email.toLowerCase());
       setValid(true);
       console.log("Email is Correct");
     }
@@ -57,6 +65,7 @@ const Login = ({ navigation }) => {
 
   return (
     <SafeAreaView>
+    
     <Wrapper>
     <Logo  />
 
@@ -71,12 +80,20 @@ title = "Email"
 placeholder = "Enter your email"
 style = {{ position: 'absolute', justifyContent: 'center' }}
 onChangeText = { t => validate(t) }
-value = { email }
+value = { email.toLowerCase() }
   />
+
+  <View style={[styles.container, styles.horizontal]}>
+
+  {isLoading && <ActivityIndicator />}
+</View>
+
+
 
   <ButtonWrapper style={ { paddingTop: 200 } }>
     <Button onPress={ onPressHandler } disabled = {!isValid} title = "Next" />
       </ButtonWrapper>
+      
       < /Wrapper>   
       < /SafeAreaView>
   );
@@ -98,8 +115,15 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white"
+  },
+  container: {
+    flex: 1,
+    justifyContent: "center"
+  },
+  horizontal: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    padding: 10
   }
-
-
 });
 
