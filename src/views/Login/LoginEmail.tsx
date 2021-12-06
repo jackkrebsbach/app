@@ -1,71 +1,84 @@
-import React, { useState,  FunctionComponent } from 'react';
-import { StyleSheet, Text, View} from 'react-native';
+import React, { useState, FunctionComponent } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-paper';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Logo} from '@components/Logo'
-import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import {Button, TextInputc} from '@components/forms';
-import {Title} from '@components/Text';
+import { getCode } from '../../services/api';
+import { Logo } from '@components/Logo'
+import { Wrapper, ButtonWrapper } from '@components/Wrappers'
+import { Button, TextInputc } from '@components/forms';
+import { Title } from '@components/Text';
 import { useEffect } from 'react';
 
 
 
-const Login  = ({navigation}) => {
+const Login = ({ navigation }) => {
 
-  const [text, setText] = React.useState('coucou');
+  const [email, setEmail] = React.useState('coucou');
   const [isValid, setValid] = React.useState(false);
 
-//   useEffect(() => {
-//     console.log("useEffect", text);
-// }, [])
+  //   useEffect(() => {
+  //     console.log("useEffect", email);
+  // }, [])
 
   const onPressHandler = () => {
 
-    console.log("test", text);
+    console.log("test", email);
+    sendCode()
+    navigation.navigate('LoginPassword', { email: email });
 
-    navigation.navigate('LoginPassword', {email: text});
+
+  };
+
+  async function sendCode() {
+    getCode(email).then((res) => {
+      console.log("success", res);
+    }).catch (err => {
+      console.log("test" , email)
+      console.log(err.response)
+    });
   };
 
   const validate = (email) => {
-    console.log(text);
+    console.log(email);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(text) === false) {
+    if (reg.test(email) === false) {
       console.log("Email is Not Correct");
-      setText(email);
+      setEmail(email);
       setValid(false);
       return false;
     }
     else {
-      setText(email);
+      setEmail(email);
       setValid(true);
       console.log("Email is Correct");
     }
   }
 
   return (
-    <SafeAreaView >
+    <SafeAreaView>
     <Wrapper>
-     <Logo  />
+    <Logo  />
 
-    <View  style={{justifyContent: 'center',     position: 'absolute', top: 100}}>
-      <Title  title="ACCESS YOUR ACCOUNT" />
-     </View>
+    < View  style = {{ justifyContent: 'center', position: 'absolute', top: 100 }
+}>
+  <Title  title="ACCESS YOUR ACCOUNT" />
+    </View>
 
-     <TextInputc
-     type="email"
-     title="Email"
-     placeholder="Enter your email"
-     style={{position: 'absolute', justifyContent: 'center'}}
-     onChangeText={t => validate(t)}
-     value={text}
-    />
-      
-    <ButtonWrapper style={{paddingTop: 200}}>
-        <Button onPress={onPressHandler} disabled={!isValid} title="Next" />
+    < TextInputc
+type = "email"
+title = "Email"
+placeholder = "Enter your email"
+style = {{ position: 'absolute', justifyContent: 'center' }}
+onChangeText = { t => validate(t) }
+value = { email }
+  />
+
+  <ButtonWrapper style={ { paddingTop: 200 } }>
+    <Button onPress={ onPressHandler } disabled = {!isValid} title = "Next" />
       </ButtonWrapper>
-    </Wrapper>   
-    </SafeAreaView>
+      < /Wrapper>   
+      < /SafeAreaView>
   );
 };
 
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   title: {
-    color:  "white"
+    color: "white"
   }
 
 
