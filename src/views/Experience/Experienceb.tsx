@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { StyleSheet, Image, View} from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,52 +8,58 @@ import {Button, TextInputc} from '@components/forms';
 import {Title} from '@components/Text';
 import styled from 'styled-components/native';
 import { position } from 'native-base/lib/typescript/theme/styled-system';
+import { userData } from '../../services/api/Authentication';
 
 
-const Experience = ({navigation}) => {
+const Experienceb = ({navigation}) => {
 
-  const [text, setText] = React.useState("test");
+  const [name, setName] = React.useState('');
+  const [lyop, setLyop] = React.useState('');
+  const [isFirstLoad, setIsFirstLoad] = React.useState(true);
+
 
   const onPressHandler = () => {
     navigation.navigate('Experienceb');
   };
 
+  useEffect(() => {
+    let profile = userData;
+    console.log('profile use effec');
+    if (isFirstLoad) {
+        setName(profile['first_name'] + " " + profile['last_name'] );
+        setLyop(profile['lyop']);
+    }
+});
   return (
     <SafeAreaView >
     <Wrapper>
-     <Logo  />
-    <Image 
-
-    source={require('../../assets/floating_shoe.jpg')}
-
-    style= {{
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 100,
-        width: 200,
-         height: 200
-    }}
-    />
-     <View style={{flexDirection:'column',
-     justifyContent: 'center', //Centered vertically
-     alignItems: 'center', // Centered horizontally
+    <Logo />
+    <TextDescription  style={{ flexDirection:'column',
+    position: 'absolute',
+    top: 50
+    }}> 
+    { name }
+    </TextDescription>
+    <View style={{ 
      position: 'absolute',
-     top: 350
+     justify: 'left',
+     letterSpacing:0.7,
+     top: 150
      }}>
     <TextDescription>
-         Welcome to the Founders Edition experience. And never forget what inspired you and what inspired us.
+        {lyop}
     </TextDescription>
      </View>
  
       <ButtonWrapper style={{paddingTop: 200}}>
-        <Button  onPress={onPressHandler} title="Next" />
+        <Button  onPress={onPressHandler} title="See your NFT" />
       </ButtonWrapper>
     </Wrapper>   
     </SafeAreaView>
   );
 };
 
-export default Experience;
+export default Experienceb;
 
 // styles
 

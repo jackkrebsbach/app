@@ -8,6 +8,7 @@ import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import { ActivityIndicator } from "react-native";
+import { userData } from '../../services/api/Authentication';
 
 
 
@@ -25,7 +26,7 @@ const Login = ({ route, navigation }) => {
 
   async function loginWithCode() {
     login(email, code).then((res) => {
-      console.log("success", res);
+      console.log("success", userData);
       setLoading(false);
       navigation.navigate('Experience');
 

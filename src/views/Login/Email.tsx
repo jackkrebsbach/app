@@ -14,7 +14,7 @@ import { ActivityIndicator } from "react-native";
 
 
 
-const Login = ({ navigation }) => {
+const Email = ({ navigation }) => {
 
 
 
@@ -99,7 +99,7 @@ value = { email.toLowerCase() }
   );
 };
 
-export default Login;
+export default Email;
 
 // styles
 

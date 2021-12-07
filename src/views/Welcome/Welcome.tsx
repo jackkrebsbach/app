@@ -11,7 +11,7 @@ import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 
 const Welcome = ({navigation}) => {
   const onPressHandler = () => {
-    navigation.navigate('LoginEmail');
+    navigation.navigate('Email');
   };
 
   const bottom = {position: 'absolute',

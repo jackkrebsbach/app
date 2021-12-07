@@ -15,13 +15,10 @@ import {
 import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useColorScheme} from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SafeAreaView from 'react-native-safe-area-view';
 
 import Welcome from './views/Welcome/Welcome';
-import Login from './views/Login/LoginEmail';
-import LoginPassword from './views/Login/LoginPassword';
-import Experience from './views/Experience/Experience';
+import { Email, LoginPassword } from  './views/Login/';
+import { Experience, Experienceb } from './views/Experience/';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -37,8 +34,8 @@ const App = () => {
             component={Welcome}
           />
           <Stack.Screen
-            name="LoginEmail"
-            component={Login}
+            name="Email"
+            component={Email}
           />
           <Stack.Screen
           name="LoginPassword"
@@ -48,6 +45,10 @@ const App = () => {
         <Stack.Screen
         name="Experience"
         component={Experience}
+      />
+      <Stack.Screen
+        name="Experienceb"
+        component={Experienceb}
       />
         </Stack.Navigator>
       </NavigationContainer>
