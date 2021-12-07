@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { StyleSheet, Image, View} from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -8,48 +8,48 @@ import {Button, TextInputc} from '@components/forms';
 import {Title} from '@components/Text';
 import styled from 'styled-components/native';
 import { position } from 'native-base/lib/typescript/theme/styled-system';
+import { userData } from '../../services/api/Authentication';
+
 
 
 const Experience = ({navigation}) => {
 
-  const [text, setText] = React.useState("test");
-
+  
   const onPressHandler = () => {
     navigation.navigate('Experienceb');
   };
 
   return (
-    <SafeAreaView >
     <Wrapper>
-     <Logo  />
+    <View style={{ flex: 1}}> 
+      <Logo /> 
+    </View>
+    <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
     <Image 
-
     source={require('../../assets/floating_shoe.jpg')}
-
     style= {{
         justifyContent: 'center',
         position: 'absolute',
-        top: 100,
+        top: 0,
         width: 200,
-         height: 200
+        height: 200
     }}
-    />
-     <View style={{flexDirection:'column',
-     justifyContent: 'center', //Centered vertically
-     alignItems: 'center', // Centered horizontally
-     position: 'absolute',
-     top: 350
-     }}>
-    <TextDescription>
+    />    
+
+    <TextDescription >
          Welcome to the Founders Edition experience. And never forget what inspired you and what inspired us.
     </TextDescription>
-     </View>
- 
-      <ButtonWrapper style={{paddingTop: 200}}>
+
+    </View>
+    <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+
+        <ButtonWrapper>
         <Button  onPress={onPressHandler} title="Next" />
       </ButtonWrapper>
-    </Wrapper>   
-    </SafeAreaView>
+    </View>
+   
+
+   </Wrapper>   
   );
 };
 
@@ -75,14 +75,13 @@ const styles = StyleSheet.create({
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 3px;
-  paddingTop: 50px;
+  letterSpacing: 0.07px;
+  paddingTop: 200px;
   paddingLeft: 40px;
   paddingRight: 40px;
-  fontSize: 30px;
+  lineHeight: 43px;
+  fontSize: 35px;
   fontFamily: 'DIN Condensed'
-  color: #f4f4f4;
-  text-align: justify;
-  text-transform: uppercase;
+  color: #ffffff;
 `;
 

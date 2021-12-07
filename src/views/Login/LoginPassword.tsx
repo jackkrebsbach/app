@@ -37,34 +37,36 @@ const Login = ({ route, navigation }) => {
   }
 
   return (
-    <SafeAreaView>
     <Wrapper>
-    <Logo  />
 
-    < View  style = {{ justifyContent: 'center', position: 'absolute', top: 100 }
-}>
-  <Title  title={ email } />
-    < /View>
+    <View style= {{ flex: 1 } }>
+  
+    <Logo /> 
+  
+    </View>
+  
+    < View style={{ flex: 3, justifyContent: 'center', alignItems: 'center'}} >
+    <Title  title={ email } style={{ position: 'absolute', top: 0}}/>
 
-    < TextInputc
-type = "numeric"
-title = "Activation code"
-placeholder = "Enter your 4 digit code"
-style = {{ position: 'absolute', justifyContent: 'center' }}
-onChangeText = { setCode }
-value = { code }
-  />
-
-  {isLoading && <ActivityIndicator />}
-
-
-  <ButtonWrapper style={ { paddingTop: 200 } }>
-    <Button  onPress={ onPressHandler } title = "Enter the Network" />
-      </ButtonWrapper>
+      < TextInputc
+      type = "numeric"
+      title = "code"
+      placeholder = "Enter your 4 digit code"
+      onChangeText = { setCode }
+      value = { code }
+        />
+      
+    {isLoading &&  <ActivityIndicator style={{  bottom: 100}} /> }
+  
+    </View>
 
 
-      < /Wrapper>   
-      < /SafeAreaView>
+    < View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ButtonWrapper>
+      <Button  onPress={ onPressHandler } title = "Enter the Network" />
+    </ButtonWrapper>
+  </View>
+  </Wrapper>   
   );
 };
 

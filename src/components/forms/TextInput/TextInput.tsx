@@ -7,7 +7,6 @@ const styles = StyleSheet.create({
 
     container: {
       position: 'absolute',
-      top: 250,
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
@@ -38,7 +37,8 @@ const styles = StyleSheet.create({
 
   text: {
     fontFamily: 'DIN Condensed',
-    marginLeft: 10,
+
+    marginLeft: 20,
     fontSize: 20,
   },
   textInput: {

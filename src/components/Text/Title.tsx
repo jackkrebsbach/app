@@ -3,10 +3,12 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const StyledTitle = styled.Text`
-  text-transform: uppercase;
-  text-align: center;
-  font-weight: bold;
-  letter-spacing: 3px;
+font-family: DIN Condensed;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+line-height: 43px;
+letter-spacing: 0.7px;
   color: ${props => (props.transparent ? '#f3f8ff ' : '#FFFFFF')};
 `;
 

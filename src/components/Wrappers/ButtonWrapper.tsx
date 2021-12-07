@@ -6,6 +6,6 @@ export const ButtonWrapper = styled.View`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  margin-top: 300px;
-  justifyContent: flex-end;
+  bottom: 0px;
+  position" absolute;
 `;

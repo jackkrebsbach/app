@@ -1,17 +1,17 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import { StyleSheet, Image, View} from 'react-native';
+import { StyleSheet, Image, View } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Logo} from '@components/Logo'
-import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import {Button, TextInputc} from '@components/forms';
-import {Title} from '@components/Text';
+import { Logo } from '@components/Logo'
+import { Wrapper, ButtonWrapper } from '@components/Wrappers'
+import { Button, TextInputc } from '@components/forms';
+import { Title } from '@components/Text';
 import styled from 'styled-components/native';
 import { position } from 'native-base/lib/typescript/theme/styled-system';
 import { userData } from '../../services/api/Authentication';
 
 
-const Experienceb = ({navigation}) => {
+const Experienceb = ({ navigation }) => {
 
   const [name, setName] = React.useState('');
   const [lyop, setLyop] = React.useState('');
@@ -26,36 +26,34 @@ const Experienceb = ({navigation}) => {
     let profile = userData;
     console.log('profile use effec');
     if (isFirstLoad) {
-        setName(profile['first_name'] + " " + profile['last_name'] );
-        setLyop(profile['lyop']);
+      setName(profile['first_name'] + " " + profile['last_name']);
+      setLyop(profile['lyop']);
     }
-});
+  });
   return (
-    <SafeAreaView >
     <Wrapper>
-    <Logo />
-    <TextDescription  style={{ flexDirection:'column',
-    position: 'absolute',
-    top: 50
-    }}> 
+    <View style= {{ flex: 1, justifyContent: 'center', alignItems: 'center' }
+}>
+  <Logo /> 
+  <TextDescription  style = {{position: 'absolute', bottom: 0 }}>
     { name }
-    </TextDescription>
-    <View style={{ 
-     position: 'absolute',
-     justify: 'left',
-     letterSpacing:0.7,
-     top: 150
-     }}>
-    <TextDescription>
-        {lyop}
-    </TextDescription>
-     </View>
- 
-      <ButtonWrapper style={{paddingTop: 200}}>
-        <Button  onPress={onPressHandler} title="See your NFT" />
+</TextDescription>
+  </View>
+
+  <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+
+
+
+  <TextDescription >
+  { lyop }
+  </TextDescription>
+  </View>
+  <View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+    <ButtonWrapper>
+    <Button  onPress={ onPressHandler } title = "See your NFT" />
       </ButtonWrapper>
-    </Wrapper>   
-    </SafeAreaView>
+      </View>
+      </Wrapper>   
   );
 };
 
@@ -74,21 +72,19 @@ const styles = StyleSheet.create({
     backgroundColor: "white"
   },
   title: {
-    color:  "white"
+    color: "white"
   }
 
 
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 3px;
+  letterSpacing: 0.07px;
   paddingTop: 50px;
   paddingLeft: 40px;
   paddingRight: 40px;
-  fontSize: 30px;
+  lineHeight: 43px;
+  fontSize: 36px;
   fontFamily: 'DIN Condensed'
-  color: #f4f4f4;
-  text-align: justify;
-  text-transform: uppercase;
+  color: #ffffff;
 `;
-

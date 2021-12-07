@@ -8,6 +8,7 @@ const {width, height} = Dimensions.get('window');
 import {Button} from '@components/forms';
 import {Logo} from '@components/Logo';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
+import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 
 const Welcome = ({navigation}) => {
   const onPressHandler = () => {
@@ -17,10 +18,8 @@ const Welcome = ({navigation}) => {
   const bottom = {position: 'absolute',
   bottom:0}
   return (
-    <SafeAreaView>
+    <Wrapper>   
     <StatusBar  barStyle="light-content" translucent={true}/>
-    <Wrapper>
-
     <Video
     source={require('../../assets/welcome.mp4')}
     style={styles.backgroundVideo}
@@ -29,27 +28,29 @@ const Welcome = ({navigation}) => {
     resizeMode={'cover'}
     ignoreSilentSwitch={'obey'}
   />
-
-    <Logo />
-
-    <View style={{flexDirection:'column',
-    justifyContent: 'center', //Centered vertically
-    alignItems: 'center', // Centered horizontally
-    }}>
-        <TextDescription>
+  
+    <View style={{ flex: 1}}> 
+    <Logo /> 
+    </View>
+        <View style={{ flex: 3,justifyContent: 'center', //Centered vertically
+        alignItems: 'center', }}>
+        <TextDescription style={{ paddingTop: 150 }} >
         REZA is a community aimed to inspire and forge new connections.
       </TextDescription>
-      <TextDescription>
+      <TextDescription style={{ paddingTop: 30 }}>
         The full app will be released March 2022.
       </TextDescription>
-    </View>
+        
+        </View>
+        <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
 
-
-    <ButtonWrapper >
+        <ButtonWrapper  styles={{ paddingTop: 50}}  >
           <Button onPress={onPressHandler}   title="Redeem your NFT" />
-    </ButtonWrapper>
-  </Wrapper>
-    </SafeAreaView>
+        </ButtonWrapper>
+        </View>
+
+   </Wrapper>
+  
   );
 };
 
@@ -72,14 +73,15 @@ const styles = StyleSheet.create({
 
 
 export const TextDescription = styled.Text`
-  letterSpacing: 3px;
-  paddingTop: 50px;
+  letterSpacing: 0.07px;
+  fontStyle: normal;
+  fontWeight: bold;
+  lineHeight: 45px;
   paddingLeft: 30px;
-  paddingRight: 30px;
-  fontSize: 30px;
+  paddingRight: 25px;
+  width: 350px;
+  fontSize: 34px;
   fontFamily: 'DIN Condensed'
-  color: #f4f4f4;
-  text-align: justify;
-  text-transform: uppercase;
+  color: #ffffff;
 `;
 

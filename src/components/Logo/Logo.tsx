@@ -4,10 +4,10 @@ import styled from 'styled-components/native';
 
 
 const LogoStyle = styled.Image`
-  max-width: 300px;
-  width: 300px;
+  max-width: 800px;
+  width: 370px;
   height: 300px;
-  marginTop: -100px;
+  
 `;
 
 
@@ -22,11 +22,9 @@ export const Logo = () => {
       <LogoView>
         <LogoStyle
           source={require('../../assets/lyop.png')}
-          width={500}
+          width={600}
           height={500}
-          flexDirection="row"
           resizeMode="contain"
-          justifyContent="center"
           
       />
       </LogoView>

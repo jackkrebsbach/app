@@ -11,6 +11,7 @@ import { Title } from '@components/Text';
 import { useEffect } from 'react';
 
 import { ActivityIndicator } from "react-native";
+import { position } from 'native-base/lib/typescript/theme/styled-system';
 
 
 
@@ -23,9 +24,7 @@ const Email = ({ navigation }) => {
   const [isValid, setValid] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
 
-  //   useEffect(() => {
-  //     console.log("useEffect", email);
-  // }, [])
+
 
   const onPressHandler = () => {
     setLoading(true)
@@ -40,9 +39,9 @@ const Email = ({ navigation }) => {
       setLoading(false);
       console.log("success", res);
       navigation.navigate('LoginPassword', { email: email });
-    }).catch (err => {
+    }).catch(err => {
       setLoading(false);
-      console.log("test" , email);
+      console.log("test", email);
       console.log(err.response)
     });
   };
@@ -64,38 +63,40 @@ const Email = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
-    
+
     <Wrapper>
-    <Logo  />
 
-    < View  style = {{ justifyContent: 'center', position: 'absolute', top: 100 }
-}>
-  <Title  title="ACCESS YOUR ACCOUNT" />
-    </View>
+    <View style= {{ flex: 1 }}>
 
-    < TextInputc
-type = "email"
-title = "Email"
-placeholder = "Enter your email"
-style = {{ position: 'absolute', justifyContent: 'center' }}
-onChangeText = { t => validate(t) }
-value = { email.toLowerCase() }
+  <Logo /> 
+
+  </View>
+
+  <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center'}}>
+
+    <Title  title="ACCESS YOUR ACCOUNT" style={{ position: 'absolute', top: 0}} />
+
+
+    {isLoading &&  <ActivityIndicator style={{  bottom: 100}} /> }
+
+      <TextInputc
+      type = "email"
+      title = "Email"
+      placeholder = "Enter your email"
+      onChangeText = { t => validate(t) }
+      value = { email.toLowerCase() }
   />
 
-  <View style={[styles.container, styles.horizontal]}>
 
-  {isLoading && <ActivityIndicator />}
-</View>
+    </View>
+    < View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
+      <ButtonWrapper>
+      <Button onPress={ onPressHandler } disabled = {!isValid} title = "Next" />
+        </ButtonWrapper>
+        </View>
+        </Wrapper>   
 
-
-  <ButtonWrapper style={ { paddingTop: 200 } }>
-    <Button onPress={ onPressHandler } disabled = {!isValid} title = "Next" />
-      </ButtonWrapper>
-      
-      < /Wrapper>   
-      < /SafeAreaView>
   );
 };
 
@@ -111,19 +112,21 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    fontFamily: "DIN Condensed",
     backgroundColor: "white"
   },
-  title: {
-    color: "white"
-  },
+  title:{
+    color: "white",
+    fontFamily: "DIN Condensed",
+ },
   container: {
+    backgroundColor:"red",
     flex: 1,
-    justifyContent: "center"
   },
   horizontal: {
     flexDirection: "row",
     justifyContent: "space-around",
-    padding: 10
+    
   }
 });
 
