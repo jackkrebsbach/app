@@ -17,6 +17,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useColorScheme} from 'react-native';
 
 import Welcome from './views/Welcome/Welcome';
+import NftView from './views/Nft/NftView';
+
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb } from './views/Experience/';
 
@@ -49,6 +51,10 @@ const App = () => {
       <Stack.Screen
         name="Experienceb"
         component={Experienceb}
+      />
+      <Stack.Screen
+        name="NftView"
+        component={NftView}
       />
         </Stack.Navigator>
       </NavigationContainer>

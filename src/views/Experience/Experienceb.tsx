@@ -19,7 +19,7 @@ const Experienceb = ({ navigation }) => {
 
 
   const onPressHandler = () => {
-    navigation.navigate('Experienceb');
+    navigation.navigate('NftView');
   };
 
   useEffect(() => {
