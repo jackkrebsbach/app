@@ -1,14 +1,16 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { Component, FunctionComponent, useEffect } from 'react';
 import { StyleSheet, Image, View} from 'react-native';
 import { Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {Logo} from '@components/Logo'
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import {Button, TextInputc} from '@components/forms';
+import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
 import {Title} from '@components/Text';
 import styled from 'styled-components/native';
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import { userData } from '../../services/api/Authentication';
+import colors from '../../assets/colors/colors';
 
 
 const NftView = ({navigation}) => {
@@ -43,29 +45,37 @@ const NftView = ({navigation}) => {
       <Logo /> 
     </View>
     <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
-    <Image 
-    source={{uri : nftLink} }
-    style= {{
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 70,
-        width: '100%',
-        height: 215
-    }}
-    />    
 
-    <TextDescription >
+    <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+      <Image 
+      source={{uri : nftLink} }
+      style= {{
+          justifyContent: 'center',
+          position: 'absolute',
+          top: 50,
+          width: '100%',
+          height: 215,
+      }}
+      />    
+    </View>
+    <View style={{ flex: 2,justifyContent: 'center',  alignItems: 'center' }}>
+    <TextDescription style={{marginTop: -20, marginBottom: 20}}>
     {name}{"\n\t"}
     {nftName}
     </TextDescription>
 
-    </View>
+    <ButtonWrapper>
+    <Button  onPress={onPressHandler} title="VIEW ON OPENSEA" />
+  </ButtonWrapper>
+  </View>
+      </View>
     <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+      <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
 
-        <ButtonWrapper>
-        <Button  onPress={onPressHandler} title="VIEW ON OPENSEA" />
-      </ButtonWrapper>
+      <CustomTabBar navigation={navigation}/>
+      </View>
     </View>
+
    </Wrapper>   
   );
 };
