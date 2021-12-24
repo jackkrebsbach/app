@@ -4,6 +4,10 @@ import { StyleSheet, Image, View} from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import colors from '../../assets/colors/colors';
 import { useNavigation } from '@react-navigation/native';
+import Intercom, {
+    IntercomEvents,
+    Visibility,
+  } from '@intercom/intercom-react-native';
 
 const tabData = [
   
@@ -46,10 +50,11 @@ export const CustomTabBar = () => {
             }
             if (item.name == "support" && val.name == "support") {
                 console.log(val.name)
-                navigation.navigate('Experience');
+                Intercom.displayMessenger();
 
             }if (item.name == "user" && val.name == "user") {
                 console.log(val.name)
+
             }
           })
           setTabs(tempTabs)

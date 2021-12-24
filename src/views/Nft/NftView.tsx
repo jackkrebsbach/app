@@ -9,7 +9,7 @@ import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
 import {Title} from '@components/Text';
 import styled from 'styled-components/native';
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
-import { userData } from '../../services/api/Authentication';
+import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 import colors from '../../assets/colors/colors';
 
 

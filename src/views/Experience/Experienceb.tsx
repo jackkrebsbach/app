@@ -8,7 +8,8 @@ import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import styled from 'styled-components/native';
 import { position } from 'native-base/lib/typescript/theme/styled-system';
-import { userData } from '../../services/api/Authentication';
+//import { profile, userData } from '../../services/api/Authentication';
+import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 
 
 const Experienceb = ({ navigation }) => {
@@ -23,9 +24,9 @@ const Experienceb = ({ navigation }) => {
   };
 
   useEffect(() => {
-    let profile = userData;
-    console.log('profile use effec');
-    if (isFirstLoad) {
+    deviceStorage.loadJWT();
+    if (userData !=null) {
+      let profile = userData;
       setName(profile['first_name'] + " " + profile['last_name']);
       setLyop(profile['lyop']);
     }

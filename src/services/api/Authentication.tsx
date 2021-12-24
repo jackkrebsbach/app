@@ -1,8 +1,9 @@
 import axios from 'axios';
+import Intercom from '@intercom/intercom-react-native';
+import deviceStorage from '../storage/deviceStorage';
 import { API_URL } from '../../utils/apiRoute';
 export let token = '';
 export let userData = {};
-export let profile = {};
 
 
 export const getCode = (email) => {
@@ -30,10 +31,15 @@ export const login = (email, activationCode) => {
         console.log(response.data);
         userData = response.data
         token = response.data.accessToken;
+
+        let userAuth = {email: userData['email'] ,userId:userData['id'], token: token};
+        deviceStorage.saveItem("user_auth", JSON.stringify(userData));
+        Intercom.registerIdentifiedUser({email: userAuth.email ,userId: userAuth.userId})
+
         return response.data;
     })
-        .catch(error => {
+    .catch(error => {
             console.log(error);
             throw error;
-        });
+    });
 }

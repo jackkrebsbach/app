@@ -7,11 +7,12 @@
  *
  * @format
  */
-import React from 'react';
+import React, {Component, FunctionComponent, useEffect}  from 'react';
 import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme} from '@react-navigation/native';
+
 import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useColorScheme} from 'react-native';
@@ -21,16 +22,26 @@ import NftView from './views/Nft/NftView';
 
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb } from './views/Experience/';
+import deviceStorage, { userData } from './services/storage/deviceStorage';
 
 const App = () => {
+
   const Stack = createNativeStackNavigator();
 
   const scheme = useColorScheme();
+  const [userData, setUserData] =  React.useState({});
+
+  useEffect(() => {
+      deviceStorage.loadJWT();
+  });
 
   return (
   <PaperProvider>
       <NavigationContainer theme={DarkTheme}>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+      
+        
+        
           <Stack.Screen
             name="Welcome"
             component={Welcome}
@@ -52,10 +63,12 @@ const App = () => {
         name="Experienceb"
         component={Experienceb}
       />
+
       <Stack.Screen
-        name="NftView"
-        component={NftView}
-      />
+          name="NftView"
+          component={NftView}
+        />
+
         </Stack.Navigator>
       </NavigationContainer>
   </PaperProvider>

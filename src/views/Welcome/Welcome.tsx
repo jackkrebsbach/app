@@ -9,10 +9,13 @@ import {Button} from '@components/forms';
 import {Logo} from '@components/Logo';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
+import deviceStorage, { userData } from '../../services/storage/deviceStorage';
 
 const Welcome = ({navigation}) => {
+
   const onPressHandler = () => {
-    navigation.navigate('Email');
+    if (userData != null ) navigation.navigate('NftView');
+   else { navigation.navigate('Email');}
   };
 
   const bottom = {position: 'absolute',
