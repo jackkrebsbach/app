@@ -19,6 +19,7 @@ import {useColorScheme} from 'react-native';
 
 import Welcome from './views/Welcome/Welcome';
 import NftView from './views/Nft/NftView';
+import Profile from './views/Profile/Profile';
 
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb } from './views/Experience/';
@@ -38,10 +39,7 @@ const App = () => {
   return (
   <PaperProvider>
       <NavigationContainer theme={DarkTheme}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-      
-        
-        
+        <Stack.Navigator screenOptions={{ headerShown: false }}>      
           <Stack.Screen
             name="Welcome"
             component={Welcome}
@@ -68,6 +66,11 @@ const App = () => {
           name="NftView"
           component={NftView}
         />
+
+        <Stack.Screen
+        name="Profile"
+        component={Profile}
+      />
 
         </Stack.Navigator>
       </NavigationContainer>

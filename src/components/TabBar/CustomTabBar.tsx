@@ -54,6 +54,8 @@ export const CustomTabBar = () => {
 
             }if (item.name == "user" && val.name == "user") {
                 console.log(val.name)
+                navigation.navigate('Profile');
+
 
             }
           })
