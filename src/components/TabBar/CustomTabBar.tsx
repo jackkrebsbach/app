@@ -25,14 +25,6 @@ const tabData = [
         name: "support",
         inactiveIcon: <Icon name="support" color="#fff" size={25} />,
         activeIcon: <Icon name="support" color="#fff" size={25} />,
-
-        // activeIcon: ( <View style={{ width: 40, height: 40 }}>
-        //                 <Image 
-        //                 source={require('../../assets/floating_shoe.jpg')}
-        //                 style={{ width: 60, height: 60, justifyContent: 'center',position: 'absolute'}}
-        //                 />
-        //     </View>
-        //             )
     }
 ];
 export const CustomTabBar = () => {
@@ -55,8 +47,6 @@ export const CustomTabBar = () => {
             }if (item.name == "user" && val.name == "user") {
                 console.log(val.name)
                 navigation.navigate('Profile');
-
-
             }
           })
           setTabs(tempTabs)

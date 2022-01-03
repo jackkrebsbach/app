@@ -23,17 +23,18 @@ import Profile from './views/Profile/Profile';
 
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb } from './views/Experience/';
-import deviceStorage, { userData } from './services/storage/deviceStorage';
+import deviceStorage from './services/storage/deviceStorage';
 
 const App = () => {
 
   const Stack = createNativeStackNavigator();
 
   const scheme = useColorScheme();
-  const [userData, setUserData] =  React.useState({});
 
   useEffect(() => {
       deviceStorage.loadJWT();
+      deviceStorage.loadProfile();
+
   });
 
   return (

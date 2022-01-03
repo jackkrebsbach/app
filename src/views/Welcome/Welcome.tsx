@@ -9,12 +9,22 @@ import {Button} from '@components/forms';
 import {Logo} from '@components/Logo';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
-import deviceStorage, { userData } from '../../services/storage/deviceStorage';
+import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
+import { getProfile } from '../../services/api/UserApi';
 
 const Welcome = ({navigation}) => {
 
   const onPressHandler = () => {
-    if (userData != null ) navigation.navigate('NftView');
+    if (userData != null ) {
+
+      getProfile(userData['id']).then((res) => {
+        console.log("coucou je suis dedans", res)
+
+    }).catch(error => {
+        console.log(error)
+    }); 
+    navigation.navigate('NftView');
+    } 
    else { navigation.navigate('Email');}
   };
 

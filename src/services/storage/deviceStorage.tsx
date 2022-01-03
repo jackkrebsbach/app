@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export let userData = {}
+export let userData = {};
+export let userProfile = {};
 
 const deviceStorage = {
     // our AsyncStorage functions will go here :)
@@ -17,6 +18,7 @@ const deviceStorage = {
         try {
             let data = await AsyncStorage.getItem("user_auth");
             userData = JSON.parse(data);
+            console.log("userdata", userData)
           } catch (error) {
             console.log("Something went wrong", error);
           }
@@ -36,6 +38,18 @@ const deviceStorage = {
         } catch (error) {
           console.log('AsyncStorage Error: ' + error.message);
         }
+      },
+
+      async loadProfile() {
+        try {
+            let data = await AsyncStorage.getItem("user_profile");
+            userProfile = JSON.parse(data);
+            console.log("userProfile", userProfile)
+
+          } catch (error) {
+            console.log("Something went wrong", error);
+          }
+         
       }
       
 };

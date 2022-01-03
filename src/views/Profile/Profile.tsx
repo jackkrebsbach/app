@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {StyleSheet,Image, View, Dimensions, ScrollView, Text} from 'react-native';
 import styled from 'styled-components/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -10,11 +10,10 @@ import {Logo} from '@components/Logo';
 import { Title } from '@components/Text';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
-import deviceStorage, { userData } from '../../services/storage/deviceStorage';
+import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
-
+import { getProfile } from '../../services/api/UserApi';
 var ITEM_PER_ROW = 4;
 var FIRST_ITEM_ROW = 3;
 var SECOND_ITEM_ROW = 4;
@@ -28,16 +27,47 @@ function calculatedSize( item){
 
 
 
+
 const Profile = ({navigation}) => {
 
+    const [name, setName] = React.useState('');
+    const [shortDescription, setShortDescription] = React.useState('');
+    const [description, setDescription] = React.useState('');
+    const [city, setCity] = React.useState('');
+    const [interest, setInterest] = React.useState([]);
+    const [pictures, setPictures] = React.useState([]);
 
-    const profile = { name: "Thibaut Fenain",
-                      age: 24,
-                      short_description: "Multi Task , Thai Boxer",
-                      description: "My name is Thibaut and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading...",
-                      location: "Taipei, Taiwan",
-                      interest: ["Boxing","Music","Science", "Reading", "Modeling"],
-                      picture_url:["../../assets/pp1.jpg", "../../assets/pp1.jpg","../../assets/pp1.jpg", "../../assets/pp1.jpg", "../../assets/pp1.jpg"]}
+
+
+
+
+    const [isFirstLoad, setIsFirstLoad] = React.useState(true);
+
+    useEffect(() => {
+
+        deviceStorage.loadProfile();
+        var profile = userProfile.profile;
+        console.log("use effect prof", profile)
+        if (isFirstLoad) {
+            setName(userData['first_name'] + " " + userData['last_name']);
+            setShortDescription(profile['short_description'])
+            setDescription(profile['description'])
+            setCity(profile['city'])
+            setInterest(profile['interest'])
+            setPictures(profile['pictures'])
+        }
+
+        
+    });
+    
+    
+
+    // const profile = { name: "Thibaut Fenain",
+    //                   age: 24,
+    //                   short_description: "Multi Task , Thai Boxer",
+    //                   description: "My name is Thibaut and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading...",
+    //                   location: "Taipei, Taiwan",
+    //                   picture_url:["../../assets/pp1.jpg", "../../assets/pp1.jpg","../../assets/pp1.jpg", "../../assets/pp1.jpg", "../../assets/pp1.jpg"]}
 
    console.log(width, height)
     return(
@@ -58,36 +88,21 @@ const Profile = ({navigation}) => {
             
             <View style={{ marginTop: 25, marginBottom: 10}}>
             <View  style={{ marginBottom: 10}}>
-            <Text style={styles.name}> {profile.name} ,  {profile.age}</Text>
-            <Text style={styles.location}> {profile.short_description}</Text>
+            <Text style={styles.name}> {name}</Text>
+            <Text style={styles.location}> {shortDescription}</Text>
             </View>
            
-           
-
-            <Text style={styles.interestTitle}> Location</Text>
+        
             <View style={{flexDirection: 'row',marginBottom:10,    flexWrap: 'wrap'}}>
-                <Text style={styles.location}> {profile.location}</Text>
-                <View style={{position:'absolute',
-                            right:50,
-                            backgroundColor: 'rgba(211, 0, 0, 0.1)',
-                            borderRadius: 10,
-                            padding: 5,
-                            flexDirection: 'row'
-                        }}
-                >
-                    <Icon name="map" color="#rgba(211, 0, 0,1)" size={25} />
-                    <Text style={styles.distance}>2km</Text>
-                </View>
+                <Text style={styles.location}> {city}</Text>
             </View>
             </View>
-            
                 <View style={{marginBottom: 25}}>
                     <Text style={styles.interestTitle}>Interests</Text>
-
                     <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                    {profile.interest.map(e => {
+                    {interest.map((e, i = 0) => {
                         return(
-                            <View style={[styles.interestItem, calculatedSize(ITEM_PER_ROW)]}>
+                            <View key={i} style={[styles.interestItem, calculatedSize(ITEM_PER_ROW)]}>
                                 <Text>{e}</Text>
                             </View>
                         )
@@ -99,7 +114,7 @@ const Profile = ({navigation}) => {
             <View >
             <Text style={styles.interestTitle}> How I ‘Light My Path’</Text>
 
-            <Text style={styles.desription}> {profile.description}</Text>
+            <Text style={styles.desription}> {description}</Text>
 
             </View>
 
@@ -107,17 +122,19 @@ const Profile = ({navigation}) => {
                 <Text style={styles.interestTitle}> Gallery</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                     {
-                        profile.picture_url.map((e, i = 0) => {
+                        pictures.map((e, i = 0) => {
+                            let path = "http://api.rezafootwear.com:8080/" + e;
+
                             if ( i < 2) {
                                 return(
-                                    <Image source={require('../../assets/pp1.jpg')}
+                                    <Image key={i} source={{uri : path}}
                                         style={styles.galerryPicture}></Image>
                                 )
                             }
-
                             else {
+                                console.log(path)
                                 return(
-                                    <Image source={require('../../assets/pp1.jpg')}
+                                    <Image  key={i} source={{uri : path}}
                                         style={styles.galerryPictureB}></Image>
                                 )
                             }

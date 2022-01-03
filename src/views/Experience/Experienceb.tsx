@@ -8,7 +8,6 @@ import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import styled from 'styled-components/native';
 import { position } from 'native-base/lib/typescript/theme/styled-system';
-//import { profile, userData } from '../../services/api/Authentication';
 import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 
 
