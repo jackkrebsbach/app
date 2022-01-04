@@ -46,15 +46,17 @@ const Profile = ({navigation}) => {
     useEffect(() => {
 
         deviceStorage.loadProfile();
-        var profile = userProfile.profile;
-        console.log("use effect prof", profile)
-        if (isFirstLoad) {
-            setName(userData['first_name'] + " " + userData['last_name']);
-            setShortDescription(profile['short_description'])
-            setDescription(profile['description'])
-            setCity(profile['city'])
-            setInterest(profile['interest'])
-            setPictures(profile['pictures'])
+        if ( userProfile != null ){
+            var profile = userProfile.profile;
+            console.log("use effect prof", profile)
+            if (isFirstLoad) {
+                setName(userData['first_name'] + " " + userData['last_name']);
+                setShortDescription(profile['short_description'])
+                setDescription(profile['description'])
+                setCity(profile['city'])
+                setInterest(profile['interest'])
+                setPictures(profile['pictures'])
+            }
         }
 
         
@@ -184,6 +186,7 @@ const styles = StyleSheet.create({
     paddingTop:30,
     paddingEnd:10,
     paddingStart:10,
+    paddingBottom:10,
     borderRadius: 50,
     },
     name: {
