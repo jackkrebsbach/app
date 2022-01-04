@@ -20,7 +20,7 @@ const Email = ({ navigation }) => {
 
 
 
-  const [email, setEmail] = React.useState('coucou');
+  const [email, setEmail] = React.useState('');
   const [isValid, setValid] = React.useState(false);
   const [isLoading, setLoading] = React.useState(false);
 
@@ -80,6 +80,14 @@ const Email = ({ navigation }) => {
     {isLoading &&  <ActivityIndicator style={{  bottom: 100}} /> }
 
       <TextInputc
+      style = {{
+        position: 'absolute',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 300,
+        height: 100
+      }}
       type = "email"
       title = "Email"
       placeholder = "Enter your email"

@@ -74,7 +74,7 @@ const Profile = ({navigation}) => {
         <Wrapper style={{flexDirection: 'column'}}>
             <View style={{flex: 1}}>
                 <Image  
-                source={require('../../assets/pp1.jpg')}
+                source={{uri: "http://api.rezafootwear.com:8080/" + pictures[0] }}
                 style={styles.image}
                 resizeMode="contain"
                 />
@@ -86,14 +86,14 @@ const Profile = ({navigation}) => {
             <View style={{flex: 1}}>
 
             
-            <View style={{ marginTop: 25, marginBottom: 10}}>
-            <View  style={{ marginBottom: 10}}>
+            <View style={{ marginTop: 25, marginBottom: 5}}>
+            <View  style={{ marginBottom: 5}}>
             <Text style={styles.name}> {name}</Text>
             <Text style={styles.location}> {shortDescription}</Text>
             </View>
            
         
-            <View style={{flexDirection: 'row',marginBottom:10,    flexWrap: 'wrap'}}>
+            <View style={{flexDirection: 'row',    flexWrap: 'wrap'}}>
                 <Text style={styles.location}> {city}</Text>
             </View>
             </View>
@@ -189,14 +189,14 @@ const styles = StyleSheet.create({
     name: {
         color: "white",
         fontFamily: 'DIN Condensed',
-        fontSize: 24,
+        fontSize: 40,
         margin: 5,
 
     },
     location: {
         color: "white",
         fontFamily: 'DIN Condensed',
-        fontSize: 16,
+        fontSize: 20,
         margin: 5,
     },
     desription: {

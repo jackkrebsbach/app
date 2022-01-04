@@ -58,9 +58,7 @@ export const CustomTabBar = () => {
         <Tabbar
           tabs={tabs}
           tabBarContainerBackground={colors.black}
-          borderColor={colors.red}
           activeTabBackground={colors.red}  
-          inActiveTabBackground={colors.red}
           onTabChange={(item) => onTabChange(item)}
           />
       );

@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
       backgroundColor: '#fff',
       borderWidth: .5,
       borderColor: '#000',
-      height: 50,
-      borderRadius: 50,
+      height: 200,
+      borderRadius: 100,
       margin: 10
   },
   
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
   }
   });
 
- const TextInputc = (props) => {
+ const LargeTextInput = (props) => {
     return(
         <View style={props.style}>
         
@@ -70,4 +70,4 @@ const styles = StyleSheet.create({
     );
 };
 
-export default TextInputc;
+export default LargeTextInput;

@@ -31,7 +31,7 @@ export const login = (email, activationCode) => {
         console.log(response.data);
         userData = response.data
         token = response.data.accessToken;
-
+        console.log("login", userData)
         let userAuth = {email: userData['email'] ,userId:userData['id'], token: token};
         deviceStorage.saveItem("user_auth", JSON.stringify(userData));
         Intercom.registerIdentifiedUser({email: userAuth.email ,userId: userAuth.userId})

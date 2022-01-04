@@ -20,7 +20,8 @@ import {useColorScheme} from 'react-native';
 import Welcome from './views/Welcome/Welcome';
 import NftView from './views/Nft/NftView';
 import Profile from './views/Profile/Profile';
-
+import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
+import ProfileInterest from './views/ProfileSetUp/ProfileInterest'
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb } from './views/Experience/';
 import deviceStorage from './services/storage/deviceStorage';
@@ -64,19 +65,30 @@ const App = () => {
       />
 
       <Stack.Screen
+        name="Profile"
+        component={Profile}
+      />
+
+
+      <Stack.Screen
           name="NftView"
           component={NftView}
         />
 
         <Stack.Screen
-        name="Profile"
-        component={Profile}
+        name="ProfileSetUp"
+        component={ProfileSetUp}
       />
+
+      <Stack.Screen
+        name="ProfileInterest"
+        component={ProfileInterest}
+      />
+      
 
         </Stack.Navigator>
       </NavigationContainer>
   </PaperProvider>
-
   );
 };
 

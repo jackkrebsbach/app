@@ -28,6 +28,9 @@ const Login = ({ route, navigation }) => {
     login(email, code).then((res) => {
       console.log("success", userData);
       setLoading(false);
+      //prepare a if profile != null then Experice, 
+      // if null then Set Up profile
+      // navigation.navigate('ProfileSetUp');
       navigation.navigate('Experience');
 
     }).catch(err => {
@@ -49,6 +52,14 @@ const Login = ({ route, navigation }) => {
     <Title  title={ email } style={{ position: 'absolute', top: 0}}/>
 
       < TextInputc
+      style = {{
+        position: 'absolute',
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 300,
+        height: 100
+      }}
       type = "numeric"
       title = "code"
       placeholder = "Enter your 4 digit code"

@@ -15,15 +15,18 @@ import { getProfile } from '../../services/api/UserApi';
 const Welcome = ({navigation}) => {
 
   const onPressHandler = () => {
-    if (userData != null ) {
 
+    if (userData != null ) {
       getProfile(userData['id']).then((res) => {
         console.log("coucou je suis dedans", res)
-
     }).catch(error => {
         console.log(error)
     }); 
-    navigation.navigate('NftView');
+    // if (userProfile != null) {
+        navigation.navigate('NftView');
+
+    // } //else navigation.navigate('ProfileSetUp');
+    
     } 
    else { navigation.navigate('Email');}
   };

@@ -48,7 +48,7 @@ const NftView = ({navigation}) => {
 
     <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
       <Image 
-      source={{uri : nftLink} }
+      source={{uri : nftLink ? nftLink : null} }
       style= {{
           justifyContent: 'center',
           position: 'absolute',
