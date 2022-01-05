@@ -17,15 +17,17 @@ const Welcome = ({navigation}) => {
   const onPressHandler = () => {
 
     if (userData != null ) {
+
       getProfile(userData['id']).then((res) => {
         console.log("coucou je suis dedans", res)
     }).catch(error => {
         console.log(error)
     }); 
     // if (userProfile != null) {
-        navigation.navigate('NftView');
+    //     navigation.navigate('NftView');
 
-    // } //else navigation.navigate('ProfileSetUp');
+    //  } else 
+    navigation.navigate('ProfileSetUp');
     
     } 
    else { navigation.navigate('Email');}

@@ -25,16 +25,6 @@ const styles = StyleSheet.create({
       borderRadius: 50,
       margin: 10
   },
-  
-  ImageStyle: {
-      padding: 10,
-      margin: 5,
-      height: 25,
-      width: 25,
-      resizeMode : 'stretch',
-      alignItems: 'center'
-  },
-
   text: {
     fontFamily: 'DIN Condensed',
 
@@ -45,7 +35,7 @@ const styles = StyleSheet.create({
     fontFamily: 'DIN Condensed',
     fontSize: 20,
     flex:1,
-    textAlign: 'center',
+    textAlign: 'left',
   }
   });
 

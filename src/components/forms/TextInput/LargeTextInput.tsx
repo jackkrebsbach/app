@@ -13,27 +13,17 @@ const styles = StyleSheet.create({
       width: 300,
       height: 100
     },
-    
     SectionStyle: {
       flexDirection: 'row',
       justifyContent: 'center',
-      alignItems: 'center',
       backgroundColor: '#fff',
       borderWidth: .5,
       borderColor: '#000',
-      height: 200,
-      borderRadius: 100,
+      height: 100,
+      borderRadius: 20,
       margin: 10
   },
-  
-  ImageStyle: {
-      padding: 10,
-      margin: 5,
-      height: 25,
-      width: 25,
-      resizeMode : 'stretch',
-      alignItems: 'center'
-  },
+
 
   text: {
     fontFamily: 'DIN Condensed',
@@ -44,8 +34,11 @@ const styles = StyleSheet.create({
   textInput: {
     fontFamily: 'DIN Condensed',
     fontSize: 20,
+    width: 100,
+    margin:10,
+    marginEnd:20,
     flex:1,
-    textAlign: 'center',
+    textAlign: 'left',
   }
   });
 
@@ -61,6 +54,7 @@ const styles = StyleSheet.create({
               style={styles.textInput}
               placeholder= {props.placeholder}
               placeholderTextColor ="grey"
+              multiline={true}
               underlineColorAndroid="transparent"
               secureTextEntry={props.secureTextEntry}
           />

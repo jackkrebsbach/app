@@ -1,27 +1,160 @@
-import React, { FunctionComponent, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
+import { StyleSheet, Text, View, Platform,  Image, TouchableOpacity, ScrollView } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, TextInputc, LargeTextInput } from '@components/forms';
+import { Button, TextInputc, LargeTextInput} from '@components/forms';
+import ImagePicker from 'react-native-image-crop-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import { background } from 'native-base/lib/typescript/theme/styled-system';
 
 
-const ProfileSetUp = ({navigation}) => { 
 
-    const [city, setCity] = React.useState('');
-    const [story, setStory] = React.useState('');
+const ProfileSetUp: React.FC  = ({navigation}) => { 
+
+    const [city, setCity] = useState('');
+    const [story, setStory] = useState('');
+    const [date, setDate] = useState(new Date())
+    const [show, setShow] = useState(false);
+    const [mode, setMode] = useState('date');
+    const [ressourcePath, setRessourcePath] = useState<object[]>([]);
+    const [selectedPhotoIndex, setSelectedPhotoIndex]=useState(0);
+
+
+
+
+
+    const showMode = (currentMode) => {
+      setShow(true);
+      setMode(currentMode);
+    };
+      
+    const showDatepicker = () => {
+      showMode('date');
+    };
+  
+    const showTimepicker = () => {
+      showMode('time');
+    };
+
 
     const onPressHandler = () => {
-        navigation.navigate('ProfileInterest', { city: city, story: story });
-      };
-    
+      navigation.navigate('ProfileInterest', { city: city, story: story, date: date,  files: ressourcePath });
+    };
+  
+    const onPressAddPhotoBtn = () => {
+     console.log("yolo")
+    };
+    const onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShow(Platform.OS === 'ios');
+      setDate(currentDate);
+    };
+
+
+    const onActionDeleteDone = index => {
+      if (index === 0) {
+        const array = ressourcePath;
+        array.splice(selectedPhotoIndex, 1);
+        setRessourcePath( array );
+      }
+    };
+
+    const pickPictures = () => {
+      let imageList = ressourcePath;
+          ImagePicker.openPicker({
+            multiple: true,
+            forceJpg: true,
+            compressImageQuality: 0.8,
+            maxFiles: 10,
+            includeBase64: true,
+            mediaType: 'photo'
+          }).then(images => {
+            images.map( i => {
+              imageList.push({
+                filename: i.filename,
+                path: i.path,
+                data: i.data
+              })
+            })
+            setRessourcePath(imageList);
+          }).catch(error => {
+            console.log(JSON.stringify(error));
+          });
+    }
+    const onActionSelectPhotoDone = index => {
+      switch (index) {
+        case 0:
+          ImagePicker.openCamera({}).then(image => {
+
+            ressourcePath.push(image)      
+            console.log(ressourcePath)
+
+          });
+          break;
+        case 1:
+          let imageList = [];
+          ImagePicker.openPicker({
+            multiple: true,
+            forceJpg: true,
+            compressImageQuality: 0.8,
+            maxFiles: 10,
+            includeBase64: true,
+            mediaType: 'photo'
+          }).then(images => {
+            images.map( i => {
+              imageList.push({
+                filename: i.filename,
+                path: i.path,
+                data: i.data
+              })
+            })
+            setRessourcePath(imageList);
+          }).catch(error => {
+            console.log(JSON.stringify(error));
+          });
+          break;
+        default:
+          break;
+      }
+    };
+    const renderListPhotos = (localPhotos) => {
+      console.log('test',localPhotos)
+      const photos = localPhotos.map((photo, index) => (
+        <TouchableOpacity>
+          <Image style={styles.photo} source={{ uri: photo.path }} />
+        </TouchableOpacity>
+      ));
+      return photos;
+    }
+
+
     return (
-        <Wrapper>
+       <Wrapper>
         <View style={{ flex: 1}}> 
             <Logo /> 
         </View>
         <View style={{ flex: 3}}> 
+        <View  style={{ marginBottom: 15}}>
+        
+        <Text style={styles.title}> Birthday </Text>
+
+        
+        <View style={{ marginStart: 140, justifyContent: 'center', backgroundColor: "white", width: 330, right: 100, borderRadius: 20}}>
+        <DateTimePicker
+          textColor="black"
+          style={{width: 200}}
+          testID="dateTimePicker"
+          value={date}
+          mode={mode}
+          is24Hour={true}
+          display="default"
+          onChange={onChange}
+        />
+
+    </View>
+        </View>
 
         <View>
             <Text style={styles.title}> CITY </Text>
@@ -44,6 +177,22 @@ const ProfileSetUp = ({navigation}) => {
             value = {story}
             />
         </View>
+
+        <View style={{marginTop: 20}} >
+        <Text style={styles.title}> My Photos </Text>
+        <View style={{marginStart: 30}}>
+        <ScrollView style={styles.photoList} horizontal={true}>
+        {renderListPhotos(ressourcePath)}
+        <TouchableOpacity onPress={pickPictures.bind()}>
+            <View style={[styles.addButton, styles.photo]}>
+              <Text style={styles.addButtonText}>+</Text>
+            </View>
+          </TouchableOpacity>
+
+        </ScrollView>
+        </View>
+    </View>
+        
             
         
         </View>
@@ -64,18 +213,50 @@ const styles = StyleSheet.create({
 
   textInput: {
       marginStart: 25,
-      margin: 5,
       height: 100,
       fontFamily: 'DIN Condensed',
 
   },
   title: {
-      color: "white",
+      color: "#D30000",
       fontSize: 24,
       fontFamily: 'DIN Condensed',
       marginStart: 30,
       margin: 5,
   },
+  picture: {
+    width: 105, 
+    height: 120, 
+    marginRight:10,
+    margin: 5,
+    borderRadius: 8
+},
+photoList: {
+  height: 90,
+  marginTop: 15,
+  marginBottom: 15,
+  marginRight: 30
+},
+photo: {
+  marginRight: 10,
+  width: 80,
+  height: 80,
+  borderRadius: 10
+},
+addButton: {
+  alignItems: 'center',
+  justifyContent: 'center',
+  backgroundColor: '#FFFFFF'
+},
+addButtonText: {
+  color: "#D30000",
+  fontFamily: 'DIN Condensed',
+  fontSize: 48
+},
+sectionContainer: {
+  marginTop: 32,
+  paddingHorizontal: 24,
+},
 });
 
 export default ProfileSetUp;

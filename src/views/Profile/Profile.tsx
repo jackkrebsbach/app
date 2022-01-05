@@ -44,7 +44,6 @@ const Profile = ({navigation}) => {
     const [isFirstLoad, setIsFirstLoad] = React.useState(true);
 
     useEffect(() => {
-
         deviceStorage.loadProfile();
         if ( userProfile != null ){
             var profile = userProfile.profile;
@@ -57,9 +56,7 @@ const Profile = ({navigation}) => {
                 setInterest(profile['interest'])
                 setPictures(profile['pictures'])
             }
-        }
-
-        
+        } 
     });
     
     
@@ -91,13 +88,18 @@ const Profile = ({navigation}) => {
             <View style={{ marginTop: 25, marginBottom: 5}}>
             <View  style={{ marginBottom: 5}}>
             <Text style={styles.name}> {name}</Text>
-            <Text style={styles.location}> {shortDescription}</Text>
+            <Text style={styles.shortDescription}> {shortDescription}</Text>
             </View>
            
         
             <View style={{flexDirection: 'row',    flexWrap: 'wrap'}}>
                 <Text style={styles.location}> {city}</Text>
             </View>
+
+            <View>
+            <Text style={styles.desription}> {description}</Text>
+            </View>
+
             </View>
                 <View style={{marginBottom: 25}}>
                     <Text style={styles.interestTitle}>Interests</Text>
@@ -105,7 +107,7 @@ const Profile = ({navigation}) => {
                     {interest.map((e, i = 0) => {
                         return(
                             <View key={i} style={[styles.interestItem, calculatedSize(ITEM_PER_ROW)]}>
-                                <Text>{e}</Text>
+                                <Text style={styles.itemText}>{e}</Text>
                             </View>
                         )
                     })}
@@ -113,16 +115,11 @@ const Profile = ({navigation}) => {
                     
             </View>
 
-            <View >
-            <Text style={styles.interestTitle}> How I ‘Light My Path’</Text>
+           
 
-            <Text style={styles.desription}> {description}</Text>
-
-            </View>
-
-            <View>
+            <View style={{marginBottom: 150, marginTop: 10}}>
                 <Text style={styles.interestTitle}> Gallery</Text>
-                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
                         pictures.map((e, i = 0) => {
                             let path = "http://api.rezafootwear.com:8080/" + e;
@@ -196,11 +193,17 @@ const styles = StyleSheet.create({
         margin: 5,
 
     },
-    location: {
-        color: "white",
+    shortDescription: {
+        color: "#D30000",
         fontFamily: 'DIN Condensed',
         fontSize: 20,
-        margin: 5,
+        marginStart: 10,
+    },
+    location: {
+        color: "#D30000",
+        fontFamily: 'DIN Condensed',
+        fontSize: 20,
+        marginStart: 10,
     },
     desription: {
         color: "white",
@@ -217,21 +220,28 @@ const styles = StyleSheet.create({
         margin: 5
     },
     interestTitle: {
-        color: "white",
+        color: "#D30000",
         fontSize: 24,
         fontFamily: 'DIN Condensed',
-        margin: 5,
+        marginStart: 10,
     },
     interestItem: {
         borderColor:"black",
         alignItems: "center",
         fontFamily: 'DIN Condensed',
-        fontSize: 14,
-        borderRadius: 5,
-        padding: 10,
+        fontSize: 30,
+        borderWidth:2,
+        borderRadius: 10,
+        paddingTop: 2,
         margin: 5,
         backgroundColor: "white"
     },
+    itemText: {
+        color: "black",
+        fontSize: 20,
+        fontFamily: 'DIN Condensed',
+        margin: 5,
+    }
 });
 
 export default Profile;
