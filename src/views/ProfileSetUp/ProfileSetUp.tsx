@@ -4,29 +4,39 @@ import { StyleSheet, Text, View, Platform,  Image, TouchableOpacity, ScrollView 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, TextInputc, LargeTextInput} from '@components/forms';
+import { Button, ButtonDate, TextInputc, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
 import { background } from 'native-base/lib/typescript/theme/styled-system';
 
 
 
-const ProfileSetUp: React.FC  = ({navigation}) => { 
+const ProfileSetUp = ({navigation}) => { 
 
     const [city, setCity] = useState('');
     const [story, setStory] = useState('');
     const [date, setDate] = useState(new Date())
-    const [show, setShow] = useState(false);
     const [mode, setMode] = useState('date');
+    const [showDatePickerStart, setShowDatePickerStart] = React.useState(false);
+
     const [ressourcePath, setRessourcePath] = useState<object[]>([]);
     const [selectedPhotoIndex, setSelectedPhotoIndex]=useState(0);
 
 
 
+    useEffect(() => {
+      console.log('coucou');
+    }) 
+
+    const onChangeDateStart = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShowDatePickerStart(Platform.OS === 'ios');
+      setDate(currentDate);
+  };
 
 
     const showMode = (currentMode) => {
-      setShow(true);
+      setShowDatePickerStart(true);
       setMode(currentMode);
     };
       
@@ -48,7 +58,7 @@ const ProfileSetUp: React.FC  = ({navigation}) => {
     };
     const onChange = (event, selectedDate) => {
       const currentDate = selectedDate || date;
-      setShow(Platform.OS === 'ios');
+      setShowDatePickerStart(Platform.OS === 'ios');
       setDate(currentDate);
     };
 
@@ -78,57 +88,23 @@ const ProfileSetUp: React.FC  = ({navigation}) => {
                 data: i.data
               })
             })
+
             setRessourcePath(imageList);
+            console.log(ressourcePath);
+
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
     }
-    const onActionSelectPhotoDone = index => {
-      switch (index) {
-        case 0:
-          ImagePicker.openCamera({}).then(image => {
 
-            ressourcePath.push(image)      
-            console.log(ressourcePath)
-
-          });
-          break;
-        case 1:
-          let imageList = [];
-          ImagePicker.openPicker({
-            multiple: true,
-            forceJpg: true,
-            compressImageQuality: 0.8,
-            maxFiles: 10,
-            includeBase64: true,
-            mediaType: 'photo'
-          }).then(images => {
-            images.map( i => {
-              imageList.push({
-                filename: i.filename,
-                path: i.path,
-                data: i.data
-              })
-            })
-            setRessourcePath(imageList);
-          }).catch(error => {
-            console.log(JSON.stringify(error));
-          });
-          break;
-        default:
-          break;
-      }
-    };
     const renderListPhotos = (localPhotos) => {
-      console.log('test',localPhotos)
       const photos = localPhotos.map((photo, index) => (
-        <TouchableOpacity>
+        <TouchableOpacity key={index}>
           <Image style={styles.photo} source={{ uri: photo.path }} />
         </TouchableOpacity>
       ));
       return photos;
     }
-
 
     return (
        <Wrapper>
@@ -141,17 +117,23 @@ const ProfileSetUp: React.FC  = ({navigation}) => {
         <Text style={styles.title}> Birthday </Text>
 
         
-        <View style={{ marginStart: 140, justifyContent: 'center', backgroundColor: "white", width: 330, right: 100, borderRadius: 20}}>
-        <DateTimePicker
-          textColor="black"
-          style={{width: 200}}
+        <View style={{ marginStart: 140, justifyContent: 'center', backgroundColor: "white", height: 50, width: 300, right: 100, borderRadius: 20}}>
+
+        <ButtonDate mode='contained' onPress={showDatepicker}  title={date.toLocaleDateString()} />
+          <DatePicker
+          modal
           testID="dateTimePicker"
-          value={date}
+          date={date}
+          open={showDatePickerStart}
           mode={mode}
-          is24Hour={true}
-          display="default"
-          onChange={onChange}
-        />
+          onConfirm={(date) => {
+            setShowDatePickerStart(false)
+            setDate(date)
+          }}
+          onCancel={() => {
+            setShowDatePickerStart(false)
+          }}
+          />
 
     </View>
         </View>

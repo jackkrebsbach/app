@@ -74,7 +74,7 @@ const Email = ({ navigation }) => {
 
   <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center'}}>
 
-    <Title  title="ACCESS YOUR ACCOUNT" style={{ position: 'absolute', top: 0}} />
+    <Title  title="ACCESS YOUR ACCOUNT" style={{ bottom: 150}} />
 
 
     {isLoading &&  <ActivityIndicator style={{  bottom: 100}} /> }
@@ -89,7 +89,6 @@ const Email = ({ navigation }) => {
         height: 100
       }}
       type = "email"
-      title = "Email"
       placeholder = "Enter your email"
       onChangeText = { t => validate(t) }
       value = { email.toLowerCase() }

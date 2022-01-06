@@ -26,8 +26,7 @@ function calculatedSize( item){
   }
 
 
-
-
+  
 const Profile = ({navigation}) => {
 
     const [name, setName] = React.useState('');
@@ -39,7 +38,13 @@ const Profile = ({navigation}) => {
 
 
 
-
+    const onPressHandler = () => {
+        deviceStorage.deleteProfile();
+        deviceStorage.deleteUser();
+        console.log("profile",userProfile,userData )
+        navigation.navigate('Welcome');
+      };
+    
 
     const [isFirstLoad, setIsFirstLoad] = React.useState(true);
 
@@ -60,13 +65,6 @@ const Profile = ({navigation}) => {
     });
     
     
-
-    // const profile = { name: "Thibaut Fenain",
-    //                   age: 24,
-    //                   short_description: "Multi Task , Thai Boxer",
-    //                   description: "My name is Thibaut and I enjoy meeting new people and finding ways to help them have an uplifting experience. I enjoy reading...",
-    //                   location: "Taipei, Taiwan",
-    //                   picture_url:["../../assets/pp1.jpg", "../../assets/pp1.jpg","../../assets/pp1.jpg", "../../assets/pp1.jpg", "../../assets/pp1.jpg"]}
 
    console.log(width, height)
     return(
@@ -117,7 +115,7 @@ const Profile = ({navigation}) => {
 
            
 
-            <View style={{marginBottom: 150, marginTop: 10}}>
+            <View style={{ marginBottom: 200, marginTop: 10}}>
                 <Text style={styles.interestTitle}> Gallery</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
@@ -142,10 +140,15 @@ const Profile = ({navigation}) => {
                     }
                     
                 </View>
+                <View  style ={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Button  onPress={ onPressHandler } title = "Log out" />
+              </View>
             </View>
+           
             </View>
 
-            </ScrollView>
+
+                      </ScrollView>
 
             <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
             <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
@@ -161,7 +164,7 @@ const styles = StyleSheet.create({
     image: {
         width: width,
         height: height,
-        bottom:200
+        bottom:270
     },
     galerryPicture: {
         width: 160, 

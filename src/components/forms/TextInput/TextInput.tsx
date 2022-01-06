@@ -35,21 +35,20 @@ const styles = StyleSheet.create({
     fontFamily: 'DIN Condensed',
     fontSize: 20,
     flex:1,
-    textAlign: 'left',
+    textAlign: 'center',
   }
   });
 
- const TextInputc = (props) => {
+ const TextInputc = (props, styleText) => {
     return(
         <View style={props.style}>
         
         <View style={styles.SectionStyle}>
-          <Text style={styles.text} > {props.title} </Text>
           <TextInput
               type={props.type}
               onChangeText={props.onChangeText}
               style={styles.textInput}
-              placeholder= {props.placeholder}
+              placeholder= { props.placeholder}
               placeholderTextColor ="grey"
               underlineColorAndroid="transparent"
               secureTextEntry={props.secureTextEntry}

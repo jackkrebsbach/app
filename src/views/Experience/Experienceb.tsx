@@ -12,10 +12,11 @@ import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 
 
 const Experienceb = ({ navigation }) => {
-
+  const [user, setUser] =React.useState(userData)
   const [name, setName] = React.useState('');
   const [lyop, setLyop] = React.useState('');
-  const [isFirstLoad, setIsFirstLoad] = React.useState(true);
+  const [dataLoaded, setDataLoaded] = React.useState(false);
+
 
 
   const onPressHandler = () => {
@@ -23,31 +24,30 @@ const Experienceb = ({ navigation }) => {
   };
 
   useEffect(() => {
-    deviceStorage.loadJWT();
-    if (userData !=null) {
-      let profile = userData;
-      setName(profile['first_name'] + " " + profile['last_name']);
-      setLyop(profile['lyop']);
+    setDataLoaded(false);
+    deviceStorage.loadUser();
+    if (userData!=null) {
+      setName(userData['first_name'] + " " + userData['last_name']);
+      setLyop(userData['lyop']);
+      setDataLoaded(true)
     }
   });
   return (
     <Wrapper>
-    <View style= {{ flex: 1, justifyContent: 'center', alignItems: 'center' }
-}>
-  <Logo /> 
-  <TextDescription  style = {{position: 'absolute', bottom: 0 }}>
-    { name }
-</TextDescription>
-  </View>
 
-  <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+      <View style= {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Logo /> 
+      <TextDescription  style = {{position: 'absolute', bottom: 0 }}>
+        { name }
+    </TextDescription>
+      </View>
 
+      <View>
+      <TextDescription >
+      { lyop }
+      </TextDescription>
+      </View>
 
-
-  <TextDescription >
-  { lyop }
-  </TextDescription>
-  </View>
   <View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ButtonWrapper>
     <Button  onPress={ onPressHandler } title = "See your NFT" />

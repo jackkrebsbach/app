@@ -49,7 +49,7 @@ const Login = ({ route, navigation }) => {
     </View>
   
     < View style={{ flex: 3, justifyContent: 'center', alignItems: 'center'}} >
-    <Title  title={ email } style={{ position: 'absolute', top: 0}}/>
+    <Title  title={ email } style={{  bottom: 150}}/>
 
       < TextInputc
       style = {{

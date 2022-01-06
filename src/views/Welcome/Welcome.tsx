@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect} from 'react';
 import {StyleSheet,StatusBar, View, Dimensions, TouchableHighlight} from 'react-native';
 import styled from 'styled-components/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -14,21 +14,25 @@ import { getProfile } from '../../services/api/UserApi';
 
 const Welcome = ({navigation}) => {
 
-  const onPressHandler = () => {
+  useEffect(() => {
+    deviceStorage.deleteProfile();
+  })
+
+  const onPressHandler = () => {  
+
+    console.log("coucou", userData);
+
 
     if (userData != null ) {
-
+      console.log('test', userData);
       getProfile(userData['id']).then((res) => {
         console.log("coucou je suis dedans", res)
+        navigation.navigate('NftView');
+
     }).catch(error => {
+      navigation.navigate('ProfileSetUp');   
         console.log(error)
     }); 
-    // if (userProfile != null) {
-    //     navigation.navigate('NftView');
-
-    //  } else 
-    navigation.navigate('ProfileSetUp');
-    
     } 
    else { navigation.navigate('Email');}
   };

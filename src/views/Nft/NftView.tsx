@@ -28,12 +28,14 @@ const NftView = ({navigation}) => {
   };
 
   useEffect(() => {
-    let profile = userData;
     console.log('profile use effec');
+    deviceStorage.loadUser();
+    deviceStorage.loadProfile();
+
     if (isFirstLoad) {
-    setName(profile['first_name'] + " " + profile['last_name']);
-    setNftLink(profile['nft_link']);
-    setNftName(profile['nft_name']);
+    setName(userData['first_name'] + " " + userData['last_name']);
+    setNftLink(userData['nft_link']);
+    setNftName(userData['nft_name']);
     }
     console.log(nftLink);
 

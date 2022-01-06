@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export let userData = {};
 export let userProfile = {};
+export let jwt = "";
+
 
 const deviceStorage = {
     // our AsyncStorage functions will go here :)
@@ -16,6 +18,17 @@ const deviceStorage = {
 
       async loadJWT() {
         try {
+            let data = await AsyncStorage.getItem("jwt");
+            jwt = JSON.parse(data);
+            console.log("jwt", jwt)
+          } catch (error) {
+            console.log("Something went wrong", error);
+          }
+         
+      },
+
+      async loadUser() {
+        try {
             let data = await AsyncStorage.getItem("user_auth");
             userData = JSON.parse(data);
             console.log("userdata", userData)
@@ -25,20 +38,19 @@ const deviceStorage = {
          
       },
 
-      async deleteJWT() {
+      async deleteUser() {
         try{
-          await AsyncStorage.removeItem('id_token')
+          await AsyncStorage.removeItem('user_auth')
           .then(
             () => {
-              this.setState({
-                jwt: ''
-              })
+              userData = null
             }
           );
         } catch (error) {
           console.log('AsyncStorage Error: ' + error.message);
         }
       },
+
 
       async loadProfile() {
         try {
@@ -50,7 +62,20 @@ const deviceStorage = {
             console.log("Something went wrong", error);
           }
          
+      },
+      async deleteProfile() {
+        try{
+          await AsyncStorage.removeItem('user_profile')
+          .then(
+            () => {
+              userProfile = null
+            }
+          );
+        } catch (error) {
+          console.log('AsyncStorage Error: ' + error.message);
+        }
       }
+
       
 };
 

@@ -5,15 +5,16 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {Logo} from '@components/Logo'
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import {Button, TextInputc} from '@components/forms';
-import {Title} from '@components/Text';
 import styled from 'styled-components/native';
-import { position } from 'native-base/lib/typescript/theme/styled-system';
-import { userData } from '../../services/api/Authentication';
+import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 
 
 
 const Experience = ({navigation}) => {
-
+  useEffect(() => {
+    deviceStorage.loadUser();
+    deviceStorage.loadProfile();
+  });
   
   const onPressHandler = () => {
     navigation.navigate('Experienceb');

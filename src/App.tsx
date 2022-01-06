@@ -34,9 +34,9 @@ const App = () => {
 
   useEffect(() => {
       deviceStorage.loadJWT();
+      deviceStorage.loadUser();
       deviceStorage.loadProfile();
-
-  });
+  }, []);
 
   return (
   <PaperProvider>
