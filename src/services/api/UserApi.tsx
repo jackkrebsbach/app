@@ -60,6 +60,7 @@ export  const CreateProfile = (userId, city, story, birthday, interest , files )
       name: image.filename || Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: image.mime || 'image/jpeg'
     };
+    formData.append('files[]', file)
   });
 
   formData.append('city', city);

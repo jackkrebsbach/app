@@ -92,10 +92,7 @@ const ProfileSetUp = ({navigation}) => {
                 type: i.mime || 'image/jpeg'
               })
             })
-
             setRessourcePath(imageList);
-            console.log(ressourcePath);
-
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
