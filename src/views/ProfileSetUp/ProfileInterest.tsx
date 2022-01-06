@@ -8,6 +8,7 @@ import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, TextInputc, LargeTextInput } from '@components/forms';
 import { Title } from '../../components/Text';
+import { CreateProfile } from '../../services/api/UserApi';
 const {width, height} = Dimensions.get('window');
 
 var ITEM_PER_ROW = 3;
@@ -135,27 +136,30 @@ const DATA = [
 
 
 const ProfileInterest = ({route, navigation}) => { 
-    const {city, story} = route.params
-    const [interests, setInterest] = React.useState([]);
+    const {userId,city, story, birthday, files} = route.params
+    const [interest, setInterest] = React.useState([]);
     const [selectedId, setSelectedId] = React.useState(null);
     const [data, setData] = React.useState(DATA)
 
     const onPressHandler = () => {
-        navigation.navigate('Experience', { city: city, story: story, interests: interests });
+
+        CreateProfile(userId, city, story,birthday, interest, files).then((res) => {
+          console.log('success', res)
+          navigation.navigate('NftView');
+        }).catch(error => {
+            console.log(error)
+        });
       };
 
       const onPressItem = (id, type) => {
        // Alert.alert(id)
        let newData = data.map((val,i) => {
           if (val.id == id) {
-            interests.push(val.title)
+            interest.push(val.title)
             return {...val, isSelected: type}
           } else return val
         })
         setData(newData);
-        console.log('mes interets', interests)
-
-     //   console.log(data)
       };
 
     
@@ -203,7 +207,7 @@ return(
 
     <View  style ={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ButtonWrapper>
-    <Button  onPress={ onPressHandler } title = 'Continue' />
+    <Button  onPress={ onPressHandler } title = 'SEE YOUR NFT' />
       </ButtonWrapper>
   </View>
     </Wrapper>

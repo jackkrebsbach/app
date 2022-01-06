@@ -4,27 +4,31 @@ import { StyleSheet, Text, View, Platform,  Image, TouchableOpacity, ScrollView 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, ButtonDate, TextInputc, LargeTextInput} from '@components/forms';
+import { Button, ButtonDate, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
 import DatePicker from 'react-native-date-picker';
 import { background } from 'native-base/lib/typescript/theme/styled-system';
-
+import deviceStorage, { userData } from '../../services/storage/deviceStorage';
 
 
 const ProfileSetUp = ({navigation}) => { 
 
     const [city, setCity] = useState('');
     const [story, setStory] = useState('');
+    const [shortDescription, setShortDescription] = useState('');
     const [date, setDate] = useState(new Date())
     const [mode, setMode] = useState('date');
+    const [userId, setUserId] = useState(0);
     const [showDatePickerStart, setShowDatePickerStart] = React.useState(false);
 
-    const [ressourcePath, setRessourcePath] = useState<object[]>([]);
+    const [ressourcePath, setRessourcePath] = useState([]);
     const [selectedPhotoIndex, setSelectedPhotoIndex]=useState(0);
 
 
 
     useEffect(() => {
+      deviceStorage.loadUser();
+      setUserId(userData['id'])
       console.log('coucou');
     }) 
 
@@ -50,7 +54,7 @@ const ProfileSetUp = ({navigation}) => {
 
 
     const onPressHandler = () => {
-      navigation.navigate('ProfileInterest', { city: city, story: story, date: date,  files: ressourcePath });
+      navigation.navigate('ProfileInterest', { userId: userId, city: city, shortDescription: shortDescription, story, birthday: date.toLocaleDateString(),  files: ressourcePath });
     };
   
     const onPressAddPhotoBtn = () => {
@@ -84,8 +88,8 @@ const ProfileSetUp = ({navigation}) => {
             images.map( i => {
               imageList.push({
                 filename: i.filename,
-                path: i.path,
-                data: i.data
+                uri: i.path,
+                type: i.mime || 'image/jpeg'
               })
             })
 
@@ -100,7 +104,7 @@ const ProfileSetUp = ({navigation}) => {
     const renderListPhotos = (localPhotos) => {
       const photos = localPhotos.map((photo, index) => (
         <TouchableOpacity key={index}>
-          <Image style={styles.photo} source={{ uri: photo.path }} />
+          <Image style={styles.photo} source={{ uri: photo.uri }} />
         </TouchableOpacity>
       ));
       return photos;
@@ -112,6 +116,9 @@ const ProfileSetUp = ({navigation}) => {
             <Logo /> 
         </View>
         <View style={{ flex: 3}}> 
+
+        <ScrollView>
+        
         <View  style={{ marginBottom: 15}}>
         
         <Text style={styles.title}> Birthday </Text>
@@ -139,9 +146,8 @@ const ProfileSetUp = ({navigation}) => {
         </View>
 
         <View>
-            <Text style={styles.title}> CITY </Text>
-
-            <TextInputc
+            <Text style={styles.title}> City </Text>
+            <ProfileTextInput
             style={styles.textInput}
             placeholder="Enter your city"
             onChangeText = {t => setCity(t)}
@@ -150,7 +156,16 @@ const ProfileSetUp = ({navigation}) => {
         </View>
 
         <View>
-            <Text style={styles.title}> SHARE YOUR STORY </Text>
+        <Text style={styles.title}> Describe yourself </Text>
+        <ProfileTextInput
+        style={styles.textInput}
+        placeholder=" Two to three words"
+        onChangeText = {t => setShortDescription(t)}
+        value = {shortDescription}
+        />
+       </View>
+        <View>
+            <Text style={styles.title}> Share your story </Text>
 
             <LargeTextInput
             style={styles.textInput}           
@@ -161,7 +176,7 @@ const ProfileSetUp = ({navigation}) => {
         </View>
 
         <View style={{marginTop: 20}} >
-        <Text style={styles.title}> My Photos </Text>
+        <Text style={styles.title}> My photos </Text>
         <View style={{marginStart: 30}}>
         <ScrollView style={styles.photoList} horizontal={true}>
         {renderListPhotos(ressourcePath)}
@@ -175,7 +190,8 @@ const ProfileSetUp = ({navigation}) => {
         </View>
     </View>
         
-            
+    </ScrollView>
+
         
         </View>
 
@@ -197,7 +213,6 @@ const styles = StyleSheet.create({
       marginStart: 25,
       height: 100,
       fontFamily: 'DIN Condensed',
-
   },
   title: {
       color: "#D30000",

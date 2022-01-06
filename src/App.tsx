@@ -40,55 +40,55 @@ const App = () => {
 
   return (
   <PaperProvider>
-      <NavigationContainer theme={DarkTheme}>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>      
-          <Stack.Screen
-            name="Welcome"
-            component={Welcome}
-          />
-          <Stack.Screen
-            name="Email"
-            component={Email}
-          />
-          <Stack.Screen
-          name="LoginPassword"
-          component={LoginPassword}
-        />
-
-        <Stack.Screen
-        name="Experience"
-        component={Experience}
+  <NavigationContainer theme={DarkTheme}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>      
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
       />
       <Stack.Screen
-        name="Experienceb"
-        component={Experienceb}
+        name="Email"
+        component={Email}
       />
-
       <Stack.Screen
-        name="Profile"
-        component={Profile}
-      />
+      name="LoginPassword"
+      component={LoginPassword}
+    />
+
+    <Stack.Screen
+    name="Experience"
+    component={Experience}
+  />
+  <Stack.Screen
+    name="Experienceb"
+    component={Experienceb}
+  />
+
+  <Stack.Screen
+    name="Profile"
+    component={Profile}
+  />
 
 
-      <Stack.Screen
-          name="NftView"
-          component={NftView}
-        />
+  <Stack.Screen
+      name="NftView"
+      component={NftView}
+    />
 
-        <Stack.Screen
-        name="ProfileSetUp"
-        component={ProfileSetUp}
-      />
+    <Stack.Screen
+    name="ProfileSetUp"
+    component={ProfileSetUp}
+  />
 
-      <Stack.Screen
-        name="ProfileInterest"
-        component={ProfileInterest}
-      />
-      
+  <Stack.Screen
+    name="ProfileInterest"
+    component={ProfileInterest}
+  />
+  
 
-        </Stack.Navigator>
-      </NavigationContainer>
-  </PaperProvider>
+    </Stack.Navigator>
+  </NavigationContainer>
+</PaperProvider> 
   );
 };
 

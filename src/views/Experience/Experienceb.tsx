@@ -8,11 +8,10 @@ import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import styled from 'styled-components/native';
 import { position } from 'native-base/lib/typescript/theme/styled-system';
-import deviceStorage, {userData} from '../../services/storage/deviceStorage';
+import deviceStorage, {userData, userProfile} from '../../services/storage/deviceStorage';
 
 
 const Experienceb = ({ navigation }) => {
-  const [user, setUser] =React.useState(userData)
   const [name, setName] = React.useState('');
   const [lyop, setLyop] = React.useState('');
   const [dataLoaded, setDataLoaded] = React.useState(false);
@@ -20,12 +19,13 @@ const Experienceb = ({ navigation }) => {
 
 
   const onPressHandler = () => {
-    navigation.navigate('NftView');
+    navigation.navigate('ProfileSetUp');
   };
 
   useEffect(() => {
     setDataLoaded(false);
     deviceStorage.loadUser();
+    deviceStorage.loadProfile();
     if (userData!=null) {
       setName(userData['first_name'] + " " + userData['last_name']);
       setLyop(userData['lyop']);
@@ -50,7 +50,7 @@ const Experienceb = ({ navigation }) => {
 
   <View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ButtonWrapper>
-    <Button  onPress={ onPressHandler } title = "See your NFT" />
+    <Button  onPress={ onPressHandler } title = "Create your profile" />
       </ButtonWrapper>
       </View>
       </Wrapper>   

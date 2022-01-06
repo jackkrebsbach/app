@@ -10,8 +10,9 @@ import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import { useEffect } from 'react';
 
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Alert } from "react-native";
 import { position } from 'native-base/lib/typescript/theme/styled-system';
+import Toast from 'react-native-root-toast';
 
 
 
@@ -41,6 +42,13 @@ const Email = ({ navigation }) => {
       navigation.navigate('LoginPassword', { email: email });
     }).catch(err => {
       setLoading(false);
+      if (err.response.status == 404) {
+
+        Alert.alert("Error! Email not found");
+        
+    } else {
+      Alert.alert('Error ! Cannot connect to the server');
+}
       console.log("test", email);
       console.log(err.response)
     });

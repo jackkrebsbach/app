@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { login } from '../../services/api';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -9,6 +9,8 @@ import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import { ActivityIndicator } from "react-native";
 import { userData } from '../../services/api/Authentication';
+import { getProfile } from '../../services/api/UserApi';
+import deviceStorage from '../../services/storage/deviceStorage';
 
 
 
@@ -26,15 +28,38 @@ const Login = ({ route, navigation }) => {
 
   async function loginWithCode() {
     login(email, code).then((res) => {
+      deviceStorage.loadUser();
       console.log("success", userData);
       setLoading(false);
       //prepare a if profile != null then Experice, 
       // if null then Set Up profile
       // navigation.navigate('ProfileSetUp');
-      navigation.navigate('Experience');
+
+      if (userData != null ) {
+        console.log('test', userData);
+        getProfile(userData['id']).then((res) => {
+          console.log("coucou je suis dedans", res)
+          if (res == undefined) {
+            navigation.navigate('Experience');
+          } else {
+            navigation.navigate('NftView');
+
+          }
+      }).catch(error => {
+
+          console.log(error)
+      }); 
+      } 
 
     }).catch(err => {
       setLoading(false);
+      if (err.response.status == 404) {
+
+        Alert.alert("Error ! Wrong Code");
+        
+    } else {
+      Alert.alert('Error ! Cannot connect to the server');
+    }
       console.log(err.response)
     });
   }

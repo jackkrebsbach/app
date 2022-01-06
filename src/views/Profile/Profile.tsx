@@ -35,6 +35,9 @@ const Profile = ({navigation}) => {
     const [city, setCity] = React.useState('');
     const [interest, setInterest] = React.useState([]);
     const [pictures, setPictures] = React.useState([]);
+    const [isSplit, setSplit] = React.useState(false);
+
+    
 
 
 
@@ -52,13 +55,18 @@ const Profile = ({navigation}) => {
         deviceStorage.loadProfile();
         if ( userProfile != null ){
             var profile = userProfile.profile;
-            console.log("use effect prof", profile)
+            console.log("use effect prof", profile[interest ])
             if (isFirstLoad) {
                 setName(userData['first_name'] + " " + userData['last_name']);
                 setShortDescription(profile['short_description'])
                 setDescription(profile['description'])
                 setCity(profile['city'])
-                setInterest(profile['interest'])
+
+                let interests = profile['interest'].toString();
+                if (isSplit == false) {
+                    setInterest(interests.split(','))
+                    setSplit(true)
+                }
                 setPictures(profile['pictures'])
             }
         } 

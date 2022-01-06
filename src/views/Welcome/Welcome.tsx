@@ -15,12 +15,12 @@ import { getProfile } from '../../services/api/UserApi';
 const Welcome = ({navigation}) => {
 
   useEffect(() => {
-    deviceStorage.deleteProfile();
+    // deviceStorage.deleteProfile();
+    // deviceStorage.deleteUser();
   })
 
   const onPressHandler = () => {  
 
-    console.log("coucou", userData);
 
 
     if (userData != null ) {

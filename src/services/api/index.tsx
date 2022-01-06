@@ -1,3 +1,3 @@
 import { getCode, login } from "./Authentication";
-import { getProfile } from "./UserApi";
+import { getProfile, CreateProfile } from "./UserApi";
 export { getCode, login }
