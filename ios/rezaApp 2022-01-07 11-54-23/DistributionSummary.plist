@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>rezaApp.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>1</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>F2A2EE10138721F0532E410177477293031C7C8F</string>
+				<key>dateExpires</key>
+				<string>2022/11/6</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>embeddedBinaries</key>
+			<array>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>10.3.5</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>F2A2EE10138721F0532E410177477293031C7C8F</string>
+						<key>dateExpires</key>
+						<string>2022/11/6</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>Intercom.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>4FBG8J6LN7</string>
+						<key>name</key>
+						<string>Fenain Thibaut</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>10.3.5</string>
+				</dict>
+				<dict>
+					<key>architectures</key>
+					<array>
+						<string>arm64</string>
+					</array>
+					<key>buildNumber</key>
+					<string>1</string>
+					<key>certificate</key>
+					<dict>
+						<key>SHA1</key>
+						<string>F2A2EE10138721F0532E410177477293031C7C8F</string>
+						<key>dateExpires</key>
+						<string>2022/11/6</string>
+						<key>type</key>
+						<string>Cloud Managed Apple Distribution</string>
+					</dict>
+					<key>name</key>
+					<string>OpenSSL.framework</string>
+					<key>team</key>
+					<dict>
+						<key>id</key>
+						<string>4FBG8J6LN7</string>
+						<key>name</key>
+						<string>Fenain Thibaut</string>
+					</dict>
+					<key>versionNumber</key>
+					<string>1.1.180</string>
+				</dict>
+			</array>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>4FBG8J6LN7.org.reactjs.native.example.rezaApp</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>4FBG8J6LN7</string>
+				<key>get-task-allow</key>
+				<false/>
+				<key>keychain-access-groups</key>
+				<array>
+					<string>4FBG8J6LN7.org.reactjs.native.example.rezaApp</string>
+				</array>
+			</dict>
+			<key>name</key>
+			<string>rezaApp.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>21c8b743-a34b-4cf9-bfbc-1332482437a5</string>
+				<key>dateExpires</key>
+				<string>2022/11/6</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: org.reactjs.native.example.rezaApp</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>4FBG8J6LN7</string>
+				<key>name</key>
+				<string>Fenain Thibaut</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>

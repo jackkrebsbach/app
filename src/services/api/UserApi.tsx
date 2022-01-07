@@ -51,18 +51,18 @@ export const getProfile = (userId) => {
 
 export  const CreateProfile = (userId, city, story, birthday, interest , files ) => {
   const url = API_URL + "user/CreateProfile";
-  console.log("CreateProfile- files", files);
+  console.log("CreateProfile- files", files.toString());
   let formData = new FormData();  
 
   files.forEach((image) => {
     const file = {
-      uri: image.path,
-      name: image.filename || Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
-      type: image.mime || 'image/jpeg'
+      uri: image.uri,
+      name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
+      type: 'image/jpeg'
     };
-    formData.append('files[]', file)
+    formData.append('files', file)
   });
-
+ // formData.append('files[]', files.toString())
   formData.append('city', city);
   formData.append('description', story);
   formData.append('birthday', birthday);
@@ -79,7 +79,7 @@ export  const CreateProfile = (userId, city, story, birthday, interest , files )
   },    data:formData
 }) .then(response => {
   console.log("createdProfile !");
-    
+     getProfile(userId);
   return response.data;
   }).catch(error => {
     console.log('error', JSON.stringify(error));
