@@ -2,7 +2,9 @@ import React, { Component, FunctionComponent, useEffect } from 'react';
 import { StyleSheet, Image, View} from 'react-native';
 import { Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {Logo} from '@components/Logo'
+import {
+  
+} from '@components/Logo'
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import {Button, TextInputc} from '@components/forms';
 import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
@@ -11,6 +13,7 @@ import styled from 'styled-components/native';
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 import colors from '../../assets/colors/colors';
+import {Logo} from '@components/Logo';
 
 
 const NftView = ({navigation}) => {
@@ -22,7 +25,7 @@ const NftView = ({navigation}) => {
 
 
 
-  const onPressHandler = () => {
+  const onPressHandler = () => { 
       // check if appStoreLocale is set
       Linking.openURL("https://opensea.io/collection/reza-official");
   };
@@ -73,8 +76,6 @@ const NftView = ({navigation}) => {
       </View>
     <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
       <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-
-      <CustomTabBar navigation={navigation}/>
       </View>
     </View>
 
@@ -85,7 +86,6 @@ const NftView = ({navigation}) => {
 export default NftView;
 
 // styles
-
 const styles = StyleSheet.create({
 
   input: {

@@ -21,6 +21,8 @@ const Welcome = ({navigation}) => {
 
   const onPressHandler = () => {  
 
+    
+    console.log('OnPress', userData);
 
 
     if (userData != null ) {
@@ -42,6 +44,7 @@ const Welcome = ({navigation}) => {
   return (
     <Wrapper>   
     <StatusBar  barStyle="light-content" translucent={true}/>
+   
     <Video
     source={require('../../assets/welcome.mp4')}
     style={styles.backgroundVideo}
@@ -50,24 +53,27 @@ const Welcome = ({navigation}) => {
     resizeMode={'cover'}
     ignoreSilentSwitch={'obey'}
   />
-  
-    <View style={{ flex: 1}}> 
+    <View style={{ flex: 1, } }> 
     <Logo /> 
+
+    <TextDescription style={{ position:'absolute', top: 150, textAlign: 'center', lineHeight:30}}>
+      REZA is a community aimed to connect and inspire.
+      </TextDescription>
     </View>
         <View style={{ flex: 3,justifyContent: 'center', //Centered vertically
         alignItems: 'center', }}>
-        <TextDescription style={{ paddingTop: 150 }} >
-        REZA is a community aimed to inspire and forge new connections.
-      </TextDescription>
-      <TextDescription style={{ paddingTop: 30 }}>
-        The full app will be released March 2022.
-      </TextDescription>
         
         </View>
         <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-
+        <TextDescription style={{  fontFamily:'DIN Alternate', position:'absolute',fontSize: 22.5, bottom: 185, textAlign: 'center'}}>
+        WELCOME TO THE  
+         </TextDescription>
+        <TextDescription style={{ position:'absolute', bottom: 150, textAlign: 'center', paddingLeft: 20,
+        paddingRight: 25}}>
+        Founder Edition Experience.       
+         </TextDescription>
         <ButtonWrapper  styles={{ paddingTop: 50}}  >
-          <Button onPress={onPressHandler}   title="Redeem your NFT" />
+          <Button onPress={onPressHandler}   title="NEXT" />
         </ButtonWrapper>
         </View>
 
@@ -82,27 +88,24 @@ export default Welcome;
 
 const styles = StyleSheet.create({
   backgroundVideo: {
-    height: height,
-    position: 'absolute',
-    top: 0,
-    left: 0,
+    height: 200,
+    width: width,
+    bottom: height / 2 - 100 ,
     alignItems: 'stretch',
-    bottom: 0,
-    right: 0,
+    position: 'absolute'
   },
 });
 
 
 
 export const TextDescription = styled.Text`
-  letterSpacing: 0.07px;
+  letterSpacing: 1.5px;
   fontStyle: normal;
-  fontWeight: bold;
   lineHeight: 45px;
   paddingLeft: 30px;
   paddingRight: 25px;
   width: 350px;
-  fontSize: 34px;
+  fontSize: 30px;
   fontFamily: 'DIN Condensed'
   color: #ffffff;
 `;

@@ -1,5 +1,5 @@
-import React, {Fragment, useEffect} from 'react';
-import {StyleSheet,Image, View, Dimensions, ScrollView, Text} from 'react-native';
+import React, {useRef, useEffect} from 'react';
+import {StyleSheet,Image, View, Dimensions,Animated, ScrollView, Text} from 'react-native';
 import styled from 'styled-components/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -14,10 +14,12 @@ import deviceStorage, { userData, userProfile } from '../../services/storage/dev
 import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { getProfile } from '../../services/api/UserApi';
-var ITEM_PER_ROW = 4;
-var FIRST_ITEM_ROW = 3;
-var SECOND_ITEM_ROW = 4;
+const ITEM_PER_ROW = 4;
+const FIRST_ITEM_ROW = 3;
+const SECOND_ITEM_ROW = 4;
 
+const BANNER_H = 350;
+const TOPNAVI_H = 50;
 
 
 function calculatedSize( item){
@@ -72,25 +74,31 @@ const Profile = ({navigation}) => {
         } 
     });
     
-    
+    const scrollA = useRef(new Animated.Value(0)).current;
+
 
    console.log(width, height)
     return(
         <Wrapper style={{flexDirection: 'column'}}>
-            <View style={{flex: 1}}>
-                <Image  
-                source={{uri: "http://api.rezafootwear.com:8080/" + pictures[0] }}
-                style={styles.image}
-                resizeMode="contain"
-                />
-            </View>
+           
 
-            <ScrollView
-            style={styles.profile}
-            > 
-            <View style={{flex: 1}}>
-
+            <Animated.ScrollView
             
+            //nScroll={e => console.log(e.nativeEvent.contentOffset.y)}
+            onScroll={Animated.event(
+                [{nativeEvent: {contentOffset: {y: scrollA}}}],
+                {useNativeDriver: true},
+              )}
+              scrollEventThrottle={16}
+            > 
+
+            <View style={styles.bannerContainer}>
+            <Animated.Image  
+            source={{uri: "http://api.rezafootwear.com:8080/" + pictures[0] }}
+            style={styles.banner(scrollA)}
+            />
+        </View>
+            <View>
             <View style={{ marginTop: 25, marginBottom: 5}}>
             <View  style={{ marginBottom: 5}}>
             <Text style={styles.name}> {name}</Text>
@@ -132,15 +140,15 @@ const Profile = ({navigation}) => {
 
                             if ( i < 2) {
                                 return(
-                                    <Image key={i} source={{uri : path}}
-                                        style={styles.galerryPicture}></Image>
+                                    <Animated.Image key={i} source={{uri : path}}
+                                        style={styles.galerryPicture} />
                                 )
                             }
                             else {
                                 console.log(path)
                                 return(
-                                    <Image  key={i} source={{uri : path}}
-                                        style={styles.galerryPictureB}></Image>
+                                    <Animated.Image   key={i} source={{uri : path}}
+                                        style={styles.galerryPictureB} />
                                 )
                             }
                             
@@ -156,12 +164,11 @@ const Profile = ({navigation}) => {
             </View>
 
 
-                      </ScrollView>
+                      </Animated.ScrollView>
 
             <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
             <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
       
-            <CustomTabBar navigation={navigation}/>
             </View>
           </View>
         </Wrapper>
@@ -170,8 +177,8 @@ const Profile = ({navigation}) => {
 
 const styles = StyleSheet.create({
     image: {
-        width: width,
-        height: height,
+        width: 400,
+        height: 600,
         bottom:270
     },
     galerryPicture: {
@@ -187,15 +194,6 @@ const styles = StyleSheet.create({
         marginRight:10,
         margin: 5,
         borderRadius: 8
-    },
-    profile: {
-    backgroundColor: "black",
-    marginTop:300,
-    paddingTop:30,
-    paddingEnd:10,
-    paddingStart:10,
-    paddingBottom:10,
-    borderRadius: 50,
     },
     name: {
         color: "white",
@@ -216,6 +214,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginStart: 10,
     },
+    bannerContainer: {
+        alignItems: 'center',
+        overflow: 'hidden',
+        backgroundColor: 'red',
+        marginTop: -1000,
+        paddingTop: 1000,
+      },
     desription: {
         color: "white",
         fontFamily: 'DIN Condensed',
@@ -252,7 +257,27 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontFamily: 'DIN Condensed',
         margin: 5,
-    }
+    },  
+    banner: scrollA => ({
+        height: BANNER_H,
+        width: '200%',
+        transform: [
+          {
+            translateY: scrollA.interpolate({
+              inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
+              outputRange: [-BANNER_H / 2, 0, BANNER_H * 0.75, BANNER_H * 0.75],
+            }),
+          },
+          {
+            scale: scrollA.interpolate({
+              inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
+              outputRange: [2, 1, 0.5, 0.5],
+            }),
+          },
+        ],
+      })
+
+
 });
 
 export default Profile;

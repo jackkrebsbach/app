@@ -12,19 +12,24 @@ import {
   NavigationContainer,
   DefaultTheme,
   DarkTheme} from '@react-navigation/native';
+  import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useColorScheme} from 'react-native';
+import {StyleSheet, View, useColorScheme, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import Welcome from './views/Welcome/Welcome';
 import NftView from './views/Nft/NftView';
 import Profile from './views/Profile/Profile';
+import Support from './views/Support/Support';
 import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
 import ProfileInterest from './views/ProfileSetUp/ProfileInterest'
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb } from './views/Experience/';
 import deviceStorage from './services/storage/deviceStorage';
+import { background } from 'native-base/lib/typescript/theme/styled-system';
 
 const App = () => {
 
@@ -32,11 +37,92 @@ const App = () => {
 
   const scheme = useColorScheme();
 
+  const Tab =  createBottomTabNavigator();
   useEffect(() => {
       deviceStorage.loadJWT();
       deviceStorage.loadUser();
       deviceStorage.loadProfile();
   }, []);
+
+  function HomeTabs() {
+
+    const CustomTabBarButton = ({children, onPress}) => (
+      <TouchableOpacity style={{
+        top: -20,
+        justifyContent: 'center',
+        alignItems:'center',
+      }}
+      onPress={onPress}>
+        <View style={{
+          width:70,
+          height:70,
+          borderRadius:35,
+          backgroundColor: '#FFFFF'
+        }}>
+          {children}
+        </View>
+      </TouchableOpacity>
+    );
+
+    return (
+      <Tab.Navigator 
+      screenOptions={{
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarStyle: {
+          position: 'absolute',
+          bottom: -5,
+          elevation: 0,
+          backgroundColor:"black"
+          
+          },
+      }}>
+
+        <Tab.Screen name="Profile" 
+        component={Profile}
+        options= {{ 
+          
+          tabBarIcon:({focused}) => (
+
+            focused ? 
+          <View style={{alignItems:'center', top: -20,justifyContent: 'center',
+           backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
+           <Icon name="user" color='#D30000' size={25} />
+           </View> 
+
+           : 
+
+           <Icon name="user" color='#FFFFFF' size={25} />
+
+        ),
+      }}
+        />
+        <Tab.Screen name="NftView" component={NftView} options= {{ tabBarIcon:({focused}) => (
+          
+          focused ? 
+          <View style={{alignItems:'center',top: -20, justifyContent: 'center',
+           backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
+           <Icon name="home" color='#D30000' size={25} />
+           </View> 
+
+           : 
+
+           <Icon name="home" color='#FFFFFF' size={25} />
+        ),}} />
+
+      <Tab.Screen name="Support" component={Support} options= {{ tabBarIcon:({focused}) => (
+        focused ? 
+        <View style={{alignItems:'center', justifyContent: 'center',top: -20,
+         backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
+         <Icon name="support" color='#D30000' size={25} />
+         </View> 
+
+         : 
+
+         <Icon name="support" color='#FFFFFF' size={25} />      ),
+    }} />
+      </Tab.Navigator>)
+  }
 
   return (
   <PaperProvider>
@@ -72,7 +158,7 @@ const App = () => {
 
   <Stack.Screen
       name="NftView"
-      component={NftView}
+      component={HomeTabs}
     />
 
     <Stack.Screen
@@ -88,6 +174,7 @@ const App = () => {
 
     </Stack.Navigator>
   </NavigationContainer>
+
 </PaperProvider> 
   );
 };
