@@ -1,22 +1,10 @@
 import React, {useRef, useEffect} from 'react';
-import {StyleSheet,Image, View, Dimensions,Animated, ScrollView, Text} from 'react-native';
-import styled from 'styled-components/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SafeAreaView from 'react-native-safe-area-view';
-import Video from 'react-native-video';
+import {StyleSheet, View, Dimensions,Animated, Text} from 'react-native';
 const {width, height} = Dimensions.get('window');
 import {Button} from '@components/forms';
-import {Logo} from '@components/Logo';
-import { Title } from '@components/Text';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
-import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { getProfile } from '../../services/api/UserApi';
 const ITEM_PER_ROW = 4;
-const FIRST_ITEM_ROW = 3;
-const SECOND_ITEM_ROW = 4;
 
 const BANNER_H = 350;
 const TOPNAVI_H = 50;
