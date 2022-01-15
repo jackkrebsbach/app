@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
-import {StyleSheet,StatusBar, View, Dimensions, TouchableHighlight} from 'react-native';
+import {StyleSheet, Image, View, Dimensions, TouchableHighlight} from 'react-native';
 import styled from 'styled-components/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import SafeAreaView from 'react-native-safe-area-view';
@@ -12,7 +12,7 @@ import { background, position } from 'native-base/lib/typescript/theme/styled-sy
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import { getProfile } from '../../services/api/UserApi';
 
-const Welcome = ({navigation}) => {
+const WelcomeB = ({navigation}) => {
 
   useEffect(() => {
     // deviceStorage.deleteProfile();
@@ -30,49 +30,52 @@ const Welcome = ({navigation}) => {
       getProfile(userData['id']).then((res) => {
         console.log("coucou je suis dedans", res)
         navigation.navigate('NftView');
-        deviceStorage.loadProfile();
 
     }).catch(error => {
       navigation.navigate('ProfileSetUp');   
         console.log(error)
     }); 
     } 
-   else { navigation.navigate('WelcomeB');}
+   else { navigation.navigate('Email');}
   };
 
   const bottom = {position: 'absolute',
   bottom:0}
   return (
-    <Wrapper>      
-    <Video
-    source={require('../../assets/welcome.mp4')}
-    style={styles.backgroundVideo}
-    repeat={true}
-    rate={1.0}
-    resizeMode={'cover'}
-    ignoreSilentSwitch={'obey'}
-  />
+    <Wrapper>   
+   
     <View style={{ flex: 1, } }> 
-    <Logo /> 
+      <Logo /> 
 
-    <TextDescription style={{ position:'absolute', top: 150, textAlign: 'center', lineHeight:30}}>
-      REZA is a community aimed to connect and inspire.
-      </TextDescription>
+        <Image  
+      
+        style={{ 
+          width: 350,
+          height: 350,
+          left: 30,
+          bottom: 220,
+          resizeMode: 'contain'
+        }}
+        source={require("../../assets/reza_logo.png")}/>
+  
+
     </View>
         <View style={{ flex: 3,justifyContent: 'center', //Centered vertically
         alignItems: 'center', }}>
+
+        <TextDescription style={{ position:'absolute', textAlign: 'center', paddingLeft: 20,
+        paddingRight: 25}}>
+        This application will serve as a home base to OUR community, REZA support and future drops.
+        </TextDescription>
         
         </View>
         <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-        <TextDescription style={{  fontFamily:'DIN Alternate', position:'absolute',fontSize: 22.5, bottom: 185, textAlign: 'center'}}>
-        WELCOME TO THE  
-         </TextDescription>
-        <TextDescription style={{ position:'absolute', bottom: 150, textAlign: 'center', paddingLeft: 20,
-        paddingRight: 25}}>
-        Founder Edition Experience.       
-         </TextDescription>
+        <TextDescription style={{  fontFamily:'DIN Alternate', width:'100%',lineHeight: 30,  position:'absolute',fontSize: 22.5, bottom: 185, textAlign: 'center'}}>
+        Keep it downloaded as we will be updating it regularly.
+        </TextDescription>
+        
         <ButtonWrapper  styles={{ paddingTop: 50}}  >
-          <Button onPress={onPressHandler}   title="NEXT" />
+          <Button onPress={onPressHandler}   title="REDEEM YOUR NFT" />
         </ButtonWrapper>
         </View>
 
@@ -81,7 +84,7 @@ const Welcome = ({navigation}) => {
   );
 };
 
-export default Welcome;
+export default WelcomeB;
 
 // styles
 
@@ -100,11 +103,11 @@ const styles = StyleSheet.create({
 export const TextDescription = styled.Text`
   letterSpacing: 1.5px;
   fontStyle: normal;
-  lineHeight: 45px;
+  lineHeight: 40px;
   paddingLeft: 30px;
   paddingRight: 25px;
   width: 350px;
-  fontSize: 30px;
+  fontSize: 35px;
   fontFamily: 'DIN Condensed'
   color: #ffffff;
 `;

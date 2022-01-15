@@ -50,7 +50,7 @@ const Experienceb = ({ navigation }) => {
 
   <View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ButtonWrapper>
-    <Button  onPress={ onPressHandler } title = "Create your profile" />
+    <Button  onPress={ onPressHandler } title = "COMPLETE PROFILE" />
       </ButtonWrapper>
       </View>
       </Wrapper>   

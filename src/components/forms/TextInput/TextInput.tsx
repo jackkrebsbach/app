@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
         
         <View style={styles.SectionStyle}>
           <TextInput
-              type={props.type}
+              keyboardType={props.type}
               onChangeText={props.onChangeText}
               style={styles.textInput}
               placeholder= { props.placeholder}

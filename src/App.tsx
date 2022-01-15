@@ -21,6 +21,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 import Welcome from './views/Welcome/Welcome';
+import WelcomeB from './views/Welcome/WelcomeB';
 import NftView from './views/Nft/NftView';
 import Profile from './views/Profile/Profile';
 import Support from './views/Support/Support';
@@ -131,6 +132,10 @@ const App = () => {
       <Stack.Screen
         name="Welcome"
         component={Welcome}
+      />
+      <Stack.Screen
+        name="WelcomeB"
+        component={WelcomeB}
       />
       <Stack.Screen
         name="Email"

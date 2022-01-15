@@ -76,14 +76,21 @@ const Email = ({ navigation }) => {
 
     <View style= {{ flex: 1 }}>
 
-  <Logo /> 
+    <Logo /> 
+
+    <View style = {{justifyContent: 'center', alignItems: 'center'}}>
+    <Title  title="ACCESS YOUR ACCOUNT" style={{  bottom: 70}}  />
+
+    </View>
+  
 
   </View>
 
   <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center'}}>
 
-    <Title  title="ACCESS YOUR ACCOUNT" style={{ bottom: 150}} />
-
+    <Text style={styles.subtitle}>
+      Same email you use for REZA
+    </Text>
 
     {isLoading &&  <ActivityIndicator style={{  bottom: 100}} /> }
 
@@ -96,7 +103,7 @@ const Email = ({ navigation }) => {
         width: 300,
         height: 100
       }}
-      type = "email"
+      type="email-address"
       placeholder = "Enter your email"
       onChangeText = { t => validate(t) }
       value = { email.toLowerCase() }
@@ -133,6 +140,12 @@ const styles = StyleSheet.create({
   title:{
     color: "white",
     fontFamily: "DIN Condensed",
+ },
+ subtitle:{
+    color: "white",
+    fontFamily: "DIN Alternate",
+    bottom: 100,
+    fontSize: 22.5
  },
   container: {
     backgroundColor:"red",

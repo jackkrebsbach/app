@@ -38,7 +38,7 @@ const Experience = ({navigation}) => {
     />    
 
     <TextDescription >
-         Welcome to the Founders Edition experience. And never forget what inspired you and what inspired us.
+    Never forget what inspired you and what inspired us.
     </TextDescription>
 
     </View>

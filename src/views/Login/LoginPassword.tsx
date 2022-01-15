@@ -42,6 +42,7 @@ const Login = ({ route, navigation }) => {
           if (res == undefined) {
             navigation.navigate('Experience');
           } else {
+            deviceStorage.loadProfile();
             navigation.navigate('NftView');
 
           }
@@ -70,11 +71,13 @@ const Login = ({ route, navigation }) => {
     <View style= {{ flex: 1 } }>
   
     <Logo /> 
-  
+    <View style = {{justifyContent: 'center', alignItems: 'center'}}>
+      <Title   title={ email } style={{bottom: 70, fontSize: 30}}/>
+    </View>
+
     </View>
   
     < View style={{ flex: 3, justifyContent: 'center', alignItems: 'center'}} >
-    <Title  title={ email } style={{  bottom: 150}}/>
 
       < TextInputc
       style = {{
@@ -85,7 +88,7 @@ const Login = ({ route, navigation }) => {
         width: 300,
         height: 100
       }}
-      type = "numeric"
+      type="number-pad"
       title = "code"
       placeholder = "Enter your 4 digit code"
       onChangeText = { setCode }

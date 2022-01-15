@@ -1,5 +1,5 @@
 import React, {useRef, useEffect} from 'react';
-import {StyleSheet, View, Dimensions,Animated, Text} from 'react-native';
+import {StyleSheet, View, Dimensions,Animated,Image, Text} from 'react-native';
 const {width, height} = Dimensions.get('window');
 import {Button} from '@components/forms';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
@@ -14,8 +14,6 @@ function calculatedSize( item){
     var size = width / item;
     return {width: size}
   }
-
-
   
 const Profile = ({navigation}) => {
 
@@ -26,9 +24,6 @@ const Profile = ({navigation}) => {
     const [interest, setInterest] = React.useState([]);
     const [pictures, setPictures] = React.useState([]);
     const [isSplit, setSplit] = React.useState(false);
-
-    
-
 
 
     const onPressHandler = () => {
@@ -128,14 +123,14 @@ const Profile = ({navigation}) => {
 
                             if ( i < 2) {
                                 return(
-                                    <Animated.Image key={i} source={{uri : path}}
+                                    <Image key={i} source={{uri : path}}
                                         style={styles.galerryPicture} />
                                 )
                             }
                             else {
                                 console.log(path)
                                 return(
-                                    <Animated.Image   key={i} source={{uri : path}}
+                                    <Image   key={i} source={{uri : path}}
                                         style={styles.galerryPictureB} />
                                 )
                             }
@@ -205,7 +200,6 @@ const styles = StyleSheet.create({
     bannerContainer: {
         alignItems: 'center',
         overflow: 'hidden',
-        backgroundColor: 'red',
         marginTop: -1000,
         paddingTop: 1000,
       },

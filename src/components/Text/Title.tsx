@@ -8,7 +8,7 @@ font-style: normal;
 font-weight: bold;
 font-size: 36px;
 line-height: 43px;
-letter-spacing: 0.7px;
+letter-spacing: 2px;
   color: ${props => (props.transparent ? '#f3f8ff ' : '#FFFFFF')};
 `;
 
