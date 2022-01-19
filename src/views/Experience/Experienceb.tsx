@@ -83,8 +83,10 @@ export const TextDescription = styled.Text`
   paddingTop: 50px;
   paddingLeft: 40px;
   paddingRight: 40px;
-  lineHeight: 43px;
+  lineHeight: 35px;
   fontSize: 36px;
+  textAlign:center;
+
   fontFamily: 'DIN Condensed';
   color: #ffffff;
 `;

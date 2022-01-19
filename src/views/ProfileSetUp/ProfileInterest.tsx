@@ -2,16 +2,12 @@ import React, { FunctionComponent, useEffect } from 'react';
 import { StyleSheet, Text, View, Dimensions, FlatList, TouchableOpacity, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/MaterialIcons';
 
-
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, TextInputc, LargeTextInput } from '@components/forms';
+import { Button } from '@components/forms';
 import { Title } from '../../components/Text';
 import { CreateProfile } from '../../services/api/UserApi';
 const {width, height} = Dimensions.get('window');
 
-var ITEM_PER_ROW = 3;
 
 
 
@@ -136,16 +132,16 @@ const DATA = [
 
 
 const ProfileInterest = ({route, navigation}) => { 
-    const {userId,city, story, birthday, files} = route.params
+    const {userId,city, story, files} = route.params
     const [interest, setInterest] = React.useState([]);
     const [selectedId, setSelectedId] = React.useState(null);
     const [data, setData] = React.useState(DATA)
 
     const onPressHandler = () => {
 
-        CreateProfile(userId, city, story,birthday, interest, files).then((res) => {
+        CreateProfile(userId, city, story, interest, files).then((res) => {
           console.log('success', res)
-          navigation.navigate('NftView');
+          navigation.navigate('NftLanding');
         }).catch(error => {
             console.log(error)
         });

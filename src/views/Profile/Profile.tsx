@@ -62,7 +62,7 @@ const Profile = ({navigation}) => {
 
    console.log(width, height)
     return(
-        <Wrapper style={{flexDirection: 'column'}}>
+        <Wrapper style={{flexDirection: 'column', borderRadius: 10}}>
            
 
             <Animated.ScrollView
@@ -81,24 +81,24 @@ const Profile = ({navigation}) => {
             style={styles.banner(scrollA)}
             />
         </View>
-            <View>
+            <View style={{  borderRadius: 10}}>
             <View style={{ marginTop: 25, marginBottom: 5}}>
-            <View  style={{ marginBottom: 5}}>
+            <View  style={{ marginBottom: 25}}>
             <Text style={styles.name}> {name}</Text>
             <Text style={styles.shortDescription}> {shortDescription}</Text>
             </View>
            
         
-            <View style={{flexDirection: 'row',    flexWrap: 'wrap'}}>
+            <View style={{flexDirection: 'row',    flexWrap: 'wrap',marginBottom: 25}}>
                 <Text style={styles.location}> {city}</Text>
             </View>
 
-            <View>
+            <View style={{ marginBottom: 25}}>
             <Text style={styles.desription}> {description}</Text>
             </View>
 
             </View>
-                <View style={{marginBottom: 25}}>
+                <View style={{marginBottom: 25, marginStart: 10}}>
                     <Text style={styles.interestTitle}>Interests</Text>
                     <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
                     {interest.map((e, i = 0) => {
@@ -114,7 +114,7 @@ const Profile = ({navigation}) => {
 
            
 
-            <View style={{ marginBottom: 200, marginTop: 10}}>
+            <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10}}>
                 <Text style={styles.interestTitle}> Gallery</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
@@ -139,11 +139,11 @@ const Profile = ({navigation}) => {
                     }
                     
                 </View>
-                <View  style ={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+               
+            </View>
+            <View  style ={{ marginBottom: 100, justifyContent: 'center', alignItems: 'center' }}>
                 <Button  onPress={ onPressHandler } title = "Log out" />
               </View>
-            </View>
-           
             </View>
 
 
@@ -182,20 +182,21 @@ const styles = StyleSheet.create({
         color: "white",
         fontFamily: 'DIN Condensed',
         fontSize: 40,
-        margin: 5,
+        marginStart: 5,
+        marginTop: 5,
 
     },
     shortDescription: {
-        color: "#D30000",
+        color: "#FFFFFF",
         fontFamily: 'DIN Condensed',
         fontSize: 20,
-        marginStart: 10,
+        marginStart: 12,
     },
     location: {
-        color: "#D30000",
+        color: "#FFFFFF",
         fontFamily: 'DIN Condensed',
         fontSize: 20,
-        marginStart: 10,
+        marginStart: 12,
     },
     bannerContainer: {
         alignItems: 'center',
@@ -207,7 +208,7 @@ const styles = StyleSheet.create({
         color: "white",
         fontFamily: 'DIN Condensed',
         fontSize: 20,
-        marginStart: 10,
+        marginStart: 12,
         marginEnd: 10,
         margin: 5,
     },
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
         margin: 5
     },
     interestTitle: {
-        color: "#D30000",
+        color: "#FFFFFF",
         fontSize: 24,
         fontFamily: 'DIN Condensed',
         marginStart: 10,
@@ -242,7 +243,7 @@ const styles = StyleSheet.create({
     },  
     banner: scrollA => ({
         height: BANNER_H,
-        width: '200%',
+        width: '100%',
         transform: [
           {
             translateY: scrollA.interpolate({

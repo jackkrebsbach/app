@@ -43,7 +43,7 @@ const Login = ({ route, navigation }) => {
             navigation.navigate('Experience');
           } else {
             deviceStorage.loadProfile();
-            navigation.navigate('NftView');
+            navigation.navigate('NftLanding');
 
           }
       }).catch(error => {
@@ -90,6 +90,7 @@ const Login = ({ route, navigation }) => {
       }}
       type="number-pad"
       title = "code"
+      keyboardType="number-pad"
       placeholder = "Enter your 4 digit code"
       onChangeText = { setCode }
       value = { code }

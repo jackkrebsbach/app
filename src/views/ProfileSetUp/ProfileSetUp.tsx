@@ -6,8 +6,6 @@ import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ButtonDate, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
-import DatePicker from 'react-native-date-picker';
-import { background } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, { userData } from '../../services/storage/deviceStorage';
 
 
@@ -17,9 +15,7 @@ const ProfileSetUp = ({navigation}) => {
     const [story, setStory] = useState('');
     const [shortDescription, setShortDescription] = useState('');
     const [date, setDate] = useState(new Date())
-    const [mode, setMode] = useState('date');
     const [userId, setUserId] = useState(0);
-    const [showDatePickerStart, setShowDatePickerStart] = React.useState(false);
 
     const [ressourcePath, setRessourcePath] = useState([]);
     const [selectedPhotoIndex, setSelectedPhotoIndex]=useState(0);
@@ -32,38 +28,15 @@ const ProfileSetUp = ({navigation}) => {
       console.log('coucou');
     }) 
 
-    const onChangeDateStart = (event, selectedDate) => {
-      const currentDate = selectedDate || date;
-      setShowDatePickerStart(Platform.OS === 'ios');
-      setDate(currentDate);
-  };
 
-
-    const showMode = (currentMode) => {
-      setShowDatePickerStart(true);
-      setMode(currentMode);
-    };
-      
-    const showDatepicker = () => {
-      showMode('date');
-    };
   
-    const showTimepicker = () => {
-      showMode('time');
-    };
-
 
     const onPressHandler = () => {
-      navigation.navigate('ProfileInterest', { userId: userId, city: city, shortDescription: shortDescription, story, birthday: date.toLocaleDateString(),  files: ressourcePath });
+      navigation.navigate('ProfileInterest', { userId: userId, city: city, shortDescription: shortDescription, story,  files: ressourcePath });
     };
   
     const onPressAddPhotoBtn = () => {
      console.log("yolo")
-    };
-    const onChange = (event, selectedDate) => {
-      const currentDate = selectedDate || date;
-      setShowDatePickerStart(Platform.OS === 'ios');
-      setDate(currentDate);
     };
 
 
@@ -80,6 +53,8 @@ const ProfileSetUp = ({navigation}) => {
           ImagePicker.openPicker({
             multiple: true,
             forceJpg: true,
+            compressImageMaxHeight: 1024,
+            compressImageMaxWidth: 1024,
             compressImageQuality: 0.8,
             maxFiles: 10,
             includeBase64: true,
@@ -115,32 +90,6 @@ const ProfileSetUp = ({navigation}) => {
         <View style={{ flex: 3}}> 
 
         <ScrollView>
-        
-        <View  style={{ marginBottom: 15}}>
-        
-        <Text style={styles.title}> Birthday </Text>
-
-        
-        <View style={{ marginStart: 140, justifyContent: 'center', backgroundColor: "white", height: 50, width: 300, right: 100, borderRadius: 20}}>
-
-        <ButtonDate mode='contained' onPress={showDatepicker}  title={date.toLocaleDateString()} />
-          <DatePicker
-          modal
-          testID="dateTimePicker"
-          date={date}
-          open={showDatePickerStart}
-          mode={mode}
-          onConfirm={(date) => {
-            setShowDatePickerStart(false)
-            setDate(date)
-          }}
-          onCancel={() => {
-            setShowDatePickerStart(false)
-          }}
-          />
-
-    </View>
-        </View>
 
         <View>
             <Text style={styles.title}> City </Text>

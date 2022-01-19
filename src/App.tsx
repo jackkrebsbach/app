@@ -22,13 +22,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import Welcome from './views/Welcome/Welcome';
 import WelcomeB from './views/Welcome/WelcomeB';
-import NftView from './views/Nft/NftView';
+import {NftView, NftLanding} from './views/Nft';
 import Profile from './views/Profile/Profile';
 import Support from './views/Support/Support';
 import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
 import ProfileInterest from './views/ProfileSetUp/ProfileInterest'
 import { Email, LoginPassword } from  './views/Login/';
-import { Experience, Experienceb } from './views/Experience/';
+import { Experience, Experienceb, Experiencec } from './views/Experience/';
 import deviceStorage from './services/storage/deviceStorage';
 import { background } from 'native-base/lib/typescript/theme/styled-system';
 
@@ -67,6 +67,7 @@ const App = () => {
 
     return (
       <Tab.Navigator 
+      initialRouteName="NftLanding"
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
@@ -75,7 +76,6 @@ const App = () => {
           bottom: -5,
           elevation: 0,
           backgroundColor:"black"
-          
           },
       }}>
 
@@ -98,13 +98,13 @@ const App = () => {
         ),
       }}
         />
-        <Tab.Screen name="NftView" component={NftView} options= {{ tabBarIcon:({focused}) => (
+        <Tab.Screen name="NftLanding" component={NftLanding} options= {{ tabBarIcon:({focused}) => (
           
           focused ? 
           <View style={{alignItems:'center',top: -20, justifyContent: 'center',
            backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
            <Icon name="home" color='#D30000' size={25} />
-           </View> 
+           </View>  
 
            : 
 
@@ -154,17 +154,26 @@ const App = () => {
     name="Experienceb"
     component={Experienceb}
   />
+  <Stack.Screen
+    name="Experiencec"
+    component={Experiencec}
+  />
 
   <Stack.Screen
     name="Profile"
     component={Profile}
   />
 
-
   <Stack.Screen
-      name="NftView"
+      name="NftLanding"
       component={HomeTabs}
     />
+
+  <Stack.Screen
+    name="NftView"
+    component={NftView}
+  />
+
 
     <Stack.Screen
     name="ProfileSetUp"

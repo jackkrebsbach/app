@@ -29,7 +29,7 @@ const WelcomeB = ({navigation}) => {
       console.log('test', userData);
       getProfile(userData['id']).then((res) => {
         console.log("coucou je suis dedans", res)
-        navigation.navigate('NftView');
+        navigation.navigate('NftLanding');
 
     }).catch(error => {
       navigation.navigate('ProfileSetUp');   
@@ -63,14 +63,15 @@ const WelcomeB = ({navigation}) => {
         <View style={{ flex: 3,justifyContent: 'center', //Centered vertically
         alignItems: 'center', }}>
 
-        <TextDescription style={{ position:'absolute', textAlign: 'center', paddingLeft: 20,
-        paddingRight: 25}}>
+        <TextDescription style={{fontFamily:'DIN Alternate', position:'absolute', textAlign: 'center', paddingLeft: 20,
+        paddingRight: 25, lineHeight: 40}}>
         This application will serve as a home base to OUR community, REZA support and future drops.
         </TextDescription>
         
         </View>
         <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-        <TextDescription style={{  fontFamily:'DIN Alternate', width:'100%',lineHeight: 30,  position:'absolute',fontSize: 22.5, bottom: 185, textAlign: 'center'}}>
+        <TextDescription style={{  fontFamily:'DIN Alternate',  paddingLeft: 20,
+        paddingRight: 20,lineHeight: 30,  position:'absolute',fontSize: 22.5, bottom: 185, textAlign: 'center'}}>
         Keep it downloaded as we will be updating it regularly.
         </TextDescription>
         
@@ -104,11 +105,8 @@ export const TextDescription = styled.Text`
   letterSpacing: 1.5px;
   fontStyle: normal;
   lineHeight: 40px;
-  paddingLeft: 30px;
-  paddingRight: 25px;
-  width: 350px;
-  fontSize: 35px;
-  fontFamily: 'DIN Condensed'
+  width:100%;
+  fontSize: 36px;
   color: #ffffff;
 `;
 

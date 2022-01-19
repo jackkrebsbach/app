@@ -49,7 +49,7 @@ export const getProfile = (userId) => {
 };
 
 
-export  const CreateProfile = (userId, city, story, birthday, interest , files ) => {
+export  const CreateProfile = (userId, city, story, interest , files ) => {
   const url = API_URL + "user/CreateProfile";
   console.log("CreateProfile- files", files.toString());
   let formData = new FormData();  
@@ -62,10 +62,8 @@ export  const CreateProfile = (userId, city, story, birthday, interest , files )
     };
     formData.append('files', file)
   });
- // formData.append('files[]', files.toString())
   formData.append('city', city);
   formData.append('description', story);
-  formData.append('birthday', birthday);
   formData.append('interest[]', interest.toString());
   formData.append('user_id', userId);
 

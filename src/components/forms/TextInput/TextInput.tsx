@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
           <TextInput
               keyboardType={props.type}
               onChangeText={props.onChangeText}
+              returnKeyType={ 'done' }
               style={styles.textInput}
               placeholder= { props.placeholder}
               placeholderTextColor ="grey"

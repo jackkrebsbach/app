@@ -77,11 +77,12 @@ const styles = StyleSheet.create({
 export const TextDescription = styled.Text`
   letterSpacing: 0.07px;
   paddingTop: 200px;
-  paddingLeft: 40px;
-  paddingRight: 40px;
-  lineHeight: 43px;
-  fontSize: 35px;
-  fontFamily: 'DIN Condensed'
+  paddingLeft: 45px;
+  paddingRight: 45px;
+  lineHeight: 30px;
+  fontSize: 25px;
+  textAlign:center;
+  fontFamily: 'DIN Alternate'
   color: #ffffff;
 `;
 

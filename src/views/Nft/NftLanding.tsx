@@ -5,8 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   
 } from '@components/Logo'
-import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import {Button, TextInputc} from '@components/forms';
+import {Wrapper,ButtonAlignWrapper} from '@components/Wrappers'
+import {ButtonMiddle, TextInputc} from '@components/forms';
 import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
 import {Title} from '@components/Text';
 import styled from 'styled-components/native';
@@ -16,7 +16,7 @@ import colors from '../../assets/colors/colors';
 import {Logo} from '@components/Logo';
 
 
-const NftView = ({navigation}) => {
+const NftLanding = ({navigation}) => {
 
   const [nftLink, setNftLink] = React.useState('');
   const [nftName, setNftName] = React.useState('');
@@ -29,6 +29,13 @@ const NftView = ({navigation}) => {
       // check if appStoreLocale is set
       Linking.openURL("https://opensea.io/collection/reza-official");
   };
+
+  const onPressHandlerB = () => { 
+    // check if appStoreLocale is set
+    navigation.navigate('NftView');
+
+};
+
 
   useEffect(() => {
     console.log('profile use effec');
@@ -65,24 +72,27 @@ const NftView = ({navigation}) => {
     </View>
     <View style={{ flex: 2,justifyContent: 'center',  alignItems: 'center' }}>
     <TextDescription style={{marginTop: -20, marginBottom: 20}}>
-    {name}{"\n\t"}
-    {nftName}
+    {name}
     </TextDescription>
 
- 
+    <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5}}>
+
+    <ButtonMiddle  onPress={onPressHandler} title="QR CODE" />
+    <ButtonMiddle  onPress={onPressHandlerB} title="View Your NFT" />
+
+  </ButtonAlignWrapper>
   </View>
       </View>
     <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-      <ButtonWrapper>
-      <Button  onPress={onPressHandler} title="VIEW ON OPENSEA" />
-    </ButtonWrapper>  
+      <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+      </View>
     </View>
 
    </Wrapper>   
   );
 };
 
-export default NftView;
+export default NftLanding;
 
 // styles
 const styles = StyleSheet.create({
