@@ -29,7 +29,7 @@ const Support = ({navigation}) => {
 
     <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center'}}>
 
-    <Title  title="If you have any issue or any question, Please Contact Us" style={{ bottom: 150}} />
+    <Title  title="If you have any issue or any question, Please Contact Us" style={{ bottom: 150,paddingLeft: 10, paddingRight: 10}} />
 
 
     <ButtonWrapper>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 0.07px;
+  letterSpacing: 0.05px;
   paddingTop: 200px;
   paddingLeft: 40px;
   paddingRight: 40px;

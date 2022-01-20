@@ -1,20 +1,49 @@
 import React, { Component, FunctionComponent, useEffect } from 'react';
-import { StyleSheet, Image, View} from 'react-native';
-import { Linking, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  
-} from '@components/Logo'
+import { StyleSheet, Modal, TouchableOpacity, Image, View, Animated, Dimensions, Text} from 'react-native';
 import {Wrapper,ButtonAlignWrapper} from '@components/Wrappers'
 import {ButtonMiddle, TextInputc} from '@components/forms';
-import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
-import {Title} from '@components/Text';
 import styled from 'styled-components/native';
-import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, {userData} from '../../services/storage/deviceStorage';
-import colors from '../../assets/colors/colors';
 import {Logo} from '@components/Logo';
+const {width, height} = Dimensions.get('window');
 
+import Video from 'react-native-video';
+
+
+const ModalPoup = ({visible, children}) => {
+  const [showModal, setShowModal] = React.useState(visible);
+  const scaleValue = React.useRef(new Animated.Value(0)).current;
+  React.useEffect(() => {
+    toggleModal();
+  }, [visible]);
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true);
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      setTimeout(() => setShowModal(false), 200);
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+  return (
+    <Modal transparent visible={showModal}>
+      <View style={styles.modalBackGround}>
+        <Animated.View
+          style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+          {children}
+        </Animated.View>
+      </View>
+    </Modal>
+  );
+};
 
 const NftLanding = ({navigation}) => {
 
@@ -22,13 +51,9 @@ const NftLanding = ({navigation}) => {
   const [nftName, setNftName] = React.useState('');
   const [name, setName] = React.useState('');
   const [isFirstLoad, setIsFirstLoad] = React.useState(true);
+  const [visible, setVisible] = React.useState(false);
 
 
-
-  const onPressHandler = () => { 
-      // check if appStoreLocale is set
-      Linking.openURL("https://opensea.io/collection/reza-official");
-  };
 
   const onPressHandlerB = () => { 
     // check if appStoreLocale is set
@@ -52,39 +77,60 @@ const NftLanding = ({navigation}) => {
   });
 
   return (
-    <Wrapper>
-    <View style={{ flex: 1}}> 
-      <Logo /> 
-    </View>
-    <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
+    <Wrapper style={{backgroundColor: '#272727'}}>
+    <Video
+    source={require('../../assets/3d.mp4')}
+    style={styles.backgroundVideo}
+    repeat={true}
+    rate={1.0}
+    resizeMode={'contain'}
+    ignoreSilentSwitch={'obey'}
+  />
 
-    <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-      <Image 
-      source={{uri : nftLink ? nftLink : null} }
-      style= {{
-          justifyContent: 'center',
-          position: 'absolute',
-          top: 50,
-          width: '100%',
-          height: 215,
-      }}
-      />    
-    </View>
-    <View style={{ flex: 2,justifyContent: 'center',  alignItems: 'center' }}>
-    <TextDescription style={{marginTop: -20, marginBottom: 20}}>
-    {name}
+  <ModalPoup visible={visible}>
+  <TouchableOpacity onPress={() => setVisible(false)}>
+  <View style={{alignItems: 'center'}}>
+
+    <Image
+      source={require('../../assets/qr_code.png')}
+      style={{height: 300, width: '100%', marginVertical: 10}}
+    />
+  </View>
+
+  <Text style={{  fontFamily: 'DIN Condensed',  marginVertical: 10, fontSize: 20, textAlign: 'center'}}>
+    Share our community
+  </Text>
+  </TouchableOpacity>
+
+</ModalPoup>
+    <View style={{ flex: 1 }}> 
+      <Logo /> 
+      <View style={{ position:'absolute', justifyContent: 'center', alignItems: 'center'}}>
+
+      <TextDescription style={{alignItems: 'center', justifyContent: 'center'}}>
+      {name}
     </TextDescription>
 
-    <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5}}>
+    </View>
+    </View>
 
-    <ButtonMiddle  onPress={onPressHandler} title="QR CODE" />
-    <ButtonMiddle  onPress={onPressHandlerB} title="View Your NFT" />
 
-  </ButtonAlignWrapper>
+    <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
+
+  
+    <View style={{ flex: 2,justifyContent: 'center',  alignItems: 'center' }}>
+  
+
   </View>
       </View>
     <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
       <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+      <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5, bottom: 50}}>
+
+      <ButtonMiddle onPress={() => setVisible(true)} title="QR CODE" />
+      <ButtonMiddle  onPress={onPressHandlerB} title="View Your NFT" />
+  
+    </ButtonAlignWrapper>
       </View>
     </View>
 
@@ -97,6 +143,19 @@ export default NftLanding;
 // styles
 const styles = StyleSheet.create({
 
+  modalBackGround: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContainer: {
+    width: '70%',
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+    borderRadius: 20,
+    elevation: 20,
+  },
   input: {
     width: 250,
     height: 40,
@@ -107,19 +166,24 @@ const styles = StyleSheet.create({
   },
   title: {
     color:  "white"
-  }
-
-
+  },
+  backgroundVideo: {
+      height: height /2,
+      width: width,
+      top: 200,
+      alignItems: 'stretch',
+      position: 'absolute'
+    },
 });
 
 export const TextDescription = styled.Text`
   letterSpacing: 0.07px;
-  paddingTop: 200px;
-  paddingLeft: 40px;
-  paddingRight: 40px;
+  paddingTop: 150px;
   lineHeight: 43px;
   fontSize: 35px;
-  fontFamily: 'DIN Condensed'
+  marginLeft: 110px;
+  fontFamily: 'DIN Condensed';
   color: #ffffff;
+  text-transform: uppercase;
 `;
 

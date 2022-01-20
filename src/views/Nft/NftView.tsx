@@ -61,7 +61,7 @@ const NftView = ({navigation}) => {
           width: '100%',
           height: 215,
       }}
-      />    
+      />
     </View>
     <View style={{ flex: 2,justifyContent: 'center',  alignItems: 'center' }}>
     <TextDescription style={{marginTop: -20, marginBottom: 20}}>
