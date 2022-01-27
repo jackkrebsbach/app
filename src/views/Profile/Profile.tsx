@@ -1,9 +1,12 @@
 import React, {useRef, useEffect} from 'react';
-import {StyleSheet, View, Dimensions,Animated,Image, Text} from 'react-native';
+import {StyleSheet, Modal, View, Dimensions,Animated,Image, Text, FlatList, TouchableOpacity} from 'react-native';
 const {width, height} = Dimensions.get('window');
 import {Button} from '@components/forms';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Carousel, { Pagination } from 'react-native-snap-carousel';
+
 const ITEM_PER_ROW = 4;
 
 const BANNER_H = 350;
@@ -14,6 +17,41 @@ function calculatedSize( item){
     var size = width / item;
     return {width: size}
   }
+
+  const ModalPoup = ({visible, children}) => {
+    const [showModal, setShowModal] = React.useState(visible);
+    const scaleValue = React.useRef(new Animated.Value(0)).current;
+    useEffect(() => {
+      toggleModal();
+    }, [visible]);
+    const toggleModal = () => {
+      if (visible) {
+        setShowModal(true);
+        Animated.spring(scaleValue, {
+          toValue: 1,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      } else {
+        setTimeout(() => setShowModal(false), 200);
+        Animated.timing(scaleValue, {
+          toValue: 0,
+          duration: 300,
+          useNativeDriver: true,
+        }).start();
+      }
+    };
+    return (
+      <Modal transparent visible={showModal}>
+        <View style={styles.modalBackGround}>
+          <Animated.View
+            style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+            {children}
+          </Animated.View>
+        </View>
+      </Modal>
+    );
+  };
   
 const Profile = ({navigation}) => {
 
@@ -24,6 +62,8 @@ const Profile = ({navigation}) => {
     const [interest, setInterest] = React.useState([]);
     const [pictures, setPictures] = React.useState([]);
     const [isSplit, setSplit] = React.useState(false);
+    const [visible, setVisible] = React.useState(false);
+
 
 
     const onPressHandler = () => {
@@ -31,6 +71,11 @@ const Profile = ({navigation}) => {
         deviceStorage.deleteUser();
         console.log("profile",userProfile,userData )
         navigation.navigate('Welcome');
+      };
+
+      const onPressEdit = () => {
+        deviceStorage.loadProfile();
+        navigation.navigate('EditProfile');
       };
     
 
@@ -59,12 +104,9 @@ const Profile = ({navigation}) => {
     
     const scrollA = useRef(new Animated.Value(0)).current;
 
-
-   console.log(width, height)
     return(
         <Wrapper style={{flexDirection: 'column', borderRadius: 10}}>
-           
-
+       
             <Animated.ScrollView
             
             //nScroll={e => console.log(e.nativeEvent.contentOffset.y)}
@@ -75,40 +117,58 @@ const Profile = ({navigation}) => {
               scrollEventThrottle={16}
             > 
 
+            <ModalPoup visible={visible}>  
+
+            
+            
+
+            <View style={{  backgroundColor:'rgba(0, 0, 0, .8)',alignItems: 'center',  }}>
+           
+                        <Carousel
+                            layout='stack'
+                            data={pictures}
+                            sliderWidth={width}
+                            itemWidth={width}
+                            inactiveSlideScale="1"
+                            renderItem={({ item, index }) => (
+                              <Image
+                                key={index}
+                                style={{ width: '100%', height: '100%', borderRadius: 30 }}
+                                resizeMode='contain'
+                                source={{uri: "http://api.rezafootwear.com:8080/" + pictures[index] }}
+
+                              />
+
+                            )}
+                          />
+                    </View>
+                    <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: 50, right:20, justifyContent: 'center',
+                    backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
+                    <Icon name="close" color='#000000' size={25} />
+                    </TouchableOpacity>  
+          </ModalPoup>
             <View style={styles.bannerContainer}>
             <Animated.Image  
             source={{uri: "http://api.rezafootwear.com:8080/" + pictures[0] }}
             style={styles.banner(scrollA)}
             />
+
         </View>
             <View style={{  borderRadius: 10}}>
             <View style={{ marginTop: 25, marginBottom: 5}}>
-            <View  style={{ marginBottom: 25}}>
+            <View  style={{ marginBottom: 25,  justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.name}> {name}</Text>
             <Text style={styles.shortDescription}> {shortDescription}</Text>
+            <Text style={styles.location}> {city}</Text>
             </View>
            
         
-            <View style={{flexDirection: 'row',    flexWrap: 'wrap',marginBottom: 25}}>
-                <Text style={styles.location}> {city}</Text>
-            </View>
+
 
             <View style={{ marginBottom: 25}}>
+
             <Text style={styles.desription}> {description}</Text>
             </View>
-
-            </View>
-                <View style={{marginBottom: 25, marginStart: 10}}>
-                    <Text style={styles.interestTitle}>Interests</Text>
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                    {interest.map((e, i = 0) => {
-                        return(
-                            <View key={i} style={[styles.interestItem, calculatedSize(ITEM_PER_ROW)]}>
-                                <Text style={styles.itemText}>{e}</Text>
-                            </View>
-                        )
-                    })}
-                </View>
                     
             </View>
 
@@ -123,15 +183,21 @@ const Profile = ({navigation}) => {
 
                             if ( i < 2) {
                                 return(
+                                    <TouchableOpacity key={i}  onPress={() => setVisible(true)}>
                                     <Image key={i} source={{uri : path}}
-                                        style={styles.galerryPicture} />
+                                    style={styles.galerryPicture} />
+                                    </TouchableOpacity>
+                                   
                                 )
                             }
                             else {
                                 console.log(path)
                                 return(
-                                    <Image   key={i} source={{uri : path}}
-                                        style={styles.galerryPictureB} />
+                                    <TouchableOpacity key={i} >
+                                    <Image key={i} source={{uri : path}}
+                                    style={styles.galerryPictureB} />
+                                    </TouchableOpacity>
+                                   
                                 )
                             }
                             
@@ -142,6 +208,10 @@ const Profile = ({navigation}) => {
                
             </View>
             <View  style ={{ marginBottom: 100, justifyContent: 'center', alignItems: 'center' }}>
+            <View style ={{ marginBottom: 10 }}>
+            <Button  onPress={  onPressEdit} title = "Edit my profile" />
+
+            </View>
                 <Button  onPress={ onPressHandler } title = "Log out" />
               </View>
             </View>
@@ -181,22 +251,28 @@ const styles = StyleSheet.create({
     name: {
         color: "white",
         fontFamily: 'DIN Condensed',
+        textTransform: 'uppercase',
         fontSize: 40,
         marginStart: 5,
-        marginTop: 5,
 
     },
     shortDescription: {
-        color: "#FFFFFF",
-        fontFamily: 'DIN Condensed',
-        fontSize: 20,
+        color: "#D30000",
+        fontFamily: 'DIN Alternate',
+        fontStyle:'italic',
+        fontSize: 15,
         marginStart: 12,
+        textTransform: 'uppercase',
+
     },
     location: {
         color: "#FFFFFF",
-        fontFamily: 'DIN Condensed',
-        fontSize: 20,
+        fontFamily: 'DIN Alternate',
+        fontSize: 15,
         marginStart: 12,
+        marginTop:5,
+        textTransform: 'uppercase',
+
     },
     bannerContainer: {
         alignItems: 'center',
@@ -211,6 +287,16 @@ const styles = StyleSheet.create({
         marginStart: 12,
         marginEnd: 10,
         margin: 5,
+    },
+    lyop: {
+      color: "#D30000",
+        fontFamily: 'DIN Condensed',
+        fontSize: 25,
+        marginStart: 12,
+        marginEnd: 10,
+        margin: 5,
+        textTransform: 'uppercase',
+
     },
     distance: {
         color: "red",

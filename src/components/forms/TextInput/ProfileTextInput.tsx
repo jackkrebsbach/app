@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
               type={props.type}
               onChangeText={props.onChangeText}
               style={styles.textInput}
+              defaultValue={props.defaultValue}
               placeholder= { props.placeholder}
               placeholderTextColor ="grey"
               underlineColorAndroid="transparent"

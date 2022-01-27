@@ -27,7 +27,7 @@ const Welcome = ({navigation}) => {
       console.log('test', userData);
       getProfile(userData['id']).then((res) => {
         console.log("coucou je suis dedans", res)
-        navigation.navigate('NftLanding');
+        navigation.navigate('Home');
         deviceStorage.loadProfile();
 
     }).catch(error => {

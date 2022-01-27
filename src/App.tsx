@@ -16,11 +16,11 @@ import {
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {StyleSheet, View, useColorScheme, TouchableOpacity} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
-import Welcome from './views/Welcome/Welcome';
+import Welcome from './views/Welcome/Welcome';  
 import WelcomeB from './views/Welcome/WelcomeB';
 import {NftView, NftLanding} from './views/Nft';
 import Profile from './views/Profile/Profile';
@@ -30,13 +30,12 @@ import ProfileInterest from './views/ProfileSetUp/ProfileInterest'
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb, Experiencec } from './views/Experience/';
 import deviceStorage from './services/storage/deviceStorage';
-import { background } from 'native-base/lib/typescript/theme/styled-system';
+import EditProfile from './views/Profile/EditProfile';
 
 const App = () => {
 
   const Stack = createNativeStackNavigator();
 
-  const scheme = useColorScheme();
 
   const Tab =  createBottomTabNavigator();
   useEffect(() => {
@@ -45,31 +44,16 @@ const App = () => {
       deviceStorage.loadProfile();
   }, []);
 
+
   function HomeTabs() {
 
-    const CustomTabBarButton = ({children, onPress}) => (
-      <TouchableOpacity style={{
-        top: -20,
-        justifyContent: 'center',
-        alignItems:'center',
-      }}
-      onPress={onPress}>
-        <View style={{
-          width:70,
-          height:70,
-          borderRadius:35,
-          backgroundColor: '#FFFFF'
-        }}>
-          {children}
-        </View>
-      </TouchableOpacity>
-    );
-
+  
     return (
       <Tab.Navigator 
       initialRouteName="NftLanding"
       screenOptions={{
         tabBarShowLabel: false,
+        
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
@@ -82,7 +66,6 @@ const App = () => {
         <Tab.Screen name="Profile" 
         component={Profile}
         options= {{ 
-          
           tabBarIcon:({focused}) => (
 
             focused ? 
@@ -128,7 +111,9 @@ const App = () => {
   return (
   <PaperProvider>
   <NavigationContainer theme={DarkTheme}>
-    <Stack.Navigator screenOptions={{ headerShown: false }}>      
+    <Stack.Navigator screenOptions={{ headerShown: false,  animation: "slide_from_left",
+  }}
+    >      
       <Stack.Screen
         name="Welcome"
         component={Welcome}
@@ -159,13 +144,9 @@ const App = () => {
     component={Experiencec}
   />
 
-  <Stack.Screen
-    name="Profile"
-    component={Profile}
-  />
 
   <Stack.Screen
-      name="NftLanding"
+      name="Home"
       component={HomeTabs}
     />
 
@@ -183,6 +164,16 @@ const App = () => {
   <Stack.Screen
     name="ProfileInterest"
     component={ProfileInterest}
+  />
+
+  <Stack.Screen
+  name="Profile"
+  component={Profile}
+  />
+
+  <Stack.Screen
+  name="EditProfile"
+  component={EditProfile}
   />
   
 

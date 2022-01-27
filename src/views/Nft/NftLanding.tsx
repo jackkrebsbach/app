@@ -4,6 +4,8 @@ import {Wrapper,ButtonAlignWrapper} from '@components/Wrappers'
 import {ButtonMiddle, TextInputc} from '@components/forms';
 import styled from 'styled-components/native';
 import deviceStorage, {userData} from '../../services/storage/deviceStorage';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 import {Logo} from '@components/Logo';
 const {width, height} = Dimensions.get('window');
 
@@ -13,7 +15,7 @@ import Video from 'react-native-video';
 const ModalPoup = ({visible, children}) => {
   const [showModal, setShowModal] = React.useState(visible);
   const scaleValue = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
+  useEffect(() => {
     toggleModal();
   }, [visible]);
   const toggleModal = () => {
@@ -87,20 +89,23 @@ const NftLanding = ({navigation}) => {
     ignoreSilentSwitch={'obey'}
   />
 
-  <ModalPoup visible={visible}>
-  <TouchableOpacity onPress={() => setVisible(false)}>
+  <ModalPoup transparent visible={visible}>
+
+  <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: -35, right: -40, justifyContent: 'center',
+  backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
+  <Icon name="close" color='#000000' size={25} />
+  </TouchableOpacity>  
   <View style={{alignItems: 'center'}}>
 
     <Image
       source={require('../../assets/qr_code.png')}
-      style={{height: 300, width: '100%', marginVertical: 10}}
+      style={{height: 300, width: '100%', marginVertical: 10}}r
     />
   </View>
 
   <Text style={{  fontFamily: 'DIN Condensed',  marginVertical: 10, fontSize: 20, textAlign: 'center'}}>
     Share our community
   </Text>
-  </TouchableOpacity>
 
 </ModalPoup>
     <View style={{ flex: 1 }}> 
@@ -128,7 +133,7 @@ const NftLanding = ({navigation}) => {
       <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5, bottom: 50}}>
 
       <ButtonMiddle onPress={() => setVisible(true)} title="QR CODE" />
-      <ButtonMiddle  onPress={onPressHandlerB} title="View Your NFT" />
+      <ButtonMiddle  onPress={onPressHandlerB} title="MY NFT" />
   
     </ButtonAlignWrapper>
       </View>

@@ -43,7 +43,7 @@ const Login = ({ route, navigation }) => {
             navigation.navigate('Experience');
           } else {
             deviceStorage.loadProfile();
-            navigation.navigate('NftLanding');
+            navigation.navigate('Home');
 
           }
       }).catch(error => {

@@ -1,10 +1,7 @@
 import React, { Component, FunctionComponent, useEffect } from 'react';
-import { StyleSheet, Image, View} from 'react-native';
+import { StyleSheet, Image, View, TouchableOpacity, Text} from 'react-native';
 import { Linking, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import {
-  
-} from '@components/Logo'
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import {Button, TextInputc} from '@components/forms';
 import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
@@ -12,7 +9,7 @@ import {Title} from '@components/Text';
 import styled from 'styled-components/native';
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, {userData} from '../../services/storage/deviceStorage';
-import colors from '../../assets/colors/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Logo} from '@components/Logo';
 
 
@@ -30,6 +27,10 @@ const NftView = ({navigation}) => {
       Linking.openURL("https://opensea.io/collection/reza-official");
   };
 
+  const onPressBack = () => {
+    navigation.goBack();
+  };
+
   useEffect(() => {
     console.log('profile use effec');
     deviceStorage.loadUser();
@@ -44,10 +45,16 @@ const NftView = ({navigation}) => {
 
   });
 
+
+
   return (
     <Wrapper>
     <View style={{ flex: 1}}> 
-      <Logo /> 
+    <TouchableOpacity  onPress={onPressBack} style={{alignItems:'center',position:'absolute',top: 50, left:30, justifyContent: 'center',
+    borderRadius:30 }}>
+  <Icon name="arrow-left-circle-outline" color='#FFFFFF' size={35} />
+  </TouchableOpacity> 
+  <Text  style={styles.pageTitle} > My nft </Text>
     </View>
     <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
 
@@ -97,7 +104,20 @@ const styles = StyleSheet.create({
   },
   title: {
     color:  "white"
-  }
+  },
+  pageTitle: {
+    color: "white",
+    fontSize: 36,
+    fontFamily: 'DIN Condensed',
+    margin: 5,
+    textTransform: 'uppercase',
+    width: 200, 
+    alignItems:'center',
+    textAlign:'center',
+    position:'absolute',
+    top: 50,
+    left:100, 
+},
 
 
 });
