@@ -51,8 +51,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to use your camera</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Send photos to support center</string>
 	<key>UIAppFonts</key>

@@ -7,7 +7,7 @@
  *
  * @format
  */
-import React, {Component, FunctionComponent, useEffect}  from 'react';
+import React, { useState, useEffect}  from 'react';
 import {
   NavigationContainer,
   DefaultTheme,
@@ -35,8 +35,17 @@ import EditProfile from './views/Profile/EditProfile';
 const App = () => {
 
   const Stack = createNativeStackNavigator();
+  const [isLoadingSplash, setIsLoadingSplash] = useState(true);
 
+  const init = (): void => {
+    setTimeout(async () => {
+      setIsLoadingSplash(false);
+    }, 10000);
+  };
 
+  useEffect(() => {
+    init();
+  }, []);
   const Tab =  createBottomTabNavigator();
   useEffect(() => {
       deviceStorage.loadJWT();

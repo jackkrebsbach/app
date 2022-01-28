@@ -67,7 +67,38 @@ export  const CreateProfile = (userId, city, story, interest , files ) => {
   formData.append('interest[]', interest.toString());
   formData.append('user_id', userId);
 
+  return axios(url, {
+    method: 'post',
+    headers: {
+      'content-type': 'multipart/form-data; charset=UTF-8',
+      "Access-Control-Allow-Origin": "*",
+  },    data:formData
+}) .then(response => {
+  console.log("Update !");
+     getProfile(userId);
+  return response.data;
+  }).catch(error => {
+    console.log('error', JSON.stringify(error));
+  });
+}
 
+
+export  const UpdadteProfile = (userId, city, story, files ) => {
+  const url = API_URL + "user/UpdateProfile";
+  console.log("CreateProfile- files", files.toString());
+  let formData = new FormData();  
+
+  files.forEach((image) => {
+    const file = {
+      uri: image.uri,
+      name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
+      type: 'image/jpeg'
+    };
+    formData.append('files', file)
+  });
+  formData.append('city', city);
+  formData.append('description', story);
+  formData.append('user_id', userId);
 
   return axios(url, {
     method: 'post',
@@ -76,7 +107,7 @@ export  const CreateProfile = (userId, city, story, interest , files ) => {
       "Access-Control-Allow-Origin": "*",
   },    data:formData
 }) .then(response => {
-  console.log("createdProfile !");
+  console.log("updatedProfile !");
      getProfile(userId);
   return response.data;
   }).catch(error => {

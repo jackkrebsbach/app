@@ -7,6 +7,7 @@ import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { UpdadteProfile } from '../../services/api/UserApi';
 
 
 const EditProfile = ({navigation}) => { 
@@ -23,18 +24,18 @@ const EditProfile = ({navigation}) => {
     useEffect(() => {
       deviceStorage.loadUser();
       deviceStorage.loadProfile();
-
-        
-
-      setUserId(userData['id'])
-      console.log('coucou');
+      setUserId(userData['id']);
     }) 
 
 
-  
-
     const onPressHandler = () => {
-      navigation.goBack();
+
+      UpdadteProfile(userId, city, story, ressourcePath).then((res) => {
+        console.log('success', res)
+        navigation.goBack();
+      }).catch(error => {
+          console.log(error)
+      });
     };
 
 
@@ -42,17 +43,17 @@ const EditProfile = ({navigation}) => {
       navigation.goBack();
     };
   
-    const onPressAddPhotoBtn = () => {
-     console.log("yolo")
-    };
-
 
     const onActionDeleteDone = index => {
-      if (index === 0) {
+      console.log('test index', index)
+      if (index > -1) {
         const array = ressourcePath;
-        array.splice(selectedPhotoIndex, 1);
-        setRessourcePath( array );
-      }
+        array.splice(index, 1);
+        console.log(array)
+        setRessourcePath([...array]);
+     } else {
+       console.log("nothing to delete")
+     }
     };
 
     const pickPictures = () => {
@@ -74,19 +75,41 @@ const EditProfile = ({navigation}) => {
                 type: i.mime || 'image/jpeg'
               })
             })
-            setRessourcePath(imageList);
+            setRessourcePath([...imageList]);
+            console.log("pick", ressourcePath);
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
+
+    
+    }
+
+    async function exists(path) {
+
+      console.log("exists" , path.toString())
+      
+      if (path.toString().includes("[")) {
+        console.log("start with")
+        return true;
+      }
+      else {
+       // console.log(path)
+        return false;
+      }
     }
 
     const renderListPhotos = (localPhotos) => {
+      console.log("rednderListPhotos", localPhotos)
       const photos = localPhotos.map((photo, index) => (
           <View style={{marginTop:5}}>
-          <Image key={{index}} style={styles.photo} source={{ uri: "http://api.rezafootwear.com:8080/" + photo }} />
-        
+              <Image style={styles.photo} source={ !exists(photo)? ( {uri: "http://api.rezafootwear.com:8080/" + photo }) : ({uri: photo.uri }) } />
 
-        <TouchableOpacity  key={index} style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
+
+        <TouchableOpacity onPress={ () =>
+          onActionDeleteDone(index) 
+        } 
+        
+        key={index} style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
           backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
           <Icon name="close" color='#D30000' size={15} />
           </TouchableOpacity>  
@@ -97,6 +120,7 @@ const EditProfile = ({navigation}) => {
       ));
       return photos;
     }
+
 
     return (
        <Wrapper>
@@ -150,7 +174,7 @@ const EditProfile = ({navigation}) => {
         <View style={{marginStart: 30}}>
         <ScrollView style={styles.photoList} horizontal={true}>
         {renderListPhotos(ressourcePath)}
-        <TouchableOpacity style={{marginTop: 5}} onPress={pickPictures.bind()}>
+        <TouchableOpacity style={{marginTop: 5}} onPress={pickPictures}>
             <View style={[styles.addButton, styles.photo]}>
               <Text style={styles.addButtonText}>+</Text>
             </View>
