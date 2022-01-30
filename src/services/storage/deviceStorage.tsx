@@ -63,6 +63,17 @@ const deviceStorage = {
           }
          
       },
+
+      async mergeProfile(data) {
+        try {
+          let result = await AsyncStorage.mergeItem("user_profile",data);
+          console.log("userProfile", result )
+
+        } catch (error) {
+          console.log("Something went wrong", error);
+
+        }
+      },
       async deleteProfile() {
         try{
           await AsyncStorage.removeItem('user_profile')

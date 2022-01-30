@@ -22,7 +22,6 @@ export const getProfile = (userId) => {
         console.log(response.data);
         const userProfile = response.data
         deviceStorage.saveItem("user_profile", JSON.stringify(userProfile));
-          
         return response.data;
         })
         .catch(function (error) {
@@ -89,12 +88,21 @@ export  const UpdadteProfile = (userId, city, story, files ) => {
   let formData = new FormData();  
 
   files.forEach((image) => {
+    console.log("test", image.toString())
+    if (image.uri != null) {
+      console.log("image not null", image.uri)
+
     const file = {
       uri: image.uri,
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg'
     };
     formData.append('files', file)
+
+  }else {
+    formData.append('files', image)
+
+  }
   });
   formData.append('city', city);
   formData.append('description', story);

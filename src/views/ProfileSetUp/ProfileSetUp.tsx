@@ -44,7 +44,7 @@ const ProfileSetUp = ({navigation}) => {
       if (index === 0) {
         const array = ressourcePath;
         array.splice(selectedPhotoIndex, 1);
-        setRessourcePath( array );
+        setRessourcePath( [...array] );
       }
     };
 
@@ -67,7 +67,7 @@ const ProfileSetUp = ({navigation}) => {
                 type: i.mime || 'image/jpeg'
               })
             })
-            setRessourcePath(imageList);
+            setRessourcePath([...imageList]);
           }).catch(error => {
             console.log(JSON.stringify(error));
           });

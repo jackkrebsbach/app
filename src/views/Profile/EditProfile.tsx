@@ -84,27 +84,30 @@ const EditProfile = ({navigation}) => {
     
     }
 
-    async function exists(path) {
-
-      console.log("exists" , path.toString())
-      
+    const exists = (path) => {      
       if (path.toString().includes("[")) {
-        console.log("start with")
-        return true;
+        console.log("photo does not exist", path.uri)
+        return false;
       }
       else {
-       // console.log(path)
-        return false;
+       console.log("true, photo already exist", path.toString())
+        return true;
       }
     }
 
     const renderListPhotos = (localPhotos) => {
       console.log("rednderListPhotos", localPhotos)
       const photos = localPhotos.map((photo, index) => (
+        
           <View style={{marginTop:5}}>
-              <Image style={styles.photo} source={ !exists(photo)? ( {uri: "http://api.rezafootwear.com:8080/" + photo }) : ({uri: photo.uri }) } />
+          {
+            !(photo.toString().includes("[")) 
+            
+            ? 
+                <Image style={styles.photo} source={{uri: "http://api.rezafootwear.com:8080/" + photo }} />
+            : <Image style={styles.photo} source={{uri:  photo.uri }} />
 
-
+          }
         <TouchableOpacity onPress={ () =>
           onActionDeleteDone(index) 
         } 
@@ -117,7 +120,9 @@ const EditProfile = ({navigation}) => {
          
           
         
-      ));
+      )
+      
+      );
       return photos;
     }
 
