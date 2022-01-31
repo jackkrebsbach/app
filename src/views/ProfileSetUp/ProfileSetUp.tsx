@@ -7,18 +7,18 @@ import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ButtonDate, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData } from '../../services/storage/deviceStorage';
+import { CreateProfile } from '../../services/api/UserApi';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 const ProfileSetUp = ({navigation}) => { 
 
     const [city, setCity] = useState('');
-    const [story, setStory] = useState('');
+    const [story, setStory] = useState(userData['lyop']);
     const [shortDescription, setShortDescription] = useState('');
-    const [date, setDate] = useState(new Date())
     const [userId, setUserId] = useState(0);
 
     const [ressourcePath, setRessourcePath] = useState([]);
-    const [selectedPhotoIndex, setSelectedPhotoIndex]=useState(0);
 
 
 
@@ -32,7 +32,12 @@ const ProfileSetUp = ({navigation}) => {
   
 
     const onPressHandler = () => {
-      navigation.navigate('ProfileInterest', { userId: userId, city: city, shortDescription: shortDescription, story,  files: ressourcePath });
+      CreateProfile(userId, city, story, shortDescription, ressourcePath ).then((res) => {
+        console.log('success', res)
+        navigation.navigate('Home');
+      }).catch(error => {
+          console.log(error)
+      });
     };
   
     const onPressAddPhotoBtn = () => {
@@ -41,11 +46,14 @@ const ProfileSetUp = ({navigation}) => {
 
 
     const onActionDeleteDone = index => {
-      if (index === 0) {
+      if (index > -1) {
         const array = ressourcePath;
-        array.splice(selectedPhotoIndex, 1);
-        setRessourcePath( [...array] );
-      }
+        array.splice(index, 1);
+        console.log(array)
+        setRessourcePath([...array]);
+     } else {
+       console.log("nothing to delete")
+     }
     };
 
     const pickPictures = () => {
@@ -75,9 +83,17 @@ const ProfileSetUp = ({navigation}) => {
 
     const renderListPhotos = (localPhotos) => {
       const photos = localPhotos.map((photo, index) => (
-        <TouchableOpacity key={index}>
+        <View key={index}    style={{marginTop:5}}>
           <Image style={styles.photo} source={{ uri: photo.uri }} />
-        </TouchableOpacity>
+        <TouchableOpacity onPress={ () =>
+          onActionDeleteDone(index) 
+        } 
+        
+        style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
+          backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
+          <Icon name="close" color='#D30000' size={15} />
+          </TouchableOpacity>  
+         </View>
       ));
       return photos;
     }
@@ -118,7 +134,7 @@ const ProfileSetUp = ({navigation}) => {
             placeholder="Your Story"
             onChangeText = {t => setStory(t)}
             value = {story}
-            defaultValue ={userData['lyop']}
+            defaultValue ={story}
             />
         </View>
 
@@ -126,28 +142,28 @@ const ProfileSetUp = ({navigation}) => {
         <Text style={styles.title}> My photos </Text>
         <View style={{marginStart: 30}}>
         <ScrollView style={styles.photoList} horizontal={true}>
+       
+        
         {renderListPhotos(ressourcePath)}
+        <View style={{marginTop:5}}>
         <TouchableOpacity onPress={pickPictures.bind()}>
             <View style={[styles.addButton, styles.photo]}>
               <Text style={styles.addButtonText}>+</Text>
             </View>
           </TouchableOpacity>
+          </View>
 
         </ScrollView>
         </View>
     </View>
-        
+    <ButtonWrapper>
+    <Button  onPress={ onPressHandler } title = "Create my profile" />
+  </ButtonWrapper>
     </ScrollView>
 
         
         </View>
-
-        <View  style ={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <ButtonWrapper>
-          <Button  onPress={ onPressHandler } title = "Continue" />
-            </ButtonWrapper>
-        </View>
-        </Wrapper>
+        </Wrapper>  
       );
 
 }

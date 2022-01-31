@@ -249,6 +249,7 @@ const styles = StyleSheet.create({
         fontFamily: 'DIN Condensed',
         textTransform: 'uppercase',
         fontSize: 40,
+        letterSpacing: 2.5,
         marginStart: 5,
 
     },

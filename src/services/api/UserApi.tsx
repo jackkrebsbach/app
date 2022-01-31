@@ -48,9 +48,10 @@ export const getProfile = (userId) => {
 };
 
 
-export  const CreateProfile = (userId, city, story, interest , files ) => {
+export  const CreateProfile = (userId, city, story, shortDescription , files ) => {
   const url = API_URL + "user/CreateProfile";
-  console.log("CreateProfile- files", files.toString());
+  
+  console.log("CreateProfile- files",userId, city,story, shortDescription, files.toString());
   let formData = new FormData();  
 
   files.forEach((image) => {
@@ -62,8 +63,8 @@ export  const CreateProfile = (userId, city, story, interest , files ) => {
     formData.append('files', file)
   });
   formData.append('city', city);
+  formData.append('short_description',shortDescription );
   formData.append('description', story);
-  formData.append('interest[]', interest.toString());
   formData.append('user_id', userId);
 
   return axios(url, {

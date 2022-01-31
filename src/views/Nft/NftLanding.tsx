@@ -182,11 +182,11 @@ const styles = StyleSheet.create({
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 0.07px;
+  letterSpacing: 2.5px;
   paddingTop: 150px;
   lineHeight: 43px;
   fontSize: 35px;
-  marginLeft: 110px;
+  marginLeft: 100px;
   fontFamily: 'DIN Condensed';
   color: #ffffff;
   text-transform: uppercase;
