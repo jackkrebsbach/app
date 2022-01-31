@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Platform,  Image, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Platform, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '@components/Logo'
@@ -8,7 +8,9 @@ import { Button, ButtonDate, ProfileTextInput, LargeTextInput} from '@components
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData } from '../../services/storage/deviceStorage';
 import { CreateProfile } from '../../services/api/UserApi';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
+import { ActivityIndicator, Alert } from "react-native";
+const {width, height} = Dimensions.get('window');
 
 
 const ProfileSetUp = ({navigation}) => { 
@@ -19,6 +21,8 @@ const ProfileSetUp = ({navigation}) => {
     const [userId, setUserId] = useState(0);
 
     const [ressourcePath, setRessourcePath] = useState([]);
+    const [isLoading, setLoading] = React.useState(false);
+
 
 
 
@@ -32,9 +36,12 @@ const ProfileSetUp = ({navigation}) => {
   
 
     const onPressHandler = () => {
+      setLoading(true);
       CreateProfile(userId, city, story, shortDescription, ressourcePath ).then((res) => {
         console.log('success', res)
         navigation.navigate('Home');
+        setLoading(false);
+
       }).catch(error => {
           console.log(error)
       });
@@ -104,6 +111,10 @@ const ProfileSetUp = ({navigation}) => {
             <Logo /> 
         </View>
         <View style={{ flex: 3}}> 
+
+        {isLoading &&  <View style={{ backgroundColor:'rgba(0,0,0,0.8)', alignItems:'center',     justifyContent: 'center' , width: width, height: height}}>
+        <ActivityIndicator  />
+      </View> }
 
         <ScrollView>
 
@@ -182,7 +193,7 @@ const styles = StyleSheet.create({
       fontSize: 24,
       fontFamily: 'DIN Condensed',
       marginStart: 30,
-      margin: 5,
+      margin: 5,  
   },
   picture: {
     width: 105, 

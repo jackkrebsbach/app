@@ -1,5 +1,5 @@
 import React, {  useEffect, useState,  } from 'react';
-import { StyleSheet, Text, View,  Image, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View,  Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
@@ -7,8 +7,8 @@ import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { UpdadteProfile } from '../../services/api/UserApi';
-
-
+import { ActivityIndicator, Alert } from "react-native";
+const {width, height} = Dimensions.get('window');
 const EditProfile = ({navigation}) => { 
 
     const [city, setCity] = useState(userProfile.profile['city']);
@@ -16,6 +16,7 @@ const EditProfile = ({navigation}) => {
     const [shortDescription, setShortDescription] =  useState(userProfile.profile['short_description']);
     const [userId, setUserId] = useState(0);
     const [ressourcePath, setRessourcePath] = useState(userProfile.profile['pictures']);
+    const [isLoading, setLoading] = React.useState(false);
 
 
 
@@ -27,9 +28,12 @@ const EditProfile = ({navigation}) => {
 
 
     const onPressHandler = () => {
+      setLoading(true);
       UpdadteProfile(userId, city, story, shortDescription, ressourcePath).then((res) => {
         deviceStorage.loadProfile();
         navigation.goBack();
+        setLoading(false);
+
       }).catch(error => {
           console.log(error)
       });
@@ -113,6 +117,8 @@ const EditProfile = ({navigation}) => {
 
     return (
        <Wrapper>
+
+       
         <View style={{ flex: 1, marginBottom: -100}}> 
         <TouchableOpacity  onPress={onPressBack} style={{alignItems:'center',position:'absolute',top: 50, left:30, justifyContent: 'center',
           borderRadius:30 }}>
@@ -181,6 +187,11 @@ const EditProfile = ({navigation}) => {
 
         
         </View>
+
+
+        {isLoading &&  <View style={{ backgroundColor:'rgba(0,0,0,0.8)', alignItems:'center',     justifyContent: 'center' , width: width, height: height}}>
+       <ActivityIndicator  />
+     </View> }
 
         </Wrapper>
       );
