@@ -6,6 +6,8 @@ import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
+import { useIsFocused } from "@react-navigation/native";
+
 
 const ITEM_PER_ROW = 4;
 
@@ -55,11 +57,11 @@ function calculatedSize( item){
   
 const Profile = ({navigation}) => {
 
+    const isFocused = useIsFocused();
     const [name, setName] = React.useState('');
     const [shortDescription, setShortDescription] = React.useState('');
     const [description, setDescription] = React.useState('');
     const [city, setCity] = React.useState('');
-    const [interest, setInterest] = React.useState([]);
     const [pictures, setPictures] = React.useState([]);
     const [isSplit, setSplit] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
@@ -82,25 +84,19 @@ const Profile = ({navigation}) => {
     const [isFirstLoad, setIsFirstLoad] = React.useState(true);
 
     useEffect(() => {
+      console.log('inUseEffect')
         deviceStorage.loadProfile();
         if ( userProfile != null ){
             var profile = userProfile.profile;
-            console.log("use effect prof", profile[interest ])
             if (isFirstLoad) {
                 setName(userData['first_name'] + " " + userData['last_name']);
                 setShortDescription(profile['short_description'])
                 setDescription(profile['description'])
                 setCity(profile['city'])
-
-                let interests = profile['interest'].toString();
-                if (isSplit == false) {
-                    setInterest(interests.split(','))
-                    setSplit(true)
-                }
                 setPictures(profile['pictures'])
             }
         } 
-    });
+    }, [isFocused]);
     
     const scrollA = useRef(new Animated.Value(0)).current;
 
@@ -142,7 +138,7 @@ const Profile = ({navigation}) => {
                             )}
                           />
                     </View>
-                    <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: 50, right:20, justifyContent: 'center',
+                    <TouchableOpacity  onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: 50, right:20, justifyContent: 'center',
                     backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
                     <Icon name="close" color='#000000' size={25} />
                     </TouchableOpacity>  
@@ -175,7 +171,7 @@ const Profile = ({navigation}) => {
            
 
             <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10}}>
-                <Text style={styles.interestTitle}> Gallery</Text>
+                <Text style={styles.galleryTitle}> Gallery</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
                         pictures.map((e, i = 0) => {
@@ -193,7 +189,7 @@ const Profile = ({navigation}) => {
                             else {
                                 console.log(path)
                                 return(
-                                    <TouchableOpacity key={i} >
+                                    <TouchableOpacity key={i} onPress={() => setVisible(true)} >
                                     <Image key={i} source={{uri : path}}
                                     style={styles.galerryPictureB} />
                                     </TouchableOpacity>
@@ -304,22 +300,11 @@ const styles = StyleSheet.create({
         fontSize: 16,
         margin: 5
     },
-    interestTitle: {
+    galleryTitle: {
         color: "#FFFFFF",
         fontSize: 24,
         fontFamily: 'DIN Condensed',
         marginStart: 10,
-    },
-    interestItem: {
-        borderColor:"black",
-        alignItems: "center",
-        fontFamily: 'DIN Condensed',
-        fontSize: 30,
-        borderWidth:2,
-        borderRadius: 10,
-        paddingTop: 2,
-        margin: 5,
-        backgroundColor: "white"
     },
     itemText: {
         color: "black",

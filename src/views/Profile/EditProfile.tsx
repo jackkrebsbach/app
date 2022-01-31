@@ -1,7 +1,6 @@
-import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Platform,  Image, TouchableOpacity, ScrollView } from 'react-native';
+import React, {  useEffect, useState,  } from 'react';
+import { StyleSheet, Text, View,  Image, TouchableOpacity, ScrollView } from 'react-native';
 
-import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
@@ -17,7 +16,6 @@ const EditProfile = ({navigation}) => {
     const [shortDescription, setShortDescription] =  useState(userProfile.profile['short_description']);
     const [userId, setUserId] = useState(0);
     const [ressourcePath, setRessourcePath] = useState(userProfile.profile['pictures']);
-    const [selectedPhotoIndex, setSelectedPhotoIndex]=useState(0);
 
 
 
@@ -29,9 +27,8 @@ const EditProfile = ({navigation}) => {
 
 
     const onPressHandler = () => {
-
       UpdadteProfile(userId, city, story, ressourcePath).then((res) => {
-        console.log('success', res)
+        deviceStorage.loadProfile();
         navigation.goBack();
       }).catch(error => {
           console.log(error)
@@ -45,7 +42,6 @@ const EditProfile = ({navigation}) => {
   
 
     const onActionDeleteDone = index => {
-      console.log('test index', index)
       if (index > -1) {
         const array = ressourcePath;
         array.splice(index, 1);
@@ -84,22 +80,10 @@ const EditProfile = ({navigation}) => {
     
     }
 
-    const exists = (path) => {      
-      if (path.toString().includes("[")) {
-        console.log("photo does not exist", path.uri)
-        return false;
-      }
-      else {
-       console.log("true, photo already exist", path.toString())
-        return true;
-      }
-    }
-
     const renderListPhotos = (localPhotos) => {
-      console.log("rednderListPhotos", localPhotos)
       const photos = localPhotos.map((photo, index) => (
         
-          <View style={{marginTop:5}}>
+          <View  key={index} style={{marginTop:5}}>
           {
             !(photo.toString().includes("[")) 
             
@@ -112,7 +96,7 @@ const EditProfile = ({navigation}) => {
           onActionDeleteDone(index) 
         } 
         
-        key={index} style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
+        style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
           backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
           <Icon name="close" color='#D30000' size={15} />
           </TouchableOpacity>  
@@ -129,7 +113,7 @@ const EditProfile = ({navigation}) => {
 
     return (
        <Wrapper>
-        <View style={{ color:'white', flex: 1, marginBottom: -100}}> 
+        <View style={{ flex: 1, marginBottom: -100}}> 
         <TouchableOpacity  onPress={onPressBack} style={{alignItems:'center',position:'absolute',top: 50, left:30, justifyContent: 'center',
           borderRadius:30 }}>
         <Icon name="arrow-left-circle-outline" color='#FFFFFF' size={35} />
@@ -265,3 +249,6 @@ sectionContainer: {
 });
 
 export default EditProfile;
+
+
+

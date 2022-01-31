@@ -84,14 +84,13 @@ export  const CreateProfile = (userId, city, story, interest , files ) => {
 
 export  const UpdadteProfile = (userId, city, story, files ) => {
   const url = API_URL + "user/UpdateProfile";
-  console.log("CreateProfile- files", files.toString());
+  console.log("Update- files", files.toString());
   let formData = new FormData();  
 
   files.forEach((image) => {
     console.log("test", image.toString())
     if (image.uri != null) {
       console.log("image not null", image.uri)
-
     const file = {
       uri: image.uri,
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
@@ -100,10 +99,17 @@ export  const UpdadteProfile = (userId, city, story, files ) => {
     formData.append('files', file)
 
   }else {
-    formData.append('files', image)
-
+    console.log("image  null", image)
+    const file = {
+      uri: "http://api.rezafootwear.com:8080/" +image,
+      name: image,
+      type: 'image/jpeg'
+    };
+    formData.append('files', file)
   }
   });
+
+  console.log("files", formData)
   formData.append('city', city);
   formData.append('description', story);
   formData.append('user_id', userId);
