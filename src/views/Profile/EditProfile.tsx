@@ -27,7 +27,7 @@ const EditProfile = ({navigation}) => {
 
 
     const onPressHandler = () => {
-      UpdadteProfile(userId, city, story, ressourcePath).then((res) => {
+      UpdadteProfile(userId, city, story, shortDescription, ressourcePath).then((res) => {
         deviceStorage.loadProfile();
         navigation.goBack();
       }).catch(error => {
@@ -132,6 +132,8 @@ const EditProfile = ({navigation}) => {
             placeholder="Enter your city"
             defaultValue={city}
             value={city}
+            onChangeText = {t => setCity(t)}
+
             />
         </View>
 

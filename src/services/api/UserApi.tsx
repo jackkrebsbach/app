@@ -82,7 +82,7 @@ export  const CreateProfile = (userId, city, story, interest , files ) => {
 }
 
 
-export  const UpdadteProfile = (userId, city, story, files ) => {
+export  const UpdadteProfile = (userId, city, story, shortDescription, files ) => {
   const url = API_URL + "user/UpdateProfile";
   console.log("Update- files", files.toString());
   let formData = new FormData();  
@@ -109,10 +109,13 @@ export  const UpdadteProfile = (userId, city, story, files ) => {
   }
   });
 
-  console.log("files", formData)
   formData.append('city', city);
+  formData.append('short_description', shortDescription);
   formData.append('description', story);
   formData.append('user_id', userId);
+
+  console.log("testData", formData)
+
 
   return axios(url, {
     method: 'post',
