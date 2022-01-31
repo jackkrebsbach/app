@@ -28,7 +28,6 @@ const WelcomeB = ({navigation}) => {
     if (userData != null ) {
       console.log('test', userData);
       getProfile(userData['id']).then((res) => {
-        console.log("coucou je suis dedans", res)
         navigation.navigate('Home');
 
     }).catch(error => {

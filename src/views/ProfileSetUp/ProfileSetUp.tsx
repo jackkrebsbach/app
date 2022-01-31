@@ -118,6 +118,7 @@ const ProfileSetUp = ({navigation}) => {
             placeholder="Your Story"
             onChangeText = {t => setStory(t)}
             value = {story}
+            defaultValue ={userData['lyop']}
             />
         </View>
 
