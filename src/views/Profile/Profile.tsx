@@ -85,6 +85,9 @@ const Profile = ({navigation}) => {
 
     useEffect(() => {
       console.log('inUseEffect')
+
+      if (isFocused){
+        console.log('inFocuset')
         deviceStorage.loadProfile();
         if ( userProfile != null ){
             var profile = userProfile.profile;
@@ -96,6 +99,8 @@ const Profile = ({navigation}) => {
                 setPictures(profile['pictures'])
             }
         } 
+      }
+        
     }, [isFocused]);
     
     const scrollA = useRef(new Animated.Value(0)).current;
@@ -131,7 +136,7 @@ const Profile = ({navigation}) => {
                                 key={index}
                                 style={{ width: '100%', height: '100%', borderRadius: 30 }}
                                 resizeMode='contain'
-                                source={{uri: "http://api.rezafootwear.com:8080/" + pictures[index] }}
+                                source={{uri: "https://api.rezafootwear.com/" + pictures[index] }}
 
                               />
 
@@ -145,7 +150,7 @@ const Profile = ({navigation}) => {
           </ModalPoup>
             <View style={styles.bannerContainer}>
             <Animated.Image  
-            source={{uri: "http://api.rezafootwear.com:8080/" + pictures[0] }}
+            source={{uri: "https://api.rezafootwear.com/" + pictures[0] }}
             style={styles.banner(scrollA)}
             />
 
@@ -175,7 +180,7 @@ const Profile = ({navigation}) => {
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
                         pictures.map((e, i = 0) => {
-                            let path = "http://api.rezafootwear.com:8080/" + e;
+                            let path = "https://api.rezafootwear.com/" + e;
 
                             if ( i < 2) {
                                 return(

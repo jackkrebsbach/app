@@ -102,7 +102,7 @@ export  const UpdadteProfile = (userId, city, story, shortDescription, files ) =
   }else {
     console.log("image  null", image)
     const file = {
-      uri: "http://api.rezafootwear.com:8080/" +image,
+      uri: "https://api.rezafootwear.com/" +image,
       name: image,
       type: 'image/jpeg'
     };
@@ -114,9 +114,6 @@ export  const UpdadteProfile = (userId, city, story, shortDescription, files ) =
   formData.append('short_description', shortDescription);
   formData.append('description', story);
   formData.append('user_id', userId);
-
-  console.log("testData", formData)
-
 
   return axios(url, {
     method: 'post',

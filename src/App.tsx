@@ -31,27 +31,13 @@ import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb, Experiencec } from './views/Experience/';
 import deviceStorage from './services/storage/deviceStorage';
 import EditProfile from './views/Profile/EditProfile';
+import SplashScreen from './views/SplashScreen/SplashScreen';
 
 const App = () => {
 
   const Stack = createNativeStackNavigator();
-  const [isLoadingSplash, setIsLoadingSplash] = useState(true);
 
-  const init = (): void => {
-    setTimeout(async () => {
-      setIsLoadingSplash(false);
-    }, 10000);
-  };
-
-  useEffect(() => {
-    init();
-  }, []);
   const Tab =  createBottomTabNavigator();
-  useEffect(() => {
-      deviceStorage.loadJWT();
-      deviceStorage.loadUser();
-      deviceStorage.loadProfile();
-  }, []);
 
 
   function HomeTabs() {
@@ -118,11 +104,17 @@ const App = () => {
   }
 
   return (
-  <PaperProvider>
+  <PaperProvider  theme={DarkTheme}>
   <NavigationContainer theme={DarkTheme}>
     <Stack.Navigator screenOptions={{ headerShown: false,  animation: "slide_from_left",
+    gestureEnabled: false,
   }}
-    >      
+    >
+    
+    <Stack.Screen
+    name="SplashScreen"
+    component={SplashScreen}
+  />
       <Stack.Screen
         name="Welcome"
         component={Welcome}

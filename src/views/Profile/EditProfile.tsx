@@ -30,9 +30,10 @@ const EditProfile = ({navigation}) => {
     const onPressHandler = () => {
       setLoading(true);
       UpdadteProfile(userId, city, story, shortDescription, ressourcePath).then((res) => {
-        deviceStorage.loadProfile();
-        navigation.goBack();
-        setLoading(false);
+        deviceStorage.loadProfile();        
+          setLoading(false);
+
+        navigation.navigate("Profile");
 
       }).catch(error => {
           console.log(error)
@@ -92,7 +93,7 @@ const EditProfile = ({navigation}) => {
             !(photo.toString().includes("[")) 
             
             ? 
-                <Image style={styles.photo} source={{uri: "http://api.rezafootwear.com:8080/" + photo }} />
+                <Image style={styles.photo} source={{uri: "https://api.rezafootwear.com/" + photo }} />
             : <Image style={styles.photo} source={{uri:  photo.uri }} />
 
           }

@@ -1,1 +1,1 @@
-export const API_URL = 'http://api.rezafootwear.com:8080/api/';
+export const API_URL = 'https://api.rezafootwear.com/api/';
