@@ -9,7 +9,7 @@ const deviceStorage = {
     // our AsyncStorage functions will go here :)
     async saveItem(key, value) {
         try {
-          console.log("saving user:", value);
+          console.log("savin:", value);
           await AsyncStorage.setItem(key, value);
         } catch (error) {
           console.log('AsyncStorage Error: ' + error.message);
@@ -56,7 +56,7 @@ const deviceStorage = {
         try {
             let data = await AsyncStorage.getItem("user_profile");
             userProfile = JSON.parse(data);
-            console.log("userProfile")
+            console.log("userProfile", data);
 
           } catch (error) {
             console.log("Something went wrong", error);

@@ -6,7 +6,7 @@ import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { UpdadteProfile } from '../../services/api/UserApi';
+import { UpdateProfile, getProfile } from '../../services/api/UserApi';
 import { ActivityIndicator, Alert } from "react-native";
 const {width, height} = Dimensions.get('window');
 const EditProfile = ({navigation}) => { 
@@ -21,19 +21,19 @@ const EditProfile = ({navigation}) => {
 
 
     useEffect(() => {
-      deviceStorage.loadUser();
-      deviceStorage.loadProfile();
       setUserId(userData['id']);
     }) 
 
 
     const onPressHandler = () => {
       setLoading(true);
-      UpdadteProfile(userId, city, story, shortDescription, ressourcePath).then((res) => {
-        deviceStorage.loadProfile();        
-          setLoading(false);
+      UpdateProfile(userId, city, story, shortDescription, ressourcePath).then((res) => {
 
-        navigation.navigate("Profile");
+        getProfile(userId).then((res) => {
+          setLoading(false);
+          navigation.navigate("Profile");
+          })
+         
 
       }).catch(error => {
           console.log(error)

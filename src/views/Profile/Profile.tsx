@@ -71,12 +71,11 @@ const Profile = ({navigation}) => {
     const onPressHandler = () => {
         deviceStorage.deleteProfile();
         deviceStorage.deleteUser();
-        console.log("profile",userProfile,userData )
         navigation.navigate('Welcome');
       };
 
       const onPressEdit = () => {
-        deviceStorage.loadProfile();
+        // deviceStorage.loadProfile();
         navigation.navigate('EditProfile');
       };
     
@@ -84,21 +83,23 @@ const Profile = ({navigation}) => {
     const [isFirstLoad, setIsFirstLoad] = React.useState(true);
 
     useEffect(() => {
-      console.log('inUseEffect')
-
       if (isFocused){
         console.log('inFocuset')
-        deviceStorage.loadProfile();
-        if ( userProfile != null ){
-            var profile = userProfile.profile;
-            if (isFirstLoad) {
+        deviceStorage.loadProfile().then( response => {
+ if ( userProfile != null ){
+                var profile = userProfile.profile;
+                console.log('userProfile !-',profile )
                 setName(userData['first_name'] + " " + userData['last_name']);
                 setShortDescription(profile['short_description'])
                 setDescription(profile['description'])
                 setCity(profile['city'])
                 setPictures(profile['pictures'])
-            }
+            
         } 
+        }
+         
+        )
+        
       }
         
     }, [isFocused]);
@@ -192,7 +193,6 @@ const Profile = ({navigation}) => {
                                 )
                             }
                             else {
-                                console.log(path)
                                 return(
                                     <TouchableOpacity key={i} onPress={() => setVisible(true)} >
                                     <Image key={i} source={{uri : path}}

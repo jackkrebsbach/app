@@ -5,10 +5,8 @@ import { token  } from './Authentication';
 
 
 
-export const getProfile = (userId) => {
+export const getProfile = async (userId) => {
     const url = API_URL + "user/getProfile";
-    console.log("getProfile", userId);
-
      return axios(url, {
         method: 'post',
         headers: {
@@ -18,8 +16,7 @@ export const getProfile = (userId) => {
         data: {user_id: userId}
     })
         .then(response => {
-        console.log("dans la boucle");
-        console.log(response.data);
+        console.log('getProfile', response.data);
         const userProfile = response.data
         deviceStorage.saveItem("user_profile", JSON.stringify(userProfile));
         return response.data;
@@ -48,7 +45,7 @@ export const getProfile = (userId) => {
 };
 
 
-export  const CreateProfile = (userId, city, story, shortDescription , files ) => {
+export  const CreateProfile = async (userId, city, story, shortDescription , files ) => {
   const url = API_URL + "user/CreateProfile";
   
   console.log("CreateProfile- files",userId, city,story, shortDescription, files.toString());
@@ -67,7 +64,7 @@ export  const CreateProfile = (userId, city, story, shortDescription , files ) =
   formData.append('description', story);
   formData.append('user_id', userId);
 
-  return axios(url, {
+  return await axios(url, {
     method: 'post',
     headers: {
       'content-type': 'multipart/form-data; charset=UTF-8',
@@ -75,7 +72,6 @@ export  const CreateProfile = (userId, city, story, shortDescription , files ) =
   },    data:formData
 }) .then(response => {
   console.log("Update !");
-     getProfile(userId);
   return response.data;
   }).catch(error => {
     console.log('error', JSON.stringify(error));
@@ -83,9 +79,8 @@ export  const CreateProfile = (userId, city, story, shortDescription , files ) =
 }
 
 
-export  const UpdadteProfile = (userId, city, story, shortDescription, files ) => {
+export  const UpdateProfile = async (userId, city, story, shortDescription, files ) => {
   const url = API_URL + "user/UpdateProfile";
-  console.log("Update- files", files.toString());
   let formData = new FormData();  
 
   files.forEach((image) => {
@@ -115,15 +110,13 @@ export  const UpdadteProfile = (userId, city, story, shortDescription, files ) =
   formData.append('description', story);
   formData.append('user_id', userId);
 
-  return axios(url, {
+  return await axios(url, {
     method: 'post',
     headers: {
       'content-type': 'multipart/form-data; charset=UTF-8',
       "Access-Control-Allow-Origin": "*",
   },    data:formData
 }) .then(response => {
-  console.log("updatedProfile !");
-     getProfile(userId);
   return response.data;
   }).catch(error => {
     console.log('error', JSON.stringify(error));

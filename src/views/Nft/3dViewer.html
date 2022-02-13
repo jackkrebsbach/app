@@ -11,7 +11,7 @@
         <script id="decoder_script" type="text/javascript" src="https://admin.expivi.net/assets/vendors/draco/draco_decoder.js"></script>
 </head>
 <body style="width: 100%;height: 100%;margin:0;padding:0; background-color:black;">
-<div id="viewerContainer" style="width: 100%;height: 600px;"></div>
+<div id="viewerContainer" style="width: 100%;height: 100%; background-color:black;"></div>
 <script type="text/javascript">
 var apiToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk0MzkyYzdlNDIwMDFhNjAwM2Q1NDdhYTFmNWNjMGYyNzc5MmRmNDA0Yzk1N2VmZGU2N2VjZTM5OWExNDM3MmE4NTA5NDM0NzgxNDYzZDdlIn0.eyJhdWQiOiIxIiwianRpIjoiOTQzOTJjN2U0MjAwMWE2MDAzZDU0N2FhMWY1Y2MwZjI3NzkyZGY0MDRjOTU3ZWZkZTY3ZWNlMzk5YTE0MzcyYTg1MDk0MzQ3ODE0NjNkN2UiLCJpYXQiOjE2NDQ1OTI3NzUsIm5iZiI6MTY0NDU5Mjc3NSwiZXhwIjoxOTYwMTI1NTc0LCJzdWIiOiIzMjQ4Iiwic2NvcGVzIjpbXX0.d-AJIb8RVQ0fE0MfN2pgN2kkZruOVyNWwG0AvVkbWp7_6VBC0kx18QAxR4Wb6DpvA8QbxW2k3x8wbtbQf5vpyad8vyXIzifUqKojWz99LcybaCYTvmNhCraEPEkzuA-19n2Twb6-4aWugyoUgO8n6ROi983H-XQnZr2C5zSWaYpp-SB7Ke2BRV-dcbcN4eed5hpB1BE8rISlldMq-MMuAcCwg9lMdpd40nFUDjIsY4anvKX-Ig-fjF4VEPvF39OyYFkHC31Z0HWVogDvp84vXJ92wrvIRfyzTAxQelUk85xW0dN5LOd-fjyoQUmEkt6-81EBkWD9kLKW8RkGPY98d-3ClAWSWPgcVJRaFk4AGYYQIxrwGPoEV0XbR0wgIpUHP-XVMLxKkps_679KPYc-BXdnbfvFDjFeWEvenoX66oWhmJ2eKKzoUGKdRsWxdK1m6i5UNqaqT0ZbDBfjJeSj4AnBPjCWSrcu2DYWBf8Nwxn_NR7qW2o2L7zl2wJXNynKaqKOzN74ZIroij-Rzu3W9Mgtbkv4KDA99VUlSBKvCxBhBxMaEldd26Pfpjzt_t39R-APMc4esHAfVMJdDMTD7P0glkxULYCXC1t0WX_xvkR5Ood5wdw9Mur54JMhjalj9LHFJk79iXbIZG5Xk-Rbp-SQK2Z5UD3Tyr5_xk1EUI4';
 window.addEventListener('load', function () {
@@ -23,10 +23,8 @@ Create expivi viewer
 @param showDropdownCamera boolean
 **/
 window.expivi._create(apiToken,
-
 12272,
 "#viewerContainer", {
-show360Indicator: true
 });
 
 /**
