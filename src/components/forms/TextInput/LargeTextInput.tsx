@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
               placeholder= {props.placeholder}
               placeholderTextColor ="grey"
               multiline={true}
+              returnKeyType={ 'done' }
               underlineColorAndroid="transparent"
               secureTextEntry={props.secureTextEntry}
           />

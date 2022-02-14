@@ -52,7 +52,7 @@ const NftView = ({navigation}) => {
     <View style={{ flex: 1}}> 
     <TouchableOpacity  onPress={onPressBack} style={{alignItems:'center',position:'absolute',top: 50, left:30, justifyContent: 'center',
     borderRadius:30 }}>
-  <Icon name="arrow-left-circle-outline" color='#FFFFFF' size={35} />
+  <Icon name="arrow-left" color='#FFFFFF' size={35} />
   </TouchableOpacity> 
   <Text  style={styles.pageTitle} > My nft </Text>
     </View>
