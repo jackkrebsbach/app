@@ -6,21 +6,16 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 const styles = StyleSheet.create({
 
     container: {
-      position: 'absolute',
-      flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
       width: 300,
-      height: 100
     },
     
     SectionStyle: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      backgroundColor: '#fff',
-      borderWidth: .5,
-      borderColor: '#000',
+      backgroundColor: '#ffffff',
       height: 50,
       borderRadius: 50,
       margin: 10

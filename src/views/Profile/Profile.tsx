@@ -7,6 +7,7 @@ import deviceStorage, { userData, userProfile } from '../../services/storage/dev
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useIsFocused } from "@react-navigation/native";
+import { LinearTextGradient } from "react-native-text-gradient";
 
 
 const ITEM_PER_ROW = 4;
@@ -65,6 +66,7 @@ const Profile = ({navigation}) => {
     const [pictures, setPictures] = React.useState([]);
     const [isSplit, setSplit] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
+    const [profilePicture, setProfilePicture] =  React.useState([]);
 
 
 
@@ -94,7 +96,7 @@ const Profile = ({navigation}) => {
                 setDescription(profile['description'])
                 setCity(profile['city'])
                 setPictures(profile['pictures'])
-            
+                setProfilePicture(profile['profile_picture'])
         } 
         }
          
@@ -151,7 +153,8 @@ const Profile = ({navigation}) => {
           </ModalPoup>
             <View style={styles.bannerContainer}>
             <Animated.Image  
-            source={{uri: "https://api.rezafootwear.com/" + pictures[0] }}
+            resizeMode='stretch'
+            source={{uri: "https://api.rezafootwear.com/" + profilePicture[0] }}
             style={styles.banner(scrollA)}
             />
 
@@ -160,15 +163,20 @@ const Profile = ({navigation}) => {
             <View style={{ marginTop: 25, marginBottom: 5}}>
             <View  style={{ marginBottom: 25,  justifyContent: 'center', alignItems: 'center' }}>
             <Text style={styles.name}> {name}</Text>
+
+
+              <LinearTextGradient
+              locations={[0, 1]}
+              colors={["#ffffff", "#2A658F"]}
+              start={{ x: 0, y: 1 }}
+              end={{ x: 1, y: 0 }}
+            >
             <Text style={styles.shortDescription}> {shortDescription}</Text>
+            </LinearTextGradient>
             <Text style={styles.location}> {city}</Text>
             </View>
-           
-        
-
-
             <View style={{ marginBottom: 25}}>
-
+            <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
             <Text style={styles.desription}> {description}</Text>
             </View>
                     
@@ -177,7 +185,7 @@ const Profile = ({navigation}) => {
            
 
             <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10}}>
-                <Text style={styles.galleryTitle}> Gallery</Text>
+                <Text style={styles.galleryTitle}> gallery</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
                         pictures.map((e, i = 0) => {
@@ -251,19 +259,12 @@ const styles = StyleSheet.create({
     },
     name: {
         color: "white",
-        fontFamily: 'DIN Condensed',
         textTransform: 'uppercase',
-        fontSize: 40,
-        letterSpacing: 2.5,
-        marginStart: 5,
-
+        fontSize: 25,
+        letterSpacing: 3,
     },
     shortDescription: {
-        color: "#D30000",
-        fontFamily: 'DIN Alternate',
-        fontStyle:'italic',
-        fontSize: 15,
-        marginStart: 12,
+        fontSize: 13,
         textTransform: 'uppercase',
 
     },
@@ -271,40 +272,36 @@ const styles = StyleSheet.create({
         color: "#FFFFFF",
         fontFamily: 'DIN Alternate',
         fontSize: 15,
-        marginStart: 12,
         marginTop:5,
         textTransform: 'uppercase',
 
     },
+    lmop: {
+      color: "#FFFFFF",
+      fontStyle: 'italic',
+      fontSize: 17,
+      marginStart: 12,
+      marginTop:5,
+      textTransform: 'uppercase',
+
+  },
     bannerContainer: {
         alignItems: 'center',
+        width:width,
         overflow: 'hidden',
         marginTop: -1000,
         paddingTop: 1000,
       },
     desription: {
         color: "white",
-        fontFamily: 'DIN Condensed',
+        letterSpacing:1,
         fontSize: 20,
-        marginStart: 12,
-        marginEnd: 10,
-        margin: 5,
-    },
-    lyop: {
-      color: "#D30000",
+        marginStart: 15,
+        marginEnd: 15,
+        marginTop: 20,
         fontFamily: 'DIN Condensed',
-        fontSize: 25,
-        marginStart: 12,
-        marginEnd: 10,
-        margin: 5,
+        textAlign:'center',
         textTransform: 'uppercase',
-
-    },
-    distance: {
-        color: "red",
-        fontFamily: 'DIN Condensed',
-        fontSize: 16,
-        margin: 5
     },
     galleryTitle: {
         color: "#FFFFFF",
@@ -320,7 +317,7 @@ const styles = StyleSheet.create({
     },  
     banner: scrollA => ({
         height: BANNER_H,
-        width: '100%',
+        width: width,
         transform: [
           {
             translateY: scrollA.interpolate({

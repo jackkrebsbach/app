@@ -27,12 +27,12 @@ const styles = StyleSheet.create({
 
   text: {
     fontFamily: 'DIN Condensed',
-
     marginLeft: 20,
     fontSize: 20,
   },
   textInput: {
     fontFamily: 'DIN Condensed',
+    textTransform: 'uppercase',
     fontSize: 20,
     width: 100,
     top:10,

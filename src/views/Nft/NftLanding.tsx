@@ -108,7 +108,7 @@ const NftLanding = ({navigation}) => {
 </ModalPoup>
     <View style={{ flex: 1 }}> 
       <Logo /> 
-      <View style={{ position:'absolute', justifyContent: 'center', alignItems: 'center',  marginTop:10}}>
+      <View style={{ position:'absolute', justifyContent: 'center', alignItems: 'center',  top:50}}>
 
       <TextDescription style={{alignItems: 'center', justifyContent: 'center'}}>
       {name}

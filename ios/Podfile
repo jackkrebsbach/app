@@ -12,6 +12,8 @@ target 'rezaApp' do
     :hermes_enabled => false
   )
 
+  pod 'RNTextGradientView', :path => '../node_modules/react-native-text-gradient'
+
   target 'rezaAppTests' do
     inherit! :complete
     # Pods for testing

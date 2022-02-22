@@ -79,10 +79,33 @@ export  const CreateProfile = async (userId, city, story, shortDescription , fil
 }
 
 
-export  const UpdateProfile = async (userId, city, story, shortDescription, files ) => {
+export  const UpdateProfile = async (userId, profilePicture, city, story, shortDescription,files ) => {
+  // console.log('i am here');
   const url = API_URL + "user/UpdateProfile";
   let formData = new FormData();  
 
+  profilePicture.forEach((image) => {
+    console.log("profile_picture", image.toString())
+    if (image.uri != null) {
+      console.log("image not null", image.uri)
+    const file = {
+      uri: image.uri,
+      name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
+      type: 'image/jpeg'
+    };
+    formData.append('profile_picture', file)
+
+  }else {
+    console.log("image  null", image)
+    const file = {
+      uri: "https://api.rezafootwear.com/"+image,
+      name: image,
+      type: 'image/jpeg'
+    };
+    formData.append('profile_picture', file)
+  }
+  });
+  
   files.forEach((image) => {
     console.log("test", image.toString())
     if (image.uri != null) {
@@ -97,7 +120,7 @@ export  const UpdateProfile = async (userId, city, story, shortDescription, file
   }else {
     console.log("image  null", image)
     const file = {
-      uri: "https://api.rezafootwear.com/" +image,
+      uri: "https://api.rezafootwear.com/"+image,
       name: image,
       type: 'image/jpeg'
     };

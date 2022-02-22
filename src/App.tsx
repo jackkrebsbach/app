@@ -7,10 +7,9 @@
  *
  * @format
  */
-import React, { useState, useEffect}  from 'react';
+import React  from 'react';
 import {
   NavigationContainer,
-  DefaultTheme,
   DarkTheme} from '@react-navigation/native';
   import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
@@ -29,7 +28,6 @@ import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
 import ProfileInterest from './views/ProfileSetUp/ProfileInterest'
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb, Experiencec } from './views/Experience/';
-import deviceStorage from './services/storage/deviceStorage';
 import EditProfile from './views/Profile/EditProfile';
 import SplashScreen from './views/SplashScreen/SplashScreen';
 
@@ -66,7 +64,7 @@ const App = () => {
             focused ? 
           <View style={{alignItems:'center', top: -20,justifyContent: 'center',
            backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
-           <Icon name="user" color='#D30000' size={25} />
+           <Icon name="user" color='#0076BA' size={25} />
            </View> 
 
            : 
@@ -81,7 +79,7 @@ const App = () => {
           focused ? 
           <View style={{alignItems:'center',top: -20, justifyContent: 'center',
            backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
-           <Icon name="home" color='#D30000' size={25} />
+           <Icon name="home" color='#0076BA' size={25} />
            </View>  
 
            : 
@@ -93,7 +91,7 @@ const App = () => {
         focused ? 
         <View style={{alignItems:'center', justifyContent: 'center',top: -20,
          backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
-         <Icon name="support" color='#D30000' size={25} />
+         <Icon name="support" color='#478EBB' size={25} />
          </View> 
 
          : 

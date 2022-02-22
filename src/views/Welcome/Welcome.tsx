@@ -9,6 +9,8 @@ import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import { getProfile } from '../../services/api/UserApi';
+import { LinearTextGradient } from "react-native-text-gradient";
+
 
 const Welcome = ({navigation}) => {
 
@@ -25,15 +27,20 @@ const Welcome = ({navigation}) => {
 
     if (userData != null ) {
       console.log('test', userData);
-      getProfile(userData['id']).then((res) => {
-        console.log("coucou je suis dedans", res)
-        navigation.navigate('Home');
-        deviceStorage.loadProfile();
 
-    }).catch(error => {
-      navigation.navigate('ProfileSetUp');   
-        console.log(error)
-    }); 
+      if (userProfile !== null ) {
+        navigation.navigate('Home');
+          }
+          else { 
+            getProfile(userData['id']).then((res) => {
+            navigation.navigate('Home');
+            deviceStorage.loadProfile();
+
+        }).catch(error => {
+          navigation.navigate('ProfileSetUp');   
+            console.log(error)
+        }); 
+  }
     } 
    else { navigation.navigate('WelcomeB');}
   };
@@ -48,25 +55,43 @@ const Welcome = ({navigation}) => {
     resizeMode={'cover'}
     ignoreSilentSwitch={'obey'}
   />
-    <View style={{ flex: 1, } }> 
+    <View style={{ flex: 1 } }> 
     <Logo /> 
 
-    <TextDescription style={{ position:'absolute',width:'100%', top: 160, textAlign: 'center', lineHeight:40}}>
-      REZA is a community aimed to connect and inspire.
-      </TextDescription>
+    <LinearTextGradient
+    style={{ position:'absolute',width:'100%', top: 200}}
+    locations={[0, 1]}
+    colors={["#ffffff", "#0076BA"]}
+    start={{ x: 0, y: 0 }}
+    end={{ x: 1, y: 0 }}
+  >
+    <Title style={{ textAlign: 'center'}}>
+    REZA is a footwear brand and community aimed to connect and inspire.
+    </Title>
+</LinearTextGradient>
+   
     </View>
         <View style={{ flex: 3,justifyContent: 'center', //Centered vertically
         alignItems: 'center', }}>
         
         </View>
         <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
-        <TextDescription style={{  fontFamily:'DIN Alternate', position:'absolute',fontSize: 22.5, bottom: 185, textAlign: 'center', left: 10}}>
+        <TextDescription style={{  fontFamily:'DIN Alternate',fontSize: 22.5, bottom: 185,}}>
         WELCOME TO THE  
          </TextDescription>
-        <TextDescription style={{ position:'absolute', bottom: 150, paddingLeft: 21,
-        paddingRight: 15}}>
+
+         <LinearTextGradient
+         style={{ position:'absolute', bottom: 165}}
+         locations={[0, 1]}
+         colors={["#ffffff", "#478EBB"]}
+         start={{ x: 0, y: 0 }}
+         end={{ x: 1, y: 0 }}
+       >
+        <TextDescription>
+        
         Founders Edition Experience.       
          </TextDescription>
+         </LinearTextGradient>
         <ButtonWrapper  styles={{ paddingTop: 50}}  >
           <Button onPress={onPressHandler}   title="NEXT" />
         </ButtonWrapper>
@@ -94,15 +119,21 @@ const styles = StyleSheet.create({
 
 
 export const TextDescription = styled.Text`
-  letterSpacing: 1.5px;
-  fontStyle: normal;
-  lineHeight: 45px;
-  paddingLeft: 30px;
-  paddingRight: 25px;
-  width:'100%';
+  letterSpacing:0.5px;
+  fontStyle: italic;
   width: 350px;
-  fontSize: 30px;
-  fontFamily: 'DIN Condensed'
+  text-transform: uppercase;
+  fontSize: 15px;
   color: #ffffff;
+  textAlign: center;
+  position: absolute;
 `;
 
+
+export const Title = styled.Text`
+  fontStyle: italic;
+  paddingLeft: 4.5px;
+  paddingRight: 4.5px;
+  text-transform: uppercase;
+  fontSize: 17px;
+`;

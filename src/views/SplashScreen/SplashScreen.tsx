@@ -18,7 +18,7 @@ const SplashScreen = ({navigation}) => {
           deviceStorage.loadProfile();
           setTimeout(() => {
             navigation.navigate('Welcome')
-          }, 4000);
+          }, 3200);
     
       }, []);
 

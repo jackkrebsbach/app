@@ -8,6 +8,7 @@ import deviceStorage, { userData, userProfile } from '../../services/storage/dev
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { UpdateProfile, getProfile } from '../../services/api/UserApi';
 import { ActivityIndicator, Alert } from "react-native";
+import { Title } from 'react-native-paper';
 const {width, height} = Dimensions.get('window');
 const EditProfile = ({navigation}) => { 
 
@@ -16,6 +17,8 @@ const EditProfile = ({navigation}) => {
     const [shortDescription, setShortDescription] =  useState(userProfile.profile['short_description']);
     const [userId, setUserId] = useState(0);
     const [ressourcePath, setRessourcePath] = useState(userProfile.profile['pictures']);
+    const [profilePath, setprofilePath] = useState(userProfile.profile['profile_picture']);
+
     const [isLoading, setLoading] = React.useState(false);
 
 
@@ -27,11 +30,13 @@ const EditProfile = ({navigation}) => {
 
     const onPressHandler = () => {
       setLoading(true);
-      UpdateProfile(userId, city, story, shortDescription, ressourcePath).then((res) => {
+      UpdateProfile(userId,profilePath ,city, story, shortDescription, ressourcePath).then((res) => {
 
         getProfile(userId).then((res) => {
           setLoading(false);
-          navigation.navigate("Profile");
+          //navigation.navigate("Profile");
+          navigation.goBack();
+
           })
          
 
@@ -85,6 +90,60 @@ const EditProfile = ({navigation}) => {
     
     }
 
+    const pickProfilePicture = () => {
+      let imageList = [];
+          ImagePicker.openPicker({
+            multiple: true,
+            forceJpg: true,
+            compressImageMaxHeight: 1024,
+            compressImageMaxWidth: 1024,
+            compressImageQuality: 0.8,
+            maxFiles: 10,
+            includeBase64: true,
+            mediaType: 'photo'
+          }).then(images => {
+            images.map( i => {
+              imageList.push({
+                filename: i.filename,
+                uri: i.path,
+                type: i.mime || 'image/jpeg'
+              })
+            })
+            setprofilePath(imageList);
+            console.log("pick", profilePath);
+          }).catch(error => {
+            console.log(JSON.stringify(error));
+          });
+
+
+    
+    }
+
+    const renderProfilePicture = (profilePicture) => {
+
+
+    if (profilePicture.toString().includes("[")){
+      console.log('profilePicture!!', profilePicture.uri);
+      return  (
+        <Image 
+        resizeMode="stretch"
+        style={styles.profilePicture}
+      source={{uri: profilePicture[0].uri}}
+      />
+      )
+    }
+
+    else return (
+      <Image 
+      style={styles.profilePicture}
+      resizeMode="stretch"
+
+      source={{uri: 'https://api.rezafootwear.com/'+ profilePicture[0]}}
+      />
+      )
+     
+    }
+
     const renderListPhotos = (localPhotos) => {
       const photos = localPhotos.map((photo, index) => (
         
@@ -103,17 +162,17 @@ const EditProfile = ({navigation}) => {
         
         style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
           backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
-          <Icon name="close" color='#D30000' size={15} />
+          <Icon name="close" color='#0076BA' size={15} />
           </TouchableOpacity>  
           </View>
-         
-          
-        
       )
       
       );
       return photos;
     }
+
+
+
 
 
     return (
@@ -131,7 +190,22 @@ const EditProfile = ({navigation}) => {
         <View style={{ flex: 3}}> 
 
         <ScrollView>
+        <View>
+        <TouchableOpacity onPress={ () =>
+          pickProfilePicture()
+        } 
 
+        style={{alignItems:'center', justifyContent: 'center',
+           borderRadius:30 }}>
+
+           {renderProfilePicture(profilePath)}
+           
+           
+           
+          </TouchableOpacity>         
+          
+          
+          </View>
         <View>
             <Text style={styles.title}> City </Text>
             <ProfileTextInput
@@ -140,11 +214,8 @@ const EditProfile = ({navigation}) => {
             defaultValue={city}
             value={city}
             onChangeText = {t => setCity(t)}
-
             />
-        </View>
 
-        <View>
         <Text style={styles.title}> Describe yourself </Text>
         <ProfileTextInput
         style={styles.textInput}
@@ -154,9 +225,8 @@ const EditProfile = ({navigation}) => {
         onChangeText = {t => setShortDescription(t)}
         value = {shortDescription}
         />
-       </View>
-        <View>
-            <Text style={styles.title}> Share your story </Text>
+        
+         <Text style={styles.title}> Share your story </Text>
 
             <LargeTextInput
             style={styles.textInput}     
@@ -167,9 +237,9 @@ const EditProfile = ({navigation}) => {
             />
         </View>
 
-        <View style={{marginTop: 20}} >
-        <Text style={styles.title}> My photos </Text>
-        <View style={{marginStart: 30}}>
+        <View style={{marginTop: 30}} >
+        <Text style={styles.title}> Gallery </Text>
+        <View style={{marginStart: 35}}>
         <ScrollView style={styles.photoList} horizontal={true}>
         {renderListPhotos(ressourcePath)}
         <TouchableOpacity style={{marginTop: 5}} onPress={pickPictures}>
@@ -206,26 +276,32 @@ const styles = StyleSheet.create({
   textInput: {
       marginStart: 25,
       height: 100,
+      textTransform: 'uppercase',
       fontFamily: 'DIN Condensed',
   },
   title: {
-      color: "#D30000",
-      fontSize: 24,
-      fontFamily: 'DIN Condensed',
-      marginStart: 30,
-      margin: 5,
+      color: "#FFFFFF",
+      textTransform: 'uppercase',
+      fontSize: 17,
+      fontStyle:'italic',
+      marginStart: 40,
   },
   pageTitle: {
     color: "white",
-    fontSize: 36,
-    fontFamily: 'DIN Condensed',
+    fontSize: 30,
     margin: 5,
     textTransform: 'uppercase',
     width: 200, 
     alignItems:'center',
     position:'absolute',
     top: 50,
-    left:120, 
+    left:100, 
+},
+profilePicture: {
+  marginBottom:10,
+  width: 120, 
+  height: 120, 
+  borderRadius: 120 /2
 },
   picture: {
     width: 105, 
@@ -252,7 +328,7 @@ addButton: {
   backgroundColor: '#FFFFFF'
 },
 addButtonText: {
-  color: "#D30000",
+  color: "#0076BA",
   fontFamily: 'DIN Condensed',
   fontSize: 48
 },
