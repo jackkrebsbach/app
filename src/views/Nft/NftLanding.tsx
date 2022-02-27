@@ -81,27 +81,27 @@ const NftLanding = ({navigation}) => {
   return (
     <Wrapper style={{backgroundColor: '#000000'}}>
 
-  <ModalPoup transparent visible={visible} style={{width:'100%'}}>
+  <ModalPoup transparent={true} visible={visible} style={{width:'100%'}}>
 
  
   <View style={{alignItems: 'center'}}>
 
 
-  <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: -6, left: -20, justifyContent: 'center', width:50, height: 50, borderRadius:30 }}>
-  <Icon name="close" color='#000000' size={25} />
+  <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: -6, left: -45, justifyContent: 'center', width:50, height: 50, borderRadius:30 }}>
+  <Icon name="close-circle-outline" color='#fff' size={40} />
   </TouchableOpacity>  
 
   
     <Image
       source={require('../../assets/qr_code.png')}
-      resizeMode='auto'
-      style={{backgroundColor:'black', height:300 , width: '100%', marginTop:25}}
+      resizeMode='contain'
+      style={{ height:300 , width: '100%', marginTop:25}}
     />
 
 
   </View>
 
-  <Text style={{  fontFamily: 'DIN Condensed',  marginVertical: 10, fontSize: 20, textAlign: 'center'}}>
+  <Text style={{  fontFamily: 'DIN Condensed', letterSpacing: 1, color:'#fff',  marginVertical: 10, fontSize: 30, textAlign: 'center'}}>
     Share our community
   </Text>
 
@@ -156,7 +156,6 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: '70%',
-    backgroundColor: 'white',
     paddingHorizontal: 20,
     borderRadius: 20,
     elevation: 20,
