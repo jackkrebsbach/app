@@ -3,7 +3,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 
 const StyledButton = styled.TouchableHighlight`
- background-color:${props => (props.transparent ? 'transparent' : '#478EBB')};
+ background-color:${props => (props.transparent ? 'transparent' : '#0076BA')};
  border:${props => (props.transparent ? '1px solid #f3f8ff ' : 0)}
  justify-content:center;
  border-radius:24px

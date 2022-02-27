@@ -153,7 +153,7 @@ const Profile = ({navigation}) => {
           </ModalPoup>
             <View style={styles.bannerContainer}>
             <Animated.Image  
-            resizeMode='stretch'
+            resizeMode='contain'
             source={{uri: "https://api.rezafootwear.com/" + profilePicture[0] }}
             style={styles.banner(scrollA)}
             />
@@ -316,24 +316,23 @@ const styles = StyleSheet.create({
         margin: 5,
     },  
     banner: scrollA => ({
-        height: BANNER_H,
-        width: width,
-        transform: [
-          {
-            translateY: scrollA.interpolate({
-              inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
-              outputRange: [-BANNER_H / 2, 0, BANNER_H * 0.75, BANNER_H * 0.75],
-            }),
-          },
-          {
-            scale: scrollA.interpolate({
-              inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
-              outputRange: [2, 1, 0.5, 0.5],
-            }),
-          },
-        ],
-      })
-
+      height: BANNER_H,
+      width: '100%',
+      transform: [
+        {
+          translateY: scrollA.interpolate({
+            inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
+            outputRange: [-BANNER_H / 2, 0, BANNER_H * 0.75, BANNER_H * 0.75],
+          }),
+        },
+        {
+          scale: scrollA.interpolate({
+            inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
+            outputRange: [2, 1, 0.5, 0.5],
+          }),
+        },
+      ],
+    })
 
 });
 

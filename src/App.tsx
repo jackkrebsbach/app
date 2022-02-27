@@ -15,7 +15,7 @@ import {
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {View} from 'react-native';
+import {View, StatusBar} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
@@ -46,7 +46,6 @@ const App = () => {
       initialRouteName="NftLanding"
       screenOptions={{
         tabBarShowLabel: false,
-        
         headerShown: false,
         tabBarStyle: {
           position: 'absolute',
@@ -91,7 +90,7 @@ const App = () => {
         focused ? 
         <View style={{alignItems:'center', justifyContent: 'center',top: -20,
          backgroundColor: 'white', width:50, height: 50, borderRadius:30 }}>
-         <Icon name="support" color='#478EBB' size={25} />
+         <Icon name="support" color='#0076BA' size={25} />
          </View> 
 
          : 
@@ -102,7 +101,7 @@ const App = () => {
   }
 
   return (
-  <PaperProvider  theme={DarkTheme}>
+  <PaperProvider >
   <NavigationContainer theme={DarkTheme}>
     <Stack.Navigator screenOptions={{ headerShown: false,  animation: "slide_from_left",
     gestureEnabled: false,

@@ -1,24 +1,15 @@
-import React, { Component, FunctionComponent, useEffect } from 'react';
-import { StyleSheet, Image, View, TouchableOpacity, Text} from 'react-native';
-import { Linking, Platform } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React from 'react';
+import { StyleSheet, Image, View, TouchableOpacity, Text, Dimensions} from 'react-native';
+import { Linking } from 'react-native';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import {Button, TextInputc} from '@components/forms';
-import {CustomTabBar} from '../../components/TabBar/CustomTabBar';
-import {Title} from '@components/Text';
-import styled from 'styled-components/native';
-import { background, position } from 'native-base/lib/typescript/theme/styled-system';
-import deviceStorage, {userData} from '../../services/storage/deviceStorage';
+import {Button} from '@components/forms';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import {Logo} from '@components/Logo';
 
+const {width, height} = Dimensions.get('window');
 
 const NftView = ({navigation}) => {
 
-  const [nftLink, setNftLink] = React.useState('');
-  const [nftName, setNftName] = React.useState('');
-  const [name, setName] = React.useState('');
-  const [isFirstLoad, setIsFirstLoad] = React.useState(true);
+
 
 
 
@@ -31,20 +22,6 @@ const NftView = ({navigation}) => {
     navigation.goBack();
   };
 
-  useEffect(() => {
-    console.log('profile use effec');
-    deviceStorage.loadUser();
-    deviceStorage.loadProfile();
-
-    if (isFirstLoad) {
-    setName(userData['first_name'] + " " + userData['last_name']);
-    setNftLink(userData['nft_link']);
-    setNftName(userData['nft_name']);
-    }
-    console.log(nftLink);
-
-  });
-
 
 
   return (
@@ -52,29 +29,24 @@ const NftView = ({navigation}) => {
     <View style={{ flex: 1}}> 
     <TouchableOpacity  onPress={onPressBack} style={{alignItems:'center',position:'absolute',top: 50, left:30, justifyContent: 'center',
     borderRadius:30 }}>
-  <Icon name="arrow-left" color='#FFFFFF' size={35} />
-  </TouchableOpacity> 
+    <Icon name="chevron-left" color='#FFFFFF' size={40} />
+    </TouchableOpacity> 
   <Text  style={styles.pageTitle} > My nft </Text>
     </View>
-    <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 1,justifyContent: 'center', alignItems: 'center'}}>
 
-    <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+    <View style={{ flex: 3,justifyContent: 'center',  alignItems: 'center' }}>
       <Image 
-      source={{uri : nftLink ? nftLink : null} }
+      source={require('../../assets/nft.jpg')}
+      resizeMode='contain'
       style= {{
-          justifyContent: 'center',
-          position: 'absolute',
-          top: 50,
-          width: '100%',
-          height: 215,
+          width: width,
+          height: height - 230 ,
       }}
       />
     </View>
-    <View style={{ flex: 2,justifyContent: 'center',  alignItems: 'center' }}>
-    <TextDescription style={{marginTop: -20, marginBottom: 20}}>
-    {name}{"\n\t"}
-    {nftName}
-    </TextDescription>
+    <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
+
 
  
   </View>
@@ -102,9 +74,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "white"
   },
-  title: {
-    color:  "white"
-  },
+
   pageTitle: {
     color: "white",
     fontSize: 36,
@@ -117,19 +87,10 @@ const styles = StyleSheet.create({
     position:'absolute',
     top: 50,
     left:100, 
+    letterSpacing: 2
+
 },
 
 
 });
-
-export const TextDescription = styled.Text`
-  letterSpacing: 0.07px;
-  paddingTop: 200px;
-  paddingLeft: 40px;
-  paddingRight: 40px;
-  lineHeight: 43px;
-  fontSize: 35px;
-  fontFamily: 'DIN Condensed'
-  color: #ffffff;
-`;
 

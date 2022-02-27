@@ -69,8 +69,7 @@ const EditProfile = ({navigation}) => {
             forceJpg: true,
             compressImageMaxHeight: 1024,
             compressImageMaxWidth: 1024,
-            compressImageQuality: 0.8,
-            maxFiles: 10,
+            compressImageQuality: 0.7,
             includeBase64: true,
             mediaType: 'photo'
           }).then(images => {
@@ -93,24 +92,19 @@ const EditProfile = ({navigation}) => {
     const pickProfilePicture = () => {
       let imageList = [];
           ImagePicker.openPicker({
-            multiple: true,
-            forceJpg: true,
-            compressImageMaxHeight: 1024,
-            compressImageMaxWidth: 1024,
-            compressImageQuality: 0.8,
-            maxFiles: 10,
+            compressImageMaxHeight: 800,
+            compressImageMaxWidth: 800,
+            compressImageQuality: 0.7,
+            cropping: true,
             includeBase64: true,
             mediaType: 'photo'
-          }).then(images => {
-            images.map( i => {
-              imageList.push({
-                filename: i.filename,
-                uri: i.path,
-                type: i.mime || 'image/jpeg'
-              })
+          }).then(i => {
+            imageList.push({
+              filename: i.filename,
+              uri: i.path,
+              type: i.mime || 'image/jpeg'
             })
             setprofilePath(imageList);
-            console.log("pick", profilePath);
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
@@ -121,12 +115,10 @@ const EditProfile = ({navigation}) => {
 
     const renderProfilePicture = (profilePicture) => {
 
-
     if (profilePicture.toString().includes("[")){
       console.log('profilePicture!!', profilePicture.uri);
       return  (
         <Image 
-        resizeMode="stretch"
         style={styles.profilePicture}
       source={{uri: profilePicture[0].uri}}
       />
@@ -136,8 +128,7 @@ const EditProfile = ({navigation}) => {
     else return (
       <Image 
       style={styles.profilePicture}
-      resizeMode="stretch"
-
+      resizeMode="contain"
       source={{uri: 'https://api.rezafootwear.com/'+ profilePicture[0]}}
       />
       )
@@ -182,7 +173,7 @@ const EditProfile = ({navigation}) => {
         <View style={{ flex: 1, marginBottom: -100}}> 
         <TouchableOpacity  onPress={onPressBack} style={{alignItems:'center',position:'absolute',top: 50, left:30, justifyContent: 'center',
           borderRadius:30 }}>
-        <Icon name="arrow-left" color='#FFFFFF' size={35} />
+        <Icon name="chevron-left" color='#FFFFFF' size={40} />
         </TouchableOpacity> 
         <Text  style={styles.pageTitle} > Edit profile </Text>
 

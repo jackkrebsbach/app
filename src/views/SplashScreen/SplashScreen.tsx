@@ -1,14 +1,8 @@
 import React, { useEffect} from 'react';
-import {StyleSheet, View, Dimensions} from 'react-native';
-import styled from 'styled-components/native';
 import Video from 'react-native-video';
-const {width, height} = Dimensions.get('window');
-import {Button} from '@components/forms';
-import {Logo} from '@components/Logo';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import { background, position } from 'native-base/lib/typescript/theme/styled-system';
-import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
-
+import deviceStorage from '../../services/storage/deviceStorage';
+import Styles from './SplashScreen.style';
 const SplashScreen = ({navigation}) => {
 
     useEffect(() => {
@@ -27,7 +21,7 @@ const SplashScreen = ({navigation}) => {
 
     <Video
     source={require('../../assets/loading.mp4')}
-    style={styles.backgroundVideo}
+    style={Styles.backgroundVideo}
     repeat={false}
     rate={1.0}
     resizeMode={'cover'}
@@ -41,18 +35,6 @@ const SplashScreen = ({navigation}) => {
 };
 
 export default SplashScreen;
-
-// styles
-
-const styles = StyleSheet.create({
-  backgroundVideo: {
-    height: 200,
-    width: width,
-    bottom: height / 2 - 100 ,
-    alignItems: 'stretch',
-    position: 'absolute'
-  },
-});
 
 
 

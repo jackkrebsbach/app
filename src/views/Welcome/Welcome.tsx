@@ -14,10 +14,6 @@ import { LinearTextGradient } from "react-native-text-gradient";
 
 const Welcome = ({navigation}) => {
 
-  useEffect(() => {
-    // deviceStorage.deleteProfile();
-    // deviceStorage.deleteUser();
-  })
 
   const onPressHandler = () => {  
 
@@ -26,21 +22,14 @@ const Welcome = ({navigation}) => {
 
 
     if (userData != null ) {
-      console.log('test', userData);
-
-      if (userProfile !== null ) {
-        navigation.navigate('Home');
-          }
-          else { 
-            getProfile(userData['id']).then((res) => {
-            navigation.navigate('Home');
-            deviceStorage.loadProfile();
-
-        }).catch(error => {
-          navigation.navigate('ProfileSetUp');   
-            console.log(error)
-        }); 
-  }
+      console.log('test', userData)
+      console.log('test', userProfile)
+      if (userProfile!= null) {
+        deviceStorage.loadProfile();
+        navigation.navigate('Home');        
+        }    
+       else    navigation.navigate('ProfileSetUp');   
+          
     } 
    else { navigation.navigate('WelcomeB');}
   };
@@ -58,13 +47,13 @@ const Welcome = ({navigation}) => {
     <View style={{ flex: 1 } }> 
     <Logo /> 
 
-    <LinearTextGradient
-    style={{ position:'absolute',width:'100%', top: 200}}
-    locations={[0, 1]}
-    colors={["#ffffff", "#0076BA"]}
-    start={{ x: 0, y: 0 }}
-    end={{ x: 1, y: 0 }}
-  >
+  <LinearTextGradient
+  style={{ position:'absolute',width:'100%', top: 200}}
+  locations={[0, 1]}
+  colors={["#ffffff", "#2A658F"]}
+  start={{ x: 0, y: 0 }}
+  end={{ x: 1, y: 0 }}
+>
     <Title style={{ textAlign: 'center'}}>
     REZA is a footwear brand and community aimed to connect and inspire.
     </Title>
@@ -80,18 +69,13 @@ const Welcome = ({navigation}) => {
         WELCOME TO THE  
          </TextDescription>
 
-         <LinearTextGradient
-         style={{ position:'absolute', bottom: 165}}
-         locations={[0, 1]}
-         colors={["#ffffff", "#478EBB"]}
-         start={{ x: 0, y: 0 }}
-         end={{ x: 1, y: 0 }}
-       >
-        <TextDescription>
+
+        <TextDescription
+        style={{ position:'absolute', bottom: 165}}
+        >
         
         Founders Edition Experience.       
          </TextDescription>
-         </LinearTextGradient>
         <ButtonWrapper  styles={{ paddingTop: 50}}  >
           <Button onPress={onPressHandler}   title="NEXT" />
         </ButtonWrapper>
