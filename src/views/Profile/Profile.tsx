@@ -1,6 +1,7 @@
 import React, {useRef, useEffect} from 'react';
 import {StyleSheet, Modal, View, Dimensions,Animated,Image, Text, FlatList, TouchableOpacity} from 'react-native';
 const {width, height} = Dimensions.get('window');
+import { API_URL } from '../../utils/apiRoute';
 import {Button} from '@components/forms';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
@@ -10,16 +11,8 @@ import { useIsFocused } from "@react-navigation/native";
 import { LinearTextGradient } from "react-native-text-gradient";
 
 
-const ITEM_PER_ROW = 4;
+const BANNER_H = width;
 
-const BANNER_H = 350;
-const TOPNAVI_H = 50;
-
-
-function calculatedSize( item){
-    var size = width / item;
-    return {width: size}
-  }
 
   const ModalPoup = ({visible, children}) => {
     const [showModal, setShowModal] = React.useState(visible);
@@ -32,7 +25,6 @@ function calculatedSize( item){
         setShowModal(true);
         Animated.spring(scaleValue, {
           toValue: 1,
-          duration: 300,
           useNativeDriver: true,
         }).start();
       } else {
@@ -46,9 +38,9 @@ function calculatedSize( item){
     };
     return (
       <Modal transparent visible={showModal}>
-        <View style={styles.modalBackGround}>
+        <View>
           <Animated.View
-            style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
+            style={ {transform: [{scale: scaleValue}]}}>
             {children}
           </Animated.View>
         </View>
@@ -64,7 +56,6 @@ const Profile = ({navigation}) => {
     const [description, setDescription] = React.useState('');
     const [city, setCity] = React.useState('');
     const [pictures, setPictures] = React.useState([]);
-    const [isSplit, setSplit] = React.useState(false);
     const [visible, setVisible] = React.useState(false);
     const [profilePicture, setProfilePicture] =  React.useState([]);
 
@@ -109,12 +100,10 @@ const Profile = ({navigation}) => {
     const scrollA = useRef(new Animated.Value(0)).current;
 
     return(
-        <Wrapper style={{flexDirection: 'column', borderRadius: 10}}>
+        <Wrapper>
        
             <Animated.ScrollView
-            
-            //nScroll={e => console.log(e.nativeEvent.contentOffset.y)}
-            onScroll={Animated.event(
+                        onScroll={Animated.event(
                 [{nativeEvent: {contentOffset: {y: scrollA}}}],
                 {useNativeDriver: true},
               )}
@@ -139,7 +128,7 @@ const Profile = ({navigation}) => {
                                 key={index}
                                 style={{ width: '100%', height: '100%', borderRadius: 30 }}
                                 resizeMode='contain'
-                                source={{uri: "https://api.rezafootwear.com/" + pictures[index] }}
+                                source={{uri: API_URL + pictures[index] }}
 
                               />
 
@@ -154,7 +143,7 @@ const Profile = ({navigation}) => {
             <View style={styles.bannerContainer}>
             <Animated.Image  
             resizeMode='contain'
-            source={{uri: "https://api.rezafootwear.com/" + profilePicture[0] }}
+            source={{uri: API_URL + profilePicture[0] }}
             style={styles.banner(scrollA)}
             />
 
@@ -167,8 +156,8 @@ const Profile = ({navigation}) => {
 
               <LinearTextGradient
               locations={[0, 1]}
-              colors={["#ffffff", "#2A658F"]}
-              start={{ x: 0, y: 1 }}
+              colors={["#ffffff", "#0076BA"]}
+              start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}
             >
             <Text style={styles.shortDescription}> {shortDescription}</Text>

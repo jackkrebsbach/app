@@ -1,5 +1,5 @@
 import axios from 'axios';
-import deviceStorage, {userData} from '../storage/deviceStorage';
+import deviceStorage from '../storage/deviceStorage';
 import { API_URL } from '../../utils/apiRoute';
 import { token  } from './Authentication';
 
@@ -98,7 +98,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
   }else {
     console.log("image  null", image)
     const file = {
-      uri: "https://api.rezafootwear.com/"+image,
+      uri: API_URL + image,
       name: image,
       type: 'image/jpeg'
     };
@@ -120,7 +120,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
   }else {
     console.log("image  null", image)
     const file = {
-      uri: "https://api.rezafootwear.com/"+image,
+      uri: API_URL +image,
       name: image,
       type: 'image/jpeg'
     };

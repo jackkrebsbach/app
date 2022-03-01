@@ -1,8 +1,8 @@
 import React, {  useEffect, useState,  } from 'react';
 import { StyleSheet, Text, View,  Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
-
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
+import { API_URL } from '../../utils/apiRoute';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -129,7 +129,7 @@ const EditProfile = ({navigation}) => {
       <Image 
       style={styles.profilePicture}
       resizeMode="contain"
-      source={{uri: 'https://api.rezafootwear.com/'+ profilePicture[0]}}
+      source={{uri: API_URL + profilePicture[0]}}
       />
       )
      
@@ -143,7 +143,7 @@ const EditProfile = ({navigation}) => {
             !(photo.toString().includes("[")) 
             
             ? 
-                <Image style={styles.photo} source={{uri: "https://api.rezafootwear.com/" + photo }} />
+                <Image style={styles.photo} source={{uri: API_URL + photo }} />
             : <Image style={styles.photo} source={{uri:  photo.uri }} />
 
           }

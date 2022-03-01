@@ -1,18 +1,12 @@
-import React, { useState, FunctionComponent } from 'react';
+import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { TextInput } from 'react-native-paper';
-
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { getCode } from '../../services/api';
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
-import { useEffect } from 'react';
 
 import { ActivityIndicator, Alert } from "react-native";
-import { position } from 'native-base/lib/typescript/theme/styled-system';
-import Toast from 'react-native-root-toast';
 
 
 

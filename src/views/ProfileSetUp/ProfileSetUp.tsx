@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Platform, Dimensions, Image, TouchableOpacity, 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, ButtonDate, ProfileTextInput, LargeTextInput} from '@components/forms';
+import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData } from '../../services/storage/deviceStorage';
 import { CreateProfile } from '../../services/api/UserApi';

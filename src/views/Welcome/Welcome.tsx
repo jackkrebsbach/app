@@ -46,14 +46,13 @@ const Welcome = ({navigation}) => {
   />
     <View style={{ flex: 1 } }> 
     <Logo /> 
-
-  <LinearTextGradient
+<LinearTextGradient
   style={{ position:'absolute',width:'100%', top: 200}}
   locations={[0, 1]}
-  colors={["#ffffff", "#2A658F"]}
+  colors={["#ffffff", "#0076BA"]}
   start={{ x: 0, y: 0 }}
   end={{ x: 1, y: 0 }}
->
+      >
     <Title style={{ textAlign: 'center'}}>
     REZA is a footwear brand and community aimed to connect and inspire.
     </Title>

@@ -1,23 +1,15 @@
 import React, {Fragment, useEffect} from 'react';
 import {StyleSheet, Image, View, Dimensions, TouchableHighlight} from 'react-native';
 import styled from 'styled-components/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import SafeAreaView from 'react-native-safe-area-view';
-import Video from 'react-native-video';
 const {width, height} = Dimensions.get('window');
 import {Button} from '@components/forms';
 import {Logo} from '@components/Logo';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers'
-import { background, position } from 'native-base/lib/typescript/theme/styled-system';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import { getProfile } from '../../services/api/UserApi';
 
 const WelcomeB = ({navigation}) => {
 
-  useEffect(() => {
-    // deviceStorage.deleteProfile();
-    // deviceStorage.deleteUser();
-  })
 
   const onPressHandler = () => {  
 
