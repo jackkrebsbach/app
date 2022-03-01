@@ -25,23 +25,25 @@ const Experience = ({navigation}) => {
     <View style={{ flex: 1}}> 
       <Logo /> 
     </View>
-    <View style={{ flex: 3,justifyContent: 'center', alignItems: 'center'}}>
+    <View style={{ flex: 2,justifyContent: 'center', alignItems: 'center'}}>
     <Image 
     source={require('../../assets/floating_shoe.jpg')}
     style= {{
         justifyContent: 'center',
         position: 'absolute',
-        top: 0,
+        top: 70,
         width: 200,
         height: 200
     }}
     />    
 
+  
+    </View>
+
     <TextDescription >
     Never forget what inspired you and what inspired us.
     </TextDescription>
 
-    </View>
     <View style={{ flex: 1,justifyContent: 'center',  alignItems: 'center' }}>
         <ButtonWrapper>
         <Button  onPress={onPressHandler} title="Next" />
@@ -75,10 +77,7 @@ const styles = StyleSheet.create({
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 0.07px;
-  paddingTop: 200px;
-  paddingLeft: 45px;
-  paddingRight: 45px;
+  letterSpacing: 0.5px;
   lineHeight: 30px;
   fontSize: 25px;
   textAlign:center;

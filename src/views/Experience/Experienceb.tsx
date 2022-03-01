@@ -50,7 +50,7 @@ const Experienceb = ({ navigation }) => {
 
   <View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
     <ButtonWrapper>
-    <Button  onPress={ onPressHandler } title = "COMPLETE PROFILE" />
+    <Button  onPress={ onPressHandler } title = "COMPLETE YOUR PROFILE" />
       </ButtonWrapper>
       </View>
       </Wrapper>   
@@ -79,14 +79,14 @@ const styles = StyleSheet.create({
 });
 
 export const TextDescription = styled.Text`
-  letterSpacing: 0.07px;
+  letterSpacing: 0.5px;
   paddingTop: 50px;
-  paddingLeft: 40px;
-  paddingRight: 40px;
-  lineHeight: 35px;
-  fontSize: 36px;
+  paddingLeft: 20px;
+  paddingRight: 20px;
+  lineHeight: 30px;
+  justify: right;
+  fontSize: 30px;
   textAlign:center;
-
-  fontFamily: 'DIN Condensed';
   color: #ffffff;
+  fontStyle:italic;
 `;

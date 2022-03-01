@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState, useRef } from 'react';
-import { StyleSheet, Text, View, Platform, Dimensions, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Platform, Dimensions, Image, TouchableOpacity, ScrollView, Keyboard, KeyboardAvoidingView } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '@components/Logo'
@@ -98,7 +98,7 @@ const ProfileSetUp = ({navigation}) => {
         
         style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
           backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
-          <Icon name="close" color='#D30000' size={15} />
+          <Icon name="close" color='#FFFFFF' size={15} />
           </TouchableOpacity>  
          </View>
       ));
@@ -117,7 +117,7 @@ const ProfileSetUp = ({navigation}) => {
       </View> }
 
         <ScrollView>
-
+          <KeyboardAvoidingView enabled behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <View>
             <Text style={styles.title}> City </Text>
             <ProfileTextInput
@@ -170,6 +170,7 @@ const ProfileSetUp = ({navigation}) => {
     <ButtonWrapper>
     <Button  onPress={ onPressHandler } title = "Create my profile" />
   </ButtonWrapper>
+  </KeyboardAvoidingView>
     </ScrollView>
 
         
@@ -189,9 +190,9 @@ const styles = StyleSheet.create({
       fontFamily: 'DIN Condensed',
   },
   title: {
-      color: "#D30000",
+      color: "#FFFFFF",
       fontSize: 24,
-      fontFamily: 'DIN Condensed',
+      fontStyle:'italic',
       marginStart: 30,
       margin: 5,  
   },
@@ -220,7 +221,7 @@ addButton: {
   backgroundColor: '#FFFFFF'
 },
 addButtonText: {
-  color: "#D30000",
+  color: "#0076BA",
   fontFamily: 'DIN Condensed',
   fontSize: 48
 },

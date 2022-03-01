@@ -6,7 +6,7 @@ import { token  } from './Authentication';
 
 
 export const getProfile = async (userId) => {
-    const url = API_URL + "user/getProfile";
+    const url = API_URL + "api/user/getProfile";
      return axios(url, {
         method: 'post',
         headers: {
@@ -46,7 +46,7 @@ export const getProfile = async (userId) => {
 
 
 export  const CreateProfile = async (userId, city, story, shortDescription , files ) => {
-  const url = API_URL + "user/CreateProfile";
+  const url = API_URL + "api/user/CreateProfile";
   
   console.log("CreateProfile- files",userId, city,story, shortDescription, files.toString());
   let formData = new FormData();  
@@ -81,7 +81,7 @@ export  const CreateProfile = async (userId, city, story, shortDescription , fil
 
 export  const UpdateProfile = async (userId, profilePicture, city, story, shortDescription,files ) => {
   // console.log('i am here');
-  const url = API_URL + "user/UpdateProfile";
+  const url = API_URL + "api/user/UpdateProfile";
   let formData = new FormData();  
 
   profilePicture.forEach((image) => {

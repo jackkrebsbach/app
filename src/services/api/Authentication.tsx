@@ -7,7 +7,7 @@ export let userData = {};
 
 
 export const getCode = (email) => {
-    const url = API_URL + 'user/generateCode';
+    const url = API_URL + 'api/user/generateCode';
     console.log(url);
     return axios(url, {
         method: 'POST',
@@ -23,7 +23,7 @@ export const getCode = (email) => {
 }
 
 export const login = (email, activationCode) => {
-    const url = API_URL + 'auth/signin';
+    const url = API_URL + 'api/auth/signin';
     return axios(url, {
         method: "POST",
         data: { email: email, activation_code: activationCode }
