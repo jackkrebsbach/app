@@ -15,7 +15,7 @@ import {
 
 import { Provider as PaperProvider } from 'react-native-paper';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {View, StatusBar} from 'react-native';
+import {View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 
