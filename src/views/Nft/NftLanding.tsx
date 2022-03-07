@@ -49,8 +49,6 @@ const ModalPoup = ({visible, children}) => {
 
 const NftLanding = ({navigation}) => {
 
-  const [nftLink, setNftLink] = React.useState('');
-  const [nftName, setNftName] = React.useState('');
   const [name, setName] = React.useState('');
   const [isFirstLoad, setIsFirstLoad] = React.useState(true);
   const [visible, setVisible] = React.useState(false);
@@ -71,11 +69,7 @@ const NftLanding = ({navigation}) => {
 
     if (isFirstLoad) {
     setName(userData['first_name'] + " " + userData['last_name']);
-    setNftLink(userData['nft_link']);
-    setNftName(userData['nft_name']);
     }
-    console.log(nftLink);
-
   });
 
   return (

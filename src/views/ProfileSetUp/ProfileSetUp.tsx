@@ -7,11 +7,11 @@ import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData } from '../../services/storage/deviceStorage';
-import { CreateProfile } from '../../services/api/UserApi';
+import { CreateProfile, getProfile } from '../../services/api/UserApi';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
 import { ActivityIndicator, Alert } from "react-native";
 const {width, height} = Dimensions.get('window');
-
+import { Styles, AddPhoto } from './ProfileSetUp.styles';
 
 const ProfileSetUp = ({navigation}) => { 
 
@@ -22,7 +22,7 @@ const ProfileSetUp = ({navigation}) => {
 
     const [ressourcePath, setRessourcePath] = useState([]);
     const [isLoading, setLoading] = React.useState(false);
-
+    const [profilePath, setprofilePath] = useState([]);
 
 
 
@@ -37,10 +37,13 @@ const ProfileSetUp = ({navigation}) => {
 
     const onPressHandler = () => {
       setLoading(true);
-      CreateProfile(userId, city, story, shortDescription, ressourcePath ).then((res) => {
+      CreateProfile(userId, city, story, shortDescription, ressourcePath, profilePath ).then((res) => {
         console.log('success', res)
-        navigation.navigate('Home');
-        setLoading(false);
+        getProfile(userId).then((res) => {
+          navigation.navigate('Home');
+          setLoading(false);
+          })
+       
 
       }).catch(error => {
           console.log(error)
@@ -50,6 +53,50 @@ const ProfileSetUp = ({navigation}) => {
     const onPressAddPhotoBtn = () => {
      console.log("yolo")
     };
+
+    const pickProfilePicture = () => {
+      let imageList = [];
+          ImagePicker.openPicker({
+            compressImageMaxHeight: 800,
+            compressImageMaxWidth: 800,
+            compressImageQuality: 0.8,
+            cropping: true,
+            includeBase64: true,
+            mediaType: 'photo'
+          }).then(i => {
+            imageList.push({
+              filename: i.filename,
+              uri: i.path,
+              type: i.mime || 'image/jpeg'
+            })
+            setprofilePath(imageList);
+          }).catch(error => {
+            console.log(JSON.stringify(error));
+          });
+    }
+
+    const renderProfilePicture = (profilePicture) => {
+
+    if (profilePicture.toString().includes("[")){
+      console.log('profilePicture!!', profilePicture.uri);
+      return  (
+        <Image 
+        style={Styles.profilePicture}
+      source={{uri: profilePicture[0].uri}}
+      />
+      )
+    }
+
+    else return (
+      <Image 
+      style={Styles.profilePicture}
+      resizeMode="contain"
+      source={require('../../assets/default.png')}
+      />
+      )
+     
+    }
+
 
 
     const onActionDeleteDone = index => {
@@ -91,15 +138,13 @@ const ProfileSetUp = ({navigation}) => {
     const renderListPhotos = (localPhotos) => {
       const photos = localPhotos.map((photo, index) => (
         <View key={index}    style={{marginTop:5}}>
-          <Image style={styles.photo} source={{ uri: photo.uri }} />
-        <TouchableOpacity onPress={ () =>
+          <Image style={Styles.photo} source={{ uri: photo.uri }} />
+        <AddPhoto onPress={ () =>
           onActionDeleteDone(index) 
         } 
-        
-        style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
-          backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
+        >
           <Icon name="close" color='#FFFFFF' size={15} />
-          </TouchableOpacity>  
+          </AddPhoto>  
          </View>
       ));
       return photos;
@@ -117,11 +162,28 @@ const ProfileSetUp = ({navigation}) => {
       </View> }
 
         <ScrollView>
+
+        <View>
+        <TouchableOpacity onPress={ () =>
+          pickProfilePicture()
+        } 
+
+        style={{alignItems:'center', justifyContent: 'center',
+           borderRadius:30 }}>
+
+           {renderProfilePicture(profilePath)}
+           
+           
+           
+          </TouchableOpacity>         
+          
+          
+          </View>
           <KeyboardAvoidingView enabled behavior={Platform.OS === "ios" ? "padding" : "height"}>
         <View>
-            <Text style={styles.title}> City </Text>
+            <Text style={Styles.title}> City </Text>
             <ProfileTextInput
-            style={styles.textInput}
+            style={Styles.textInput}
             placeholder="Enter your city"
             onChangeText = {t => setCity(t)}
             value = {city}
@@ -129,19 +191,19 @@ const ProfileSetUp = ({navigation}) => {
         </View>
 
         <View>
-        <Text style={styles.title}> Describe yourself </Text>
+        <Text style={Styles.title}> Describe yourself </Text>
         <ProfileTextInput
-        style={styles.textInput}
+        style={Styles.textInput}
         placeholder=" Two to three words"
         onChangeText = {t => setShortDescription(t)}
         value = {shortDescription}
         />
        </View>
         <View>
-            <Text style={styles.title}> Share your story </Text>
+            <Text style={Styles.title}> Share your story </Text>
 
             <LargeTextInput
-            style={styles.textInput}           
+            style={Styles.textInput}           
             placeholder="Your Story"
             onChangeText = {t => setStory(t)}
             value = {story}
@@ -150,16 +212,16 @@ const ProfileSetUp = ({navigation}) => {
         </View>
 
         <View style={{marginTop: 20}} >
-        <Text style={styles.title}> My photos </Text>
+        <Text style={Styles.title}> My photos </Text>
         <View style={{marginStart: 30}}>
-        <ScrollView style={styles.photoList} horizontal={true}>
+        <ScrollView style={Styles.photoList} horizontal={true}>
        
         
         {renderListPhotos(ressourcePath)}
         <View style={{marginTop:5}}>
         <TouchableOpacity onPress={pickPictures.bind()}>
-            <View style={[styles.addButton, styles.photo]}>
-              <Text style={styles.addButtonText}>+</Text>
+            <View style={[Styles.addButton, Styles.photo]}>
+              <Text style={Styles.addButtonText}>+</Text>
             </View>
           </TouchableOpacity>
           </View>
@@ -182,53 +244,6 @@ const ProfileSetUp = ({navigation}) => {
 
 
 
-const styles = StyleSheet.create({
 
-  textInput: {
-      marginStart: 25,
-      height: 100,
-      fontFamily: 'DIN Condensed',
-  },
-  title: {
-      color: "#FFFFFF",
-      fontSize: 24,
-      fontStyle:'italic',
-      marginStart: 30,
-      margin: 5,  
-  },
-  picture: {
-    width: 105, 
-    height: 120, 
-    marginRight:10,
-    margin: 5,
-    borderRadius: 8
-},
-photoList: {
-  height: 90,
-  marginTop: 15,
-  marginBottom: 15,
-  marginRight: 30
-},
-photo: {
-  marginRight: 10,
-  width: 80,
-  height: 80,
-  borderRadius: 10
-},
-addButton: {
-  alignItems: 'center',
-  justifyContent: 'center',
-  backgroundColor: '#FFFFFF'
-},
-addButtonText: {
-  color: "#0076BA",
-  fontFamily: 'DIN Condensed',
-  fontSize: 48
-},
-sectionContainer: {
-  marginTop: 32,
-  paddingHorizontal: 24,
-},
-});
 
 export default ProfileSetUp;

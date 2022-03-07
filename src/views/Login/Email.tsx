@@ -38,7 +38,7 @@ const Email = ({ navigation }) => {
       setLoading(false);
       if (err.response.status == 404) {
 
-        Alert.alert("Error! Email not found");
+        Alert.alert("You email was not found. please use the email you where you have regularly been receiving REZA updates. If you still cannot access your account, please reach out to our dev team and contact@rezafootwear.com");
         
     } else {
       Alert.alert('Error ! Cannot connect to the server');
@@ -72,15 +72,16 @@ const Email = ({ navigation }) => {
 
     <Logo /> 
 
-    <View style = {{justifyContent: 'center', alignItems: 'center'}}>
-    <Title  title="ACCESS YOUR ACCOUNT" style={{  bottom: 70}}  />
+    <View style = {{ alignItems: 'center'}}>
+    <Title  title="ACCESS YOUR ACCOUNT"  />
 
     </View>
   
 
   </View>
 
-  <View style = {{ flex: 3, justifyContent: 'center', alignItems: 'center'}}>
+  <View style = {{ flex: 2, alignItems: 'center', marginVertical:100}}>
+
 
     <Text style={styles.subtitle}>
       Same email you use for REZA
@@ -90,11 +91,9 @@ const Email = ({ navigation }) => {
 
       <TextInputc
       style = {{
-        position: 'absolute',
-        flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        width: 300,
+        width: 320,
         height: 100
       }}
       type="email-address"
@@ -103,14 +102,13 @@ const Email = ({ navigation }) => {
       value = { email.toLowerCase() }
   />
 
+    <View>
+
+    <Button onPress={ onPressHandler } disabled = {!isValid} title = "next" />
 
     </View>
-    < View style = {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
 
-      <ButtonWrapper>
-      <Button onPress={ onPressHandler } disabled = {!isValid} title = "Next" />
-        </ButtonWrapper>
-        </View>
+    </View>
         </Wrapper>   
 
   );
@@ -131,24 +129,12 @@ const styles = StyleSheet.create({
     fontFamily: "DIN Condensed",
     backgroundColor: "white"
   },
-  title:{
-    color: "white",
-    fontFamily: "DIN Condensed",
- },
  subtitle:{
     color: "white",
     fontFamily: "DIN Alternate",
-    bottom: 100,
-    fontSize: 22.5
- },
-  container: {
-    backgroundColor:"red",
-    flex: 1,
-  },
-  horizontal: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    
-  }
+    fontSize: 22.5,
+    letterSpacing: 1.5
+
+ }
 });
 

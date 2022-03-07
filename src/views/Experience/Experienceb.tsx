@@ -37,8 +37,8 @@ const Experienceb = ({ navigation }) => {
 
       <View style= {{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
       <Logo /> 
-      <TextDescription  style = {{position: 'absolute', bottom: 0 }}>
-        { name }
+      <TextDescription  style = {{position: 'absolute', bottom: 0,   letterSpacing: 2 }}>
+        { name.toUpperCase() }
     </TextDescription>
       </View>
 

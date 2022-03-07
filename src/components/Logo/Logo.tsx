@@ -4,9 +4,9 @@ import styled from 'styled-components/native';
 
 
 const LogoStyle = styled.Image`
-  max-width: 1300px;
-  width: 1200px;
-  height: 375px;  
+   height: 100px;
+   width: 350px;
+   marginTop:10px
 `;
 
 
@@ -18,13 +18,12 @@ const LogoView= styled.View`
 
 export const Logo = () => {
     return (
-      <LogoView>
+      <LogoView >
         <LogoStyle
           source={require('../../assets/lyop.png')}
-          width={10000}
-          height={500}
+          width={1000}
+          height={50}
           resizeMode="contain"
-          
       />
       </LogoView>
         

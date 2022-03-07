@@ -72,7 +72,7 @@ const Login = ({ route, navigation }) => {
   
     <Logo /> 
     <View style = {{justifyContent: 'center', alignItems: 'center'}}>
-      <Title   title={ email } style={{bottom: 70, fontSize: 30}}/>
+      <Title   title={ email } style={{ fontSize: 32}}/>
     </View>
 
     </View>

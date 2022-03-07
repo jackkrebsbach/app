@@ -94,7 +94,7 @@ const EditProfile = ({navigation}) => {
           ImagePicker.openPicker({
             compressImageMaxHeight: 800,
             compressImageMaxWidth: 800,
-            compressImageQuality: 0.7,
+            compressImageQuality: 0.8,
             cropping: true,
             includeBase64: true,
             mediaType: 'photo'
@@ -108,9 +108,6 @@ const EditProfile = ({navigation}) => {
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
-
-
-    
     }
 
     const renderProfilePicture = (profilePicture) => {

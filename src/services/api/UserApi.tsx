@@ -45,11 +45,33 @@ export const getProfile = async (userId) => {
 };
 
 
-export  const CreateProfile = async (userId, city, story, shortDescription , files ) => {
+export  const CreateProfile = async (userId, city, story, shortDescription , files, profilePicture ) => {
   const url = API_URL + "api/user/CreateProfile";
   
-  console.log("CreateProfile- files",userId, city,story, shortDescription, files.toString());
+  console.log("CreateProfile- files",profilePicture.toString());
   let formData = new FormData();  
+
+  profilePicture.forEach((image) => {
+    console.log("profile_picture", image.toString())
+    if (image.uri != null) {
+      console.log("image not null", image.uri)
+    const file = {
+      uri: image.uri,
+      name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
+      type: 'image/jpeg'
+    };
+  formData.append('profile_picture', file)
+
+  }else {
+    console.log("image  null", image)
+    const file = {
+      uri: API_URL + image,
+      name: image,
+      type: 'image/jpeg'
+    };
+    formData.append('profile_picture', file)
+  }
+  });
 
   files.forEach((image) => {
     const file = {

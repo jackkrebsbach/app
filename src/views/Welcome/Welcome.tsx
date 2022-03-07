@@ -27,11 +27,13 @@ const Welcome = ({navigation}) => {
       if (userProfile!= null) {
         deviceStorage.loadProfile();
         navigation.navigate('Home');        
-        }    
-       else    navigation.navigate('ProfileSetUp');   
-          
-    } 
-   else { navigation.navigate('WelcomeB');}
+        } 
+        
+        else { navigation.navigate('WelcomeB'); }
+
+    }
+    else { navigation.navigate('WelcomeB'); 
+  }
   };
 
   return (
@@ -47,7 +49,7 @@ const Welcome = ({navigation}) => {
     <View style={{ flex: 1 } }> 
     <Logo /> 
 <LinearTextGradient
-  style={{ position:'absolute',width:'100%', top: 200}}
+  style={{ position:'absolute',width:'100%', top: 150}}
   locations={[0, 1]}
   colors={["#ffffff", "#0076BA"]}
   start={{ x: 0, y: 0 }}
@@ -76,7 +78,7 @@ const Welcome = ({navigation}) => {
         Founders Edition Experience.       
          </TextDescription>
         <ButtonWrapper  styles={{ paddingTop: 50}}  >
-          <Button onPress={onPressHandler}   title="NEXT" />
+          <Button onPress={onPressHandler}   title="UNLOCK" />
         </ButtonWrapper>
         </View>
 

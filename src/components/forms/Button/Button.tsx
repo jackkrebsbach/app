@@ -20,6 +20,7 @@ const StyledTitle = styled.Text`
   display: flex;
   align-items: center;
   text-align: center;
+  letterSpacing: 1.5px;
   color: ${props => (props.transparent ? '#ffffff ' : 'black')};
 `;
 
