@@ -25,11 +25,12 @@ import {NftView, NftLanding} from './views/Nft';
 import Profile from './views/Profile/Profile';
 import Support from './views/Support/Support';
 import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
-import ProfileInterest from './views/ProfileSetUp/ProfileInterest'
+import OnBoardingNft from './views/OnBoarding/OnBoardingNft'
 import { Email, LoginPassword } from  './views/Login/';
 import { Experience, Experienceb, Experiencec } from './views/Experience/';
 import EditProfile from './views/Profile/EditProfile';
 import SplashScreen from './views/SplashScreen/SplashScreen';
+import OnBoardingQr from './views/OnBoarding/OnBoardingQr';
 
 const App = () => {
 
@@ -160,9 +161,14 @@ const App = () => {
   />
 
   <Stack.Screen
-    name="ProfileInterest"
-    component={ProfileInterest}
+    name="OnBoardingNft"
+    component={OnBoardingNft}
   />
+    <Stack.Screen
+    name="OnBoardingQr"
+    component={OnBoardingQr}
+  />
+
 
   <Stack.Screen
   name="Profile"

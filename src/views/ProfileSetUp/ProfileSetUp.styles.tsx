@@ -8,6 +8,7 @@ export const Styles = StyleSheet.create({
         height: 100,
         fontFamily: 'DIN Condensed',
     },
+
     title: {
         color: "#FFFFFF",
         fontSize: 24,
@@ -52,7 +53,9 @@ export const Styles = StyleSheet.create({
     marginBottom:10,
     width: 120, 
     height: 120, 
-    borderRadius: 120 /2
+    borderRadius: 120 /2,
+    backgroundColor: 'white'
+
   },
   });
   
@@ -67,4 +70,10 @@ export const Styles = StyleSheet.create({
     width:20px;
     height: 20px;
     borderRadius:30px;
+
   `;
+
+  export const ProfilePictureText = styled.Text`
+  color: #ffffff;
+  fontStyle: italic;
+  `

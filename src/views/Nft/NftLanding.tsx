@@ -1,51 +1,13 @@
 import React, { Component, FunctionComponent, useEffect } from 'react';
-import { StyleSheet, Modal, TouchableOpacity, Image, View, Animated, Dimensions, Text} from 'react-native';
+import {  Modal, TouchableOpacity, Image, View, Animated, Dimensions, Text} from 'react-native';
 import {Wrapper,ButtonAlignWrapper} from '@components/Wrappers'
 import {ButtonMiddle, TextInputc} from '@components/forms';
-import styled from 'styled-components/native';
 import deviceStorage, {userData} from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
+import Video from 'react-native-video';
+import { TextDescription, styles } from './Nft.styles';
 import {Logo} from '@components/Logo';
-const {width, height} = Dimensions.get('window');
-
-import { WebView } from 'react-native-webview';
-
-
-const ModalPoup = ({visible, children}) => {
-  const [showModal, setShowModal] = React.useState(visible);
-  const scaleValue = React.useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    toggleModal();
-  }, [visible]);
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true);
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    } else {
-      setTimeout(() => setShowModal(false), 200);
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start();
-    }
-  };
-  return (
-    <Modal transparent visible={showModal}>
-      <View style={styles.modalBackGround}>
-        <Animated.View
-          style={[styles.modalContainer, {transform: [{scale: scaleValue}]}]}>
-          {children}
-        </Animated.View>
-      </View>
-    </Modal>
-  );
-};
+import ModalPopup from './ModalPopup';
 
 const NftLanding = ({navigation}) => {
 
@@ -73,9 +35,9 @@ const NftLanding = ({navigation}) => {
   });
 
   return (
-    <Wrapper style={{backgroundColor: '#000000'}}>
+    <Wrapper style={{backgroundColor: '#282828'}}>
 
-  <ModalPoup transparent={true} visible={visible} style={{width:'100%'}}>
+  <ModalPopup transparent={true} visible={visible} style={{width:'100%'}}>
 
  
   <View style={{alignItems: 'center'}}>
@@ -99,10 +61,10 @@ const NftLanding = ({navigation}) => {
     Share our community
   </Text>
 
-</ModalPoup>
+</ModalPopup>
     <View style={{ flex: 1 }}> 
       <Logo /> 
-      <View style={{ position:'absolute', justifyContent: 'center', alignItems: 'center',  top:50}}>
+      <View style={{ justifyContent: 'center', alignItems: 'center'}}>
 
       <TextDescription style={{alignItems: 'center', justifyContent: 'center'}}>
       {name}
@@ -114,12 +76,20 @@ const NftLanding = ({navigation}) => {
 
 
   
-      <WebView source={require('./3dViewer.html')} style={{height: '100%', width: '100%'}}
-      />
+    <Video
+    source={require('../../assets/3d.mp4')}
+    style={styles.backgroundVideo}
+    repeat={true}
+    rate={1.0}
+    resizeMode={'contain'}
+    ignoreSilentSwitch={'obey'}
+  />
+   
+
 
 
     <View style={styles.container}>
-      <View style={styles.container}>
+      <View style={{justifyContent:'flex-end'}}>
       <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5, bottom: 50}}>
 
       <ButtonMiddle onPress={() => setVisible(true)} title="QR CODE" />
@@ -134,54 +104,3 @@ const NftLanding = ({navigation}) => {
 };
 
 export default NftLanding;
-
-// styles
-const styles = StyleSheet.create({
-  modalBackGround: {
-    flex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',  
-    alignItems: 'center'
-  },
-  modalContainer: {
-    width: '70%',
-    paddingHorizontal: 20,
-    borderRadius: 20,
-    elevation: 20,
-  },
-  input: {
-    width: 250,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: "white"
-  },
-  title: {
-    color:  "white"
-  },
-  backgroundVideo: {
-      height: height /2,
-      width: width,
-      top: 200,
-      alignItems: 'stretch',
-      position: 'absolute'
-    },
-});
-
-export const TextDescription = styled.Text`
-  letterSpacing: 2.5px;
-  paddingTop: 150px;
-  lineHeight: 43px;
-  fontSize: 35px;
-  marginLeft: 100px;
-  fontFamily: 'DIN Condensed';
-  color: #ffffff;
-  text-transform: uppercase;
-`;
-

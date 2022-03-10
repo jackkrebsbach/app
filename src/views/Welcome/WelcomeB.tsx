@@ -25,7 +25,7 @@ const WelcomeB = ({navigation}) => {
         console.log(error)
     }); 
     } 
-   else { navigation.navigate('Email');}
+   else { navigation.navigate('OnBoardingNft');}
   };
 
   return (

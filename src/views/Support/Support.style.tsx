@@ -2,12 +2,14 @@ import styled from 'styled-components/native';
 
 
 export const Header = styled.View`
-flex: 1
+flex: 2;
+justifyContent: center; 
+alignItems: center;
 `;
 
 
 export const Container = styled.View`
-    flex: 3;
+    flex: 4;
     justifyContent: center; 
     alignItems: center;
   `;

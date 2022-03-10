@@ -11,7 +11,7 @@ import { CreateProfile, getProfile } from '../../services/api/UserApi';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
 import { ActivityIndicator, Alert } from "react-native";
 const {width, height} = Dimensions.get('window');
-import { Styles, AddPhoto } from './ProfileSetUp.styles';
+import { Styles, AddPhoto, ProfilePictureText } from './ProfileSetUp.styles';
 
 const ProfileSetUp = ({navigation}) => { 
 
@@ -50,17 +50,13 @@ const ProfileSetUp = ({navigation}) => {
       });
     };
   
-    const onPressAddPhotoBtn = () => {
-     console.log("yolo")
-    };
-
     const pickProfilePicture = () => {
       let imageList = [];
           ImagePicker.openPicker({
             compressImageMaxHeight: 800,
             compressImageMaxWidth: 800,
-            compressImageQuality: 0.8,
-            cropping: true,
+            compressImageQuality: 1,
+            cropping: false,
             includeBase64: true,
             mediaType: 'photo'
           }).then(i => {
@@ -152,7 +148,7 @@ const ProfileSetUp = ({navigation}) => {
 
     return (
        <Wrapper>
-        <View style={{ flex: 1}}> 
+        <View > 
             <Logo /> 
         </View>
         <View style={{ flex: 3}}> 
@@ -163,20 +159,16 @@ const ProfileSetUp = ({navigation}) => {
 
         <ScrollView>
 
-        <View>
+        <View style={{ alignItems:'center', justifyContent: 'center'}}>
         <TouchableOpacity onPress={ () =>
           pickProfilePicture()
-        } 
-
-        style={{alignItems:'center', justifyContent: 'center',
-           borderRadius:30 }}>
+        } >
 
            {renderProfilePicture(profilePath)}
            
-           
-           
           </TouchableOpacity>         
           
+          <ProfilePictureText>Profile picture</ProfilePictureText>
           
           </View>
           <KeyboardAvoidingView enabled behavior={Platform.OS === "ios" ? "padding" : "height"}>
