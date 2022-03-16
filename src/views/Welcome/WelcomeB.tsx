@@ -12,16 +12,17 @@ const WelcomeB = ({navigation}) => {
 
   const onPressHandler = () => {  
     if (userData != null ) {
-      console.log('test', userData);
-      getProfile(userData['id']).then((res) => {
-        if ( userProfile !=null ) {
-          navigation.navigate('Home');
-        } else {
+      console.log('userDAta not null')
+      getProfile().then((res) => {
+          
+          deviceStorage.loadProfile().then(
+            
+            navigation.navigate('Home')
+          )
           navigation.navigate('Experience');   
-        }
+        
 
     }).catch(error => {
-      navigation.navigate('ProfileSetUp');   
         console.log(error)
     }); 
     } 

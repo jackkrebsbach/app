@@ -12,12 +12,12 @@ import { Title } from 'react-native-paper';
 const {width, height} = Dimensions.get('window');
 const EditProfile = ({navigation}) => { 
 
-    const [city, setCity] = useState(userProfile.profile['city']);
-    const [story, setStory] = useState(userProfile.profile['description']);
-    const [shortDescription, setShortDescription] =  useState(userProfile.profile['short_description']);
+    const [city, setCity] = useState(userProfile['city']);
+    const [story, setStory] = useState(userProfile['description']);
+    const [shortDescription, setShortDescription] =  useState(userProfile['short_description']);
     const [userId, setUserId] = useState(0);
-    const [ressourcePath, setRessourcePath] = useState(userProfile.profile['pictures']);
-    const [profilePath, setprofilePath] = useState(userProfile.profile['profile_picture']);
+    const [ressourcePath, setRessourcePath] = useState(userProfile['gallery']);
+    const [profilePath, setprofilePath] = useState('');
 
     const [isLoading, setLoading] = React.useState(false);
 
@@ -32,7 +32,7 @@ const EditProfile = ({navigation}) => {
       setLoading(true);
       UpdateProfile(userId,profilePath ,city, story, shortDescription, ressourcePath).then((res) => {
 
-        getProfile(userId).then((res) => {
+        getProfile().then((res) => {
           setLoading(false);
           //navigation.navigate("Profile");
           navigation.goBack();
@@ -125,7 +125,7 @@ const EditProfile = ({navigation}) => {
       <Image 
       style={styles.profilePicture}
       resizeMode="contain"
-      source={{uri: API_URL + profilePicture[0]}}
+      source={{uri: profilePath}}
       />
       )
      
@@ -139,7 +139,7 @@ const EditProfile = ({navigation}) => {
             !(photo.toString().includes("[")) 
             
             ? 
-                <Image style={styles.photo} source={{uri: API_URL + photo }} />
+                <Image style={styles.photo} source={{uri: photo.url }} />
             : <Image style={styles.photo} source={{uri:  photo.uri }} />
 
           }

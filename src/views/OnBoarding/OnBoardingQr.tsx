@@ -5,7 +5,7 @@ import {Wrapper} from '@components/Wrappers'
 import {Button} from '@components/forms';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextDescription, styles, TextDescriptionQr } from './OnBoardingNft.styles';
-import { userProfile } from '../../services/storage/deviceStorage';
+import { userData, userProfile } from '../../services/storage/deviceStorage';
 const {width, height} = Dimensions.get('window');
 
 const OnBoardingQr = ({navigation}) => {
@@ -53,7 +53,7 @@ being minted</TextDescriptionQr>
       </View>
     <View style={{ flex: 1,flexDirection:'column', justifyContent: 'center',  alignItems: 'center' }}>
       {
-        (userProfile== null)?
+        (userProfile== null || userData == null)?
            (
             <View style={{marginTop:'auto', marginBottom: 30}}>        
               <Button  onPress={onPressHandler} title="Enter the network" />

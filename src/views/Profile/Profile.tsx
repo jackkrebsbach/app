@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useIsFocused } from "@react-navigation/native";
 import { LinearTextGradient } from "react-native-text-gradient";
-import ModalPopup from '../Nft/ModalPopup';
+
 
 const BANNER_H = width;
 

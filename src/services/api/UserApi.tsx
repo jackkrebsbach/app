@@ -1,7 +1,9 @@
 import axios from 'axios';
-import deviceStorage, {userData} from '../storage/deviceStorage';
+import deviceStorage, {userData, jwt} from '../storage/deviceStorage';
 import { API_URL } from '../../utils/apiRoute';
-
+import jwt_decode from "jwt-decode";
+import dayjs from 'dayjs'
+import { refresh } from './Authentication';
 
 export const getUser = async (token) => {
   const url = API_URL + "api/user/get-user";
@@ -15,8 +17,11 @@ export const getUser = async (token) => {
       },
   })
       .then(response => {
-      console.log('getUser', response.data);
+
+      const userData = response.data
+      deviceStorage.saveItem("user_data", JSON.stringify(userData));
       return response.data;
+
       })
       .catch(function (error) {
           if (error.response) {
@@ -44,12 +49,24 @@ export const getUser = async (token) => {
 
 export const getProfile = async () => {
     const url = API_URL + "api/profile/get-profile";
+
+    const decode = jwt_decode(jwt['access_token'])
+    const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1;
+    
+    console.log('is expired', isExpired)
+
+    if (isExpired) {
+      console.log('is expired')
+      await refresh();
+    }
+    
+
      return axios(url, {
         method: 'get',
         headers: {
             'content-type': 'application/json; charset=UTF-8',
             "Access-Control-Allow-Origin": "*",
-            'Authorization': 'Bearer ' + userData['access_token']
+            'Authorization': 'Bearer ' + jwt['access_token']
         },
     })
         .then(response => {
@@ -64,14 +81,7 @@ export const getProfile = async () => {
               // that falls out of the range of 2xx
               console.log(" done");
               console.log(error.response.data);
-              console.log(error.response.status);
-              console.log(error.response.headers);
             } else if (error.request) {
-              // The request was made but no response was received
-              // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-              // http.ClientRequest in node.js
-              console.log(" not done");
-
               console.log(error.request);
             } else {
               // Something happened in setting up the request that triggered an Error
@@ -84,6 +94,15 @@ export const getProfile = async () => {
 
 export  const CreateProfile = async ( city, story, shortDescription , files, profilePicture ) => {
   const url = API_URL + "api/profile/create-profile";
+
+  const decode = jwt_decode(jwt['access_token'])
+  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1;
+  
+
+  if (isExpired) {
+    await refresh();
+    await deviceStorage.loadJWT();
+  }
   
   console.log("CreateProfile- files",profilePicture.toString());
   let formData = new FormData();  
@@ -142,8 +161,21 @@ export  const CreateProfile = async ( city, story, shortDescription , files, pro
 export  const UpdateProfile = async (userId, profilePicture, city, story, shortDescription,files ) => {
   // console.log('i am here');
   const url = API_URL + "api/profile/update-profile";
-  let formData = new FormData();  
 
+  console.log('updateProfile', url)
+
+  const decode = jwt_decode(jwt['access_token'])
+  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1;
+  
+
+  if (isExpired) {
+    await refresh();
+    await deviceStorage.loadJWT();
+  }
+  
+  let formData = new FormData();  
+  //check if picture is new 
+  // if not send don't repupload
   profilePicture.forEach((image) => {
     console.log("profile_picture", image.toString())
     if (image.uri != null) {
@@ -197,7 +229,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
     headers: {
       'content-type': 'multipart/form-data; charset=UTF-8',
       "Access-Control-Allow-Origin": "*",
-      'Authorization': 'Bearer ' + userData['access_token'],
+      'Authorization': 'Bearer ' + jwt['access_token'],
   },    data:formData
 }) .then(response => {
   return response.data;

@@ -8,9 +8,8 @@ import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms';
 import { Title } from '@components/Text';
 import { ActivityIndicator } from "react-native";
-import { userData } from '../../services/api/Authentication';
-import { getProfile } from '../../services/api/UserApi';
-import deviceStorage from '../../services/storage/deviceStorage';
+import { getProfile, getUser } from '../../services/api/UserApi';
+import deviceStorage, { jwt, userData } from '../../services/storage/deviceStorage';
 
 
 
@@ -28,30 +27,38 @@ const Login = ({ route, navigation }) => {
 
   async function loginWithCode() {
     login(email, code).then((res) => {
-      deviceStorage.loadUser();
-      console.log("success", userData);
-      setLoading(false);
+      deviceStorage.loadJWT();
       //prepare a if profile != null then Experice, 
       // if null then Set Up profile
       // navigation.navigate('ProfileSetUp');
+      getUser(jwt.access_token).then(
+        ( res ) => {
+          deviceStorage.loadUser().then(
+            () => {
+              console.log('coucou')
+              if (userData != null ) {
+              console.log('userDAta not null', userData);
+              getProfile().then((res) => {
+                console.log("coucou je suis dedans", res)
+                if (res == undefined) {
+                  navigation.navigate('Experience');
+                } else {
+                  deviceStorage.loadProfile();
+                  navigation.navigate('Home');
+      
+                }
+            }).catch(error => {
+      
+                console.log(error)
+            }); 
+            } }
+          )
+          console.log('test', userData);
+          
+        }
+      )
 
-      if (userData != null ) {
-        console.log('test', userData);
-        getProfile().then((res) => {
-          console.log("coucou je suis dedans", res)
-          if (res == undefined) {
-            navigation.navigate('Experience');
-          } else {
-            deviceStorage.loadProfile();
-            navigation.navigate('Home');
-
-          }
-      }).catch(error => {
-
-          console.log(error)
-      }); 
-      } 
-
+  
     }).catch(err => {
       setLoading(false);
       if (err.response.status == 404) {

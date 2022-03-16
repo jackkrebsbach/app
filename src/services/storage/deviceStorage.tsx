@@ -2,14 +2,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export let userData = {};
 export let userProfile = {};
-export let jwt = "";
+export let jwt = {};
 
 
 const deviceStorage = {
     // our AsyncStorage functions will go here :)
     async saveItem(key, value) {
         try {
-          console.log("savin:", value);
+          console.log("saving:", key, value);
           await AsyncStorage.setItem(key, value);
         } catch (error) {
           console.log('AsyncStorage Error: ' + error.message);
@@ -18,7 +18,7 @@ const deviceStorage = {
 
       async loadJWT() {
         try {
-            let data = await AsyncStorage.getItem("jwt");
+            let data = await AsyncStorage.getItem("user_auth");
             jwt = JSON.parse(data);
             console.log("jwt", jwt)
           } catch (error) {
@@ -29,7 +29,7 @@ const deviceStorage = {
 
       async loadUser() {
         try {
-            let data = await AsyncStorage.getItem("user_auth");
+            let data = await AsyncStorage.getItem("user_data");
             userData = JSON.parse(data);
             console.log("userdata", userData)
           } catch (error) {
