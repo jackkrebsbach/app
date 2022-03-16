@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 import { useIsFocused } from "@react-navigation/native";
 import { LinearTextGradient } from "react-native-text-gradient";
-
+import ModalPopup from '../Nft/ModalPopup';
 
 const BANNER_H = width;
 
@@ -57,7 +57,7 @@ const Profile = ({navigation}) => {
     const [city, setCity] = React.useState('');
     const [pictures, setPictures] = React.useState([]);
     const [visible, setVisible] = React.useState(false);
-    const [profilePicture, setProfilePicture] =  React.useState([]);
+    const [profilePicture, setProfilePicture] =  React.useState('');
 
 
 
@@ -80,13 +80,14 @@ const Profile = ({navigation}) => {
         console.log('inFocuset')
         deviceStorage.loadProfile().then( response => {
  if ( userProfile != null ){
-                var profile = userProfile.profile;
-                console.log('userProfile !-',profile )
-                setName(userData['first_name'] + " " + userData['last_name']);
+                var profile = userProfile;
+                console.log('userProfile !',profile )
+              //  setName(userData['first_name'] + " " + userData['last_name']);
+               setName(  "TEST THIBAUT");
                 setShortDescription(profile['short_description'])
                 setDescription(profile['description'])
                 setCity(profile['city'])
-                setPictures(profile['pictures'])
+                setPictures(profile['gallery'])
                 setProfilePicture(profile['profile_picture'])
         } 
         }
@@ -128,7 +129,7 @@ const Profile = ({navigation}) => {
                                 key={index}
                                 style={{ width: '100%', height: '100%', borderRadius: 30 }}
                                 resizeMode='contain'
-                                source={{uri: API_URL + pictures[index] }}
+                                source={{uri:  item.url }}
 
                               />
 
@@ -143,7 +144,7 @@ const Profile = ({navigation}) => {
             <View style={styles.bannerContainer}>
             <Animated.Image  
             resizeMode='contain'
-            source={{uri: API_URL + profilePicture[0] }}
+            source={{uri:  profilePicture }}
             style={styles.banner(scrollA)}
             />
 
@@ -178,7 +179,7 @@ const Profile = ({navigation}) => {
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
                         pictures.map((e, i = 0) => {
-                            let path = "https://api.rezafootwear.com/" + e;
+                            let path =  e.url;
 
                             if ( i < 2) {
                                 return(

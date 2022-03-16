@@ -56,7 +56,6 @@ const deviceStorage = {
         try {
             let data = await AsyncStorage.getItem("user_profile");
             userProfile = JSON.parse(data);
-            console.log("userProfile", data);
 
           } catch (error) {
             console.log("Something went wrong", error);

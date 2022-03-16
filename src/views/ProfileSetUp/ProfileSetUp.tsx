@@ -37,9 +37,9 @@ const ProfileSetUp = ({navigation}) => {
 
     const onPressHandler = () => {
       setLoading(true);
-      CreateProfile(userId, city, story, shortDescription, ressourcePath, profilePath ).then((res) => {
+      CreateProfile( city, story, shortDescription, ressourcePath, profilePath ).then((res) => {
         console.log('success', res)
-        getProfile(userId).then((res) => {
+        getProfile().then((res) => {
           navigation.navigate('Home');
           setLoading(false);
           })

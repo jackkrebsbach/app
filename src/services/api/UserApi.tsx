@@ -3,20 +3,19 @@ import deviceStorage, {userData} from '../storage/deviceStorage';
 import { API_URL } from '../../utils/apiRoute';
 
 
-export const getUser = async () => {
+export const getUser = async (token) => {
   const url = API_URL + "api/user/get-user";
+  console.log('testToken', token)
    return axios(url, {
       method: 'get',
       headers: {
           'content-type': 'application/json; charset=UTF-8',
           "Access-Control-Allow-Origin": "*",
-          'Authorization': 'Bearer ' + userData['access_token']
+          'Authorization': 'Bearer ' + token
       },
   })
       .then(response => {
-      console.log('getProfile', response.data);
-      const userProfile = response.data
-      deviceStorage.saveItem("user_profile", JSON.stringify(userProfile));
+      console.log('getUser', response.data);
       return response.data;
       })
       .catch(function (error) {
@@ -43,7 +42,7 @@ export const getUser = async () => {
 };
 
 
-export const getProfile = async (userId) => {
+export const getProfile = async () => {
     const url = API_URL + "api/profile/get-profile";
      return axios(url, {
         method: 'get',
@@ -52,7 +51,6 @@ export const getProfile = async (userId) => {
             "Access-Control-Allow-Origin": "*",
             'Authorization': 'Bearer ' + userData['access_token']
         },
-        data: {user_id: userId}
     })
         .then(response => {
         console.log('getProfile', response.data);
@@ -84,7 +82,7 @@ export const getProfile = async (userId) => {
 };
 
 
-export  const CreateProfile = async (userId, city, story, shortDescription , files, profilePicture ) => {
+export  const CreateProfile = async ( city, story, shortDescription , files, profilePicture ) => {
   const url = API_URL + "api/profile/create-profile";
   
   console.log("CreateProfile- files",profilePicture.toString());
@@ -155,7 +153,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg'
     };
-    formData.append('profile_picture', file)
+    formData.append('profile', file)
 
   }else {
     console.log("image  null", image)
@@ -164,7 +162,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
       name: image,
       type: 'image/jpeg'
     };
-    formData.append('profile_picture', file)
+    formData.append('profile', file)
   }
   });
   
@@ -177,7 +175,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg'
     };
-    formData.append('files', file)
+    formData.append('gallery', file)
 
   }else {
     console.log("image  null", image)
@@ -193,7 +191,6 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
   formData.append('city', city);
   formData.append('short_description', shortDescription);
   formData.append('description', story);
-  formData.append('user_id', userId);
 
   return await axios(url, {
     method: 'post',

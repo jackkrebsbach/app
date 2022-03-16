@@ -37,7 +37,7 @@ const Login = ({ route, navigation }) => {
 
       if (userData != null ) {
         console.log('test', userData);
-        getProfile(userData['id']).then((res) => {
+        getProfile().then((res) => {
           console.log("coucou je suis dedans", res)
           if (res == undefined) {
             navigation.navigate('Experience');
