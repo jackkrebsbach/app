@@ -1,17 +1,56 @@
 import axios from 'axios';
-import deviceStorage from '../storage/deviceStorage';
+import deviceStorage, {userData} from '../storage/deviceStorage';
 import { API_URL } from '../../utils/apiRoute';
-import { token  } from './Authentication';
 
+
+export const getUser = async () => {
+  const url = API_URL + "api/user/get-user";
+   return axios(url, {
+      method: 'get',
+      headers: {
+          'content-type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
+          'Authorization': 'Bearer ' + userData['access_token']
+      },
+  })
+      .then(response => {
+      console.log('getProfile', response.data);
+      const userProfile = response.data
+      deviceStorage.saveItem("user_profile", JSON.stringify(userProfile));
+      return response.data;
+      })
+      .catch(function (error) {
+          if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            console.log(" done");
+            console.log(error.response.data);
+            console.log(error.response.status);
+            console.log(error.response.headers);
+          } else if (error.request) {
+            // The request was made but no response was received
+            // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+            // http.ClientRequest in node.js
+            console.log(" not done");
+
+            console.log(error.request);
+          } else {
+            // Something happened in setting up the request that triggered an Error
+            console.log('Error', error.message);
+          }
+          console.log(error.config);
+        });
+};
 
 
 export const getProfile = async (userId) => {
-    const url = API_URL + "api/user/getProfile";
+    const url = API_URL + "api/profile/get-profile";
      return axios(url, {
-        method: 'post',
+        method: 'get',
         headers: {
             'content-type': 'application/json; charset=UTF-8',
             "Access-Control-Allow-Origin": "*",
+            'Authorization': 'Bearer ' + userData['access_token']
         },
         data: {user_id: userId}
     })
@@ -46,7 +85,7 @@ export const getProfile = async (userId) => {
 
 
 export  const CreateProfile = async (userId, city, story, shortDescription , files, profilePicture ) => {
-  const url = API_URL + "api/user/CreateProfile";
+  const url = API_URL + "api/profile/create-profile";
   
   console.log("CreateProfile- files",profilePicture.toString());
   let formData = new FormData();  
@@ -60,7 +99,7 @@ export  const CreateProfile = async (userId, city, story, shortDescription , fil
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg'
     };
-  formData.append('profile_picture', file)
+  formData.append('profile', file)
 
   }else {
     console.log("image  null", image)
@@ -69,7 +108,7 @@ export  const CreateProfile = async (userId, city, story, shortDescription , fil
       name: image,
       type: 'image/jpeg'
     };
-    formData.append('profile_picture', file)
+    formData.append('profile', file)
   }
   });
 
@@ -79,18 +118,19 @@ export  const CreateProfile = async (userId, city, story, shortDescription , fil
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg'
     };
-    formData.append('files', file)
+    formData.append('gallery', file)
   });
   formData.append('city', city);
   formData.append('short_description',shortDescription );
   formData.append('description', story);
-  formData.append('user_id', userId);
 
   return await axios(url, {
     method: 'post',
     headers: {
       'content-type': 'multipart/form-data; charset=UTF-8',
-      "Access-Control-Allow-Origin": "*",
+      'Access-Control-Allow-Origin': "*",
+      'Authorization': 'Bearer ' + userData['access_token'],
+
   },    data:formData
 }) .then(response => {
   console.log("Update !");
@@ -103,7 +143,7 @@ export  const CreateProfile = async (userId, city, story, shortDescription , fil
 
 export  const UpdateProfile = async (userId, profilePicture, city, story, shortDescription,files ) => {
   // console.log('i am here');
-  const url = API_URL + "api/user/UpdateProfile";
+  const url = API_URL + "api/profile/update-profile";
   let formData = new FormData();  
 
   profilePicture.forEach((image) => {
@@ -160,6 +200,7 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
     headers: {
       'content-type': 'multipart/form-data; charset=UTF-8',
       "Access-Control-Allow-Origin": "*",
+      'Authorization': 'Bearer ' + userData['access_token'],
   },    data:formData
 }) .then(response => {
   return response.data;

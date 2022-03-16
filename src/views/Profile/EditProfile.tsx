@@ -95,7 +95,6 @@ const EditProfile = ({navigation}) => {
             compressImageMaxHeight: 800,
             compressImageMaxWidth: 800,
             compressImageQuality: 0.8,
-            cropping: true,
             includeBase64: true,
             mediaType: 'photo'
           }).then(i => {

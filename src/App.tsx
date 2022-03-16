@@ -105,79 +105,109 @@ const App = () => {
   <PaperProvider >
   <NavigationContainer theme={DarkTheme}>
     <Stack.Navigator screenOptions={{ headerShown: false,  animation: "slide_from_left",
-    gestureEnabled: false,
   }}
     >
     
     <Stack.Screen
     name="SplashScreen"
     component={SplashScreen}
+    options={{    gestureEnabled: false,
+    }}
+    
   />
       <Stack.Screen
         name="Welcome"
         component={Welcome}
+        options={{    gestureEnabled: false,
+        }}
       />
       <Stack.Screen
         name="WelcomeB"
         component={WelcomeB}
+        options={{    gestureEnabled: false,
+        }}
       />
       <Stack.Screen
         name="Email"
         component={Email}
+        options={{    gestureEnabled: false,
+        }}
       />
       <Stack.Screen
       name="LoginPassword"
       component={LoginPassword}
+      options={{    gestureEnabled: true,
+      }}
     />
 
     <Stack.Screen
     name="Experience"
     component={Experience}
+    options={{    gestureEnabled: false,
+    }}
   />
   <Stack.Screen
     name="Experienceb"
     component={Experienceb}
+    options={{    gestureEnabled: false,
+    }}
   />
   <Stack.Screen
     name="Experiencec"
     component={Experiencec}
+    options={{    gestureEnabled: false,
+    }}
   />
 
 
   <Stack.Screen
       name="Home"
       component={HomeTabs}
+      options={{    gestureEnabled: false,
+      }}
     />
 
   <Stack.Screen
     name="NftView"
     component={NftView}
+    options={{    gestureEnabled: true,
+    }}
   />
 
 
     <Stack.Screen
     name="ProfileSetUp"
     component={ProfileSetUp}
+    options={{    gestureEnabled: false,
+    }}
   />
 
   <Stack.Screen
     name="OnBoardingNft"
     component={OnBoardingNft}
+    options={{    gestureEnabled: true,
+    }}
   />
     <Stack.Screen
     name="OnBoardingQr"
     component={OnBoardingQr}
+    options={{    gestureEnabled: true,
+    }}
   />
 
 
   <Stack.Screen
   name="Profile"
   component={Profile}
+  options={{    gestureEnabled: true,
+  }}
   />
 
   <Stack.Screen
   name="EditProfile"
   component={EditProfile}
+  options={{    gestureEnabled: true,
+  }}
   />
   
 

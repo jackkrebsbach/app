@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Image, View, TouchableOpacity, Text, Dimensions} from 'react-native';
 import { Linking } from 'react-native';
 import {Wrapper} from '@components/Wrappers'
 import {Button} from '@components/forms';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { TextDescription, styles } from './OnBoardingNft.styles';
+import { userProfile } from '../../services/storage/deviceStorage';
 const {width, height} = Dimensions.get('window');
 
 const OnBoardingNft = ({navigation}) => {
 
+  useEffect(() => {
+    console.log('test', userProfile)
+  })
 
   const onPressHandler = () => { 
       // check if appStoreLocale is set
@@ -54,9 +58,20 @@ being minted</TextDescription>
     </View>
       </View>
     <View style={{ flex: 1,flexDirection:'column', justifyContent: 'center',  alignItems: 'center' }}>
-      <View style={{marginTop:'auto', marginBottom: 30}}>
-      <Button  onPress={onPressHandler} title="share our community" />
-      </View>
+      {
+        (userProfile == null)?
+           (
+            <View style={{marginTop:'auto', marginBottom: 30}}>        
+            <Button  onPress={onPressHandler} title="share our community" />
+            </View>
+          ) : 
+
+          <View style={{marginTop:'auto', marginBottom: 30}}>        
+         
+          </View>
+        
+      }
+
     </View>
 
    </Wrapper>   

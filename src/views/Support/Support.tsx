@@ -1,10 +1,9 @@
 import React, { FunctionComponent, useEffect } from 'react';
 
 import {Logo} from '@components/Logo'
-import { Title } from '@components/Text';
 import { Wrapper, ButtonWrapper } from '@components/Wrappers';
 import { Button } from '@components/forms';
-import {Container, Header}  from './Support.style';
+import {Container, Header, Title}  from './Support.style';
 import {View } from 'react-native';
 
 import Intercom, {
@@ -24,7 +23,7 @@ const Support = ({navigation}) => {
     <Wrapper>
     <Header> 
       <Logo /> 
-      <Title  title="If you have any issue or any question, Please Contact Us" style={{ top: 10,marginStart:10, marginEnd: 10}} />
+      <Title>The REZA1 is the first rendition of this technology. Naturally, there may be instances where support is needed. By clicking the chat button, you can reach out to us 24/7 where we will support you with any questions or concerns you have</Title>
 
     </Header>
 
@@ -32,13 +31,13 @@ const Support = ({navigation}) => {
     <Container>
 
   <View style={{position: 'absolute' , top: 100}}>
-     <SupportCardView navigation={navigation} navigate={'OnBoardingNft'} title={'Nft'} src={'../../assets/nft.jpg'} content={'yoloooo'} />
-    <SupportCardView navigation={navigation} navigate={'OnBoardingQr'} title={'Qr Code'} src={'../../assets/nft.jpg'} content={'yoloooo'} />
+     <SupportCardView navigation={navigation} navigate={'OnBoardingNft'} title={'Nft'} src={'../../assets/nft.jpg'} content={'How to claim your nft?'} />
+    <SupportCardView navigation={navigation} navigate={'OnBoardingQr'} title={'Qr Code'} src={'../../assets/nft.jpg'} content={'How to invite new member?'} />
     </View>    
 
 
 <ButtonWrapper style={{top: 100}}>
-        <Button onPress={ onPressHandler }  title = "More question ? " />
+        <Button onPress={ onPressHandler }  title = "Chat with us? " />
 </ButtonWrapper>
   </Container>
 

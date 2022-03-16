@@ -92,7 +92,7 @@ const NftLanding = ({navigation}) => {
       <View style={{justifyContent:'flex-end'}}>
       <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5, bottom: 50}}>
 
-      <ButtonMiddle onPress={() => setVisible(true)} title="QR CODE" />
+      <ButtonMiddle onPress={() => setVisible(true)} title="INVITE" />
       <ButtonMiddle  onPress={onPressHandlerB} title="MY NFT" />
   
     </ButtonAlignWrapper>

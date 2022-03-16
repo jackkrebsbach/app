@@ -22,8 +22,8 @@ const Welcome = ({navigation}) => {
 
 
     if (userData != null ) {
-      console.log('test', userData)
-      console.log('test', userProfile)
+      console.log('userData', userData)
+      console.log('userProfile', userProfile)
       if (userProfile!= null) {
         deviceStorage.loadProfile();
         navigation.navigate('Home');        

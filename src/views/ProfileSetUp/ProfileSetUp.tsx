@@ -56,7 +56,6 @@ const ProfileSetUp = ({navigation}) => {
             compressImageMaxHeight: 800,
             compressImageMaxWidth: 800,
             compressImageQuality: 1,
-            cropping: false,
             includeBase64: true,
             mediaType: 'photo'
           }).then(i => {
