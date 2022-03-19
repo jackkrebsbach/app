@@ -22,14 +22,17 @@ const Experienceb = ({ navigation }) => {
     navigation.navigate('ProfileSetUp');
   };
 
-  useEffect(() => {
+  useEffect( () => {
     setDataLoaded(false);
     deviceStorage.loadUser();
     deviceStorage.loadProfile();
     if (userData!=null) {
       setName(userData['first_name'] + " " + userData['last_name']);
-      setLyop(userData['lyop']);
+    }
+    if (userProfile!=null ) {
+      setLyop(userProfile['lyop'])
       setDataLoaded(true)
+
     }
   });
   return (

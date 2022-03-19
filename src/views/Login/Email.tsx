@@ -49,10 +49,8 @@ const Email = ({ navigation }) => {
   };
 
   const validate = (email) => {
-    console.log(email);
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
     if (reg.test(email) === false) {
-      console.log("Email is Not Correct");
       setEmail(email.toLowerCase());
       setValid(false);
       return false;

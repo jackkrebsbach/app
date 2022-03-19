@@ -64,6 +64,8 @@ const Profile = ({navigation}) => {
     const onPressHandler = () => {
         deviceStorage.deleteProfile();
         deviceStorage.deleteUser();
+        deviceStorage.deleteNft();
+        deviceStorage.deleterJWT();
         navigation.navigate('Welcome');
       };
 
@@ -178,30 +180,33 @@ const Profile = ({navigation}) => {
                 <Text style={styles.galleryTitle}> gallery</Text>
                 <View style={{flexDirection: 'row', flexWrap: 'wrap',marginStart: 10, marginTop: 10}}>
                     {
-                        pictures.map((e, i = 0) => {
-                            let path =  e.url;
+                       (pictures != undefined ) ? (
+                        
+                          pictures.map((e, i = 0) => {
+                          let path =  e.url;
 
-                            if ( i < 2) {
-                                return(
-                                    <TouchableOpacity key={i}  onPress={() => setVisible(true)}>
-                                    <Image key={i} source={{uri : path}}
-                                    style={styles.galerryPicture} />
-                                    </TouchableOpacity>
-                                   
-                                )
-                            }
-                            else {
-                                return(
-                                    <TouchableOpacity key={i} onPress={() => setVisible(true)} >
-                                    <Image key={i} source={{uri : path}}
-                                    style={styles.galerryPictureB} />
-                                    </TouchableOpacity>
-                                   
-                                )
-                            }
-                            
-                        })
-                    }
+                          if ( i < 2) {
+                              return(
+                                  <TouchableOpacity key={i}  onPress={() => setVisible(true)}>
+                                  <Image key={i} source={{uri : path}}
+                                  style={styles.galerryPicture} />
+                                  </TouchableOpacity>
+                                 
+                              )
+                          }
+                          else {
+                              return(
+                                  <TouchableOpacity key={i} onPress={() => setVisible(true)} >
+                                  <Image key={i} source={{uri : path}}
+                                  style={styles.galerryPictureB} />
+                                  </TouchableOpacity>
+                                 
+                              )
+                          }
+                          
+                      }) 
+                    ) : null
+                  }
                     
                 </View>
                

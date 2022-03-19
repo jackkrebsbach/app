@@ -8,12 +8,18 @@ import Video from 'react-native-video';
 import { TextDescription, styles } from './Nft.styles';
 import {Logo} from '@components/Logo';
 import ModalPopup from './ModalPopup';
+import QRCode from 'react-native-qrcode-svg';
+import {generateInviteCode} from '../../services/api/InviteApi';
+import { ActivityIndicator } from "react-native";
 
 const NftLanding = ({navigation}) => {
 
   const [name, setName] = React.useState('');
   const [isFirstLoad, setIsFirstLoad] = React.useState(true);
   const [visible, setVisible] = React.useState(false);
+  const [url, setUrl] = React.useState('');
+  const [isLoading, setIsLoading] =  React.useState(false);
+
 
 
 
@@ -43,25 +49,31 @@ const NftLanding = ({navigation}) => {
   <View style={{alignItems: 'center'}}>
 
 
-  <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: -6, left: -45, justifyContent: 'center', width:50, height: 50, borderRadius:30 }}>
-  <Icon name="close-circle-outline" color='#fff' size={40} />
+  <TouchableOpacity onPress={() => setVisible(false)} style={{alignItems:'center',position:'absolute',top: -70, left: -25, justifyContent: 'center', width:50, height: 50, borderRadius:30 }}>
+  <Icon name="close-circle-outline" color='#fff' size={30} />
   </TouchableOpacity>  
 
   
-    <Image
-      source={require('../../assets/qr_code.png')}
-      resizeMode='contain'
-      style={{ height:300 , width: '100%', marginTop:25}}
-    />
+    <QRCode
+    value={url}
+    size={200}
+    logoBackgroundColor='transparent'
+    enableLinearGradient={true}
+    linearGradient={['rgb(0,0,0)','rgb(0,118,180)']}
+  />
 
 
   </View>
 
-  <Text style={{  fontFamily: 'DIN Condensed', letterSpacing: 1, color:'#fff',  marginVertical: 10, fontSize: 30, textAlign: 'center'}}>
+  <Text style={{  fontFamily: 'DIN Condensed', letterSpacing: 1, color:'#fff',  marginVertical: 30, fontSize: 30, textAlign: 'center'}}>
     Share our community
   </Text>
-
+  <Text style={{  fontStyle: 'italic', letterSpacing: 1, color:'#fff', fontSize: 15, textAlign: 'center'}}>
+  This is your unique QR code to invite users to the network. To invite another user generate a new code by refreshing the page
+</Text>
 </ModalPopup>
+
+
     <View style={{ flex: 1 }}> 
       <Logo /> 
       <View style={{ justifyContent: 'center', alignItems: 'center'}}>
@@ -71,11 +83,17 @@ const NftLanding = ({navigation}) => {
     </TextDescription>
 
     </View>
+
+
     </View>
 
 
+    <View style={{ flex: 2, justifyContent: 'center', zIndex: 1}}> 
 
+    {isLoading &&  <ActivityIndicator  /> }
   
+  </View>
+
     <Video
     source={require('../../assets/3d.mp4')}
     style={styles.backgroundVideo}
@@ -89,10 +107,19 @@ const NftLanding = ({navigation}) => {
 
 
     <View style={styles.container}>
+
       <View style={{justifyContent:'flex-end'}}>
       <ButtonAlignWrapper style={{marginStart: 30, marginEnd: 5, bottom: 50}}>
 
-      <ButtonMiddle onPress={() => setVisible(true)} title="INVITE" />
+      <ButtonMiddle onPress={() => {
+        setIsLoading(true)
+        generateInviteCode().then( response => {
+          console.log('invite', response.invite_link);
+          setUrl(response.invite_link)
+          setIsLoading(false)
+          setVisible(true)
+        })
+        }} title="INVITE" />
       <ButtonMiddle  onPress={onPressHandlerB} title="MY NFT" />
   
     </ButtonAlignWrapper>

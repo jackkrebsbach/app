@@ -10,6 +10,7 @@ const SplashScreen = ({navigation}) => {
           deviceStorage.loadJWT();
           deviceStorage.loadUser();
           deviceStorage.loadProfile();
+          deviceStorage.loadNFT();
           setTimeout(() => {
             navigation.navigate('Welcome')
           }, 3200);

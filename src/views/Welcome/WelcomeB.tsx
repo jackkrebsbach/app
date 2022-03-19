@@ -4,13 +4,14 @@ import {Button} from '@components/forms';
 import {Logo} from '@components/Logo';
 import {Wrapper, ButtonWrapper} from '@components/Wrappers';
 import {MainText, TextDescription, Header,Footer, Reza, MainView} from './WelcomeB.style';
-import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
+import deviceStorage, { userData, jwt } from '../../services/storage/deviceStorage';
 import { getProfile } from '../../services/api/UserApi';
 
 const WelcomeB = ({navigation}) => {
 
 
   const onPressHandler = () => {  
+    if (jwt == undefined) navigation.navigate('OnBoardingNft')
     if (userData != null ) {
       console.log('userDAta not null')
       getProfile().then((res) => {

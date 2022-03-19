@@ -3,6 +3,9 @@ import Intercom from '@intercom/intercom-react-native';
 import deviceStorage, { jwt } from '../storage/deviceStorage';
 import { API_URL } from '../../utils/apiRoute';
 import { getUser } from './UserApi';
+import jwt_decode from "jwt-decode";
+import dayjs from 'dayjs';
+
 
 
 export const getCode = (email) => {
@@ -26,7 +29,7 @@ export const login = (email, activationCode) => {
         method: "POST",
         data: { email: email, activation_code: activationCode },
         
-    }) .then(response => {
+    }) .then( (response) => {
         console.log('login', response.data);
         const userData = response.data
         const userId = response.data.id
@@ -44,6 +47,14 @@ export const login = (email, activationCode) => {
 
 export const refresh = async () => {
     const url = API_URL + 'api/auth/refresh-app';
+    const decode = jwt_decode(jwt['refresh_token'])
+    const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1;
+    console.log('RefreshisExpired', isExpired)
+    if (isExpired) {
+        await refresh();
+        await deviceStorage.loadJWT();
+    }
+  
     return axios (url, {
         method: "GET",
         headers: {'Authorization': 'Bearer ' + jwt['refresh_token']},

@@ -3,6 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export let userData = {};
 export let userProfile = {};
 export let jwt = {};
+export let nft = {};
+
 
 
 const deviceStorage = {
@@ -15,6 +17,18 @@ const deviceStorage = {
           console.log('AsyncStorage Error: ' + error.message);
         }
       },
+
+      async loadNFT() {
+        try {
+            let data = await AsyncStorage.getItem("nft");
+            nft = JSON.parse(data);
+            console.log("nft", nft)
+          } catch (error) {
+            console.log("Something went wrong", error);
+          }
+         
+      },
+
 
       async loadJWT() {
         try {
@@ -84,8 +98,33 @@ const deviceStorage = {
         } catch (error) {
           console.log('AsyncStorage Error: ' + error.message);
         }
-      }
+      },
 
+      async deleterJWT() {
+        try{
+          await AsyncStorage.removeItem('user_auth')
+          .then(
+            () => {
+              userData = null
+            }
+          );
+        } catch (error) {
+          console.log('AsyncStorage Error: ' + error.message);
+        }
+      },
+
+      async deleteNft() {
+        try{
+          await AsyncStorage.removeItem('nft')
+          .then(
+            () => {
+              userData = null
+            }
+          );
+        } catch (error) {
+          console.log('AsyncStorage Error: ' + error.message);
+        }
+      }
       
 };
 

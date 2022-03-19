@@ -5,15 +5,26 @@ import jwt_decode from "jwt-decode";
 import dayjs from 'dayjs'
 import { refresh } from './Authentication';
 
-export const getUser = async (token) => {
+export const getUser = async () => {
   const url = API_URL + "api/user/get-user";
-  console.log('testToken', token)
+
+  const decode = jwt_decode(jwt['access_token'])
+  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1;
+  
+  console.log('is expired', isExpired)
+
+  if (isExpired) {
+    console.log('is expired')
+    await refresh();
+  }
+  
+
    return axios(url, {
       method: 'get',
       headers: {
           'content-type': 'application/json; charset=UTF-8',
           "Access-Control-Allow-Origin": "*",
-          'Authorization': 'Bearer ' + token
+          'Authorization': 'Bearer ' + jwt['access_token']
       },
   })
       .then(response => {
@@ -92,7 +103,7 @@ export const getProfile = async () => {
 };
 
 
-export  const CreateProfile = async ( city, story, shortDescription , files, profilePicture ) => {
+export  const CreateProfile = async ( city, story, shortDescription , profilePicture ) => {
   const url = API_URL + "api/profile/create-profile";
 
   const decode = jwt_decode(jwt['access_token'])
@@ -129,14 +140,6 @@ export  const CreateProfile = async ( city, story, shortDescription , files, pro
   }
   });
 
-  files.forEach((image) => {
-    const file = {
-      uri: image.uri,
-      name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
-      type: 'image/jpeg'
-    };
-    formData.append('gallery', file)
-  });
   formData.append('city', city);
   formData.append('short_description',shortDescription );
   formData.append('description', story);
@@ -146,11 +149,11 @@ export  const CreateProfile = async ( city, story, shortDescription , files, pro
     headers: {
       'content-type': 'multipart/form-data; charset=UTF-8',
       'Access-Control-Allow-Origin': "*",
-      'Authorization': 'Bearer ' + userData['access_token'],
+      'Authorization': 'Bearer ' + jwt['access_token'],
 
   },    data:formData
 }) .then(response => {
-  console.log("Update !");
+  console.log("Created !");
   return response.data;
   }).catch(error => {
     console.log('error', JSON.stringify(error));
@@ -158,16 +161,17 @@ export  const CreateProfile = async ( city, story, shortDescription , files, pro
 }
 
 
-export  const UpdateProfile = async (userId, profilePicture, city, story, shortDescription,files ) => {
-  // console.log('i am here');
+export  const UpdateProfile = async (profileId, profilePicture, city, story, shortDescription ) => {
+   console.log('updateProfile', profilePicture);
   const url = API_URL + "api/profile/update-profile";
 
-  console.log('updateProfile', url)
+
+  
 
   const decode = jwt_decode(jwt['access_token'])
   const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1;
   
-
+  console.log('isExpired', isExpired)
   if (isExpired) {
     await refresh();
     await deviceStorage.loadJWT();
@@ -176,50 +180,18 @@ export  const UpdateProfile = async (userId, profilePicture, city, story, shortD
   let formData = new FormData();  
   //check if picture is new 
   // if not send don't repupload
-  profilePicture.forEach((image) => {
-    console.log("profile_picture", image.toString())
-    if (image.uri != null) {
-      console.log("image not null", image.uri)
+
+  if (profilePicture != '') {
+      console.log("image not null", profilePicture)
     const file = {
-      uri: image.uri,
+      uri: profilePicture,
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg'
     };
     formData.append('profile', file)
-
-  }else {
-    console.log("image  null", image)
-    const file = {
-      uri: API_URL + image,
-      name: image,
-      type: 'image/jpeg'
-    };
-    formData.append('profile', file)
   }
-  });
   
-  files.forEach((image) => {
-    console.log("test", image.toString())
-    if (image.uri != null) {
-      console.log("image not null", image.uri)
-    const file = {
-      uri: image.uri,
-      name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
-      type: 'image/jpeg'
-    };
-    formData.append('gallery', file)
-
-  }else {
-    console.log("image  null", image)
-    const file = {
-      uri: API_URL +image,
-      name: image,
-      type: 'image/jpeg'
-    };
-    formData.append('files', file)
-  }
-  });
-
+  formData.append('profile_id', profileId);
   formData.append('city', city);
   formData.append('short_description', shortDescription);
   formData.append('description', story);

@@ -6,8 +6,8 @@ import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
 import ImagePicker from 'react-native-image-crop-picker';
-import deviceStorage, { userData } from '../../services/storage/deviceStorage';
-import { CreateProfile, getProfile } from '../../services/api/UserApi';
+import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
+import { CreateProfile, getProfile, UpdateProfile } from '../../services/api/UserApi';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';  
 import { ActivityIndicator, Alert } from "react-native";
 const {width, height} = Dimensions.get('window');
@@ -19,17 +19,19 @@ const ProfileSetUp = ({navigation}) => {
     const [story, setStory] = useState(userData['lyop']);
     const [shortDescription, setShortDescription] = useState('');
     const [userId, setUserId] = useState(0);
+    const [profileId, setProfileId] = useState(0);
+
 
     const [ressourcePath, setRessourcePath] = useState([]);
     const [isLoading, setLoading] = React.useState(false);
-    const [profilePath, setprofilePath] = useState([]);
+    const [profilePath, setprofilePath] = useState('')
 
 
 
     useEffect(() => {
       deviceStorage.loadUser();
-      setUserId(userData['id'])
-      console.log('coucou');
+      deviceStorage.loadProfile();
+      setProfileId(userProfile['id'])
     }) 
 
 
@@ -37,7 +39,7 @@ const ProfileSetUp = ({navigation}) => {
 
     const onPressHandler = () => {
       setLoading(true);
-      CreateProfile( city, story, shortDescription, ressourcePath, profilePath ).then((res) => {
+      UpdateProfile( profileId, profilePath, city, story, shortDescription ).then((res) => {
         console.log('success', res)
         getProfile().then((res) => {
           navigation.navigate('Home');
@@ -64,7 +66,9 @@ const ProfileSetUp = ({navigation}) => {
               uri: i.path,
               type: i.mime || 'image/jpeg'
             })
-            setprofilePath(imageList);
+            
+            setprofilePath(i.path);
+
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
@@ -72,12 +76,12 @@ const ProfileSetUp = ({navigation}) => {
 
     const renderProfilePicture = (profilePicture) => {
 
-    if (profilePicture.toString().includes("[")){
-      console.log('profilePicture!!', profilePicture.uri);
+    if (profilePicture != ''){
+      console.log('profilePicture!!', profilePicture);
       return  (
         <Image 
         style={Styles.profilePicture}
-      source={{uri: profilePicture[0].uri}}
+      source={{uri: profilePicture}}
       />
       )
     }

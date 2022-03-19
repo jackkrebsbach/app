@@ -26,35 +26,30 @@ const Login = ({ route, navigation }) => {
   };
 
   async function loginWithCode() {
-    login(email, code).then((res) => {
-      deviceStorage.loadJWT();
+    login(email, code).then(async (res) => {
       //prepare a if profile != null then Experice, 
       // if null then Set Up profile
       // navigation.navigate('ProfileSetUp');
-      getUser(jwt.access_token).then(
-        ( res ) => {
-          deviceStorage.loadUser().then(
-            () => {
-              console.log('coucou')
+      await deviceStorage.loadJWT();
+      getUser().then(
+         ( res ) => {
+           deviceStorage.loadUser().then(
+             () => {
               if (userData != null ) {
-              console.log('userDAta not null', userData);
               getProfile().then((res) => {
-                console.log("coucou je suis dedans", res)
-                if (res == undefined) {
+                if (res.description == null) {
                   navigation.navigate('Experience');
                 } else {
                   deviceStorage.loadProfile();
                   navigation.navigate('Home');
-      
+    
                 }
             }).catch(error => {
       
                 console.log(error)
             }); 
             } }
-          )
-          console.log('test', userData);
-          
+          )          
         }
       )
 
@@ -79,7 +74,7 @@ const Login = ({ route, navigation }) => {
   
     <Logo /> 
     <View style = {{justifyContent: 'center', alignItems: 'center'}}>
-      <Title   title={ email } style={{ fontSize: 32}}/>
+      <Title   title={ email } style={{ fontSize: 28}}/>
     </View>
 
     </View>

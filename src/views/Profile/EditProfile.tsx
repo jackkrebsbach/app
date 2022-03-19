@@ -2,13 +2,12 @@ import React, {  useEffect, useState,  } from 'react';
 import { StyleSheet, Text, View,  Image, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput} from '@components/forms';
-import { API_URL } from '../../utils/apiRoute';
 import ImagePicker from 'react-native-image-crop-picker';
 import deviceStorage, { userData, userProfile } from '../../services/storage/deviceStorage';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { UpdateProfile, getProfile } from '../../services/api/UserApi';
-import { ActivityIndicator, Alert } from "react-native";
-import { Title } from 'react-native-paper';
+import { ActivityIndicator } from "react-native";
+import { deletePicture, uploadPicture } from '../../services/api/PictureApi';
 const {width, height} = Dimensions.get('window');
 const EditProfile = ({navigation}) => { 
 
@@ -16,8 +15,13 @@ const EditProfile = ({navigation}) => {
     const [story, setStory] = useState(userProfile['description']);
     const [shortDescription, setShortDescription] =  useState(userProfile['short_description']);
     const [userId, setUserId] = useState(0);
+    const [profileId, setProfileId] = useState(0);
+
     const [ressourcePath, setRessourcePath] = useState(userProfile['gallery']);
     const [profilePath, setprofilePath] = useState('');
+    const [newpProfilePicture, setNewProfilePicture] = useState('');
+
+
 
     const [isLoading, setLoading] = React.useState(false);
 
@@ -25,12 +29,15 @@ const EditProfile = ({navigation}) => {
 
     useEffect(() => {
       setUserId(userData['id']);
+      setProfileId(userProfile['id']);
+      if ( profilePath == '') 
+        setprofilePath(userProfile['profile_picture'])
     }) 
 
 
     const onPressHandler = () => {
       setLoading(true);
-      UpdateProfile(userId,profilePath ,city, story, shortDescription, ressourcePath).then((res) => {
+      UpdateProfile(profileId, newpProfilePicture ,city, story, shortDescription).then((res) => {
 
         getProfile().then((res) => {
           setLoading(false);
@@ -51,11 +58,12 @@ const EditProfile = ({navigation}) => {
     };
   
 
-    const onActionDeleteDone = index => {
+    const onActionDeleteDone = async (id, index) => {
+      await deletePicture(id, userId);
+
       if (index > -1) {
         const array = ressourcePath;
         array.splice(index, 1);
-        console.log(array)
         setRessourcePath([...array]);
      } else {
        console.log("nothing to delete")
@@ -63,16 +71,17 @@ const EditProfile = ({navigation}) => {
     };
 
     const pickPictures = () => {
-      let imageList = ressourcePath;
+      let imageList = [];
           ImagePicker.openPicker({
             multiple: true,
             forceJpg: true,
             compressImageMaxHeight: 1024,
             compressImageMaxWidth: 1024,
-            compressImageQuality: 0.7,
+            compressImageQuality: 0.8,
             includeBase64: true,
             mediaType: 'photo'
           }).then(images => {
+            setLoading(true)
             images.map( i => {
               imageList.push({
                 filename: i.filename,
@@ -80,8 +89,26 @@ const EditProfile = ({navigation}) => {
                 type: i.mime || 'image/jpeg'
               })
             })
-            setRessourcePath([...imageList]);
-            console.log("pick", ressourcePath);
+             uploadPicture(imageList).then( res => {
+
+              getProfile().then(res => {
+                console.log('response',res.gallery )
+                setRessourcePath(res.gallery)
+                setLoading(false)
+
+              })
+              // const pictures = res['photos_added']
+              // const newUrl = [];
+              // pictures.map( i => 
+              //   {
+              //   console.log('testMap', i.url)
+              //   ressourcePath.push(i.url)
+              // })
+
+              // setRessourcePath(ressourcePath => [...ressourcePath, newUrl ] )
+
+             }
+             )
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
@@ -92,8 +119,8 @@ const EditProfile = ({navigation}) => {
     const pickProfilePicture = () => {
       let imageList = [];
           ImagePicker.openPicker({
-            compressImageMaxHeight: 800,
-            compressImageMaxWidth: 800,
+            compressImageMaxHeight: 1024,
+            compressImageMaxWidth: 1024,
             compressImageQuality: 0.8,
             includeBase64: true,
             mediaType: 'photo'
@@ -103,64 +130,49 @@ const EditProfile = ({navigation}) => {
               uri: i.path,
               type: i.mime || 'image/jpeg'
             })
-            setprofilePath(imageList);
+            setprofilePath(imageList[0].uri);
+            setNewProfilePicture(imageList[0].uri)
+
           }).catch(error => {
             console.log(JSON.stringify(error));
           });
     }
 
     const renderProfilePicture = (profilePicture) => {
-
-    if (profilePicture.toString().includes("[")){
-      console.log('profilePicture!!', profilePicture.uri);
-      return  (
-        <Image 
-        style={styles.profilePicture}
-      source={{uri: profilePicture[0].uri}}
-      />
-      )
-    }
-
-    else return (
+      return (
       <Image 
-      style={styles.profilePicture}
-      resizeMode="contain"
-      source={{uri: profilePath}}
-      />
+            style={styles.profilePicture}
+            resizeMode="contain"
+            source={{uri: profilePicture}}
+            />
       )
-     
     }
 
     const renderListPhotos = (localPhotos) => {
-      const photos = localPhotos.map((photo, index) => (
-        
-          <View  key={index} style={{marginTop:5}}>
-          {
-            !(photo.toString().includes("[")) 
+      if (localPhotos != undefined) {
+
+        const photos = localPhotos.map((photo, index) => {      
+         return (
+          
+            <View  key={index} style={{marginTop:5}}>
+             <Image style={styles.photo} source={{uri:  photo.url }} />
             
-            ? 
-                <Image style={styles.photo} source={{uri: photo.url }} />
-            : <Image style={styles.photo} source={{uri:  photo.uri }} />
-
-          }
-        <TouchableOpacity onPress={ () =>
-          onActionDeleteDone(index) 
-        } 
+              <TouchableOpacity
+                onPress={ () =>
+                  onActionDeleteDone(photo.id, index) 
+                } 
+                style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
+                backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
+              <Icon name="close" color='#0076BA' size={15} />
+              </TouchableOpacity>  
+            </View>
+        )}
         
-        style={{alignItems:'center',position:'absolute',top: -5, right:5, justifyContent: 'center',
-          backgroundColor: 'white', width:20, height: 20, borderRadius:30 }}>
-          <Icon name="close" color='#0076BA' size={15} />
-          </TouchableOpacity>  
-          </View>
-      )
+        );
+        return photos;
+      }
       
-      );
-      return photos;
     }
-
-
-
-
 
     return (
        <Wrapper>

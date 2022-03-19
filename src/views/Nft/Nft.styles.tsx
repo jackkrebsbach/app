@@ -12,7 +12,9 @@ export const styles = StyleSheet.create({
     },
     container: {
       alignItems: 'center',
-      marginBottom: 100
+      justifyContent: 'center',
+      marginBottom: 100,
+      zIndex: 1
     },
     modalContainer: {
       width: '90%',
