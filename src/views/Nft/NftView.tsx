@@ -43,6 +43,20 @@ const NftView = ({ navigation }: { navigation: any }) => {
 
   return (
     <Wrapper>
+      <TouchableOpacity
+        onPress={onPressBack}
+        style={{
+          alignItems: 'center',
+          position: 'absolute',
+          top: 50,
+          left: 30,
+          justifyContent: 'center',
+          borderRadius: 30,
+          zIndex: 50,
+        }}
+      >
+        <Icon name="chevron-left" color="#FFFFFF" size={40} />
+      </TouchableOpacity>
       <ModalPopup visible={visible}>
         <View
           style={{

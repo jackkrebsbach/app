@@ -39,22 +39,12 @@ type Props = {
 const Profile = ({ route, navigation }: Props) => {
   const [visible, setVisible] = React.useState(false)
 
-  const isFocused = useIsFocused()
-
   const onPressHandler = async () => {
     await deviceStorage.logout()
     navigation.navigate('Welcome')
   }
 
   const onPressEdit = () => navigation.navigate('EditProfile')
-
-  const loadProfile = async () => await deviceStorage.loadProfile()
-
-  useEffect(() => {
-    if (isFocused) {
-      loadProfile()
-    }
-  }, [isFocused])
 
   const scrollA = useRef(new Animated.Value(0)).current
 

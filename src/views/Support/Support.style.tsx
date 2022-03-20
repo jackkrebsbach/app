@@ -18,6 +18,4 @@ export const Title = styled.Text`
   text-align: center;
   color: #ffffff;
   top: 30px;
-  margin-block-start: 20px;
-  margin-block-end: 20px;
 `
