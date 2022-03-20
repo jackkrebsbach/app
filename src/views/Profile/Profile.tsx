@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
+import { RouteProp, useIsFocused } from '@react-navigation/native'
 const { width } = Dimensions.get('window')
 import { Button } from '@components/forms'
 import { Wrapper } from '@components/Wrappers'
@@ -31,16 +32,16 @@ type ProfileNavigationProp = NativeStackNavigationProp<
 
 type Props = {
   navigation: ProfileNavigationProp
+  route?: RouteProp<{ params: { refresh?: boolean } }>
 }
 
-const Profile = ({ navigation }: Props) => {
+const Profile = ({ route, navigation }: Props) => {
   const [visible, setVisible] = React.useState(false)
 
+  const isFocused = useIsFocused()
+
   const onPressHandler = () => {
-    deviceStorage.deleteProfile()
-    deviceStorage.deleteUser()
-    deviceStorage.deleteNft()
-    deviceStorage.deleterJWT()
+    deviceStorage.logout()
     navigation.navigate('Welcome')
   }
 
@@ -49,8 +50,10 @@ const Profile = ({ navigation }: Props) => {
   const loadProfile = async () => await deviceStorage.loadProfile()
 
   useEffect(() => {
-    loadProfile()
-  }, [])
+    if (isFocused) {
+      loadProfile()
+    }
+  }, [isFocused])
 
   const scrollA = useRef(new Animated.Value(0)).current
 

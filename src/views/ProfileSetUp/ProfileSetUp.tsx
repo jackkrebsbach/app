@@ -35,19 +35,17 @@ type Props = {
 }
 
 const ProfileSetUp = ({ navigation }: Props) => {
-  type RescourceImage = {
-    filename?: string
-    uri: string
-    type: string
-  }
-
-  const [city, setCity] = useState('')
+  const [city, setCity] = useState(userProfile?.city || '')
   const [story, setStory] = useState(userProfile?.lyop || '')
-  const [shortDescription, setShortDescription] = useState('')
+  const [shortDescription, setShortDescription] = useState(
+    userProfile?.short_description || ''
+  )
 
-  const [ressourcePath, setRessourcePath] = useState<RescourceImage[]>([])
+  const [ressourcePath, setRessourcePath] = useState(userProfile?.gallery || [])
   const [isLoading, setLoading] = React.useState(false)
-  const [profilePath, setprofilePath] = useState('')
+  const [profilePath, setprofilePath] = useState(
+    userProfile?.profile_picture || ''
+  )
 
   const onPressHandler = () => {
     setLoading(true)
@@ -105,7 +103,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
 
   const onActionDeleteDone = (index: number) => {
     if (index > -1) {
-      const array = ressourcePath
+      const array = ressourcePath || []
       array.splice(index, 1)
       console.log(array)
       setRessourcePath([...array])
@@ -115,7 +113,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
   }
 
   const pickPictures = () => {
-    let imageList = ressourcePath
+    let imageList: any[] = []
     ImagePicker.openPicker({
       multiple: true,
       forceJpg: true,
@@ -126,7 +124,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
       includeBase64: true,
       mediaType: 'photo',
     })
-      .then((images) => {
+      .then((images: any[]) => {
         images.map((i) => {
           imageList.push({
             filename: i.filename,
@@ -141,7 +139,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
       })
   }
 
-  const renderListPhotos = (localPhotos: RescourceImage[]) => {
+  const renderListPhotos = (localPhotos: any[]) => {
     const photos = localPhotos.map((photo, index) => (
       <View key={index} style={{ marginTop: 5 }}>
         <Image style={Styles.photo} source={{ uri: photo.uri }} />

@@ -11,7 +11,9 @@ import {
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
 import ImagePicker from 'react-native-image-crop-picker'
-import { userProfile } from '../../services/storage/deviceStorage'
+import deviceStorage, {
+  userProfile,
+} from '../../services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { UpdateProfile, getProfile } from '../../services/api/UserApi'
 import { ActivityIndicator } from 'react-native'
@@ -50,8 +52,10 @@ const EditProfile = ({ navigation }: Props) => {
     UpdateProfile(newProfilePicture, city, story, shortDescription)
       .then((res) => {
         getProfile().then((res) => {
-          setLoading(false)
-          navigation.goBack()
+          deviceStorage.loadProfile().then(() => {
+            setLoading(false)
+            navigation.goBack()
+          })
         })
         setLoading(false)
       })

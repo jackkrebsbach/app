@@ -13,13 +13,13 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteProp } from '@react-navigation/native'
 import { RootStackParamList } from '../../App'
 
-type EmailNavigationProp = NativeStackNavigationProp<
+type LoginPasswordNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
-  'Email'
+  'LoginPassword'
 >
 
 type Props = {
-  navigation: EmailNavigationProp
+  navigation: LoginPasswordNavigationProp
   route: RouteProp<{ params: { email: string } }>
 }
 

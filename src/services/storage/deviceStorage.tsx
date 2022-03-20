@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { JWT, User, Profile, NFT } from './types'
-
+import { Platform } from 'react-native'
 export let userData: User | undefined
 export let userProfile: Profile | undefined
 export let jwt: JWT | undefined
@@ -100,6 +100,18 @@ const deviceStorage = {
       })
     } catch (error) {
       console.log('AsyncStorage Error: ' + error)
+    }
+  },
+
+  async logout() {
+    const asyncStorageKeys = await AsyncStorage.getAllKeys()
+    if (asyncStorageKeys.length > 0) {
+      if (Platform.OS === 'android') {
+        await AsyncStorage.clear()
+      }
+      if (Platform.OS === 'ios') {
+        await AsyncStorage.multiRemove(asyncStorageKeys)
+      }
     }
   },
 }

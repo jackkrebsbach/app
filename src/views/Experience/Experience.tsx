@@ -32,8 +32,12 @@ const Experience = ({ navigation }: Props) => {
       <View style={{ flex: 1 }}>
         <Logo />
       </View>
-      <View style={{ flex: 2, alignItems: 'center' }}>
-        <Image source={require('../../assets/floating_shoe.jpg')} />
+      <View style={{ flex: 2, alignItems: 'center', paddingBottom: 300 }}>
+        <Image
+          source={require('../../assets/floating_shoe.jpg')}
+          style={{ width: 500 }}
+          resizeMode="contain"
+        />
       </View>
 
       <TextDescription>

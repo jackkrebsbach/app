@@ -21,7 +21,7 @@ import WelcomeB from './views/Welcome/WelcomeB'
 
 export type RootStackParamList = {
   Home: undefined // undefined because you aren't passing any params to the home screen
-  Profile: undefined
+  Profile: { refresh?: boolean }
   SplashScreen: undefined
   Welcome: undefined
   WelcomeB: undefined
