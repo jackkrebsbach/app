@@ -101,7 +101,9 @@ const EditProfile = ({ navigation }: Props) => {
         uploadPicture(newImages).then((res) => {
           getProfile().then((res) => {
             setRessourcePath([...ressourcePath, res.gallery])
-            setLoading(false)
+            deviceStorage.loadProfile().then(() => {
+              navigation.goBack()
+            })
           })
         })
       })
