@@ -1,7 +1,5 @@
-module.exports = {
-  bracketSpacing: false,
-  jsxBracketSameLine: true,
-  singleQuote: true,
-  trailingComma: 'all',
-  arrowParens: 'avoid',
-};
+export const bracketSpacing = false;
+export const jsxBracketSameLine = true;
+export const singleQuote = true;
+export const trailingComma = 'all';
+export const arrowParens = 'avoid';

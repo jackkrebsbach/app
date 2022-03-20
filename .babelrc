@@ -16,10 +16,12 @@
           ".json"
         ],
         "alias": {
-          "@navigation": "./src/navigation",
-          "@components": "./src/components",
-          "@services": "./src/services",
-          "@assets": "./assets"
+          "@navigation/*": "./src/navigation/*",
+          "@components/*": "./src/components/*",
+          "@services/*": "./src/services/*",
+          "@assets/*": "./src/assets/*",
+          "@views/*": "./src/views/*",
+          "@utils/*": "./src/utils/*"
         }
       }
     ]

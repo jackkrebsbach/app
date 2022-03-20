@@ -21,6 +21,7 @@ module.exports = {
               "@components/*": ["./src/components/*"],
               "@assets/*": ["./assets/*"],
               "@services/*": ["./services/*"],
+              "@views/*": ["./views/*"],
             }
           }
         ]
