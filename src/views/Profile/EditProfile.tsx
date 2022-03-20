@@ -5,6 +5,8 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
@@ -38,7 +40,7 @@ const EditProfile = ({ navigation }: Props) => {
   const [shortDescription, setShortDescription] = useState(
     userProfile?.short_description || ''
   )
-  const [ressourcePath, setRessourcePath] = useState(userProfile?.gallery)
+  const [ressourcePath, setRessourcePath] = useState(userProfile?.gallery || [])
   const [profilePath, setprofilePath] = useState(
     userProfile?.profile_picture || ''
   )
@@ -78,33 +80,32 @@ const EditProfile = ({ navigation }: Props) => {
   }
 
   const pickPictures = () => {
-    let imageList: any[] = []
     ImagePicker.openPicker({
       multiple: true,
       forceJpg: true,
       compressImageMaxHeight: 1024,
       compressImageMaxWidth: 1024,
       compressImageQuality: 0.8,
+      maxFiles: 10,
       includeBase64: true,
       mediaType: 'photo',
     })
-      .then((images) => {
-        setLoading(true)
-        images.map((i) => {
-          imageList.push({
+      .then((images: any[]) => {
+        const newImages = images.map((i) => {
+          return {
             filename: i.filename,
             uri: i.path,
             type: i.mime || 'image/jpeg',
-          })
+          }
         })
-        uploadPicture(imageList).then((res) => {
+        uploadPicture(newImages).then((res) => {
           getProfile().then((res) => {
-            setRessourcePath(res.gallery)
+            setRessourcePath([...ressourcePath, res.gallery])
             setLoading(false)
           })
         })
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(JSON.stringify(error))
       })
   }
@@ -173,106 +174,114 @@ const EditProfile = ({ navigation }: Props) => {
   }
 
   return (
-    <Wrapper>
-      <View style={{ flex: 1, marginBottom: -100 }}>
-        <TouchableOpacity
-          onPress={onPressBack}
-          style={{
-            alignItems: 'center',
-            position: 'absolute',
-            top: 50,
-            left: 30,
-            justifyContent: 'center',
-            borderRadius: 30,
-          }}
-        >
-          <Icon name="chevron-left" color="#FFFFFF" size={40} />
-        </TouchableOpacity>
-        <Text style={styles.pageTitle}> Edit profile </Text>
-      </View>
-      <View style={{ flex: 3 }}>
-        <ScrollView>
-          <View>
-            <TouchableOpacity
-              onPress={() => pickProfilePicture()}
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 30,
-              }}
-            >
-              {renderProfilePicture(profilePath)}
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text style={styles.title}> City </Text>
-            <ProfileTextInput
-              style={styles.textInput}
-              placeholder="Enter your city"
-              defaultValue={city}
-              value={city}
-              onChangeText={setCity}
-            />
-
-            <Text style={styles.title}> Describe yourself </Text>
-            <ProfileTextInput
-              style={styles.textInput}
-              placeholder=" Two to three words"
-              defaultValue={shortDescription}
-              onChangeText={setShortDescription}
-              value={shortDescription}
-            />
-
-            <Text style={styles.title}> Share your story </Text>
-
-            <LargeTextInput
-              style={styles.textInput}
-              defaultValue={story}
-              placeholder="Your Story"
-              onChangeText={(t) => setStory(t)}
-              value={story}
-            />
-          </View>
-
-          <View style={{ marginTop: 30 }}>
-            <Text style={styles.title}> Gallery </Text>
-            <View style={{ marginStart: 35 }}>
-              <ScrollView style={styles.photoList} horizontal={true}>
-                {renderListPhotos(ressourcePath)}
-                <TouchableOpacity
-                  style={{ marginTop: 5 }}
-                  onPress={pickPictures}
-                >
-                  <View style={[styles.addButton, styles.photo]}>
-                    <Text style={styles.addButtonText}>+</Text>
-                  </View>
-                </TouchableOpacity>
-              </ScrollView>
-            </View>
-          </View>
-
-          <ButtonWrapper>
-            <Button onPress={onPressHandler} title="Update my profile" />
-          </ButtonWrapper>
-        </ScrollView>
-      </View>
-
-      {isLoading && (
-        <View
-          style={{
-            backgroundColor: 'rgba(0,0,0,0.8)',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <ActivityIndicator />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <Wrapper>
+        <View style={{ flex: 1, marginBottom: -100 }}>
+          <TouchableOpacity
+            onPress={onPressBack}
+            style={{
+              alignItems: 'center',
+              position: 'absolute',
+              top: 50,
+              left: 30,
+              justifyContent: 'center',
+              borderRadius: 30,
+            }}
+          >
+            <Icon name="chevron-left" color="#FFFFFF" size={40} />
+          </TouchableOpacity>
+          <Text style={styles.pageTitle}> Edit profile </Text>
         </View>
-      )}
-    </Wrapper>
+        <View style={{ flex: 3 }}>
+          <ScrollView>
+            <View>
+              <TouchableOpacity
+                onPress={() => pickProfilePicture()}
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 30,
+                }}
+              >
+                {renderProfilePicture(profilePath)}
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Text style={styles.title}> City </Text>
+              <ProfileTextInput
+                style={styles.textInput}
+                placeholder="Enter your city"
+                defaultValue={city}
+                value={city}
+                onChangeText={setCity}
+              />
+
+              <Text style={styles.title}> Describe yourself </Text>
+              <ProfileTextInput
+                style={styles.textInput}
+                placeholder=" Two to three words"
+                defaultValue={shortDescription}
+                onChangeText={setShortDescription}
+                value={shortDescription}
+              />
+
+              <Text style={styles.title}> Share your story </Text>
+
+              <LargeTextInput
+                style={styles.textInput}
+                defaultValue={story}
+                placeholder="Your Story"
+                onChangeText={(t) => setStory(t)}
+                value={story}
+              />
+            </View>
+
+            <View style={{ marginTop: 30 }}>
+              <Text style={styles.title}> Gallery </Text>
+              <View style={{ marginStart: 35 }}>
+                <ScrollView style={styles.photoList} horizontal={true}>
+                  {renderListPhotos(ressourcePath)}
+                  <TouchableOpacity
+                    style={{ marginTop: 5 }}
+                    onPress={pickPictures}
+                  >
+                    <View style={[styles.addButton, styles.photo]}>
+                      <Text style={styles.addButtonText}>+</Text>
+                    </View>
+                  </TouchableOpacity>
+                </ScrollView>
+              </View>
+            </View>
+
+            <ButtonWrapper>
+              <Button onPress={onPressHandler} title="Update my profile" />
+            </ButtonWrapper>
+          </ScrollView>
+        </View>
+
+        {isLoading && (
+          <View
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <ActivityIndicator />
+          </View>
+        )}
+      </Wrapper>
+    </KeyboardAvoidingView>
   )
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   textInput: {
     marginStart: 25,
     height: 100,

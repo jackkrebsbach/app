@@ -8,9 +8,12 @@ import {
   Image,
   Text,
   TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
 import FastImage from 'react-native-fast-image'
-import { RouteProp, useIsFocused } from '@react-navigation/native'
+import { RouteProp } from '@react-navigation/native'
 const { width } = Dimensions.get('window')
 import { Button } from '@components/forms'
 import { Wrapper } from '@components/Wrappers'
@@ -38,167 +41,182 @@ type Props = {
 
 const Profile = ({ route, navigation }: Props) => {
   const [visible, setVisible] = React.useState(false)
+  const isFocused = useIsFocused()
 
   const onPressHandler = async () => {
     await deviceStorage.logout()
     navigation.navigate('Welcome')
   }
 
+  const loadProfile = async () => await deviceStorage.loadProfile()
+  useEffect(() => {
+    if (isFocused) {
+      loadProfile()
+    }
+  }, [isFocused])
+
   const onPressEdit = () => navigation.navigate('EditProfile')
 
   const scrollA = useRef(new Animated.Value(0)).current
 
   return (
-    <Wrapper>
-      <Animated.ScrollView
-        onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: scrollA } } }],
-          { useNativeDriver: true }
-        )}
-        scrollEventThrottle={16}
-      >
-        <ModalPoup visible={visible}>
-          <View
-            style={{
-              backgroundColor: 'rgba(0, 0, 0, .8)',
-              alignItems: 'center',
-            }}
-          >
-            <Carousel
-              layout="stack"
-              data={userProfile?.gallery || []}
-              sliderWidth={width}
-              itemWidth={width}
-              inactiveSlideScale={1}
-              renderItem={({ item, index }) => (
-                <FastImage
-                  key={index}
-                  style={{ width: '100%', height: '100%', borderRadius: 30 }}
-                  resizeMode="contain"
-                  source={{ uri: item.url }}
-                />
-              )}
-            />
-          </View>
-          <TouchableOpacity
-            onPress={() => setVisible(false)}
-            style={{
-              alignItems: 'center',
-              position: 'absolute',
-              top: 50,
-              right: 20,
-              justifyContent: 'center',
-              backgroundColor: 'white',
-              width: 50,
-              height: 50,
-              borderRadius: 30,
-            }}
-          >
-            <Icon name="close" color="#000000" size={25} />
-          </TouchableOpacity>
-        </ModalPoup>
-        <View style={styles.bannerContainer}>
-          <Animated.Image
-            resizeMode="contain"
-            source={{ uri: userProfile?.profile_picture }}
-            style={styles.banner(scrollA)}
-          />
-        </View>
-        <View style={{ borderRadius: 10 }}>
-          <View style={{ marginTop: 25, marginBottom: 5 }}>
+    <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
+      <Wrapper>
+        <Animated.ScrollView
+          onScroll={Animated.event(
+            [{ nativeEvent: { contentOffset: { y: scrollA } } }],
+            { useNativeDriver: true }
+          )}
+          scrollEventThrottle={16}
+        >
+          <ModalPoup visible={visible}>
             <View
               style={{
-                marginBottom: 25,
+                backgroundColor: 'rgba(0, 0, 0, .8)',
+                alignItems: 'center',
+              }}
+            >
+              <Carousel
+                layout="stack"
+                data={userProfile?.gallery || []}
+                sliderWidth={width}
+                itemWidth={width}
+                inactiveSlideScale={1}
+                renderItem={({ item, index }) => (
+                  <FastImage
+                    key={index}
+                    style={{ width: '100%', height: '100%', borderRadius: 30 }}
+                    resizeMode="contain"
+                    source={{ uri: item.url }}
+                  />
+                )}
+              />
+            </View>
+            <TouchableOpacity
+              onPress={() => setVisible(false)}
+              style={{
+                alignItems: 'center',
+                position: 'absolute',
+                top: 50,
+                right: 20,
+                justifyContent: 'center',
+                backgroundColor: 'white',
+                width: 50,
+                height: 50,
+                borderRadius: 30,
+              }}
+            >
+              <Icon name="close" color="#000000" size={25} />
+            </TouchableOpacity>
+          </ModalPoup>
+          <View style={styles.bannerContainer}>
+            <Animated.Image
+              resizeMode="contain"
+              source={{ uri: userProfile?.profile_picture }}
+              style={styles.banner(scrollA)}
+            />
+          </View>
+          <View style={{ borderRadius: 10 }}>
+            <View style={{ marginTop: 25, marginBottom: 5 }}>
+              <View
+                style={{
+                  marginBottom: 25,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Text style={styles.name}> {userData?.first_name}</Text>
+
+                <LinearTextGradient
+                  locations={[0, 1]}
+                  colors={['#ffffff', '#0076BA']}
+                  start={{ x: 0, y: 0 }}
+                  end={{ x: 1, y: 0 }}
+                >
+                  <Text style={styles.shortDescription}>
+                    {' '}
+                    {userProfile?.short_description}
+                  </Text>
+                </LinearTextGradient>
+                <Text style={styles.location}> {userProfile?.city}</Text>
+              </View>
+              <View style={{ marginBottom: 25 }}>
+                <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
+                <Text style={styles.desription}>
+                  {' '}
+                  {userProfile?.description}
+                </Text>
+              </View>
+            </View>
+
+            <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10 }}>
+              <Text style={styles.galleryTitle}> gallery</Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginStart: 10,
+                  marginTop: 10,
+                }}
+              >
+                {userProfile?.gallery &&
+                  userProfile?.gallery.map((e, i = 0) => {
+                    let path = e.url
+
+                    if (i < 2) {
+                      return (
+                        <TouchableOpacity
+                          key={i}
+                          onPress={() => setVisible(true)}
+                        >
+                          <FastImage
+                            key={i}
+                            source={{ uri: path }}
+                            style={styles.galerryPicture}
+                          />
+                        </TouchableOpacity>
+                      )
+                    } else {
+                      return (
+                        <TouchableOpacity
+                          key={i}
+                          onPress={() => setVisible(true)}
+                        >
+                          <FastImage
+                            key={i}
+                            source={{ uri: path }}
+                            style={styles.galerryPictureB}
+                          />
+                        </TouchableOpacity>
+                      )
+                    }
+                  })}
+              </View>
+            </View>
+            <View
+              style={{
+                marginBottom: 100,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}
             >
-              <Text style={styles.name}> {userData?.first_name}</Text>
-
-              <LinearTextGradient
-                locations={[0, 1]}
-                colors={['#ffffff', '#0076BA']}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 0 }}
-              >
-                <Text style={styles.shortDescription}>
-                  {' '}
-                  {userProfile?.short_description}
-                </Text>
-              </LinearTextGradient>
-              <Text style={styles.location}> {userProfile?.city}</Text>
-            </View>
-            <View style={{ marginBottom: 25 }}>
-              <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
-              <Text style={styles.desription}> {userProfile?.description}</Text>
+              <View style={{ marginBottom: 10 }}>
+                <Button onPress={onPressEdit} title="Edit my profile" />
+              </View>
+              <Button onPress={onPressHandler} title="Log out" />
             </View>
           </View>
+        </Animated.ScrollView>
 
-          <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10 }}>
-            <Text style={styles.galleryTitle}> gallery</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                marginStart: 10,
-                marginTop: 10,
-              }}
-            >
-              {userProfile?.gallery &&
-                userProfile?.gallery.map((e, i = 0) => {
-                  let path = e.url
-
-                  if (i < 2) {
-                    return (
-                      <TouchableOpacity
-                        key={i}
-                        onPress={() => setVisible(true)}
-                      >
-                        <Image
-                          key={i}
-                          source={{ uri: path }}
-                          style={styles.galerryPicture}
-                        />
-                      </TouchableOpacity>
-                    )
-                  } else {
-                    return (
-                      <TouchableOpacity
-                        key={i}
-                        onPress={() => setVisible(true)}
-                      >
-                        <Image
-                          key={i}
-                          source={{ uri: path }}
-                          style={styles.galerryPictureB}
-                        />
-                      </TouchableOpacity>
-                    )
-                  }
-                })}
-            </View>
-          </View>
-          <View
-            style={{
-              marginBottom: 100,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <View style={{ marginBottom: 10 }}>
-              <Button onPress={onPressEdit} title="Edit my profile" />
-            </View>
-            <Button onPress={onPressHandler} title="Log out" />
-          </View>
-        </View>
-      </Animated.ScrollView>
-
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        ></View>
-      </View>
-    </Wrapper>
+        >
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          ></View>
+        </View>
+      </Wrapper>
+    </KeyboardAvoidingView>
   )
 }
 interface ModalProps {
@@ -242,6 +260,7 @@ const ModalPoup = ({ visible, children }: ModalProps) => {
 type test = any
 
 const styles = StyleSheet.create<test>({
+  container: { flex: 1 },
   image: {
     width: 400,
     height: 600,

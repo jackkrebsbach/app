@@ -471,6 +471,7 @@
 			baseConfigurationReference = 6C97AB639B58BBB4B15BBE30 /* Pods-rezaApp-rezaAppTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = Q9PHXYN92X;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -499,6 +500,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = Q9PHXYN92X;
 				INFOPLIST_FILE = rezaAppTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -526,7 +528,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 4FBG8J6LN7;
+				DEVELOPMENT_TEAM = Q9PHXYN92X;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = rezaApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -557,7 +559,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
-				DEVELOPMENT_TEAM = 4FBG8J6LN7;
+				DEVELOPMENT_TEAM = Q9PHXYN92X;
 				INFOPLIST_FILE = rezaApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
