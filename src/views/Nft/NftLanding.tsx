@@ -11,12 +11,14 @@ import ModalPopup from './ModalPopup'
 import QRCode from 'react-native-qrcode-svg'
 import { generateInviteCode } from '../../services/api/InviteApi'
 import { ActivityIndicator } from 'react-native'
+import { useIsFocused } from '@react-navigation/native'
 
 const NftLanding = ({ navigation }: { navigation: any }) => {
   const [name, setName] = React.useState('')
   const [visible, setVisible] = React.useState(false)
   const [url, setUrl] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
+  const screenIsFocused = useIsFocused()
 
   const onPressHandlerB = () => navigation.navigate('NftView')
 
@@ -97,8 +99,9 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
         style={styles.backgroundVideo}
         repeat={true}
         rate={1.0}
-        resizeMode={'contain'}
-        ignoreSilentSwitch={'obey'}
+        resizeMode="contain"
+        ignoreSilentSwitch="obey"
+        paused={!screenIsFocused}
       />
 
       <View style={{ justifyContent: 'flex-end' }}>

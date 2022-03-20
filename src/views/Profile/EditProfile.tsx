@@ -115,7 +115,7 @@ const EditProfile = ({ navigation }: Props) => {
     ImagePicker.openPicker({
       compressImageMaxHeight: 1024,
       compressImageMaxWidth: 1024,
-      compressImageQuality: 0.8,
+      compressImageQuality: 0.7,
       includeBase64: true,
       mediaType: 'photo',
     })
@@ -308,8 +308,8 @@ const styles = StyleSheet.create({
   },
   profilePicture: {
     marginBottom: 10,
-    width: 150,
-    height: 150,
+    width: 300,
+    height: 100,
     borderRadius: 20,
   },
   picture: {
