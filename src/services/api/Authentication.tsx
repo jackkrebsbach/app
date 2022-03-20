@@ -1,8 +1,7 @@
 import axios from 'axios'
 import Intercom from '@intercom/intercom-react-native'
-import deviceStorage, { jwt } from '../storage/deviceStorage'
-import fetcher from './fetcher'
-import { API_URL } from 'src/utils/apiRoute'
+import deviceStorage from '../storage/deviceStorage'
+import { API_URL } from '../../utils/apiRoute'
 
 export const getCode = async (email: string) => {
   const url = API_URL + '/api/auth/generate-code'
@@ -32,7 +31,7 @@ export const login = async (email: string, activationCode: string) => {
     const access_token = response.data.access_token
     const refresh_token = response.data.refresh_token
     let userAuth = {
-      email: userData['email'],
+      email: userData.email,
       userId: userId,
       access_token: access_token,
       refresh_token: refresh_token,

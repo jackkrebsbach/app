@@ -1,4 +1,3 @@
-import { userProfile } from '../storage/deviceStorage'
 import fetcher from './fetcher'
 
 export const deletePicture = async (pictureId: string) => {
@@ -25,10 +24,8 @@ export const uploadPicture = async (pictures: any[]) => {
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
-    dataForm.append('gallery', file)
+    dataForm.append('gallery', file.uri, image.filename)
   })
-
-  dataForm.append('profile_id', userProfile['id'])
 
   return fetcher('/api/profile/upload-photos', {
     method: 'POST',

@@ -20,12 +20,12 @@ fetcher.interceptors.request.use(async (config: AxiosRequestConfig) => {
 
   if (!isExpired) return config
 
-  const response = await axios.post(`${baseURL}api/auth/refresh-app`, {
+  const response = await axios.post(`${baseURL}/api/auth/refresh-app`, {
     headers: { Authorization: `Bearer ${jwt.refresh_token}` },
   })
   let updated = {
-    email: userData['email'],
-    userId: userData['id'],
+    email: userData.email,
+    userId: userData.id,
     access_token: response.data.access_token,
     refresh_token: response.data.refresh_token,
   }

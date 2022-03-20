@@ -19,9 +19,10 @@ module.exports = {
             alias: {
               "@navigation/*": ["./src/navigation/*"],
               "@components/*": ["./src/components/*"],
-              "@assets/*": ["./assets/*"],
-              "@services/*": ["./services/*"],
-              "@views/*": ["./views/*"],
+              "@assets/*": ["./src/assets/*"],
+              "@services/*": ["./src/services/*"],
+              "@views/*": ["./src/views/*"],
+              "@utils/*": ["./src/utils/*"]
             }
           }
         ]
