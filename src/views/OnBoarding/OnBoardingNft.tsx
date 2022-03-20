@@ -7,7 +7,19 @@ import { TextDescription, styles } from './OnBoardingNft.styles'
 import { userData, userProfile } from '../../services/storage/deviceStorage'
 const { width, height } = Dimensions.get('window')
 
-const OnBoardingNft = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type OnBoardingNftNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'OnBoardingNft'
+>
+
+type Props = {
+  navigation: OnBoardingNftNavigationProp
+}
+
+const OnBoardingNft = ({ navigation }: Props) => {
   useEffect(() => {
     console.log('test', userProfile)
   })

@@ -7,14 +7,26 @@ import styled from 'styled-components/native'
 
 import deviceStorage from '../../services/storage/deviceStorage'
 
-const Experience = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type ExperienceNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Experience'
+>
+
+type Props = {
+  navigation: ExperienceNavigationProp
+}
+
+const Experience = ({ navigation }: Props) => {
   useEffect(() => {
     deviceStorage.loadUser()
     deviceStorage.loadProfile()
-  })
+  }, [])
 
   const onPressHandler = () => {
-    navigation.navigate('Experienceb')
+    navigation.navigate('Experienceb', {})
   }
 
   return (

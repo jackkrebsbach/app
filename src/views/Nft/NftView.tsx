@@ -19,7 +19,7 @@ import deviceStorage, { nft } from '../../services/storage/deviceStorage'
 
 const { width, height } = Dimensions.get('window')
 
-const NftView = ({ navigation }) => {
+const NftView = ({ navigation }: { navigation: any }) => {
   const [visible, setVisible] = React.useState(false)
   const [metamaskId, setMetamaskId] = React.useState('')
   const [isLoading, setLoading] = React.useState(false)

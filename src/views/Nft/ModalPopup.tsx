@@ -2,12 +2,19 @@ import React, { useEffect } from 'react'
 import { Modal, View, Animated } from 'react-native'
 import { styles } from './Nft.styles'
 
-const ModalPopup = ({ visible, children }) => {
+interface Props {
+  visible?: boolean
+  children?: React.ReactNode
+}
+
+const ModalPopup = ({ visible, children }: Props) => {
   const [showModal, setShowModal] = React.useState(visible)
   const scaleValue = React.useRef(new Animated.Value(0)).current
+
   useEffect(() => {
     toggleModal()
   }, [visible])
+
   const toggleModal = () => {
     if (visible) {
       setShowModal(true)

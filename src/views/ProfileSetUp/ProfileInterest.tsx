@@ -7,7 +7,6 @@ import {
   FlatList,
   TouchableOpacity,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'

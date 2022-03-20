@@ -15,13 +15,27 @@ import { Button } from '@components/forms'
 import { Logo } from '@components/Logo'
 import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 
-const WelcomeB = ({ navigation }) => {
-  const onPressHandler = () => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type WelcomeBNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'WelcomeB'
+>
+
+type Props = {
+  navigation: WelcomeBNavigationProp
+}
+
+const WelcomeB = ({ navigation }: Props) => {
+  const onPressHandler = async () => {
     if (!jwt) navigation.navigate('OnBoardingNft')
     if (!!userData) {
       getProfile()
         .then((res) => {
-          deviceStorage.loadProfile().then(navigation.navigate('Home'))
+          deviceStorage.loadProfile().then((data) => {
+            navigation.navigate('Home')
+          })
           navigation.navigate('Experience')
         })
         .catch((error) => {

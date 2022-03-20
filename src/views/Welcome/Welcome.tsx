@@ -13,7 +13,19 @@ import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 
 const { width, height } = Dimensions.get('window')
 
-const Welcome = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type WelcomeNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Welcome'
+>
+
+type Props = {
+  navigation: WelcomeNavigationProp
+}
+
+const Welcome = ({ navigation }: Props) => {
   const onPressHandler = () => {
     console.log('OnPress', userData)
 

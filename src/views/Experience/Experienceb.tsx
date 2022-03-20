@@ -9,22 +9,33 @@ import deviceStorage, {
   userProfile,
 } from '../../services/storage/deviceStorage'
 
-const Experienceb = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type ExperiencebNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Experienceb'
+>
+
+type Props = {
+  navigation: ExperiencebNavigationProp
+}
+
+const Experienceb = ({ navigation }: Props) => {
   const [name, setName] = React.useState('')
   const [lyop, setLyop] = React.useState('')
 
   const onPressHandler = () => {
-    navigation.navigate('ProfileSetUp')
+    navigation.navigate('ProfileSetUp', {})
   }
 
   useEffect(() => {
     deviceStorage.loadUser()
     deviceStorage.loadProfile()
-    if (userData != null) {
-      setName(userData['first_name'] + ' ' + userData['last_name'])
-    }
-    if (userProfile != null) {
-      setLyop(userProfile['lyop'])
+
+    if (userData.first_name) {
+      setName(userData.first_name + ' ' + userData.last_name || '')
+      setLyop(userProfile.lyop || '')
     }
   }, [userData, userProfile])
 

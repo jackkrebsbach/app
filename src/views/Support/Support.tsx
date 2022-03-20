@@ -8,10 +8,8 @@ import { View } from 'react-native'
 import { Container, Header, Title } from './Support.style'
 import SupportCardView from './SupportCardView'
 
-const Support = ({ navigation }) => {
-  const onPressHandler = () => {
-    Intercom.displayMessenger()
-  }
+const Support = ({ navigation }: { navigation: any }) => {
+  const onPressHandler = () => Intercom.displayMessenger()
 
   return (
     <Wrapper>
@@ -29,17 +27,17 @@ const Support = ({ navigation }) => {
         <View style={{ position: 'absolute', top: 100 }}>
           <SupportCardView
             navigation={navigation}
-            navigate={'OnBoardingNft'}
-            title={'Nft'}
-            src={'../../assets/nft.jpg'}
-            content={'How to claim your nft?'}
+            path="OnBoardingNft"
+            title="Nft"
+            src="../../assets/nft.jpg"
+            content="How to claim your nft?"
           />
           <SupportCardView
             navigation={navigation}
-            navigate={'OnBoardingQr'}
-            title={'Qr Code'}
-            src={'../../assets/nft.jpg'}
-            content={'How to invite new member?'}
+            path="OnBoardingQr"
+            title="Qr Code"
+            src="../../assets/nft.jpg"
+            content="How to invite new member?"
           />
         </View>
 

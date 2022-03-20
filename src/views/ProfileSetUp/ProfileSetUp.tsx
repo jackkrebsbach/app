@@ -22,12 +22,30 @@ import { AddPhoto, ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
 const { width, height } = Dimensions.get('window')
 
-const ProfileSetUp = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type ProfileSetUpNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'ProfileSetUp'
+>
+
+type Props = {
+  navigation: ProfileSetUpNavigationProp
+}
+
+const ProfileSetUp = ({ navigation }: Props) => {
+  type RescourceImage = {
+    filename?: string
+    uri: string
+    type: string
+  }
+
   const [city, setCity] = useState('')
   const [story, setStory] = useState(userData['lyop'])
   const [shortDescription, setShortDescription] = useState('')
 
-  const [ressourcePath, setRessourcePath] = useState([])
+  const [ressourcePath, setRessourcePath] = useState<RescourceImage[]>([])
   const [isLoading, setLoading] = React.useState(false)
   const [profilePath, setprofilePath] = useState('')
 
@@ -123,7 +141,7 @@ const ProfileSetUp = ({ navigation }) => {
       })
   }
 
-  const renderListPhotos = (localPhotos) => {
+  const renderListPhotos = (localPhotos: RescourceImage[]) => {
     const photos = localPhotos.map((photo, index) => (
       <View key={index} style={{ marginTop: 5 }}>
         <Image style={Styles.photo} source={{ uri: photo.uri }} />
@@ -204,7 +222,7 @@ const ProfileSetUp = ({ navigation }) => {
                 <ScrollView style={Styles.photoList} horizontal={true}>
                   {renderListPhotos(ressourcePath)}
                   <View style={{ marginTop: 5 }}>
-                    <TouchableOpacity onPress={pickPictures.bind()}>
+                    <TouchableOpacity onPress={pickPictures}>
                       <View style={[Styles.addButton, Styles.photo]}>
                         <Text style={Styles.addButtonText}>+</Text>
                       </View>

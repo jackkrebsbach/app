@@ -9,7 +9,21 @@ import { ActivityIndicator } from 'react-native'
 import { getProfile, getUser } from '../../services/api/UserApi'
 import deviceStorage, { userData } from '../../services/storage/deviceStorage'
 
-const Login = ({ route, navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteProp } from '@react-navigation/native'
+import { RootStackParamList } from '../../App'
+
+type EmailNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Email'
+>
+
+type Props = {
+  navigation: EmailNavigationProp
+  route: RouteProp<{ params: { email: string } }>
+}
+
+const Login = ({ route, navigation }: Props) => {
   const [code, setCode] = React.useState('test')
   const { email } = route.params
   const [isLoading, setLoading] = React.useState(false)
@@ -28,11 +42,11 @@ const Login = ({ route, navigation }) => {
         await deviceStorage.loadJWT()
         getUser().then((res) => {
           deviceStorage.loadUser().then(() => {
-            if (userData != null) {
+            if (userData) {
               getProfile()
                 .then((res) => {
                   if (res.description == null) {
-                    navigation.navigate('Experience')
+                    navigation.navigate('Experience', {})
                   } else {
                     deviceStorage.loadProfile()
                     navigation.navigate('Home')

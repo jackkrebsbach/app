@@ -2,13 +2,14 @@ import React from 'react'
 import { StyleSheet, View, TextInput, Text } from 'react-native'
 interface Props {
   style?: {}
-  onChangeText?: () => void
+  onChangeText?: (value: string) => void
   placeholder?: string
   type?: string
   transparent?: boolean
   defaultValue: string
   secureTextEntry?: boolean
   title?: string
+  value?: string
 }
 
 const LargeTextInput = (props: Props) => {
@@ -23,6 +24,7 @@ const LargeTextInput = (props: Props) => {
           placeholder={props.placeholder}
           placeholderTextColor="grey"
           multiline={true}
+          value={props.value}
           returnKeyType="done"
           underlineColorAndroid="transparent"
           secureTextEntry={props.secureTextEntry}

@@ -130,7 +130,6 @@ export const UpdateProfile = async (
     formData.append('profile', file)
   }
 
-  formData.append('profile_id', profileId)
   formData.append('city', city)
   formData.append('short_description', shortDescription)
   formData.append('description', story)

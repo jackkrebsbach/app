@@ -7,8 +7,16 @@ import {
   View,
 } from 'react-native'
 
-const SupportCardView = ({ navigation, navigate, src, title, content }) => {
-  const onPressHandler = () => navigation.navigate(navigate)
+type Props = {
+  navigation: any
+  path: string
+  src?: string
+  title: string
+  content: string
+}
+
+const SupportCardView = ({ navigation, path, title, content }: Props) => {
+  const onPressHandler = () => navigation.navigate(path)
 
   return (
     <TouchableWithoutFeedback onPress={onPressHandler}>

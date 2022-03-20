@@ -6,15 +6,21 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { styles, TextDescriptionQr } from './OnBoardingNft.styles'
 import { userData, userProfile } from '../../services/storage/deviceStorage'
 
-const OnBoardingQr = ({ navigation }) => {
-  const onPressHandler = () => {
-    // check if appStoreLocale is set
-    navigation.navigate('Email')
-  }
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
 
-  const onPressBack = () => {
-    navigation.goBack()
-  }
+type OnBoardingQrNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'OnBoardingQr'
+>
+
+type Props = {
+  navigation: OnBoardingQrNavigationProp
+}
+
+const OnBoardingQr = ({ navigation }: Props) => {
+  const onPressHandler = () => navigation.navigate('Email')
+  const onPressBack = () => navigation.goBack()
 
   return (
     <Wrapper>
@@ -49,7 +55,6 @@ const OnBoardingQr = ({ navigation }) => {
           />
 
           <TextDescriptionQr>
-            {' '}
             We have create an unique Qr code for you to share our community. We
             wanted to create a token that was not only exclusive, but has valve
             and helps us create truly global and connected community. Your NFT

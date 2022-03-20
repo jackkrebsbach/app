@@ -13,6 +13,7 @@ const { width } = Dimensions.get('window')
 import { Button } from '@components/forms'
 import { Wrapper } from '@components/Wrappers'
 import deviceStorage, {
+  userData,
   userProfile,
 } from '../../services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -21,47 +22,26 @@ import { useIsFocused } from '@react-navigation/native'
 import { LinearTextGradient } from 'react-native-text-gradient'
 
 const BANNER_H = width
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+import { Photo } from 'src/services/storage/types'
 
-const ModalPoup = ({ visible, children }) => {
-  const [showModal, setShowModal] = React.useState(visible)
-  const scaleValue = React.useRef(new Animated.Value(0)).current
-  useEffect(() => {
-    toggleModal()
-  }, [visible])
-  const toggleModal = () => {
-    if (visible) {
-      setShowModal(true)
-      Animated.spring(scaleValue, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start()
-    } else {
-      setTimeout(() => setShowModal(false), 200)
-      Animated.timing(scaleValue, {
-        toValue: 0,
-        duration: 300,
-        useNativeDriver: true,
-      }).start()
-    }
-  }
-  return (
-    <Modal transparent visible={showModal}>
-      <View>
-        <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
-          {children}
-        </Animated.View>
-      </View>
-    </Modal>
-  )
+type ProfileNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Profile'
+>
+
+type Props = {
+  navigation: ProfileNavigationProp
 }
 
-const Profile = ({ navigation }) => {
+const Profile = ({ navigation }: Props) => {
   const isFocused = useIsFocused()
   const [name, setName] = React.useState('')
   const [shortDescription, setShortDescription] = React.useState('')
   const [description, setDescription] = React.useState('')
   const [city, setCity] = React.useState('')
-  const [pictures, setPictures] = React.useState([])
+  const [pictures, setPictures] = React.useState<Photo[]>([])
   const [visible, setVisible] = React.useState(false)
   const [profilePicture, setProfilePicture] = React.useState('')
 
@@ -78,14 +58,14 @@ const Profile = ({ navigation }) => {
   useEffect(() => {
     if (isFocused) {
       deviceStorage.loadProfile().then((response) => {
-        if (userProfile != null) {
+        if (userProfile) {
           var profile = userProfile
-          setName('TEST THIBAUT')
-          setShortDescription(profile['short_description'])
-          setDescription(profile['description'])
-          setCity(profile['city'])
-          setPictures(profile['gallery'])
-          setProfilePicture(profile['profile_picture'])
+          setName(userData.full_name || '')
+          setShortDescription(profile.short_description || '')
+          setDescription(profile.description || '')
+          setCity(profile.city || '')
+          setPictures(profile.gallery || [])
+          setProfilePicture(profile.profile_picture || '')
         }
       })
     }
@@ -244,8 +224,47 @@ const Profile = ({ navigation }) => {
     </Wrapper>
   )
 }
+interface ModalProps {
+  visible?: boolean
+  children?: React.ReactNode
+}
 
-const styles = StyleSheet.create({
+const ModalPoup = ({ visible, children }: ModalProps) => {
+  const [showModal, setShowModal] = React.useState(visible)
+  const scaleValue = React.useRef(new Animated.Value(0)).current
+  useEffect(() => {
+    toggleModal()
+  }, [visible])
+  const toggleModal = () => {
+    if (visible) {
+      setShowModal(true)
+      Animated.spring(scaleValue, {
+        toValue: 1,
+        useNativeDriver: true,
+      }).start()
+    } else {
+      setTimeout(() => setShowModal(false), 200)
+      Animated.timing(scaleValue, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start()
+    }
+  }
+  return (
+    <Modal transparent visible={showModal}>
+      <View>
+        <Animated.View style={{ transform: [{ scale: scaleValue }] }}>
+          {children}
+        </Animated.View>
+      </View>
+    </Modal>
+  )
+}
+
+type test = any
+
+const styles = StyleSheet.create<test>({
   image: {
     width: 400,
     height: 600,
@@ -320,7 +339,9 @@ const styles = StyleSheet.create({
     fontFamily: 'DIN Condensed',
     margin: 5,
   },
-  banner: (scrollA) => {
+  banner: (scrollA: {
+    interpolate: (arg0: { inputRange: number[]; outputRange: number[] }) => any
+  }) => {
     return {
       height: BANNER_H,
 

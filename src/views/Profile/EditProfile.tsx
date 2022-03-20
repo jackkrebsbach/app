@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -11,37 +11,43 @@ import {
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
 import ImagePicker from 'react-native-image-crop-picker'
-import { userData, userProfile } from '../../services/storage/deviceStorage'
+import { userProfile } from '../../services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { UpdateProfile, getProfile } from '../../services/api/UserApi'
 import { ActivityIndicator } from 'react-native'
 import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
 const { width, height } = Dimensions.get('window')
 
-const EditProfile = ({ navigation }) => {
-  const [city, setCity] = useState(userProfile['city'])
-  const [story, setStory] = useState(userProfile['description'])
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type EditProfileNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'EditProfile'
+>
+
+type Props = {
+  navigation: EditProfileNavigationProp
+}
+
+const EditProfile = ({ navigation }: Props) => {
+  const [city, setCity] = useState(userProfile.city || '')
+  const [story, setStory] = useState(userProfile.description || '')
   const [shortDescription, setShortDescription] = useState(
-    userProfile['short_description']
+    userProfile.short_description || ''
   )
-  const [userId, setUserId] = useState(0)
-  const [profileId, setProfileId] = useState(0)
 
   const [ressourcePath, setRessourcePath] = useState(userProfile['gallery'])
-  const [profilePath, setprofilePath] = useState('')
-  const [newpProfilePicture, setNewProfilePicture] = useState('')
+  const [profilePath, setprofilePath] = useState(
+    userProfile.profile_picture || ''
+  )
+  const [newProfilePicture, setNewProfilePicture] = useState('')
 
   const [isLoading, setLoading] = React.useState(false)
 
-  useEffect(() => {
-    setUserId(userData['id'])
-    setProfileId(userProfile['id'])
-    if (profilePath == '') setprofilePath(userProfile['profile_picture'])
-  })
-
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(newpProfilePicture, city, story, shortDescription)
+    UpdateProfile(newProfilePicture, city, story, shortDescription)
       .then((res) => {
         getProfile().then((res) => {
           setLoading(false)
@@ -54,15 +60,13 @@ const EditProfile = ({ navigation }) => {
       })
   }
 
-  const onPressBack = () => {
-    navigation.goBack()
-  }
+  const onPressBack = () => navigation.goBack()
 
   const onActionDeleteDone = async (id: string, index: number) => {
     await deletePicture(id)
 
     if (index > -1) {
-      const array = ressourcePath
+      const array = ressourcePath || []
       array.splice(index, 1)
       setRessourcePath([...array])
     } else {
@@ -255,7 +259,7 @@ const EditProfile = ({ navigation }) => {
             </View>
           </View>
 
-          <ButtonWrapper style={'Up'}>
+          <ButtonWrapper>
             <Button onPress={onPressHandler} title="Update my profile" />
           </ButtonWrapper>
         </ScrollView>

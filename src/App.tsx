@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { DarkTheme, NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/FontAwesome'
-//Views
+
 import { Experience, Experienceb, Experiencec } from './views/Experience/'
 import { Email, LoginPassword } from './views/Login/'
 import { NftLanding, NftView } from './views/Nft'
@@ -19,8 +19,26 @@ import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
 
+export type RootStackParamList = {
+  Home: undefined // undefined because you aren't passing any params to the home screen
+  Profile: undefined
+  SplashScreen: undefined
+  Welcome: undefined
+  WelcomeB: undefined
+  Email: undefined
+  LoginPassword: { name?: string; email: string }
+  Experience: undefined
+  Experienceb: undefined
+  Experiencec: undefined
+  NftView: undefined
+  ProfileSetUp: undefined
+  OnBoardingNft: undefined
+  OnBoardingQr: undefined
+  EditProfile: undefined
+}
+
 const App = () => {
-  const Stack = createNativeStackNavigator()
+  const Stack = createNativeStackNavigator<RootStackParamList>()
 
   const Tab = createBottomTabNavigator()
 

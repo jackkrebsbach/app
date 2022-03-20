@@ -7,15 +7,25 @@ import { Button, TextInputc } from '@components/forms'
 import { Title } from '@components/Text'
 
 import { ActivityIndicator, Alert } from 'react-native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
 
-const Email = ({ navigation }) => {
+type EmailNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'Email'
+>
+
+type Props = {
+  navigation: EmailNavigationProp
+}
+
+const Email = ({ navigation }: Props) => {
   const [email, setEmail] = React.useState('')
   const [isValid, setValid] = React.useState(false)
   const [isLoading, setLoading] = React.useState(false)
 
   const onPressHandler = () => {
     setLoading(true)
-    console.log('test', email)
     sendCode()
   }
 
@@ -24,7 +34,9 @@ const Email = ({ navigation }) => {
       .then((res) => {
         setLoading(false)
         console.log('success', res)
-        navigation.navigate('LoginPassword', { email: email })
+        navigation.navigate('LoginPassword', {
+          email: email,
+        })
       })
       .catch((err) => {
         setLoading(false)

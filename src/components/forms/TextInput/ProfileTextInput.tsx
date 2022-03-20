@@ -1,15 +1,16 @@
-import React, { Dispatch } from 'react'
+import React from 'react'
 import { StyleSheet, View, KeyboardTypeOptions } from 'react-native'
 import TextInputc from './TextInput'
 
 interface Props {
   style?: {}
-  onChangeText?: () => void | Dispatch<any>
+  onChangeText?: (value: string) => void
   placeholder?: string
   type?: KeyboardTypeOptions
   transparent?: boolean
-  defaultValue: string
+  defaultValue?: string
   secureTextEntry?: boolean
+  value: string
 }
 
 const ProfileTextInput = (props: Props) => {
@@ -23,6 +24,7 @@ const ProfileTextInput = (props: Props) => {
           defaultValue={props.defaultValue}
           placeholder={props.placeholder}
           secureTextEntry={props.secureTextEntry}
+          value={props.value}
         />
       </View>
     </View>

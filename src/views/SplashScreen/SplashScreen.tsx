@@ -4,7 +4,19 @@ import { Wrapper } from '@components/Wrappers'
 import deviceStorage from '../../services/storage/deviceStorage'
 import Styles from './SplashScreen.style'
 
-const SplashScreen = ({ navigation }) => {
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../App'
+
+type SpalshScreenNavigationProp = NativeStackNavigationProp<
+  RootStackParamList,
+  'SplashScreen'
+>
+
+type Props = {
+  navigation: SpalshScreenNavigationProp
+}
+
+const SplashScreen = ({ navigation }: Props) => {
   useEffect(() => {
     console.log('starting SplashScreen')
     deviceStorage.loadJWT()
