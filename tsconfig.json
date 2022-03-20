@@ -28,10 +28,4 @@
     }
   },
   "exclude": ["node_modules", "babel.config.js", "metro.config.js"]
-  
 }
-
-
-//To make vscode alias imports for autocomplete routes must go here
-//To make routes work must have "moduelResolution": node
-//Must also put routes in babel.rc 

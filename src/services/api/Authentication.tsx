@@ -10,11 +10,10 @@ export const getCode = async (email: string) => {
       method: 'POST',
       data: { email: email },
     })
-    console.log(response.status)
     return response.data
   } catch (error) {
     console.log(JSON.stringify(error))
-    throw error
+    throw new Error(JSON.stringify(error))
   }
 }
 

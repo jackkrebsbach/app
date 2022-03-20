@@ -73,21 +73,14 @@ export const CreateProfile = async (
 
   profilePicture.forEach((image: any) => {
     console.log('profile_picture', image.toString())
-    if (image.uri != null) {
+    if (image.uri) {
       console.log('image not null', image.uri)
       const file = {
         uri: image.uri,
         name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
         type: 'image/jpeg',
       }
-      formData.append('profile', file)
-    } else {
-      console.log('image  null', image)
-      const file = {
-        name: image,
-        type: 'image/jpeg',
-      }
-      formData.append('profile', file)
+      formData.append('profile', JSON.stringify(file), file.uri)
     }
   })
 
@@ -127,7 +120,7 @@ export const UpdateProfile = async (
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
-    formData.append('profile', file)
+    formData.append('profile', file.uri, profilePicture.filename)
   }
 
   formData.append('city', city)

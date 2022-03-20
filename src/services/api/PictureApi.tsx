@@ -24,7 +24,7 @@ export const uploadPicture = async (pictures: any[]) => {
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
-    dataForm.append('gallery', file.uri, image.filename)
+    dataForm.append('gallery', JSON.stringify(file), file.uri)
   })
 
   return fetcher('/api/profile/upload-photos', {
