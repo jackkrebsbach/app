@@ -40,8 +40,8 @@ const Profile = ({ route, navigation }: Props) => {
 
   const isFocused = useIsFocused()
 
-  const onPressHandler = () => {
-    deviceStorage.logout()
+  const onPressHandler = async () => {
+    await deviceStorage.logout()
     navigation.navigate('Welcome')
   }
 

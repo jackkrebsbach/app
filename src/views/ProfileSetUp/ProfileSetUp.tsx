@@ -17,6 +17,8 @@ import ImagePicker from 'react-native-image-crop-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { getProfile, UpdateProfile } from '../../services/api/UserApi'
+import { uploadPicture } from '../../services/api/PictureApi'
+
 import { userProfile } from '../../services/storage/deviceStorage'
 import { AddPhoto, ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
@@ -86,8 +88,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
   }
 
   const renderProfilePicture = (profilePicture: string) => {
-    if (profilePicture != '') {
-      console.log('profilePicture!!', profilePicture)
+    if (profilePicture) {
       return (
         <Image style={Styles.profilePicture} source={{ uri: profilePicture }} />
       )
@@ -113,7 +114,6 @@ const ProfileSetUp = ({ navigation }: Props) => {
   }
 
   const pickPictures = () => {
-    let imageList: any[] = []
     ImagePicker.openPicker({
       multiple: true,
       forceJpg: true,
@@ -125,29 +125,36 @@ const ProfileSetUp = ({ navigation }: Props) => {
       mediaType: 'photo',
     })
       .then((images: any[]) => {
-        images.map((i) => {
-          imageList.push({
+        const newImages = images.map((i) => {
+          return {
             filename: i.filename,
             uri: i.path,
             type: i.mime || 'image/jpeg',
+          }
+        })
+        uploadPicture(newImages).then((res) => {
+          getProfile().then((res) => {
+            setRessourcePath([...ressourcePath, res.gallery])
+            setLoading(false)
           })
         })
-        setRessourcePath([...imageList])
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log(JSON.stringify(error))
       })
   }
 
   const renderListPhotos = (localPhotos: any[]) => {
-    const photos = localPhotos.map((photo, index) => (
-      <View key={index} style={{ marginTop: 5 }}>
-        <Image style={Styles.photo} source={{ uri: photo.uri }} />
-        <AddPhoto onPress={() => onActionDeleteDone(index)}>
-          <Icon name="close" color="#FFFFFF" size={15} />
-        </AddPhoto>
-      </View>
-    ))
+    const photos = localPhotos.map((photo, index) => {
+      return (
+        <View key={index} style={{ marginTop: 5 }}>
+          <Image style={Styles.photo} source={{ uri: photo.url }} />
+          <AddPhoto onPress={() => onActionDeleteDone(index)}>
+            <Icon name="close" color="#FFFFFF" size={15} />
+          </AddPhoto>
+        </View>
+      )
+    })
     return photos
   }
 

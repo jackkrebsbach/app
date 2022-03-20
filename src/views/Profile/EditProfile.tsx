@@ -4,21 +4,21 @@ import {
   Text,
   View,
   Image,
-  Dimensions,
   TouchableOpacity,
   ScrollView,
 } from 'react-native'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
 import ImagePicker from 'react-native-image-crop-picker'
+
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+
+import { ActivityIndicator } from 'react-native'
+import { getProfile, UpdateProfile } from '../../services/api/UserApi'
 import deviceStorage, {
   userProfile,
 } from '../../services/storage/deviceStorage'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { UpdateProfile, getProfile } from '../../services/api/UserApi'
-import { ActivityIndicator } from 'react-native'
 import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
-const { width, height } = Dimensions.get('window')
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
@@ -100,7 +100,6 @@ const EditProfile = ({ navigation }: Props) => {
         })
         uploadPicture(imageList).then((res) => {
           getProfile().then((res) => {
-            console.log('response', res.gallery)
             setRessourcePath(res.gallery)
             setLoading(false)
           })
@@ -266,8 +265,6 @@ const EditProfile = ({ navigation }: Props) => {
             backgroundColor: 'rgba(0,0,0,0.8)',
             alignItems: 'center',
             justifyContent: 'center',
-            width: width,
-            height: height,
           }}
         >
           <ActivityIndicator />
