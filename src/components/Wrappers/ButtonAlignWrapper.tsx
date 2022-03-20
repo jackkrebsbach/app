@@ -1,9 +1,10 @@
 import styled from 'styled-components/native'
 
 export const ButtonAlignWrapper = styled.View`
-  justify-content: center;
+  display: flex;
   flex-direction: row;
+  width: 100%;
+  justify-content: center;
   align-items: center;
-  bottom: 0px;
-  position: absolute;
+  margin-bottom: 100px;
 `

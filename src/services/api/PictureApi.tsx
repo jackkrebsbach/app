@@ -1,6 +1,6 @@
 import fetcher from './fetcher'
 
-export const deletePicture = async (pictureId: string) => {
+export const deletePicture = async (pictureId: number) => {
   return fetcher
     .delete('/api/profile/delete-photo', {
       data: { photo_id: pictureId },
@@ -24,7 +24,7 @@ export const uploadPicture = async (pictures: any[]) => {
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
-    dataForm.append('gallery', JSON.stringify(file), file.uri)
+    dataForm.append('gallery', file)
   })
 
   return fetcher('/api/profile/upload-photos', {

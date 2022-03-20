@@ -6,7 +6,7 @@ export const getUser = async () => {
     method: 'get',
     headers: {
       'content-type': 'application/json; charset=UTF-8',
-      Authorization: 'Bearer ' + jwt['access_token'],
+      Authorization: 'Bearer ' + jwt?.access_token,
     },
   })
     .then((response) => {
@@ -80,7 +80,7 @@ export const CreateProfile = async (
         name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
         type: 'image/jpeg',
       }
-      formData.append('profile', JSON.stringify(file), file.uri)
+      formData.append('profile', file.toString())
     }
   })
 
@@ -107,27 +107,24 @@ export const UpdateProfile = async (
   story: string,
   shortDescription: string
 ) => {
-  console.log('updateProfile', profilePicture)
-
   let formData = new FormData()
   //check if picture is new
   // if not send don't repupload
 
-  if (profilePicture != '') {
-    console.log('image not null', profilePicture)
+  if (profilePicture) {
     const file = {
       uri: profilePicture,
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
-    formData.append('profile', file.uri, profilePicture.filename)
+    formData.append('profile', file)
   }
 
   formData.append('city', city)
-  formData.append('short_description', shortDescription)
-  formData.append('description', story)
+  formData.append('short_description', shortDescription.trim())
+  formData.append('description', story.trim())
 
-  return await fetcher('api/profile/update-profile', {
+  return await fetcher('/api/profile/update-profile', {
     method: 'POST',
     data: formData,
   })

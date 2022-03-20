@@ -29,8 +29,8 @@ const Welcome = ({ navigation }: Props) => {
   const onPressHandler = () => {
     console.log('OnPress', userData)
 
-    if (userData != null) {
-      if (userProfile != null) {
+    if (userData) {
+      if (userProfile) {
         deviceStorage.loadProfile()
         navigation.navigate('Home')
       } else {

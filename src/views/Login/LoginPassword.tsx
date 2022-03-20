@@ -24,7 +24,7 @@ type Props = {
 }
 
 const Login = ({ route, navigation }: Props) => {
-  const [code, setCode] = React.useState('test')
+  const [code, setCode] = React.useState('')
   const { email } = route.params
   const [isLoading, setLoading] = React.useState(false)
 
@@ -45,8 +45,8 @@ const Login = ({ route, navigation }: Props) => {
             if (userData) {
               getProfile()
                 .then((res) => {
-                  if (res.description == null) {
-                    navigation.navigate('Experience', {})
+                  if (res.description) {
+                    navigation.navigate('Experience')
                   } else {
                     deviceStorage.loadProfile()
                     navigation.navigate('Home')

@@ -30,7 +30,7 @@ type Props = {
 const WelcomeB = ({ navigation }: Props) => {
   const onPressHandler = async () => {
     if (!jwt) navigation.navigate('OnBoardingNft')
-    if (!!userData) {
+    if (userData) {
       getProfile()
         .then((res) => {
           deviceStorage.loadProfile().then((data) => {
@@ -76,11 +76,7 @@ const WelcomeB = ({ navigation }: Props) => {
       {/* footer */}
       <Footer>
         <ButtonWrapper>
-          <Button
-            styles={{ paddingTop: 50 }}
-            onPress={onPressHandler}
-            title="REDEEM YOUR NFT"
-          />
+          <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
         </ButtonWrapper>
       </Footer>
     </Wrapper>

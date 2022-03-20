@@ -55,10 +55,9 @@ const OnBoardingQr = ({ navigation }: Props) => {
           />
 
           <TextDescriptionQr>
-            We have create an unique Qr code for you to share our community. We
-            wanted to create a token that was not only exclusive, but has valve
-            and helps us create truly global and connected community. Your NFT
-            is being minted
+            We have create an unique Qr code for you to share our community. To
+            invite members you can share a unique genrated QR code generated
+            each time.
           </TextDescriptionQr>
         </View>
       </View>
@@ -70,7 +69,7 @@ const OnBoardingQr = ({ navigation }: Props) => {
           alignItems: 'center',
         }}
       >
-        {userProfile == null || userData == null ? (
+        {!userProfile || !userData ? (
           <View style={{ marginTop: 'auto', marginBottom: 30 }}>
             <Button onPress={onPressHandler} title="Enter the network" />
           </View>

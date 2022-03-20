@@ -16,7 +16,7 @@ export const ButtonMiddle = ({
 }: Props) => {
   return (
     <StyledButton {...props} onPress={props.onPress}>
-      <StyledTitle {...props}>{title}</StyledTitle>
+      <StyledTitle>{title}</StyledTitle>
     </StyledButton>
   )
 }
@@ -26,21 +26,22 @@ const StyledButton = styled.TouchableHighlight<Props>`
     props.transparent ? 'transparent' : '#0076BA'};
   border: ${(props) => (props.transparent ? '1px solid #f3f8ff ' : 0)};
   justify-content: center;
+  display: flex;
+  flex-direction: column;
   border-radius: 24px;
-  margin-block-end: 15px;
   width: 130px;
   height: 30px;
   align-items: center;
   text-align: center;
+  margin: 0 7px;
 `
 const StyledTitle = styled.Text<Props>`
   font-family: DIN Condensed;
   font-style: normal;
   font-size: 20px;
-  margin-top: 5px;
-  padding-right: 20px;
-  padding-left: 20px;
+  padding-top: 5px;
   align-items: center;
   text-align: center;
+  align-self: center;
   color: ${(props) => (props.transparent ? 'black ' : '#FFFFFF')};
 `

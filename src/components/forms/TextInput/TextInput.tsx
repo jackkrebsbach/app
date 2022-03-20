@@ -18,7 +18,7 @@ const TextInputc = (props: Props) => {
         <TextInput
           keyboardType={props.type}
           onChangeText={props.onChangeText}
-          returnKeyType={'done'}
+          returnKeyType="done"
           style={styles.textInput}
           value={props.value}
           placeholder={props.placeholder}

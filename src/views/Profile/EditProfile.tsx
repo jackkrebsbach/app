@@ -20,6 +20,7 @@ const { width, height } = Dimensions.get('window')
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
+import { Photo } from 'src/services/storage/types'
 
 type EditProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -31,15 +32,14 @@ type Props = {
 }
 
 const EditProfile = ({ navigation }: Props) => {
-  const [city, setCity] = useState(userProfile.city || '')
-  const [story, setStory] = useState(userProfile.description || '')
+  const [city, setCity] = useState(userProfile?.city || '')
+  const [story, setStory] = useState(userProfile?.description || '')
   const [shortDescription, setShortDescription] = useState(
-    userProfile.short_description || ''
+    userProfile?.short_description || ''
   )
-
-  const [ressourcePath, setRessourcePath] = useState(userProfile['gallery'])
+  const [ressourcePath, setRessourcePath] = useState(userProfile?.gallery)
   const [profilePath, setprofilePath] = useState(
-    userProfile.profile_picture || ''
+    userProfile?.profile_picture || ''
   )
   const [newProfilePicture, setNewProfilePicture] = useState('')
 
@@ -51,9 +51,9 @@ const EditProfile = ({ navigation }: Props) => {
       .then((res) => {
         getProfile().then((res) => {
           setLoading(false)
-          //navigation.navigate("Profile");
           navigation.goBack()
         })
+        setLoading(false)
       })
       .catch((error) => {
         console.log(error)
@@ -62,7 +62,7 @@ const EditProfile = ({ navigation }: Props) => {
 
   const onPressBack = () => navigation.goBack()
 
-  const onActionDeleteDone = async (id: string, index: number) => {
+  const onActionDeleteDone = async (id: number, index: number) => {
     await deletePicture(id)
 
     if (index > -1) {
@@ -100,15 +100,6 @@ const EditProfile = ({ navigation }: Props) => {
             setRessourcePath(res.gallery)
             setLoading(false)
           })
-          // const pictures = res['photos_added']
-          // const newUrl = [];
-          // pictures.map( i =>
-          //   {
-          //   console.log('testMap', i.url)
-          //   ressourcePath.push(i.url)
-          // })
-
-          // setRessourcePath(ressourcePath => [...ressourcePath, newUrl ] )
         })
       })
       .catch((error) => {
@@ -148,9 +139,9 @@ const EditProfile = ({ navigation }: Props) => {
       />
     )
   }
-
-  const renderListPhotos = (localPhotos: any[] | undefined) => {
-    if (localPhotos != undefined) {
+  ;``
+  const renderListPhotos = (localPhotos: Photo[] | undefined) => {
+    if (localPhotos) {
       const photos = localPhotos.map((photo, index) => {
         return (
           <View key={index} style={{ marginTop: 5 }}>
@@ -227,7 +218,7 @@ const EditProfile = ({ navigation }: Props) => {
               style={styles.textInput}
               placeholder=" Two to three words"
               defaultValue={shortDescription}
-              onChangeText={(t) => setShortDescription(t)}
+              onChangeText={setShortDescription}
               value={shortDescription}
             />
 
@@ -309,9 +300,9 @@ const styles = StyleSheet.create({
   },
   profilePicture: {
     marginBottom: 10,
-    width: 120,
-    height: 120,
-    borderRadius: 120 / 2,
+    width: 150,
+    height: 150,
+    borderRadius: 20,
   },
   picture: {
     width: 105,

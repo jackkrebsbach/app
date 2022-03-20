@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Image, View, TouchableOpacity, Text, Dimensions } from 'react-native'
 import { Wrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
@@ -20,18 +20,8 @@ type Props = {
 }
 
 const OnBoardingNft = ({ navigation }: Props) => {
-  useEffect(() => {
-    console.log('test', userProfile)
-  })
-
-  const onPressHandler = () => {
-    // check if appStoreLocale is set
-    navigation.navigate('OnBoardingQr')
-  }
-
-  const onPressBack = () => {
-    navigation.goBack()
-  }
+  const onPressHandler = () => navigation.navigate('OnBoardingQr')
+  const onPressBack = () => navigation.goBack()
 
   return (
     <Wrapper>
@@ -68,11 +58,9 @@ const OnBoardingNft = ({ navigation }: Props) => {
           />
 
           <TextDescription>
-            {' '}
             We have procured an incredible NFT experience for you. We wanted to
-            create a token that was not only exclusive, but has valve and helps
-            us create truly global and connected community. Your NFT is being
-            minted
+            create a token that was not only exclusive, but has value and helps
+            us create truly global and connected community.
           </TextDescription>
         </View>
       </View>
@@ -84,12 +72,10 @@ const OnBoardingNft = ({ navigation }: Props) => {
           alignItems: 'center',
         }}
       >
-        {userProfile == null || userData == null ? (
-          <View style={{ marginTop: 'auto', marginBottom: 30 }}>
+        {(!userProfile || !userData) && (
+          <View style={{ marginTop: 'auto' }}>
             <Button onPress={onPressHandler} title="share our community" />
           </View>
-        ) : (
-          <View style={{ marginTop: 'auto', marginBottom: 30 }}></View>
         )}
       </View>
     </Wrapper>

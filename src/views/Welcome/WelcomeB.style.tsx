@@ -12,9 +12,9 @@ export const TextDescription = styled.Text`
 `
 
 export const MainText = styled.Text`
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   font-style: normal;
-  line-height: 40px;
+  line-height: 30px;
   width: 95%;
   color: #ffffff;
   text-align: center;
@@ -40,10 +40,9 @@ export const Footer = styled.View`
   flex: 1;
 `
 export const Reza = styled.Image`
-  width: 350px;
-  height: 350px;
-  left: 30px;
-  bottom: 100px;
+  width: 100%;
+  height: 200px;
+  bottom: 25px;
 `
 
 export const styles = StyleSheet.create({

@@ -4,7 +4,6 @@
     [
       "module-resolver",
       {
-        "root": ["."],
         "extensions": [
           ".ios.ts",
           ".android.ts",
@@ -16,12 +15,12 @@
           ".json"
         ],
         "alias": {
-          "@navigation/*": "./src/navigation/*",
-          "@components/*": "./src/components/*",
-          "@services/*": "./src/services/*",
-          "@assets/*": "./src/assets/*",
-          "@views/*": "./src/views/*",
-          "@utils/*": "./src/utils/*"
+          "@navigation": "./src/navigation",
+          "@components": "./src/components",
+          "@services": "./src/services",
+          "@utils": "./src/utils",
+          "@assets": "./src/assets",
+          "@views": "./src/views"
         }
       }
     ]

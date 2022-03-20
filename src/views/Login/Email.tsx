@@ -48,7 +48,6 @@ const Email = ({ navigation }: Props) => {
           Alert.alert('Error ! Cannot connect to the server')
         }
         console.log('test', email)
-        console.log(err.response)
       })
   }
 

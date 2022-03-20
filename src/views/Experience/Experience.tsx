@@ -25,9 +25,7 @@ const Experience = ({ navigation }: Props) => {
     deviceStorage.loadProfile()
   }, [])
 
-  const onPressHandler = () => {
-    navigation.navigate('Experienceb', {})
-  }
+  const onPressHandler = () => navigation.navigate('Experienceb')
 
   return (
     <Wrapper>
@@ -35,25 +33,16 @@ const Experience = ({ navigation }: Props) => {
         <Logo />
       </View>
       <View style={{ flex: 2, alignItems: 'center' }}>
-        <Image
-          source={require('../../assets/floating_shoe.jpg')}
-          style={{
-            width: 200,
-            height: 200,
-            marginTop: 50,
-          }}
-        />
+        <Image source={require('../../assets/floating_shoe.jpg')} />
       </View>
 
       <TextDescription>
         Never forget what inspired you and what inspired us.
       </TextDescription>
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ButtonWrapper>
-          <Button onPress={onPressHandler} title="Next" />
-        </ButtonWrapper>
-      </View>
+      <ButtonWrapper>
+        <Button onPress={onPressHandler} title="Next" />
+      </ButtonWrapper>
     </Wrapper>
   )
 }

@@ -17,7 +17,7 @@ import ImagePicker from 'react-native-image-crop-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { getProfile, UpdateProfile } from '../../services/api/UserApi'
-import { userData } from '../../services/storage/deviceStorage'
+import { userProfile } from '../../services/storage/deviceStorage'
 import { AddPhoto, ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
 const { width, height } = Dimensions.get('window')
@@ -42,7 +42,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
   }
 
   const [city, setCity] = useState('')
-  const [story, setStory] = useState(userData['lyop'])
+  const [story, setStory] = useState(userProfile?.lyop || '')
   const [shortDescription, setShortDescription] = useState('')
 
   const [ressourcePath, setRessourcePath] = useState<RescourceImage[]>([])

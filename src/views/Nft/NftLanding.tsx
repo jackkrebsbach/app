@@ -18,15 +18,12 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
   const [url, setUrl] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
 
-  const onPressHandlerB = () => {
-    // check if appStoreLocale is set
-    navigation.navigate('NftView')
-  }
+  const onPressHandlerB = () => navigation.navigate('NftView')
 
   useEffect(() => {
     deviceStorage.loadUser()
     deviceStorage.loadProfile()
-    setName(userData['first_name'] + ' ' + userData['last_name'])
+    setName(userData?.first_name + ' ' + userData?.last_name)
   }, [])
 
   return (
@@ -87,11 +84,7 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
       <View style={{ flex: 1 }}>
         <Logo />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <TextDescription
-            style={{ alignItems: 'center', justifyContent: 'center' }}
-          >
-            {name}
-          </TextDescription>
+          <TextDescription>{name}</TextDescription>
         </View>
       </View>
 
@@ -108,31 +101,22 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
         ignoreSilentSwitch={'obey'}
       />
 
-      <View style={styles.container}>
-        <View style={{ justifyContent: 'flex-end' }}>
-          <ButtonAlignWrapper
-            style={{ marginStart: 30, marginEnd: 5, bottom: 50 }}
-          >
-            <ButtonMiddle
-              onPress={() => {
-                setIsLoading(true)
-                generateInviteCode().then((response) => {
-                  console.log('invite', response.invite_link)
-                  setUrl(response.invite_link)
-                  setIsLoading(false)
-                  setVisible(true)
-                })
-              }}
-              color={'blue'}
-              title="INVITE"
-            />
-            <ButtonMiddle
-              onPress={onPressHandlerB}
-              color={'blue'}
-              title="MY NFT"
-            />
-          </ButtonAlignWrapper>
-        </View>
+      <View style={{ justifyContent: 'flex-end' }}>
+        <ButtonAlignWrapper>
+          <ButtonMiddle
+            onPress={() => {
+              setIsLoading(true)
+              generateInviteCode().then((response) => {
+                setUrl(response.invite_link)
+                setIsLoading(false)
+                setVisible(true)
+              })
+            }}
+            color="blue"
+            title="INVITE"
+          />
+          <ButtonMiddle onPress={onPressHandlerB} color="blue" title="MY NFT" />
+        </ButtonAlignWrapper>
       </View>
     </Wrapper>
   )

@@ -8,24 +8,25 @@ import { jwt, userData } from '../storage/deviceStorage'
 const fetcher = axios.create({
   baseURL,
   headers: {
-    Authorization: `Bearer ${jwt['access_token']}`,
+    Authorization: `Bearer ${jwt?.access_token}`,
     'content-type': 'application/json; charset=UTF-8',
   },
 })
 
 fetcher.interceptors.request.use(async (config: AxiosRequestConfig) => {
   deviceStorage.loadJWT()
-  const user = jwt_decode<JwtPayload>(jwt.access_token || '')
+
+  const user = jwt_decode<JwtPayload>(jwt?.access_token || '')
   const isExpired = dayjs.unix(user?.exp || 0).diff(dayjs()) < 1
 
   if (!isExpired) return config
 
-  const response = await axios.post(`${baseURL}/api/auth/refresh-app`, {
-    headers: { Authorization: `Bearer ${jwt.refresh_token}` },
+  const response = await axios.get(`${baseURL}/api/auth/refresh-app`, {
+    headers: { Authorization: `Bearer ${jwt?.refresh_token}` },
   })
   let updated = {
-    email: userData.email,
-    userId: userData.id,
+    email: userData?.email,
+    userId: userData?.id,
     access_token: response.data.access_token,
     refresh_token: response.data.refresh_token,
   }

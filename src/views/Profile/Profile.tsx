@@ -18,13 +18,11 @@ import deviceStorage, {
 } from '../../services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Carousel from 'react-native-snap-carousel'
-import { useIsFocused } from '@react-navigation/native'
 import { LinearTextGradient } from 'react-native-text-gradient'
 
 const BANNER_H = width
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
-import { Photo } from 'src/services/storage/types'
 
 type ProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -36,14 +34,7 @@ type Props = {
 }
 
 const Profile = ({ navigation }: Props) => {
-  const isFocused = useIsFocused()
-  const [name, setName] = React.useState('')
-  const [shortDescription, setShortDescription] = React.useState('')
-  const [description, setDescription] = React.useState('')
-  const [city, setCity] = React.useState('')
-  const [pictures, setPictures] = React.useState<Photo[]>([])
   const [visible, setVisible] = React.useState(false)
-  const [profilePicture, setProfilePicture] = React.useState('')
 
   const onPressHandler = () => {
     deviceStorage.deleteProfile()
@@ -55,21 +46,11 @@ const Profile = ({ navigation }: Props) => {
 
   const onPressEdit = () => navigation.navigate('EditProfile')
 
+  const loadProfile = async () => await deviceStorage.loadProfile()
+
   useEffect(() => {
-    if (isFocused) {
-      deviceStorage.loadProfile().then((response) => {
-        if (userProfile) {
-          var profile = userProfile
-          setName(userData.full_name || '')
-          setShortDescription(profile.short_description || '')
-          setDescription(profile.description || '')
-          setCity(profile.city || '')
-          setPictures(profile.gallery || [])
-          setProfilePicture(profile.profile_picture || '')
-        }
-      })
-    }
-  }, [isFocused])
+    loadProfile()
+  }, [])
 
   const scrollA = useRef(new Animated.Value(0)).current
 
@@ -91,7 +72,7 @@ const Profile = ({ navigation }: Props) => {
           >
             <Carousel
               layout="stack"
-              data={pictures}
+              data={userProfile?.gallery || []}
               sliderWidth={width}
               itemWidth={width}
               inactiveSlideScale={1}
@@ -125,7 +106,7 @@ const Profile = ({ navigation }: Props) => {
         <View style={styles.bannerContainer}>
           <Animated.Image
             resizeMode="contain"
-            source={{ uri: profilePicture }}
+            source={{ uri: userProfile?.profile_picture }}
             style={styles.banner(scrollA)}
           />
         </View>
@@ -138,7 +119,7 @@ const Profile = ({ navigation }: Props) => {
                 alignItems: 'center',
               }}
             >
-              <Text style={styles.name}> {name}</Text>
+              <Text style={styles.name}> {userData?.first_name}</Text>
 
               <LinearTextGradient
                 locations={[0, 1]}
@@ -146,13 +127,16 @@ const Profile = ({ navigation }: Props) => {
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
               >
-                <Text style={styles.shortDescription}> {shortDescription}</Text>
+                <Text style={styles.shortDescription}>
+                  {' '}
+                  {userProfile?.short_description}
+                </Text>
               </LinearTextGradient>
-              <Text style={styles.location}> {city}</Text>
+              <Text style={styles.location}> {userProfile?.city}</Text>
             </View>
             <View style={{ marginBottom: 25 }}>
               <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
-              <Text style={styles.desription}> {description}</Text>
+              <Text style={styles.desription}> {userProfile?.description}</Text>
             </View>
           </View>
 
@@ -166,39 +150,38 @@ const Profile = ({ navigation }: Props) => {
                 marginTop: 10,
               }}
             >
-              {pictures != undefined
-                ? pictures.map((e, i = 0) => {
-                    let path = e.url
+              {userProfile?.gallery &&
+                userProfile?.gallery.map((e, i = 0) => {
+                  let path = e.url
 
-                    if (i < 2) {
-                      return (
-                        <TouchableOpacity
+                  if (i < 2) {
+                    return (
+                      <TouchableOpacity
+                        key={i}
+                        onPress={() => setVisible(true)}
+                      >
+                        <Image
                           key={i}
-                          onPress={() => setVisible(true)}
-                        >
-                          <Image
-                            key={i}
-                            source={{ uri: path }}
-                            style={styles.galerryPicture}
-                          />
-                        </TouchableOpacity>
-                      )
-                    } else {
-                      return (
-                        <TouchableOpacity
+                          source={{ uri: path }}
+                          style={styles.galerryPicture}
+                        />
+                      </TouchableOpacity>
+                    )
+                  } else {
+                    return (
+                      <TouchableOpacity
+                        key={i}
+                        onPress={() => setVisible(true)}
+                      >
+                        <Image
                           key={i}
-                          onPress={() => setVisible(true)}
-                        >
-                          <Image
-                            key={i}
-                            source={{ uri: path }}
-                            style={styles.galerryPictureB}
-                          />
-                        </TouchableOpacity>
-                      )
-                    }
-                  })
-                : null}
+                          source={{ uri: path }}
+                          style={styles.galerryPictureB}
+                        />
+                      </TouchableOpacity>
+                    )
+                  }
+                })}
             </View>
           </View>
           <View

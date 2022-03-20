@@ -18,7 +18,7 @@ export const getCode = async (email: string) => {
 }
 
 export const login = async (email: string, activationCode: string) => {
-  const url = API_URL + 'api/auth/sign-in-app'
+  const url = API_URL + '/api/auth/sign-in-app'
   try {
     const response = await axios(url, {
       method: 'POST',

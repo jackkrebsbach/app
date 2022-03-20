@@ -1,10 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { JWT, User, Profile, NFT } from './types'
 
-export let userData: User = {}
-export let userProfile: Profile = {}
-export let jwt: JWT = {}
-export let nft: NFT = {}
+export let userData: User | undefined
+export let userProfile: Profile | undefined
+export let jwt: JWT | undefined
+export let nft: NFT | undefined
 
 const deviceStorage = {
   async saveItem(key: string, value: string) {
@@ -19,7 +19,7 @@ const deviceStorage = {
   async loadNFT() {
     try {
       let data = await AsyncStorage.getItem('nft')
-      nft = data ? JSON.parse(data) : {}
+      nft = data ? JSON.parse(data) : undefined
       console.log('nft', nft)
     } catch (error) {
       console.log('Something went wrong', error)
@@ -29,7 +29,7 @@ const deviceStorage = {
   async loadJWT() {
     try {
       let data = await AsyncStorage.getItem('user_auth')
-      jwt = data ? JSON.parse(data) : {}
+      jwt = data ? JSON.parse(data) : undefined
       console.log('jwt', jwt)
     } catch (error) {
       console.log('Something went wrong', error)
@@ -39,7 +39,8 @@ const deviceStorage = {
   async loadUser() {
     try {
       let data = await AsyncStorage.getItem('user_data')
-      userData = data ? JSON.parse(data) : {}
+      userData = data ? JSON.parse(data) : undefined
+      console.log('userData', userData)
     } catch (error) {
       console.log('Something went wrong', error)
     }
@@ -48,7 +49,7 @@ const deviceStorage = {
   async deleteUser() {
     try {
       await AsyncStorage.removeItem('user_auth').then(() => {
-        userData = {}
+        userData = undefined
       })
     } catch (error) {
       console.log('AsyncStorage Error: ' + error)
@@ -58,7 +59,7 @@ const deviceStorage = {
   async loadProfile() {
     try {
       let data = await AsyncStorage.getItem('user_profile')
-      userProfile = data ? JSON.parse(data) : {}
+      userProfile = data ? JSON.parse(data) : undefined
     } catch (error) {
       console.log('Something went wrong', error)
     }
@@ -75,7 +76,7 @@ const deviceStorage = {
   async deleteProfile() {
     try {
       await AsyncStorage.removeItem('user_profile').then(() => {
-        userProfile = {}
+        userProfile = undefined
       })
     } catch (error) {
       console.log('AsyncStorage Error: ' + error)
@@ -85,7 +86,7 @@ const deviceStorage = {
   async deleterJWT() {
     try {
       await AsyncStorage.removeItem('user_auth').then(() => {
-        userData = {}
+        jwt = undefined
       })
     } catch (error) {
       console.log('AsyncStorage Error: ' + error)
@@ -95,7 +96,7 @@ const deviceStorage = {
   async deleteNft() {
     try {
       await AsyncStorage.removeItem('nft').then(() => {
-        userData = {}
+        nft = undefined
       })
     } catch (error) {
       console.log('AsyncStorage Error: ' + error)
