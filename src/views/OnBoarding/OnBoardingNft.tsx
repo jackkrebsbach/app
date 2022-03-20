@@ -1,13 +1,5 @@
 import React, { useEffect } from 'react'
-import {
-  StyleSheet,
-  Image,
-  View,
-  TouchableOpacity,
-  Text,
-  Dimensions,
-} from 'react-native'
-import { Linking } from 'react-native'
+import { Image, View, TouchableOpacity, Text, Dimensions } from 'react-native'
 import { Wrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -60,7 +52,6 @@ const OnBoardingNft = ({ navigation }) => {
               borderColor: 'white',
               borderWidth: 2,
               marginTop: 10,
-              borderStyle: 'dashed',
             }}
           />
 

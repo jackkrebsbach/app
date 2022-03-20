@@ -15,9 +15,7 @@ import ModalPopup from './ModalPopup'
 import { ButtonMiddle, TextInputc } from '@components/forms'
 import { trasnferNft, getNft } from '../../services/api/NftApi'
 import { ActivityIndicator } from 'react-native'
-
 import deviceStorage, { nft } from '../../services/storage/deviceStorage'
-import { Title } from '../../components/Text'
 
 const { width, height } = Dimensions.get('window')
 

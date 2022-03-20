@@ -1,13 +1,9 @@
-import React, { FunctionComponent, useEffect } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
-
-import { SafeAreaView } from 'react-native-safe-area-context'
+import React, { useEffect } from 'react'
+import { View } from 'react-native'
+import styled from 'styled-components/native'
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, TextInputc } from '@components/forms'
-import { Title } from '@components/Text'
-import styled from 'styled-components/native'
-import { position } from 'native-base/lib/typescript/theme/styled-system'
+import { Button } from '@components/forms'
 import deviceStorage, {
   userData,
   userProfile,
@@ -16,14 +12,12 @@ import deviceStorage, {
 const Experienceb = ({ navigation }) => {
   const [name, setName] = React.useState('')
   const [lyop, setLyop] = React.useState('')
-  const [dataLoaded, setDataLoaded] = React.useState(false)
 
   const onPressHandler = () => {
     navigation.navigate('ProfileSetUp')
   }
 
   useEffect(() => {
-    setDataLoaded(false)
     deviceStorage.loadUser()
     deviceStorage.loadProfile()
     if (userData != null) {
@@ -31,9 +25,9 @@ const Experienceb = ({ navigation }) => {
     }
     if (userProfile != null) {
       setLyop(userProfile['lyop'])
-      setDataLoaded(true)
     }
-  })
+  }, [userData, userProfile])
+
   return (
     <Wrapper>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -60,31 +54,15 @@ const Experienceb = ({ navigation }) => {
 
 export default Experienceb
 
-// styles
-
-const styles = StyleSheet.create({
-  input: {
-    width: 250,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: 'white',
-  },
-  title: {
-    color: 'white',
-  },
-})
-
 export const TextDescription = styled.Text`
-  letterspacing: 0.5px;
-  paddingtop: 50px;
-  paddingleft: 20px;
-  paddingright: 20px;
-  lineheight: 30px;
-  justify: right;
-  fontsize: 30px;
-  textalign: center;
+  letter-spacing: 0.5px;
+  padding-top: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  line-height: 30px;
+  justify-content: right;
+  font-size: 30px;
+  text-align: center;
   color: #ffffff;
-  fontstyle: italic;
+  font-style: italic;
 `

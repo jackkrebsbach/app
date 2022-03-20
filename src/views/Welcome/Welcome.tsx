@@ -1,29 +1,23 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, View, Dimensions } from 'react-native'
-import styled from 'styled-components/native'
+import React from 'react'
+import { Dimensions, StyleSheet, View } from 'react-native'
+import { LinearTextGradient } from 'react-native-text-gradient'
 import Video from 'react-native-video'
-const { width, height } = Dimensions.get('window')
-import { Button } from '@components/forms'
-import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import {
-  background,
-  position,
-} from 'native-base/lib/typescript/theme/styled-system'
+import styled from 'styled-components/native'
 import deviceStorage, {
   userData,
   userProfile,
 } from '../../services/storage/deviceStorage'
-import { getProfile } from '../../services/api/UserApi'
-import { LinearTextGradient } from 'react-native-text-gradient'
+import { Button } from '@components/forms'
+import { Logo } from '@components/Logo'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+
+const { width, height } = Dimensions.get('window')
 
 const Welcome = ({ navigation }) => {
   const onPressHandler = () => {
     console.log('OnPress', userData)
 
     if (userData != null) {
-      console.log('userData', userData)
-      console.log('userProfile', userProfile)
       if (userProfile != null) {
         deviceStorage.loadProfile()
         navigation.navigate('Home')
@@ -76,8 +70,12 @@ const Welcome = ({ navigation }) => {
         <TextDescription style={{ position: 'absolute', bottom: 165 }}>
           Founders Edition Experience.
         </TextDescription>
-        <ButtonWrapper styles={{ paddingTop: 50 }}>
-          <Button onPress={onPressHandler} title="UNLOCK" />
+        <ButtonWrapper>
+          <Button
+            onPress={onPressHandler}
+            title="UNLOCK"
+            styles={{ paddingTop: 50 }}
+          />
         </ButtonWrapper>
       </View>
     </Wrapper>
@@ -85,8 +83,6 @@ const Welcome = ({ navigation }) => {
 }
 
 export default Welcome
-
-// styles
 
 const styles = StyleSheet.create({
   backgroundVideo: {
@@ -99,20 +95,20 @@ const styles = StyleSheet.create({
 })
 
 export const TextDescription = styled.Text`
-  letterspacing: 0.5px;
-  fontstyle: italic;
+  letter-spacing: 0.5px;
+  font-style: italic;
   width: 350px;
   text-transform: uppercase;
-  fontsize: 15px;
+  font-size: 15px;
   color: #ffffff;
-  textalign: center;
+  text-align: center;
   position: absolute;
 `
 
 export const Title = styled.Text`
-  fontstyle: italic;
-  paddingleft: 4.5px;
-  paddingright: 4.5px;
+  font-style: italic;
+  padding-left: 4.5px;
+  padding-right: 4.5px;
   text-transform: uppercase;
-  fontsize: 17px;
+  font-size: 17px;
 `

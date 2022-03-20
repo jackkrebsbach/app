@@ -1,18 +1,10 @@
-import axios from 'axios'
-import deviceStorage, { jwt } from '../storage/deviceStorage'
-import { API_URL } from '../../utils/apiRoute'
+import deviceStorage from '../storage/deviceStorage'
+import fetcher from './fetcher'
 
 // header token
-export const trasnferNft = async (metamaskId) => {
-  // Post
-  const url = API_URL + 'api/nft/create-nft'
-  return axios(url, {
+export const trasnferNft = async (metamaskId: string) => {
+  return fetcher('/api/nft/create-nft', {
     method: 'POST',
-    headers: {
-      'content-type': 'application/json; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + jwt['access_token'],
-    },
     data: {
       meta_mask_id: metamaskId,
     },
@@ -28,20 +20,11 @@ export const trasnferNft = async (metamaskId) => {
 
 // header token
 export const getNft = async () => {
-  // GET
-  const url = API_URL + 'api/nft'
-
-  return axios(url, {
+  return fetcher('api/nft', {
     method: 'GET',
-    headers: {
-      'content-type': 'application/json; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + jwt['access_token'],
-    },
   })
     .then((response) => {
       const nft = response.data
-      console.log('getNft', nft)
       deviceStorage.saveItem('nft', JSON.stringify(nft))
       return response.data
     })

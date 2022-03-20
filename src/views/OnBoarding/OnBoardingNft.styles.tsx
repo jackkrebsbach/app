@@ -1,19 +1,19 @@
 import styled from 'styled-components/native'
 import { StyleSheet } from 'react-native'
 export const TextDescription = styled.Text`
-  letterspacing: 0.5px;
-  fontsize: 15px;
+  letter-spacing: 0.5px;
+  font-size: 15px;
   color: #ffffff;
-  textalign: center;
+  text-align: center;
   margin: 10px;
   top: 40px;
 `
 
 export const TextDescriptionQr = styled.Text`
-  letterspacing: 0.5px;
-  fontsize: 15px;
+  letter-spacing: 0.5px;
+  font-size: 15px;
   color: #ffffff;
-  textalign: center;
+  text-align: center;
   margin: 10px;
   top: 80px;
 `

@@ -1,56 +1,39 @@
-import React, { FunctionComponent, useEffect, useState, useRef } from 'react'
+import { Button, LargeTextInput, ProfileTextInput } from '@components/forms'
+import { Logo } from '@components/Logo'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import React, { useState } from 'react'
 import {
-  StyleSheet,
-  Text,
-  View,
-  Platform,
+  ActivityIndicator,
   Dimensions,
   Image,
-  TouchableOpacity,
-  ScrollView,
-  Keyboard,
   KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
-
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
 import ImagePicker from 'react-native-image-crop-picker'
-import deviceStorage, {
-  userData,
-  userProfile,
-} from '../../services/storage/deviceStorage'
-import {
-  CreateProfile,
-  getProfile,
-  UpdateProfile,
-} from '../../services/api/UserApi'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import { ActivityIndicator, Alert } from 'react-native'
+
+import { getProfile, UpdateProfile } from '../../services/api/UserApi'
+import { userData } from '../../services/storage/deviceStorage'
+import { AddPhoto, ProfilePictureText, Styles } from './ProfileSetUp.styles'
+
 const { width, height } = Dimensions.get('window')
-import { Styles, AddPhoto, ProfilePictureText } from './ProfileSetUp.styles'
 
 const ProfileSetUp = ({ navigation }) => {
   const [city, setCity] = useState('')
   const [story, setStory] = useState(userData['lyop'])
   const [shortDescription, setShortDescription] = useState('')
-  const [userId, setUserId] = useState(0)
-  const [profileId, setProfileId] = useState(0)
 
   const [ressourcePath, setRessourcePath] = useState([])
   const [isLoading, setLoading] = React.useState(false)
   const [profilePath, setprofilePath] = useState('')
 
-  useEffect(() => {
-    deviceStorage.loadUser()
-    deviceStorage.loadProfile()
-    setProfileId(userProfile['id'])
-  })
-
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(profileId, profilePath, city, story, shortDescription)
+    UpdateProfile(profilePath, city, story, shortDescription)
       .then((res) => {
         console.log('success', res)
         getProfile().then((res) => {
@@ -86,7 +69,7 @@ const ProfileSetUp = ({ navigation }) => {
       })
   }
 
-  const renderProfilePicture = (profilePicture) => {
+  const renderProfilePicture = (profilePicture: string) => {
     if (profilePicture != '') {
       console.log('profilePicture!!', profilePicture)
       return (
@@ -102,7 +85,7 @@ const ProfileSetUp = ({ navigation }) => {
       )
   }
 
-  const onActionDeleteDone = (index) => {
+  const onActionDeleteDone = (index: number) => {
     if (index > -1) {
       const array = ressourcePath
       array.splice(index, 1)

@@ -1,8 +1,18 @@
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import React, { Dispatch } from 'react'
+import { StyleSheet, View, KeyboardTypeOptions } from 'react-native'
 import TextInputc from './TextInput'
 
-const ProfileTextInput = (props) => {
+interface Props {
+  style?: {}
+  onChangeText?: () => void | Dispatch<any>
+  placeholder?: string
+  type?: KeyboardTypeOptions
+  transparent?: boolean
+  defaultValue: string
+  secureTextEntry?: boolean
+}
+
+const ProfileTextInput = (props: Props) => {
   return (
     <View style={props.style}>
       <View style={styles.SectionStyle}>
@@ -12,8 +22,6 @@ const ProfileTextInput = (props) => {
           style={styles.textInput}
           defaultValue={props.defaultValue}
           placeholder={props.placeholder}
-          placeholderTextColor="grey"
-          underlineColorAndroid="transparent"
           secureTextEntry={props.secureTextEntry}
         />
       </View>

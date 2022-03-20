@@ -7,19 +7,16 @@ import {
   Animated,
   Image,
   Text,
-  FlatList,
   TouchableOpacity,
 } from 'react-native'
-const { width, height } = Dimensions.get('window')
-import { API_URL } from '../../utils/apiRoute'
+const { width } = Dimensions.get('window')
 import { Button } from '@components/forms'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
+import { Wrapper } from '@components/Wrappers'
 import deviceStorage, {
-  userData,
   userProfile,
 } from '../../services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import Carousel, { Pagination } from 'react-native-snap-carousel'
+import Carousel from 'react-native-snap-carousel'
 import { useIsFocused } from '@react-navigation/native'
 import { LinearTextGradient } from 'react-native-text-gradient'
 
@@ -76,21 +73,13 @@ const Profile = ({ navigation }) => {
     navigation.navigate('Welcome')
   }
 
-  const onPressEdit = () => {
-    // deviceStorage.loadProfile();
-    navigation.navigate('EditProfile')
-  }
-
-  const [isFirstLoad, setIsFirstLoad] = React.useState(true)
+  const onPressEdit = () => navigation.navigate('EditProfile')
 
   useEffect(() => {
     if (isFocused) {
-      console.log('inFocuset')
       deviceStorage.loadProfile().then((response) => {
         if (userProfile != null) {
           var profile = userProfile
-          console.log('userProfile !', profile)
-          //  setName(userData['first_name'] + " " + userData['last_name']);
           setName('TEST THIBAUT')
           setShortDescription(profile['short_description'])
           setDescription(profile['description'])
@@ -125,7 +114,7 @@ const Profile = ({ navigation }) => {
               data={pictures}
               sliderWidth={width}
               itemWidth={width}
-              inactiveSlideScale="1"
+              inactiveSlideScale={1}
               renderItem={({ item, index }) => (
                 <Image
                   key={index}
@@ -331,24 +320,27 @@ const styles = StyleSheet.create({
     fontFamily: 'DIN Condensed',
     margin: 5,
   },
-  banner: (scrollA) => ({
-    height: BANNER_H,
-    width: '100%',
-    transform: [
-      {
-        translateY: scrollA.interpolate({
-          inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
-          outputRange: [-BANNER_H / 2, 0, BANNER_H * 0.75, BANNER_H * 0.75],
-        }),
-      },
-      {
-        scale: scrollA.interpolate({
-          inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
-          outputRange: [2, 1, 0.5, 0.5],
-        }),
-      },
-    ],
-  }),
+  banner: (scrollA) => {
+    return {
+      height: BANNER_H,
+
+      width: '100%',
+      transform: [
+        {
+          translateY: scrollA.interpolate({
+            inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
+            outputRange: [-BANNER_H / 2, 0, BANNER_H * 0.75, BANNER_H * 0.75],
+          }),
+        },
+        {
+          scale: scrollA.interpolate({
+            inputRange: [-BANNER_H, 0, BANNER_H, BANNER_H + 1],
+            outputRange: [2, 1, 0.5, 0.5],
+          }),
+        },
+      ],
+    }
+  },
 })
 
 export default Profile

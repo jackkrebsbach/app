@@ -11,15 +11,13 @@ import {
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
 import ImagePicker from 'react-native-image-crop-picker'
-import deviceStorage, {
-  userData,
-  userProfile,
-} from '../../services/storage/deviceStorage'
+import { userData, userProfile } from '../../services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { UpdateProfile, getProfile } from '../../services/api/UserApi'
 import { ActivityIndicator } from 'react-native'
 import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
 const { width, height } = Dimensions.get('window')
+
 const EditProfile = ({ navigation }) => {
   const [city, setCity] = useState(userProfile['city'])
   const [story, setStory] = useState(userProfile['description'])
@@ -43,7 +41,7 @@ const EditProfile = ({ navigation }) => {
 
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(profileId, newpProfilePicture, city, story, shortDescription)
+    UpdateProfile(newpProfilePicture, city, story, shortDescription)
       .then((res) => {
         getProfile().then((res) => {
           setLoading(false)
@@ -60,8 +58,8 @@ const EditProfile = ({ navigation }) => {
     navigation.goBack()
   }
 
-  const onActionDeleteDone = async (id, index) => {
-    await deletePicture(id, userId)
+  const onActionDeleteDone = async (id: string, index: number) => {
+    await deletePicture(id)
 
     if (index > -1) {
       const array = ressourcePath
@@ -73,7 +71,7 @@ const EditProfile = ({ navigation }) => {
   }
 
   const pickPictures = () => {
-    let imageList = []
+    let imageList: any[] = []
     ImagePicker.openPicker({
       multiple: true,
       forceJpg: true,
@@ -115,7 +113,7 @@ const EditProfile = ({ navigation }) => {
   }
 
   const pickProfilePicture = () => {
-    let imageList = []
+    let imageList: any[] = []
     ImagePicker.openPicker({
       compressImageMaxHeight: 1024,
       compressImageMaxWidth: 1024,
@@ -137,7 +135,7 @@ const EditProfile = ({ navigation }) => {
       })
   }
 
-  const renderProfilePicture = (profilePicture) => {
+  const renderProfilePicture = (profilePicture: string) => {
     return (
       <Image
         style={styles.profilePicture}
@@ -147,7 +145,7 @@ const EditProfile = ({ navigation }) => {
     )
   }
 
-  const renderListPhotos = (localPhotos) => {
+  const renderListPhotos = (localPhotos: any[] | undefined) => {
     if (localPhotos != undefined) {
       const photos = localPhotos.map((photo, index) => {
         return (
@@ -175,6 +173,7 @@ const EditProfile = ({ navigation }) => {
       })
       return photos
     }
+    return null
   }
 
   return (
@@ -216,7 +215,7 @@ const EditProfile = ({ navigation }) => {
               placeholder="Enter your city"
               defaultValue={city}
               value={city}
-              onChangeText={(t) => setCity(t)}
+              onChangeText={setCity}
             />
 
             <Text style={styles.title}> Describe yourself </Text>

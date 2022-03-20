@@ -1,20 +1,29 @@
 import React from 'react'
 import { StyleSheet, View, TextInput, Text } from 'react-native'
+interface Props {
+  style?: {}
+  onChangeText?: () => void
+  placeholder?: string
+  type?: string
+  transparent?: boolean
+  defaultValue: string
+  secureTextEntry?: boolean
+  title?: string
+}
 
-const LargeTextInput = (props: { style: any; title: any }) => {
+const LargeTextInput = (props: Props) => {
   return (
     <View style={props.style}>
       <View style={styles.SectionStyle}>
         <Text style={styles.text}> {props.title} </Text>
         <TextInput
-          type={props.type}
           onChangeText={props.onChangeText}
           style={styles.textInput}
           defaultValue={props.defaultValue}
           placeholder={props.placeholder}
           placeholderTextColor="grey"
           multiline={true}
-          returnKeyType={'done'}
+          returnKeyType="done"
           underlineColorAndroid="transparent"
           secureTextEntry={props.secureTextEntry}
         />

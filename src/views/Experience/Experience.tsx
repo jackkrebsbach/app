@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
-import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
+import { Logo } from '@components/Logo'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import React, { useEffect } from 'react'
+import { Image, View } from 'react-native'
 import styled from 'styled-components/native'
+
 import deviceStorage from '../../services/storage/deviceStorage'
 
 const Experience = ({ navigation }) => {
@@ -47,29 +48,13 @@ const Experience = ({ navigation }) => {
 
 export default Experience
 
-// styles
-
-const styles = StyleSheet.create({
-  input: {
-    width: 250,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: 'white',
-  },
-  title: {
-    color: 'white',
-  },
-})
-
-export const TextDescription = styled.Text`
-  letterspacing: 0.5px;
-  lineheight: 30px;
-  fontsize: 25px;
-  marginstart: 20px;
-  marginend: 20px;
-  fontstyle: italic;
-  textalign: center;
+const TextDescription = styled.Text`
+  letter-spacing: 0.5px;
+  line-height: 30px;
+  font-size: 25px;
+  margin-block-start: 20px;
+  margin-block-end: 20px;
+  font-style: italic;
+  text-align: center;
   color: #ffffff;
 `

@@ -58,18 +58,18 @@ export const Styles = StyleSheet.create({
 })
 
 export const AddPhoto = styled.TouchableOpacity`
-  alignitems: center;
+  align-items: center;
   position: absolute;
   top: -5px;
   right: 5px;
-  justifycontent: center;
-  backgroundcolor: 'white';
+  justify-content: center;
+  background-color: 'white';
   width: 20px;
   height: 20px;
-  borderradius: 30px;
+  border-radius: 30px;
 `
 
 export const ProfilePictureText = styled.Text`
   color: #ffffff;
-  fontstyle: italic;
+  font-style: italic;
 `

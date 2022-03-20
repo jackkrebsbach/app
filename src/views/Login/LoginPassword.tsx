@@ -1,18 +1,13 @@
 import * as React from 'react'
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import { Alert, View } from 'react-native'
 import { login } from '../../services/api'
-
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms'
 import { Title } from '@components/Text'
 import { ActivityIndicator } from 'react-native'
 import { getProfile, getUser } from '../../services/api/UserApi'
-import deviceStorage, {
-  jwt,
-  userData,
-} from '../../services/storage/deviceStorage'
+import deviceStorage, { userData } from '../../services/storage/deviceStorage'
 
 const Login = ({ route, navigation }) => {
   const [code, setCode] = React.useState('test')
@@ -81,8 +76,6 @@ const Login = ({ route, navigation }) => {
             height: 100,
           }}
           type="number-pad"
-          title="code"
-          keyboardType="number-pad"
           placeholder="Enter your 4 digit code"
           onChangeText={setCode}
           value={code}
@@ -101,19 +94,3 @@ const Login = ({ route, navigation }) => {
 }
 
 export default Login
-
-// styles
-
-const styles = StyleSheet.create({
-  input: {
-    width: 250,
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    backgroundColor: 'white',
-  },
-  title: {
-    color: 'white',
-  },
-})

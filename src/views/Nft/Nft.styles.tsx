@@ -43,9 +43,9 @@ export const styles = StyleSheet.create({
 })
 
 export const TextDescription = styled.Text`
-  letterspacing: 2.5px;
-  lineheight: 43px;
-  fontsize: 30px;
+  letter-spacing: 2.5px;
+  line-height: 43px;
+  font-size: 30px;
   color: #ffffff;
   text-transform: uppercase;
 `

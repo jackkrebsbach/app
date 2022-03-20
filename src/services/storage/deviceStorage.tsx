@@ -1,8 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-interface JWT {
+type JWT = {
   access_token?: string
   refresh_token?: string
+}
+
+type User = {
+  email?: string
+  id?: number
 }
 
 export let userData = {}
@@ -16,8 +21,7 @@ const deviceStorage = {
       console.log('saving:', key, value)
       await AsyncStorage.setItem(key, value)
     } catch (error) {
-      let err = error as any
-      console.log('AsyncStorage Error: ' + err.message)
+      console.log('AsyncStorage Error: ' + error)
     }
   },
 

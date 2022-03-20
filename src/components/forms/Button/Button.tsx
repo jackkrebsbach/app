@@ -7,11 +7,13 @@ interface Props {
   color?: any
   title?: string
   transparent?: boolean
+  disabled?: boolean
+  styles?: {}
 }
 
 export const Button = ({ color, title = 'default title', ...props }: Props) => {
   return (
-    <StyledButton {...props} onPress={props.onPress}>
+    <StyledButton onPress={props.onPress}>
       <StyledTitle {...props}>{title}</StyledTitle>
     </StyledButton>
   )

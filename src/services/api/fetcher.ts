@@ -7,7 +7,10 @@ import { jwt, userData } from '../storage/deviceStorage'
 
 const fetcher = axios.create({
   baseURL,
-  headers: { Authorization: `Bearer ${jwt['access_token']}` },
+  headers: {
+    Authorization: `Bearer ${jwt['access_token']}`,
+    'content-type': 'application/json; charset=UTF-8',
+  },
 })
 
 fetcher.interceptors.request.use(async (config: AxiosRequestConfig) => {
@@ -23,12 +26,15 @@ fetcher.interceptors.request.use(async (config: AxiosRequestConfig) => {
   let updated = {
     email: userData['email'],
     userId: userData['id'],
-    token: response.data.access_token,
-    refresh: response.data.refresh_token,
+    access_token: response.data.access_token,
+    refresh_token: response.data.refresh_token,
   }
   deviceStorage.saveItem('user_auth', JSON.stringify(updated))
 
-  config.headers = { Authorization: `Bearer ${response.data.access_token}` }
+  config.headers = {
+    Authorization: `Bearer ${response.data.access_token}`,
+    'content-type': 'application/json; charset=UTF-8',
+  }
   return config
 })
 

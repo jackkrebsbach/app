@@ -3,24 +3,24 @@ import { StyleSheet, Dimensions } from 'react-native'
 const { width, height } = Dimensions.get('window')
 
 export const TextDescription = styled.Text`
-  letterspacing: 1.5px;
-  fontstyle: normal;
-  lineheight: 40px;
+  letter-spacing: 1.5px;
+  font-style: normal;
+  line-height: 40px;
   width: 100%;
-  fontsize: 36px;
+  font-size: 36px;
   color: #ffffff;
 `
 
 export const MainText = styled.Text`
-  letterspacing: 1.5px;
-  fontstyle: normal;
-  lineheight: 40px;
+  letter-spacing: 1.5px;
+  font-style: normal;
+  line-height: 40px;
   width: 95%;
   color: #ffffff;
-  textalign: center;
-  margintop: 100px;
-  fontsize: 20px;
-  texttransform: uppercase;
+  text-align: center;
+  margin-top: 100px;
+  font-size: 20px;
+  text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,8 +32,8 @@ export const Header = styled.View`
 
 export const MainView = styled.View`
   flex: 3;
-  justifycontent: center;
-  alignitems: center;
+  justify-content: center;
+  align-items: center;
 `
 
 export const Footer = styled.View`
@@ -44,7 +44,6 @@ export const Reza = styled.Image`
   height: 350px;
   left: 30px;
   bottom: 100px;
-  resizemode: contain;
 `
 
 export const styles = StyleSheet.create({

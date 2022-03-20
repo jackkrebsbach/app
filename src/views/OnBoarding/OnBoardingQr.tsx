@@ -1,23 +1,10 @@
 import React from 'react'
-import {
-  StyleSheet,
-  Image,
-  View,
-  TouchableOpacity,
-  Text,
-  Dimensions,
-} from 'react-native'
-import { Linking } from 'react-native'
+import { Image, View, TouchableOpacity, Text } from 'react-native'
 import { Wrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import {
-  TextDescription,
-  styles,
-  TextDescriptionQr,
-} from './OnBoardingNft.styles'
+import { styles, TextDescriptionQr } from './OnBoardingNft.styles'
 import { userData, userProfile } from '../../services/storage/deviceStorage'
-const { width, height } = Dimensions.get('window')
 
 const OnBoardingQr = ({ navigation }) => {
   const onPressHandler = () => {

@@ -1,5 +1,37 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Text, Image } from 'react-native'
+import { StyleSheet, View, TextInput, KeyboardTypeOptions } from 'react-native'
+
+interface Props {
+  style?: {}
+  onChangeText?: (email: string) => void
+  placeholder?: string
+  type?: KeyboardTypeOptions
+  transparent?: boolean
+  defaultValue?: string
+  secureTextEntry?: boolean
+  value?: string
+}
+const TextInputc = (props: Props) => {
+  return (
+    <View style={props.style}>
+      <View style={styles.SectionStyle}>
+        <TextInput
+          keyboardType={props.type}
+          onChangeText={props.onChangeText}
+          returnKeyType={'done'}
+          style={styles.textInput}
+          value={props.value}
+          placeholder={props.placeholder}
+          placeholderTextColor="grey"
+          underlineColorAndroid="transparent"
+          secureTextEntry={props.secureTextEntry}
+        />
+      </View>
+    </View>
+  )
+}
+
+export default TextInputc
 
 const styles = StyleSheet.create({
   container: {
@@ -35,24 +67,3 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 })
-
-const TextInputc = (props, styleText) => {
-  return (
-    <View style={props.style}>
-      <View style={styles.SectionStyle}>
-        <TextInput
-          keyboardType={props.type}
-          onChangeText={props.onChangeText}
-          returnKeyType={'done'}
-          style={styles.textInput}
-          placeholder={props.placeholder}
-          placeholderTextColor="grey"
-          underlineColorAndroid="transparent"
-          secureTextEntry={props.secureTextEntry}
-        />
-      </View>
-    </View>
-  )
-}
-
-export default TextInputc

@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { getCode } from '../../services/api'
 import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
+import { Wrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms'
 import { Title } from '@components/Text'
 
@@ -40,16 +40,17 @@ const Email = ({ navigation }) => {
       })
   }
 
-  const validate = (email) => {
+  const validate = (email: string) => {
     let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/
     if (reg.test(email) === false) {
       setEmail(email.toLowerCase())
       setValid(false)
-      return false
+      return
     } else {
       setEmail(email.toLowerCase())
-      setValid(true)
       console.log('Email is Correct')
+      setValid(true)
+      return
     }
   }
 
@@ -77,7 +78,7 @@ const Email = ({ navigation }) => {
           }}
           type="email-address"
           placeholder="Enter your email"
-          onChangeText={(t) => validate(t)}
+          onChangeText={validate}
           value={email.toLowerCase()}
         />
 

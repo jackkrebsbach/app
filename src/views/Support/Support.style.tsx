@@ -2,14 +2,14 @@ import styled from 'styled-components/native'
 
 export const Header = styled.View`
   flex: 2;
-  justifycontent: center;
-  alignitems: center;
+  justify-content: center;
+  align-items: center;
 `
 
 export const Container = styled.View`
   flex: 4;
-  justifycontent: center;
-  alignitems: center;
+  justify-content: center;
+  align-items: center;
 `
 
 export const Title = styled.Text`
@@ -18,6 +18,6 @@ export const Title = styled.Text`
   text-align: center;
   color: #ffffff;
   top: 30px;
-  margin-start: 20px;
-  margin-end: 20px;
+  margin-block-start: 20px;
+  margin-block-end: 20px;
 `

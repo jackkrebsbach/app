@@ -1,28 +1,11 @@
-import axios from 'axios'
 import deviceStorage, { jwt } from '../storage/deviceStorage'
-import { API_URL } from '../../utils/apiRoute'
-import jwt_decode from 'jwt-decode'
-import dayjs from 'dayjs'
-import { refresh } from './Authentication'
+import fetcher from './fetcher'
 
 export const getUser = async () => {
-  const url = API_URL + 'api/user/get-user'
-
-  const decode = jwt_decode(jwt['access_token'])
-  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1
-
-  console.log('is expired', isExpired)
-
-  if (isExpired) {
-    console.log('is expired')
-    await refresh()
-  }
-
-  return axios(url, {
+  return fetcher('/api/user/get-user', {
     method: 'get',
     headers: {
       'content-type': 'application/json; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
       Authorization: 'Bearer ' + jwt['access_token'],
     },
   })
@@ -31,7 +14,7 @@ export const getUser = async () => {
       deviceStorage.saveItem('user_data', JSON.stringify(userData))
       return response.data
     })
-    .catch(function (error) {
+    .catch((error) => {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -44,7 +27,6 @@ export const getUser = async () => {
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
         // http.ClientRequest in node.js
         console.log(' not done')
-
         console.log(error.request)
       } else {
         // Something happened in setting up the request that triggered an Error
@@ -55,25 +37,8 @@ export const getUser = async () => {
 }
 
 export const getProfile = async () => {
-  const url = API_URL + 'api/profile/get-profile'
-
-  const decode = jwt_decode(jwt['access_token'])
-  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1
-
-  console.log('is expired', isExpired)
-
-  if (isExpired) {
-    console.log('is expired')
-    await refresh()
-  }
-
-  return axios(url, {
-    method: 'get',
-    headers: {
-      'content-type': 'application/json; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + jwt['access_token'],
-    },
+  return fetcher('/api/profile/get-profile', {
+    method: 'GET',
   })
     .then((response) => {
       console.log('getProfile', response.data)
@@ -98,25 +63,15 @@ export const getProfile = async () => {
 }
 
 export const CreateProfile = async (
-  city,
-  story,
-  shortDescription,
-  profilePicture
+  city: string,
+  story: string,
+  shortDescription: string,
+  profilePicture: any
 ) => {
-  const url = API_URL + 'api/profile/create-profile'
-
-  const decode = jwt_decode(jwt['access_token'])
-  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1
-
-  if (isExpired) {
-    await refresh()
-    await deviceStorage.loadJWT()
-  }
-
   console.log('CreateProfile- files', profilePicture.toString())
   let formData = new FormData()
 
-  profilePicture.forEach((image) => {
+  profilePicture.forEach((image: any) => {
     console.log('profile_picture', image.toString())
     if (image.uri != null) {
       console.log('image not null', image.uri)
@@ -129,7 +84,6 @@ export const CreateProfile = async (
     } else {
       console.log('image  null', image)
       const file = {
-        uri: API_URL + image,
         name: image,
         type: 'image/jpeg',
       }
@@ -141,13 +95,8 @@ export const CreateProfile = async (
   formData.append('short_description', shortDescription)
   formData.append('description', story)
 
-  return await axios(url, {
-    method: 'post',
-    headers: {
-      'content-type': 'multipart/form-data; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + jwt['access_token'],
-    },
+  return await fetcher('api/profile/create-profile', {
+    method: 'POST',
     data: formData,
   })
     .then((response) => {
@@ -160,23 +109,12 @@ export const CreateProfile = async (
 }
 
 export const UpdateProfile = async (
-  profileId,
-  profilePicture,
-  city,
-  story,
-  shortDescription
+  profilePicture: any,
+  city: string,
+  story: string,
+  shortDescription: string
 ) => {
   console.log('updateProfile', profilePicture)
-  const url = API_URL + 'api/profile/update-profile'
-
-  const decode = jwt_decode(jwt['access_token'])
-  const isExpired = dayjs.unix(decode.exp).diff(dayjs()) < 1
-
-  console.log('isExpired', isExpired)
-  if (isExpired) {
-    await refresh()
-    await deviceStorage.loadJWT()
-  }
 
   let formData = new FormData()
   //check if picture is new
@@ -197,13 +135,8 @@ export const UpdateProfile = async (
   formData.append('short_description', shortDescription)
   formData.append('description', story)
 
-  return await axios(url, {
-    method: 'post',
-    headers: {
-      'content-type': 'multipart/form-data; charset=UTF-8',
-      'Access-Control-Allow-Origin': '*',
-      Authorization: 'Bearer ' + jwt['access_token'],
-    },
+  return await fetcher('api/profile/update-profile', {
+    method: 'POST',
     data: formData,
   })
     .then((response) => {

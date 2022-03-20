@@ -1,15 +1,11 @@
-import React, { FunctionComponent, useEffect } from 'react'
-
-import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
-import { Container, Header, Title } from './Support.style'
+import { Logo } from '@components/Logo'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import Intercom from '@intercom/intercom-react-native'
+import React from 'react'
 import { View } from 'react-native'
 
-import Intercom, {
-  IntercomEvents,
-  Visibility,
-} from '@intercom/intercom-react-native'
+import { Container, Header, Title } from './Support.style'
 import SupportCardView from './SupportCardView'
 
 const Support = ({ navigation }) => {
@@ -56,5 +52,3 @@ const Support = ({ navigation }) => {
 }
 
 export default Support
-
-// styles

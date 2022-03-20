@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import Video from 'react-native-video'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
+import { Wrapper } from '@components/Wrappers'
 import deviceStorage from '../../services/storage/deviceStorage'
 import Styles from './SplashScreen.style'
+
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     console.log('starting SplashScreen')

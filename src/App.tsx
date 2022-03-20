@@ -1,33 +1,24 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-import React from 'react'
-import { NavigationContainer, DarkTheme } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-
-import { Provider as PaperProvider } from 'react-native-paper'
+import { DarkTheme, NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+
+import React from 'react'
 import { View } from 'react-native'
+import { Provider as PaperProvider } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import { Experience, Experienceb, Experiencec } from './views/Experience/'
+import { Email, LoginPassword } from './views/Login/'
+import { NftLanding, NftView } from './views/Nft'
+import OnBoardingNft from './views/OnBoarding/OnBoardingNft'
+import OnBoardingQr from './views/OnBoarding/OnBoardingQr'
+import EditProfile from './views/Profile/EditProfile'
+import Profile from './views/Profile/Profile'
+import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
+import SplashScreen from './views/SplashScreen/SplashScreen'
+import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
-import { NftView, NftLanding } from './views/Nft'
-import Profile from './views/Profile/Profile'
-import Support from './views/Support/Support'
-import ProfileSetUp from './views/ProfileSetUp/ProfileSetUp'
-import OnBoardingNft from './views/OnBoarding/OnBoardingNft'
-import { Email, LoginPassword } from './views/Login/'
-import { Experience, Experienceb, Experiencec } from './views/Experience/'
-import EditProfile from './views/Profile/EditProfile'
-import SplashScreen from './views/SplashScreen/SplashScreen'
-import OnBoardingQr from './views/OnBoarding/OnBoardingQr'
 
 const App = () => {
   const Stack = createNativeStackNavigator()

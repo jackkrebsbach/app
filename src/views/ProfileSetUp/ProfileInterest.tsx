@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react'
+import React from 'react'
 import {
   StyleSheet,
   Text,
@@ -6,7 +6,6 @@ import {
   Dimensions,
   FlatList,
   TouchableOpacity,
-  Alert,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/dist/MaterialIcons'
 
@@ -14,7 +13,7 @@ import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
 import { Title } from '../../components/Text'
 import { CreateProfile } from '../../services/api/UserApi'
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 
 const DATA = [
   {

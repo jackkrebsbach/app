@@ -1,27 +1,24 @@
-import React, { Fragment, useEffect } from 'react'
-import { StyleSheet, Image, View } from 'react-native'
+import React from 'react'
+import { View } from 'react-native'
+import { getProfile } from '../../services/api/UserApi'
+import deviceStorage, { userData } from '../../services/storage/deviceStorage'
+import {
+  Footer,
+  Header,
+  MainText,
+  MainView,
+  Reza,
+  TextDescription,
+} from './WelcomeB.style'
+import { jwt } from '../../services/storage/deviceStorage'
 import { Button } from '@components/forms'
 import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import {
-  MainText,
-  TextDescription,
-  Header,
-  Footer,
-  Reza,
-  MainView,
-} from './WelcomeB.style'
-import deviceStorage, {
-  userData,
-  jwt,
-} from '../../services/storage/deviceStorage'
-import { getProfile } from '../../services/api/UserApi'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 
 const WelcomeB = ({ navigation }) => {
   const onPressHandler = () => {
-    if (jwt == undefined) navigation.navigate('OnBoardingNft')
-    if (userData != null) {
-      console.log('userDAta not null')
+    if (!jwt) navigation.navigate('OnBoardingNft')
+    if (!!userData) {
       getProfile()
         .then((res) => {
           deviceStorage.loadProfile().then(navigation.navigate('Home'))
@@ -39,7 +36,6 @@ const WelcomeB = ({ navigation }) => {
     <Wrapper>
       <Header>
         <Logo />
-
         <Reza source={require('../../assets/reza_logo_w.png')} />
       </Header>
       <MainView>
@@ -65,8 +61,12 @@ const WelcomeB = ({ navigation }) => {
       </View>
       {/* footer */}
       <Footer>
-        <ButtonWrapper styles={{ paddingTop: 50 }}>
-          <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
+        <ButtonWrapper>
+          <Button
+            styles={{ paddingTop: 50 }}
+            onPress={onPressHandler}
+            title="REDEEM YOUR NFT"
+          />
         </ButtonWrapper>
       </Footer>
     </Wrapper>
