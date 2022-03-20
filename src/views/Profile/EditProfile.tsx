@@ -91,6 +91,7 @@ const EditProfile = ({ navigation }: Props) => {
       mediaType: 'photo',
     })
       .then((images: any[]) => {
+        setLoading(true)
         const newImages = images.map((i) => {
           return {
             filename: i.filename,
@@ -100,9 +101,9 @@ const EditProfile = ({ navigation }: Props) => {
         })
         uploadPicture(newImages).then((res) => {
           getProfile().then((res) => {
-            setRessourcePath([...ressourcePath, res.gallery])
-            deviceStorage.loadProfile().then(() => {
-              navigation.goBack()
+            deviceStorage.loadProfile().then((profile) => {
+              setRessourcePath(userProfile?.gallery || [])
+              setLoading(false)
             })
           })
         })
