@@ -1,16 +1,32 @@
-import React from 'react';
+import React from 'react'
+import { GestureResponderEvent } from 'react-native'
+import styled from 'styled-components/native'
 
-import styled from 'styled-components/native';
+interface Props {
+  onPress?: (event: GestureResponderEvent) => void
+  color?: any
+  title?: string
+  transparent?: boolean
+}
 
-const StyledButton = styled.TouchableHighlight`
- width:300px;
- background-color:${props => (props.transparent ? 'transparent' : '#f3f8ff')};
- padding:15px;
- border:${props => (props.transparent ? '1px solid #f3f8ff ' : 0)}
- justify-content:center;
- border-radius:24px
-`;
-const StyledTitle = styled.Text`
+export const Button = ({ color, title = 'default title', ...props }: Props) => {
+  return (
+    <StyledButton {...props} onPress={props.onPress}>
+      <StyledTitle {...props}>{title}</StyledTitle>
+    </StyledButton>
+  )
+}
+
+const StyledButton = styled.TouchableHighlight<Props>`
+  width: 300px;
+  background-color: ${(props) =>
+    props.transparent ? 'transparent' : '#f3f8ff'};
+  padding: 15px;
+  border: ${(props) => (props.transparent ? '1px solid #f3f8ff ' : 0)};
+  justify-content: center;
+  border-radius: 24px;
+`
+const StyledTitle = styled.Text<Props>`
   text-transform: uppercase;
   font-family: DIN Condensed;
   font-style: normal;
@@ -20,14 +36,6 @@ const StyledTitle = styled.Text`
   display: flex;
   align-items: center;
   text-align: center;
-  letterSpacing: 1.5px;
-  color: ${props => (props.transparent ? '#ffffff ' : 'black')};
-`;
-
-export const Button = ({onPress, color, ...props}) => {
-  return (
-    <StyledButton {...props} onPress={onPress}>
-      <StyledTitle {...props}>{props.title}</StyledTitle>
-    </StyledButton>
-  );
-};
+  letter-spacing: 1.5px;
+  color: ${(props) => (props.transparent ? '#ffffff ' : 'black')};
+`

@@ -1,7 +1,5 @@
-import Experience  from "./Experience";
-import Experienceb  from "./Experienceb";
-import Experiencec  from "./Experienceb";
+import Experience from './Experience'
+import Experienceb from './Experienceb'
+import Experiencec from './Experienceb'
 
-
-
-export  { Experience, Experienceb, Experiencec }
+export { Experience, Experienceb, Experiencec }

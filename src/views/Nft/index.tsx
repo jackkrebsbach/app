@@ -1,5 +1,4 @@
-import NftLanding from './NftLanding';
-import NftView  from "./NftView";
+import NftLanding from './NftLanding'
+import NftView from './NftView'
 
-
-export  { NftLanding, NftView }
+export { NftLanding, NftView }

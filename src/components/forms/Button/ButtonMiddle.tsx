@@ -1,34 +1,46 @@
-import React from 'react';
+import React from 'react'
+import { GestureResponderEvent } from 'react-native'
+import styled from 'styled-components/native'
 
-import styled from 'styled-components/native';
+interface Props {
+  onPress?: (event: GestureResponderEvent) => void
+  color?: any
+  title?: string
+  transparent?: boolean
+}
 
-const StyledButton = styled.TouchableHighlight`
- background-color:${props => (props.transparent ? 'transparent' : '#0076BA')};
- border:${props => (props.transparent ? '1px solid #f3f8ff ' : 0)}
- justify-content:center;
- border-radius:24px
- marginEnd: 15px;
- width:130px;
- height: 30px;
- align-items: center;
-text-align: center;
-`;
-const StyledTitle = styled.Text`
+export const ButtonMiddle = ({
+  color,
+  title = 'default title',
+  ...props
+}: Props) => {
+  return (
+    <StyledButton {...props} onPress={props.onPress}>
+      <StyledTitle {...props}>{title}</StyledTitle>
+    </StyledButton>
+  )
+}
+
+const StyledButton = styled.TouchableHighlight<Props>`
+  background-color: ${(props) =>
+    props.transparent ? 'transparent' : '#0076BA'};
+  border: ${(props) => (props.transparent ? '1px solid #f3f8ff ' : 0)};
+  justify-content: center;
+  border-radius: 24px;
+  margin-block-end: 15px;
+  width: 130px;
+  height: 30px;
+  align-items: center;
+  text-align: center;
+`
+const StyledTitle = styled.Text<Props>`
   font-family: DIN Condensed;
   font-style: normal;
   font-size: 20px;
-  marginTop: 5px;
-  paddingRight: 20px;
-  paddingLeft: 20px;
+  margin-top: 5px;
+  padding-right: 20px;
+  padding-left: 20px;
   align-items: center;
   text-align: center;
-  color: ${props => (props.transparent ? 'black ' : '#FFFFFF')};
-`;
-
-export const ButtonMiddle = ({onPress, color, ...props}) => {
-  return (
-    <StyledButton {...props} onPress={onPress}>
-      <StyledTitle {...props}>{props.title}</StyledTitle>
-    </StyledButton>
-  );
-};
+  color: ${(props) => (props.transparent ? 'black ' : '#FFFFFF')};
+`
