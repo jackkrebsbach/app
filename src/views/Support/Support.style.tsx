@@ -14,7 +14,7 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   font-size: 18px;
-  letter-spacing: 1px;
+  letter-spacing: 0.25px;
   text-align: center;
   color: #ffffff;
   top: 30px;

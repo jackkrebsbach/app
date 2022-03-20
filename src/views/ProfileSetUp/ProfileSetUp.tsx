@@ -26,6 +26,7 @@ const { width, height } = Dimensions.get('window')
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
+import FastImage from 'react-native-fast-image'
 
 type ProfileSetUpNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -90,11 +91,14 @@ const ProfileSetUp = ({ navigation }: Props) => {
   const renderProfilePicture = (profilePicture: string) => {
     if (profilePicture) {
       return (
-        <Image style={Styles.profilePicture} source={{ uri: profilePicture }} />
+        <FastImage
+          style={Styles.profilePicture}
+          source={{ uri: profilePicture }}
+        />
       )
     } else
       return (
-        <Image
+        <FastImage
           style={Styles.profilePicture}
           resizeMode="contain"
           source={require('../../assets/default.png')}

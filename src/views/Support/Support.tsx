@@ -16,10 +16,9 @@ const Support = ({ navigation }: { navigation: any }) => {
       <Header>
         <Logo />
         <Title>
-          The REZA1 is the first rendition of this technology. Naturally, there
-          may be instances where support is needed. By clicking the chat button,
-          you can reach out to us 24/7 where we will support you with any
-          questions or concerns you have
+          The REZA1 is the first rendition of this technology. By clicking the
+          chat button, you can reach out to us 24/7 where we will support you
+          with any questions or concerns you have
         </Title>
       </Header>
 

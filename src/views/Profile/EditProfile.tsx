@@ -12,7 +12,7 @@ import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
 import ImagePicker from 'react-native-image-crop-picker'
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-
+import FastImage from 'react-native-fast-image'
 import { ActivityIndicator } from 'react-native'
 import { getProfile, UpdateProfile } from '../../services/api/UserApi'
 import deviceStorage, {
@@ -135,20 +135,19 @@ const EditProfile = ({ navigation }: Props) => {
 
   const renderProfilePicture = (profilePicture: string) => {
     return (
-      <Image
+      <FastImage
         style={styles.profilePicture}
         resizeMode="contain"
         source={{ uri: profilePicture }}
       />
     )
   }
-  ;``
   const renderListPhotos = (localPhotos: Photo[] | undefined) => {
     if (localPhotos) {
       const photos = localPhotos.map((photo, index) => {
         return (
           <View key={index} style={{ marginTop: 5 }}>
-            <Image style={styles.photo} source={{ uri: photo.url }} />
+            <FastImage style={styles.photo} source={{ uri: photo.url }} />
 
             <TouchableOpacity
               onPress={() => onActionDeleteDone(photo.id, index)}

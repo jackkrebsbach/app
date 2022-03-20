@@ -9,6 +9,7 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import { RouteProp, useIsFocused } from '@react-navigation/native'
 const { width } = Dimensions.get('window')
 import { Button } from '@components/forms'
@@ -80,7 +81,7 @@ const Profile = ({ route, navigation }: Props) => {
               itemWidth={width}
               inactiveSlideScale={1}
               renderItem={({ item, index }) => (
-                <Image
+                <FastImage
                   key={index}
                   style={{ width: '100%', height: '100%', borderRadius: 30 }}
                   resizeMode="contain"
