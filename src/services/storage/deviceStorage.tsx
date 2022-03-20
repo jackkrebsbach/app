@@ -113,6 +113,10 @@ const deviceStorage = {
         await AsyncStorage.multiRemove(asyncStorageKeys)
       }
     }
+    userData = undefined
+    userProfile = undefined
+    jwt = undefined
+    nft = undefined
   },
 }
 

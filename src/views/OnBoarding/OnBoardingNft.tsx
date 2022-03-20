@@ -51,9 +51,7 @@ const OnBoardingNft = ({ navigation }: Props) => {
             style={{
               width: width - 100,
               height: height - 400,
-              borderColor: 'white',
-              borderWidth: 2,
-              marginTop: 10,
+              ...styles.image,
             }}
           />
 

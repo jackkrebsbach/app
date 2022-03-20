@@ -28,7 +28,13 @@ export const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
   },
-
+  image: {
+    borderColor: 'white',
+    borderWidth: 2,
+    marginTop: 10,
+    borderStyle: 'dashed',
+    borderRadius: 1,
+  },
   pageTitle: {
     color: 'white',
     fontSize: 36,

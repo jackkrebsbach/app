@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import { LinearTextGradient } from 'react-native-text-gradient'
 import Video from 'react-native-video'
@@ -40,6 +40,12 @@ const Welcome = ({ navigation }: Props) => {
       navigation.navigate('WelcomeB')
     }
   }
+
+  useEffect(() => {
+    deviceStorage.loadUser()
+    deviceStorage.loadJWT()
+    deviceStorage.loadProfile()
+  }, [])
 
   return (
     <Wrapper>
