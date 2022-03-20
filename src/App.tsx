@@ -1,12 +1,11 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import { DarkTheme, NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-
 import React from 'react'
 import { View } from 'react-native'
 import { Provider as PaperProvider } from 'react-native-paper'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { DarkTheme, NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+//Views
 import { Experience, Experienceb, Experiencec } from './views/Experience/'
 import { Email, LoginPassword } from './views/Login/'
 import { NftLanding, NftView } from './views/Nft'

@@ -1,19 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { JWT, User, Profile, NFT } from './types'
 
-type JWT = {
-  access_token?: string
-  refresh_token?: string
-}
-
-type User = {
-  email?: string
-  id?: number
-}
-
-export let userData = {}
-export let userProfile = {}
+export let userData: User = {}
+export let userProfile: Profile = {}
 export let jwt: JWT = {}
-export let nft = {}
+export let nft: NFT = {}
 
 const deviceStorage = {
   async saveItem(key: string, value: string) {
@@ -49,7 +40,6 @@ const deviceStorage = {
     try {
       let data = await AsyncStorage.getItem('user_data')
       userData = data ? JSON.parse(data) : {}
-      console.log('userdata', userData)
     } catch (error) {
       console.log('Something went wrong', error)
     }
