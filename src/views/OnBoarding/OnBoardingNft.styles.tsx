@@ -29,11 +29,11 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
+    borderStyle: 'dashed',
+    borderRadius: 1,
     borderColor: 'white',
     borderWidth: 2,
     marginTop: 10,
-    borderStyle: 'dashed',
-    borderRadius: 1,
   },
   pageTitle: {
     color: 'white',

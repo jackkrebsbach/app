@@ -75,6 +75,7 @@ export const CreateProfile = async (
         name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
         type: 'image/jpeg',
       }
+      //For now ignore the ts error, not sure the best way to stop it
       // @ts-ignore:next-line
       formData.append('profile', file)
     }
@@ -113,6 +114,7 @@ export const UpdateProfile = async (
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
+    //For now ignore the ts error, not sure the best way to stop it
     // @ts-ignore:next-line
     formData.append('profile', file)
   }

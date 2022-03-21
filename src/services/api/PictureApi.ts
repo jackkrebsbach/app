@@ -24,6 +24,7 @@ export const uploadPicture = async (pictures: any[]) => {
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
+    //For now ignore the ts error, not sure the best way to stop it
     // @ts-ignore:next-line
     dataForm.append('gallery', file)
   })

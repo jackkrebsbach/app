@@ -25,7 +25,7 @@ const SplashScreen = ({ navigation }: Props) => {
     deviceStorage.loadNFT()
     setTimeout(() => {
       navigation.navigate('Welcome')
-    }, 3200)
+    }, 3300)
   }, [])
 
   return (
