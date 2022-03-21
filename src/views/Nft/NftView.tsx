@@ -16,30 +16,37 @@ import { ButtonMiddle, TextInputc } from '@components/forms'
 import { trasnferNft, getNft } from '@services/api/NftApi'
 import { ActivityIndicator } from 'react-native'
 import deviceStorage, { nft } from '@services/storage/deviceStorage'
+import { useIsFocused } from '@react-navigation/native'
 
 const { width, height } = Dimensions.get('window')
 
 const NftView = ({ navigation }: { navigation: any }) => {
+  const isFocused = useIsFocused()
   const [visible, setVisible] = React.useState(false)
   const [metamaskId, setMetamaskId] = React.useState('')
   const [isLoading, setLoading] = React.useState(false)
   const [nftState, setNftState] = React.useState('test')
 
+  const loadNft = async () => {
+    await getNft()
+    await deviceStorage.loadNFT()
+  }
+
   useEffect(() => {
-    if (nft) {
+    loadNft()
+    if (nft && isFocused) {
       console.log('nft')
       setNftState(nft[0]['nft_state'])
       console.log('nftState', nftState)
     }
-  })
+  }, [isFocused, nft])
+
   const onPressHandler = () => {
     // check if appStoreLocale is set
     Linking.openURL('https://opensea.io/collection/reza-official')
   }
 
-  const onPressBack = () => {
-    navigation.goBack()
-  }
+  const onPressBack = () => navigation.goBack()
 
   return (
     <Wrapper>
@@ -91,8 +98,7 @@ const NftView = ({ navigation }: { navigation: any }) => {
               textAlign: 'center',
             }}
           >
-            Add your Polygon address and we will send you your REZA NFT within
-            72 hours
+            Add your Polygon address and we will send you your REZA NFT shortly
           </Text>
           <TextInputc
             onChangeText={(t) => setMetamaskId(t)}
@@ -177,8 +183,9 @@ const NftView = ({ navigation }: { navigation: any }) => {
         ) : null}
 
         {nftState == 'PENDING' ? (
-          <Text style={{ color: 'white' }}>
-            Your nft is pending, wait a few days blablba
+          <Text style={{ color: 'white', padding: 80 }}>
+            Your nft is pending. If you do not recieve it shortly please contact
+            us.
           </Text>
         ) : null}
       </View>
