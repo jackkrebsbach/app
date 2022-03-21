@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   Dimensions,
+  Alert,
 } from 'react-native'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
@@ -119,6 +120,9 @@ const EditProfile = ({ navigation }: Props) => {
         })
       })
       .catch((error: any) => {
+        Alert.alert(
+          'Could not open photo library, please ensure the correct permissions are enabled.'
+        )
         console.log(JSON.stringify(error))
       })
   }
@@ -142,6 +146,9 @@ const EditProfile = ({ navigation }: Props) => {
         setNewProfilePicture(imageList[0].uri)
       })
       .catch((error) => {
+        Alert.alert(
+          'Could not open photo library, please ensure the correct permissions are enabled.'
+        )
         console.log(JSON.stringify(error))
       })
   }

@@ -4,6 +4,7 @@ import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
+  Alert,
   Dimensions,
   KeyboardAvoidingView,
   Platform,
@@ -91,6 +92,9 @@ const ProfileSetUp = ({ navigation }: Props) => {
         setprofilePath(i.path)
       })
       .catch((error) => {
+        Alert.alert(
+          'Could not open photo library, please ensure the correct permissions are enabled.'
+        )
         console.log(JSON.stringify(error))
       })
   }
@@ -157,6 +161,9 @@ const ProfileSetUp = ({ navigation }: Props) => {
         })
       })
       .catch((error: any) => {
+        Alert.alert(
+          'Could not open photo library, please ensure the correct permissions are enabled.'
+        )
         console.log(JSON.stringify(error))
       })
   }
