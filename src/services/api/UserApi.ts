@@ -1,27 +1,22 @@
-import deviceStorage, { jwt } from '../storage/deviceStorage'
+import deviceStorage from '../storage/deviceStorage'
 import fetcher from './fetcher'
 
 export const getUser = async () => {
   return fetcher('/api/user/get-user', {
-    method: 'get',
-    headers: {
-      'content-type': 'application/json; charset=UTF-8',
-      Authorization: 'Bearer ' + jwt?.access_token,
-    },
+    method: 'GET',
   })
     .then((response) => {
       const userData = response.data
-      deviceStorage.saveItem('user_data', JSON.stringify(userData))
-      return response.data
+      deviceStorage.saveItem('user_data', JSON.stringify(userData)).then(() => {
+        return response.data
+      })
     })
     .catch((error) => {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.log(' done')
+
         console.log(error.response.data)
-        console.log(error.response.status)
-        console.log(error.response.headers)
       } else if (error.request) {
         // The request was made but no response was received
         // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -41,16 +36,17 @@ export const getProfile = async () => {
     method: 'GET',
   })
     .then((response) => {
-      console.log('getProfile', response.data)
       const userProfile = response.data
-      deviceStorage.saveItem('user_profile', JSON.stringify(userProfile))
-      return response.data
+      deviceStorage
+        .saveItem('user_profile', JSON.stringify(userProfile))
+        .then(() => {
+          return response.data
+        })
     })
     .catch(function (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.log(' done')
         console.log(error.response.data)
       } else if (error.request) {
         console.log(error.request)
@@ -68,7 +64,6 @@ export const CreateProfile = async (
   shortDescription: string,
   profilePicture: any
 ) => {
-  console.log('CreateProfile- files', profilePicture.toString())
   let formData = new FormData()
 
   profilePicture.forEach((image: any) => {
@@ -80,7 +75,8 @@ export const CreateProfile = async (
         name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
         type: 'image/jpeg',
       }
-      formData.append('profile', file.toString())
+      // @ts-ignore:next-line
+      formData.append('profile', file)
     }
   })
 
@@ -117,6 +113,7 @@ export const UpdateProfile = async (
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
+    // @ts-ignore:next-line
     formData.append('profile', file)
   }
 

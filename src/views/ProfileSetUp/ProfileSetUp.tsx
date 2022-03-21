@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
-  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -64,9 +63,8 @@ const ProfileSetUp = ({ navigation }: Props) => {
   const onPressHandler = () => {
     setLoading(true)
     UpdateProfile(profilePath, city, story, shortDescription)
-      .then((res) => {
-        console.log('success', res)
-        getProfile().then((res) => {
+      .then(() => {
+        getProfile().then(() => {
           navigation.navigate('Home')
           setLoading(false)
         })

@@ -152,7 +152,6 @@ const EditProfile = ({ navigation }: Props) => {
     return (
       <FastImage
         style={styles.profilePicture}
-        resizeMode="contain"
         source={{ uri: profilePicture }}
       />
     )
@@ -325,9 +324,10 @@ const styles = StyleSheet.create({
   },
   profilePicture: {
     marginBottom: 10,
-    width: 300,
-    height: 100,
-    borderRadius: 20,
+    width: 120,
+    height: 120,
+    borderRadius: 120 / 2,
+    backgroundColor: 'white',
   },
   picture: {
     width: 105,

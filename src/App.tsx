@@ -18,6 +18,7 @@ import SplashScreen from './views/SplashScreen/SplashScreen'
 import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
+import { navigationRef } from './RootNavigation'
 
 export type RootStackParamList = {
   Home: undefined // undefined because you aren't passing any params to the home screen
@@ -136,7 +137,7 @@ const App = () => {
 
   return (
     <PaperProvider>
-      <NavigationContainer theme={DarkTheme}>
+      <NavigationContainer theme={DarkTheme} ref={navigationRef}>
         <Stack.Navigator
           screenOptions={{ headerShown: false, animation: 'slide_from_left' }}
         >

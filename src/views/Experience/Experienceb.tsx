@@ -26,16 +26,20 @@ const Experienceb = ({ navigation }: Props) => {
   const [lyop, setLyop] = React.useState('')
 
   const onPressHandler = () => {
-    navigation.navigate('ProfileSetUp', {})
+    navigation.navigate('ProfileSetUp')
+  }
+
+  const init = async () => {
+    await deviceStorage.loadUser()
+    await deviceStorage.loadJWT()
+    await deviceStorage.loadProfile()
   }
 
   useEffect(() => {
-    deviceStorage.loadUser()
-    deviceStorage.loadProfile()
-
-    if (userData.first_name) {
-      setName(userData.first_name + ' ' + userData.last_name || '')
-      setLyop(userProfile.lyop || '')
+    init()
+    if (userData?.first_name) {
+      setName(userData?.first_name + ' ' + userData?.last_name || '')
+      setLyop(userProfile?.lyop || '')
     }
   }, [userData, userProfile])
 

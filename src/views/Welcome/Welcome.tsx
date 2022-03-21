@@ -15,6 +15,7 @@ const { width, height } = Dimensions.get('window')
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
+import { useIsFocused } from '@react-navigation/native'
 
 type WelcomeNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -26,25 +27,23 @@ type Props = {
 }
 
 const Welcome = ({ navigation }: Props) => {
+  const screenIsFocused = useIsFocused()
   const onPressHandler = () => {
-    console.log('OnPress', userData)
-
     if (userData) {
-      if (userProfile) {
-        deviceStorage.loadProfile()
-        navigation.navigate('Home')
-      } else {
-        navigation.navigate('WelcomeB')
-      }
+      navigation.navigate('Home')
     } else {
-      navigation.navigate('WelcomeB')
+      navigation.navigate('Email')
     }
   }
 
+  const init = async () => {
+    await deviceStorage.loadUser()
+    await deviceStorage.loadJWT()
+    await deviceStorage.loadProfile()
+  }
+
   useEffect(() => {
-    deviceStorage.loadUser()
-    deviceStorage.loadJWT()
-    deviceStorage.loadProfile()
+    init()
   }, [])
 
   return (
@@ -54,8 +53,9 @@ const Welcome = ({ navigation }: Props) => {
         style={styles.backgroundVideo}
         repeat={true}
         rate={1.0}
-        resizeMode={'cover'}
-        ignoreSilentSwitch={'obey'}
+        resizeMode="cover"
+        ignoreSilentSwitch="obey"
+        paused={!screenIsFocused}
       />
       <View style={{ flex: 1 }}>
         <Logo />

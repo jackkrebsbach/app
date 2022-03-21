@@ -5,7 +5,6 @@ export const generateInviteCode = async () => {
     method: 'POST',
   })
     .then((response) => {
-      console.log(response.data)
       return response.data
     })
     .catch((error) => {

@@ -20,7 +20,7 @@ export const trasnferNft = async (metamaskId: string) => {
 
 // header token
 export const getNft = async () => {
-  return fetcher('api/nft', {
+  return fetcher('/api/nft', {
     method: 'GET',
   })
     .then((response) => {

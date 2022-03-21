@@ -45,7 +45,7 @@
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-paper": "^4.10.1",
     "react-native-qrcode-svg": "^6.1.2",
-    "react-native-reanimated": "^2.3.1",
+    "react-native-reanimated": "~2.2.4",
     "react-native-root-toast": "^3.3.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",

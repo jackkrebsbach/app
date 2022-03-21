@@ -42,8 +42,7 @@ const Profile = ({ route, navigation }: Props) => {
   const isFocused = useIsFocused()
 
   const onPressHandler = async () => {
-    await deviceStorage.logout()
-    navigation.navigate('Welcome')
+    await deviceStorage.logout() //This will automatically navigate to the splash screen
   }
 
   const loadProfile = async () => await deviceStorage.loadProfile()
@@ -107,11 +106,13 @@ const Profile = ({ route, navigation }: Props) => {
             </TouchableOpacity>
           </ModalPoup>
           <View style={styles.bannerContainer}>
-            <Animated.Image
-              resizeMode="contain"
-              source={{ uri: userProfile?.profile_picture }}
-              style={styles.banner(scrollA)}
-            />
+            <Animated.View style={{ ...styles.banner(scrollA), flex: 1 }}>
+              <FastImage
+                resizeMode="contain"
+                source={{ uri: userProfile?.profile_picture }}
+                style={{ flex: 1 }}
+              />
+            </Animated.View>
           </View>
           <View style={{ borderRadius: 10 }}>
             <View style={{ marginTop: 25, marginBottom: 5 }}>
@@ -337,7 +338,6 @@ const styles = StyleSheet.create<test>({
   }) => {
     return {
       height: BANNER_H,
-
       width: '100%',
       transform: [
         {

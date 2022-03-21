@@ -24,31 +24,37 @@ const Email = ({ navigation }: Props) => {
   const [isValid, setValid] = React.useState(false)
   const [isLoading, setLoading] = React.useState(false)
 
-  const onPressHandler = () => {
+  const onPressHandler = async () => {
     setLoading(true)
-    sendCode()
+    await sendCode()
   }
 
   async function sendCode() {
-    getCode(email)
-      .then((res) => {
+    if (!isValid) {
+      setLoading(false)
+      return Alert.alert('Invalid Email')
+    }
+    try {
+      const res = await getCode(email)
+      if (res.status == 'ok') {
         setLoading(false)
-        console.log('success', res)
         navigation.navigate('LoginPassword', {
           email: email,
         })
-      })
-      .catch((err) => {
+      } else {
         setLoading(false)
-        if (err.response.status == 404) {
-          Alert.alert(
-            'You email was not found. please use the email you where you have regularly been receiving REZA updates. If you still cannot access your account, please reach out to our dev team and contact@rezafootwear.com'
-          )
-        } else {
-          Alert.alert('Error ! Cannot connect to the server')
-        }
-        console.log('test', email)
-      })
+        return Alert.alert('Something went wrong,please try again.')
+      }
+    } catch (err: any) {
+      if (err.response.status == 500) {
+        Alert.alert(
+          'You email was not found. please use the email you where you have regularly been receiving REZA updates. If you still cannot access your account, please reach out to our dev team and contact@rezafootwear.com'
+        )
+      } else {
+        Alert.alert('Error, please try again.')
+      }
+      setLoading(false)
+    }
   }
 
   const validate = (email: string) => {
@@ -59,7 +65,6 @@ const Email = ({ navigation }: Props) => {
       return
     } else {
       setEmail(email.toLowerCase())
-      console.log('Email is Correct')
       setValid(true)
       return
     }
@@ -94,7 +99,11 @@ const Email = ({ navigation }: Props) => {
         />
 
         <View>
-          <Button onPress={onPressHandler} disabled={!isValid} title="next" />
+          <Button
+            onPress={async () => await onPressHandler()}
+            disabled={!isValid}
+            title="next"
+          />
         </View>
       </View>
     </Wrapper>

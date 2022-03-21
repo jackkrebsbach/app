@@ -1,6 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { JWT, User, Profile, NFT } from './types'
 import { Platform } from 'react-native'
+import * as RootNavigation from '../../RootNavigation'
+
 export let userData: User | undefined
 export let userProfile: Profile | undefined
 export let jwt: JWT | undefined
@@ -9,7 +11,7 @@ export let nft: NFT | undefined
 const deviceStorage = {
   async saveItem(key: string, value: string) {
     try {
-      console.log('saving:', key, value)
+      //     console.log('saving:', key, value)
       await AsyncStorage.setItem(key, value)
     } catch (error) {
       console.log('AsyncStorage Error: ' + error)
@@ -102,6 +104,7 @@ const deviceStorage = {
 
   async logout() {
     const asyncStorageKeys = await AsyncStorage.getAllKeys()
+
     if (asyncStorageKeys.length > 0) {
       if (Platform.OS === 'android') {
         await AsyncStorage.clear()
@@ -114,6 +117,7 @@ const deviceStorage = {
     userProfile = undefined
     jwt = undefined
     nft = undefined
+    RootNavigation.navigate('Welcome', {})
   },
 }
 

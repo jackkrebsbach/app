@@ -7,7 +7,9 @@ import { Button, TextInputc } from '@components/forms'
 import { Title } from '@components/Text'
 import { ActivityIndicator } from 'react-native'
 import { getProfile, getUser } from '../../services/api/UserApi'
-import deviceStorage, { userData } from '../../services/storage/deviceStorage'
+import deviceStorage, {
+  userProfile,
+} from '../../services/storage/deviceStorage'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteProp } from '@react-navigation/native'
@@ -34,41 +36,29 @@ const Login = ({ route, navigation }: Props) => {
   }
 
   async function loginWithCode() {
-    login(email, code)
-      .then(async (res) => {
-        //prepare a if profile != null then Experice,
-        // if null then Set Up profile
-        // navigation.navigate('ProfileSetUp');
-        await deviceStorage.loadJWT()
-        getUser().then((res) => {
-          deviceStorage.loadUser().then(() => {
-            if (userData) {
-              console.log(userData)
-              getProfile()
-                .then((res) => {
-                  if (res.description) {
-                    navigation.navigate('Experience')
-                  } else {
-                    deviceStorage.loadProfile()
-                    navigation.navigate('Home')
-                  }
-                })
-                .catch((error) => {
-                  console.log(error)
-                })
-            }
-          })
-        })
-      })
-      .catch((err) => {
-        setLoading(false)
-        if (err.response.status == 404) {
-          Alert.alert('Error ! Wrong Code')
-        } else {
-          Alert.alert('Error ! Cannot connect to the server')
-        }
-        console.log(err.response)
-      })
+    try {
+      const res = await login(email, code)
+      setLoading(false)
+      console.log('response', res)
+    } catch (err: any) {
+      console.log(err.response)
+      setLoading(false)
+      Alert.alert('error')
+    }
+
+    await deviceStorage.loadJWT()
+
+    await getUser()
+    await deviceStorage.loadUser()
+
+    await getProfile()
+    await deviceStorage.loadProfile()
+    setLoading(false)
+    if (userProfile?.gallery && userProfile.gallery.length) {
+      //if User Profile has a gallery then probably has set up before
+      return navigation.navigate('Home')
+    }
+    return navigation.navigate('Experience')
   }
 
   return (

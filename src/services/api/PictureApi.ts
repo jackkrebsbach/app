@@ -24,6 +24,7 @@ export const uploadPicture = async (pictures: any[]) => {
       name: Math.floor(Math.random() * Math.floor(999999999)) + '.jpg',
       type: 'image/jpeg',
     }
+    // @ts-ignore:next-line
     dataForm.append('gallery', file)
   })
 
