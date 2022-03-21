@@ -5,10 +5,10 @@ import React, { useEffect } from 'react'
 import { Image, View } from 'react-native'
 import styled from 'styled-components/native'
 
-import deviceStorage from '../../services/storage/deviceStorage'
+import deviceStorage from '@services/storage/deviceStorage'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type ExperienceNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

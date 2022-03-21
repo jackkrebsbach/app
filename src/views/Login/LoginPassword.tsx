@@ -1,19 +1,17 @@
 import * as React from 'react'
 import { Alert, View } from 'react-native'
-import { login } from '../../services/api'
+import { login } from '@services/api'
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms'
 import { Title } from '@components/Text'
 import { ActivityIndicator } from 'react-native'
-import { getProfile, getUser } from '../../services/api/UserApi'
-import deviceStorage, {
-  userProfile,
-} from '../../services/storage/deviceStorage'
+import { getProfile, getUser } from '@services/api/UserApi'
+import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RouteProp } from '@react-navigation/native'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type LoginPasswordNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

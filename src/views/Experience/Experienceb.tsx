@@ -7,10 +7,10 @@ import { Button } from '@components/forms'
 import deviceStorage, {
   userData,
   userProfile,
-} from '../../services/storage/deviceStorage'
+} from '@services/storage/deviceStorage'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type ExperiencebNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

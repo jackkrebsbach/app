@@ -1,21 +1,18 @@
+import { Button } from '@components/forms'
+import { Logo } from '@components/Logo'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import { useIsFocused } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
 import { Dimensions, StyleSheet, View } from 'react-native'
 import { LinearTextGradient } from 'react-native-text-gradient'
 import Video from 'react-native-video'
 import styled from 'styled-components/native'
-import deviceStorage, {
-  userData,
-  userProfile,
-} from '../../services/storage/deviceStorage'
-import { Button } from '@components/forms'
-import { Logo } from '@components/Logo'
-import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+
+import { RootStackParamList } from '@App'
+import deviceStorage, { userData } from '@services/storage/deviceStorage'
 
 const { width, height } = Dimensions.get('window')
-
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
-import { useIsFocused } from '@react-navigation/native'
 
 type WelcomeNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

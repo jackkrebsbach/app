@@ -20,11 +20,12 @@
     "allowSyntheticDefaultImports": true,
     "removeComments": true,
     "paths": {
+      "@*":["./src/*"],
       "@navigation/*": ["./src/navigation/*"],
       "@components/*": ["./src/components/*"],
-      "@assets/*": [".src/assets/*"],
-      "@utils/*": [".src/utils/*"],
-      "@services/*": [".src/services/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@services/*": ["./src/services/*"],
     }
   },
   "exclude": ["node_modules", "babel.config.js", "metro.config.js"]

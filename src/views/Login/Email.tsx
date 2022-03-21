@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { getCode } from '../../services/api'
+import { getCode } from '@services/api'
 import { Logo } from '@components/Logo'
 import { Wrapper } from '@components/Wrappers'
 import { Button, TextInputc } from '@components/forms'
@@ -8,7 +8,7 @@ import { Title } from '@components/Text'
 
 import { ActivityIndicator, Alert } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type EmailNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

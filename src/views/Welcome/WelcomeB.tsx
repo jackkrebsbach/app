@@ -1,7 +1,7 @@
 import React from 'react'
 import { View } from 'react-native'
-import { getProfile } from '../../services/api/UserApi'
-import deviceStorage, { userData } from '../../services/storage/deviceStorage'
+import { getProfile } from '@services/api/UserApi'
+import deviceStorage, { userData } from '@services/storage/deviceStorage'
 import {
   Footer,
   Header,
@@ -10,13 +10,13 @@ import {
   Reza,
   TextDescription,
 } from './WelcomeB.style'
-import { jwt } from '../../services/storage/deviceStorage'
+import { jwt } from '@services/storage/deviceStorage'
 import { Button } from '@components/forms'
 import { Logo } from '@components/Logo'
 import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type WelcomeBNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

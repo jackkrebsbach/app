@@ -18,14 +18,14 @@ import { Wrapper } from '@components/Wrappers'
 import deviceStorage, {
   userData,
   userProfile,
-} from '../../services/storage/deviceStorage'
+} from '@services/storage/deviceStorage'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Carousel from 'react-native-snap-carousel'
 import { LinearTextGradient } from 'react-native-text-gradient'
 
 const BANNER_H = width
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type ProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

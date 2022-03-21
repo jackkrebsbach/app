@@ -16,15 +16,13 @@ import ImagePicker from 'react-native-image-crop-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
 import { ActivityIndicator } from 'react-native'
-import { getProfile, UpdateProfile } from '../../services/api/UserApi'
-import deviceStorage, {
-  userProfile,
-} from '../../services/storage/deviceStorage'
-import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
+import { getProfile, UpdateProfile } from '@services/api/UserApi'
+import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
+import { deletePicture, uploadPicture } from '@services/api/PictureApi'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
-import { Photo } from 'src/services/storage/types'
+import { RootStackParamList } from '@App'
+import { Photo } from '@services/storage/types'
 import { useIsFocused } from '@react-navigation/native'
 const { width, height } = Dimensions.get('window')
 type EditProfileNavigationProp = NativeStackNavigationProp<

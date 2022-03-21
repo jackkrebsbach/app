@@ -15,12 +15,10 @@ import {
 import ImagePicker from 'react-native-image-crop-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { getProfile, UpdateProfile } from '../../services/api/UserApi'
-import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
+import { getProfile, UpdateProfile } from '@services/api/UserApi'
+import { deletePicture, uploadPicture } from '@services/api/PictureApi'
 
-import deviceStorage, {
-  userProfile,
-} from '../../services/storage/deviceStorage'
+import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
 import { ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
 const { width, height } = Dimensions.get('window')

@@ -13,9 +13,9 @@ import { Button } from '@components/forms'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ModalPopup from './ModalPopup'
 import { ButtonMiddle, TextInputc } from '@components/forms'
-import { trasnferNft, getNft } from '../../services/api/NftApi'
+import { trasnferNft, getNft } from '@services/api/NftApi'
 import { ActivityIndicator } from 'react-native'
-import deviceStorage, { nft } from '../../services/storage/deviceStorage'
+import deviceStorage, { nft } from '@services/storage/deviceStorage'
 
 const { width, height } = Dimensions.get('window')
 

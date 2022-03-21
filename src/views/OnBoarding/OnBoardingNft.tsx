@@ -4,11 +4,11 @@ import { Wrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TextDescription, styles } from './OnBoardingNft.styles'
-import { userData, userProfile } from '../../services/storage/deviceStorage'
+import { userData, userProfile } from '@services/storage/deviceStorage'
 const { width, height } = Dimensions.get('window')
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
+import { RootStackParamList } from '@App'
 
 type OnBoardingNftNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
