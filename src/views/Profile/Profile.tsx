@@ -5,11 +5,9 @@ import {
   View,
   Dimensions,
   Animated,
-  Image,
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
-  Platform,
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import FastImage from 'react-native-fast-image'
@@ -49,10 +47,9 @@ const Profile = ({ route, navigation }: Props) => {
   }
 
   const loadProfile = async () => await deviceStorage.loadProfile()
+
   useEffect(() => {
-    if (isFocused) {
-      loadProfile()
-    }
+    loadProfile()
   }, [isFocused])
 
   const onPressEdit = () => navigation.navigate('EditProfile')

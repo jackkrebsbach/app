@@ -43,6 +43,7 @@ const Login = ({ route, navigation }: Props) => {
         getUser().then((res) => {
           deviceStorage.loadUser().then(() => {
             if (userData) {
+              console.log(userData)
               getProfile()
                 .then((res) => {
                   if (res.description) {

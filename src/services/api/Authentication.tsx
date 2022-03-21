@@ -35,7 +35,7 @@ export const login = async (email: string, activationCode: string) => {
       access_token: access_token,
       refresh_token: refresh_token,
     }
-    deviceStorage.saveItem('user_auth', JSON.stringify(userAuth))
+    await deviceStorage.saveItem('user_auth', JSON.stringify(userAuth))
     Intercom.registerIdentifiedUser({
       email: userAuth.email,
       userId: userAuth.userId,

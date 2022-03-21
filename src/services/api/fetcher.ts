@@ -14,7 +14,7 @@ const fetcher = axios.create({
 })
 
 fetcher.interceptors.request.use(async (config: AxiosRequestConfig) => {
-  deviceStorage.loadJWT()
+  await deviceStorage.loadJWT()
 
   const user = jwt_decode<JwtPayload>(jwt?.access_token || '')
   const isExpired = dayjs.unix(user?.exp || 0).diff(dayjs()) < 1

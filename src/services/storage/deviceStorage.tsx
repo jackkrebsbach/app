@@ -20,7 +20,6 @@ const deviceStorage = {
     try {
       let data = await AsyncStorage.getItem('nft')
       nft = data ? JSON.parse(data) : undefined
-      console.log('nft', nft)
     } catch (error) {
       console.log('Something went wrong', error)
     }
@@ -30,7 +29,6 @@ const deviceStorage = {
     try {
       let data = await AsyncStorage.getItem('user_auth')
       jwt = data ? JSON.parse(data) : undefined
-      console.log('jwt', jwt)
     } catch (error) {
       console.log('Something went wrong', error)
     }
@@ -40,7 +38,6 @@ const deviceStorage = {
     try {
       let data = await AsyncStorage.getItem('user_data')
       userData = data ? JSON.parse(data) : undefined
-      console.log('userData', userData)
     } catch (error) {
       console.log('Something went wrong', error)
     }

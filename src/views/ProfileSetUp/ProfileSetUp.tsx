@@ -1,7 +1,7 @@
 import { Button, LargeTextInput, ProfileTextInput } from '@components/forms'
 import { Logo } from '@components/Logo'
 import { ButtonWrapper, Wrapper } from '@components/Wrappers'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
   Dimensions,
@@ -17,16 +17,19 @@ import ImagePicker from 'react-native-image-crop-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import { getProfile, UpdateProfile } from '../../services/api/UserApi'
-import { uploadPicture } from '../../services/api/PictureApi'
+import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
 
-import { userProfile } from '../../services/storage/deviceStorage'
-import { AddPhoto, ProfilePictureText, Styles } from './ProfileSetUp.styles'
+import deviceStorage, {
+  userProfile,
+} from '../../services/storage/deviceStorage'
+import { ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
 const { width, height } = Dimensions.get('window')
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
 import FastImage from 'react-native-fast-image'
+import { useIsFocused } from '@react-navigation/native'
 
 type ProfileSetUpNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -49,6 +52,14 @@ const ProfileSetUp = ({ navigation }: Props) => {
   const [profilePath, setprofilePath] = useState(
     userProfile?.profile_picture || ''
   )
+  const isFocused = useIsFocused()
+
+  const loadProfile = async () => await deviceStorage.loadProfile()
+  useEffect(() => {
+    if (isFocused) {
+      loadProfile()
+    }
+  }, [isFocused])
 
   const onPressHandler = () => {
     setLoading(true)
@@ -106,12 +117,15 @@ const ProfileSetUp = ({ navigation }: Props) => {
       )
   }
 
-  const onActionDeleteDone = (index: number) => {
+  const onActionDeleteDone = async (id: number, index: number) => {
+    await deletePicture(id)
+
     if (index > -1) {
       const array = ressourcePath || []
       array.splice(index, 1)
-      console.log(array)
       setRessourcePath([...array])
+      await getProfile()
+      await loadProfile()
     } else {
       console.log('nothing to delete')
     }
@@ -129,6 +143,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
       mediaType: 'photo',
     })
       .then((images: any[]) => {
+        setLoading(true)
         const newImages = images.map((i) => {
           return {
             filename: i.filename,
@@ -138,8 +153,10 @@ const ProfileSetUp = ({ navigation }: Props) => {
         })
         uploadPicture(newImages).then((res) => {
           getProfile().then((res) => {
-            setRessourcePath([...ressourcePath, res.gallery])
-            setLoading(false)
+            deviceStorage.loadProfile().then((profile) => {
+              setRessourcePath(userProfile?.gallery || [])
+              setLoading(false)
+            })
           })
         })
       })
@@ -149,17 +166,34 @@ const ProfileSetUp = ({ navigation }: Props) => {
   }
 
   const renderListPhotos = (localPhotos: any[]) => {
-    const photos = localPhotos.map((photo, index) => {
-      return (
-        <View key={index} style={{ marginTop: 5 }}>
-          <Image style={Styles.photo} source={{ uri: photo.url }} />
-          <AddPhoto onPress={() => onActionDeleteDone(index)}>
-            <Icon name="close" color="#FFFFFF" size={15} />
-          </AddPhoto>
-        </View>
-      )
-    })
-    return photos
+    if (localPhotos) {
+      const photos = localPhotos.map((photo, index) => {
+        return (
+          <View key={index} style={{ marginTop: 5 }}>
+            <FastImage style={Styles.photo} source={{ uri: photo.url }} />
+
+            <TouchableOpacity
+              onPress={async () => await onActionDeleteDone(photo.id, index)}
+              style={{
+                alignItems: 'center',
+                position: 'absolute',
+                top: -5,
+                right: 5,
+                justifyContent: 'center',
+                backgroundColor: 'white',
+                width: 20,
+                height: 20,
+                borderRadius: 30,
+              }}
+            >
+              <Icon name="close" color="#0076BA" size={15} />
+            </TouchableOpacity>
+          </View>
+        )
+      })
+      return photos
+    }
+    return null
   }
 
   return (

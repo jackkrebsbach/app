@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   StyleSheet,
   Text,
@@ -7,6 +7,7 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
+  Dimensions,
 } from 'react-native'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
@@ -24,7 +25,8 @@ import { deletePicture, uploadPicture } from '../../services/api/PictureApi'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../App'
 import { Photo } from 'src/services/storage/types'
-
+import { useIsFocused } from '@react-navigation/native'
+const { width, height } = Dimensions.get('window')
 type EditProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'EditProfile'
@@ -44,9 +46,17 @@ const EditProfile = ({ navigation }: Props) => {
   const [profilePath, setprofilePath] = useState(
     userProfile?.profile_picture || ''
   )
+  const isFocused = useIsFocused()
   const [newProfilePicture, setNewProfilePicture] = useState('')
 
   const [isLoading, setLoading] = React.useState(false)
+
+  const loadProfile = async () => await deviceStorage.loadProfile()
+  useEffect(() => {
+    if (isFocused) {
+      loadProfile()
+    }
+  }, [isFocused])
 
   const onPressHandler = () => {
     setLoading(true)
@@ -74,6 +84,8 @@ const EditProfile = ({ navigation }: Props) => {
       const array = ressourcePath || []
       array.splice(index, 1)
       setRessourcePath([...array])
+      await getProfile()
+      await loadProfile()
     } else {
       console.log('nothing to delete')
     }
@@ -153,7 +165,7 @@ const EditProfile = ({ navigation }: Props) => {
             <FastImage style={styles.photo} source={{ uri: photo.url }} />
 
             <TouchableOpacity
-              onPress={() => onActionDeleteDone(photo.id, index)}
+              onPress={async () => await onActionDeleteDone(photo.id, index)}
               style={{
                 alignItems: 'center',
                 position: 'absolute',
@@ -271,6 +283,8 @@ const EditProfile = ({ navigation }: Props) => {
               backgroundColor: 'rgba(0,0,0,0.8)',
               alignItems: 'center',
               justifyContent: 'center',
+              width: width,
+              height: height,
             }}
           >
             <ActivityIndicator />
