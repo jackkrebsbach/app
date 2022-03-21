@@ -38,12 +38,12 @@ const Login = ({ route, navigation }: Props) => {
   async function loginWithCode() {
     try {
       const res = await login(email, code)
-      setLoading(false)
-      console.log('response', res)
+      if (res.id) {
+        console.log('success')
+      }
     } catch (err: any) {
-      console.log(err.response)
       setLoading(false)
-      Alert.alert('error')
+      return Alert.alert('Invalid or expired code.')
     }
 
     await deviceStorage.loadJWT()

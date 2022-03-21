@@ -40,9 +40,8 @@ export const login = async (email: string, activationCode: string) => {
       email: userAuth.email,
       userId: userAuth.userId,
     })
-    return
+    return response.data
   } catch (error) {
-    console.log(error)
     throw error
   }
 }
