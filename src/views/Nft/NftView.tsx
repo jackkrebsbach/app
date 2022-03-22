@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   Dimensions,
+  Alert,
 } from 'react-native'
 import { Linking } from 'react-native'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
@@ -30,15 +31,13 @@ const NftView = ({ navigation }: { navigation: any }) => {
   const loadNft = async () => {
     await getNft()
     await deviceStorage.loadNFT()
+    if (nft && nft[0] && isFocused) {
+      setNftState(nft[0]['nft_state'])
+    }
   }
 
   useEffect(() => {
     loadNft()
-    if (nft && isFocused) {
-      console.log('nft')
-      setNftState(nft[0]['nft_state'])
-      console.log('nftState', nftState)
-    }
   }, [isFocused, nft])
 
   const onPressHandler = () => {
@@ -107,6 +106,9 @@ const NftView = ({ navigation }: { navigation: any }) => {
 
           <ButtonMiddle
             onPress={async () => {
+              if (metamaskId.trim() == '') {
+                return Alert.alert('Invalid Meta Mask ID')
+              }
               setVisible(false)
               setLoading(true)
               await trasnferNft(metamaskId).then(async () => {
@@ -176,7 +178,7 @@ const NftView = ({ navigation }: { navigation: any }) => {
           </ButtonWrapper>
         ) : null}
 
-        {nftState != 'PENDING' ? (
+        {nftState != 'PENDING' && nftState != 'TRANSFERED' ? (
           <ButtonWrapper style={{ marginTop: 10 }}>
             <Button onPress={() => setVisible(true)} title="Claim MY NFT" />
           </ButtonWrapper>

@@ -25,8 +25,11 @@ export const getNft = async () => {
   })
     .then((response) => {
       const nft = response.data
-      deviceStorage.saveItem('nft', JSON.stringify(nft))
-      return response.data
+      deviceStorage.saveItem('nft', JSON.stringify(nft)).then(() => {
+        deviceStorage.loadNFT().then(() => {
+          return response.data
+        })
+      })
     })
     .catch(function (error) {
       if (error.response) {
