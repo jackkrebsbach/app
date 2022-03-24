@@ -1,5 +1,5 @@
 import React from 'react'
-import { GestureResponderEvent } from 'react-native'
+import { GestureResponderEvent, Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 interface Props {
@@ -36,10 +36,10 @@ const StyledButton = styled.TouchableHighlight<Props>`
   margin: 0 7px;
 `
 const StyledTitle = styled.Text<Props>`
-  font-family: DIN Condensed;
+  font-family:  ${(Platform.OS === 'ios') ? 'Din Condensed' : 'DIN Medium'}; 
   font-style: normal;
   font-size: 20px;
-  padding-top: 5px;
+  padding-top: ${(Platform.OS === 'ios') ? '5px' : 0};
   align-items: center;
   text-align: center;
   align-self: center;

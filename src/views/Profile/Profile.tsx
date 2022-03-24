@@ -8,6 +8,7 @@ import {
   Text,
   TouchableOpacity,
   KeyboardAvoidingView,
+  Platform,
 } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import FastImage from 'react-native-fast-image'
@@ -317,7 +318,7 @@ const styles = StyleSheet.create<test>({
     marginStart: 15,
     marginEnd: 15,
     marginTop: 20,
-    fontFamily: 'DIN Condensed',
+    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN-BlackAlternate ',
     textAlign: 'center',
     textTransform: 'uppercase',
   },
@@ -330,7 +331,7 @@ const styles = StyleSheet.create<test>({
   itemText: {
     color: 'black',
     fontSize: 20,
-    fontFamily: 'DIN Condensed',
+    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'AntＤesign ',
     margin: 5,
   },
   banner: (scrollA: {

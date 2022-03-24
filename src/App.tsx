@@ -1,5 +1,5 @@
 import React from 'react'
-import { View } from 'react-native'
+import { StatusBar, View } from 'react-native'
 import { Provider as PaperProvider } from 'react-native-paper'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { DarkTheme, NavigationContainer } from '@react-navigation/native'
@@ -137,9 +137,10 @@ const App = () => {
 
   return (
     <PaperProvider>
+      <StatusBar hidden={true} translucent={true} />
       <NavigationContainer theme={DarkTheme} ref={navigationRef}>
         <Stack.Navigator
-          screenOptions={{ headerShown: false, animation: 'slide_from_left' }}
+          screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
         >
           <Stack.Screen
             name="SplashScreen"
@@ -149,7 +150,7 @@ const App = () => {
           <Stack.Screen
             name="Welcome"
             component={Welcome}
-            options={{ gestureEnabled: false }}
+            options={{ gestureEnabled: false, headerShown: false }}
           />
           <Stack.Screen
             name="WelcomeB"
@@ -192,7 +193,7 @@ const App = () => {
           <Stack.Screen
             name="NftView"
             component={NftView}
-            options={{ gestureEnabled: true }}
+            options={{ gestureEnabled: true, animation: "slide_from_bottom" }}
           />
 
           <Stack.Screen
@@ -221,7 +222,7 @@ const App = () => {
           <Stack.Screen
             name="EditProfile"
             component={EditProfile}
-            options={{ gestureEnabled: true }}
+            options={{ gestureEnabled: true, animation: "slide_from_bottom" }}
           />
         </Stack.Navigator>
       </NavigationContainer>
