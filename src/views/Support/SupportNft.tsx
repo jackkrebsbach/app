@@ -34,7 +34,7 @@ const SupportNft = ({ navigation }: Props) => {
                         borderRadius: 30,
                     }}
                 >
-                    <Icon name="close-circle-outline" color="#FFFFFF" size={30} />
+                    <Icon name="close" color="#FFFFFF" size={30} />
                 </TouchableOpacity>
                 <Text style={styles.pageTitle}> Support NFT </Text>
             </View>

@@ -14,7 +14,7 @@ import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import ModalPopup from './ModalPopup'
-import { ButtonMiddle, TextInputc } from '@components/forms'
+import { ButtonMiddle, TextInputCenter } from '@components/forms'
 import { trasnferNft, getNft } from '@services/api/NftApi'
 import { ActivityIndicator } from 'react-native'
 import deviceStorage, { nft } from '@services/storage/deviceStorage'
@@ -65,14 +65,14 @@ const NftView = ({ navigation }: { navigation: any }) => {
             onPress={() => setVisible(false)}
             style={{
               position: 'absolute',
-              top: 4,
-              left: 4,
+              top: 14,
+              right: 0,
               width: 50,
               height: 50,
               borderRadius: 30,
             }}
           >
-            <Icon name="close-circle-outline" color="#fff" size={40} />
+            <Icon name="close" color="#fff" size={30} />
           </TouchableOpacity>
 
           <Text
@@ -87,7 +87,7 @@ const NftView = ({ navigation }: { navigation: any }) => {
           >
             Add your Polygon address and we will send you your REZA NFT shortly
           </Text>
-          <TextInputc
+          <TextInputCenter
             onChangeText={(t) => setMetamaskId(t)}
             style={{ height: 50, width: '100%', paddingBottom: 75 }}
           />
@@ -122,7 +122,7 @@ const NftView = ({ navigation }: { navigation: any }) => {
             justifyContent: 'center',
           }}
         >
-          <Icon name="close-circle-outline" color="#FFFFFF" size={30} />
+          <Icon name="close" color="#FFFFFF" size={30} />
         </TouchableOpacity>
         <View style={{ alignItems: 'center' }}>
           <Text style={styles.pageTitle}> My nft </Text>

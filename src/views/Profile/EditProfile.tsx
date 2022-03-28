@@ -216,13 +216,13 @@ const EditProfile = ({ navigation }: Props) => {
             style={{
               alignItems: 'center',
               position: 'absolute',
-              top: Platform.OS == 'ios' ? 20 : 0,
+              top: Platform.OS == 'ios' ? 40 : 0,
               right: 30,
               justifyContent: 'center',
               borderRadius: 30,
             }}
           >
-            <Icon name="close-circle-outline" color="#FFFFFF" size={30} />
+            <Icon name="close" color="#FFFFFF" size={30} />
           </TouchableOpacity>
           <Text style={styles.pageTitle}> Edit profile </Text>
         </View>

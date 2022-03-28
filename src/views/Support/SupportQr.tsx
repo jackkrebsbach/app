@@ -33,7 +33,7 @@ const SupportQr = ({ navigation }: Props) => {
                         borderRadius: 30,
                     }}
                 >
-                    <Icon name="close-circle-outline" color="#FFFFFF" size={30} />
+                    <Icon name="close" color="#FFFFFF" size={30} />
                 </TouchableOpacity>
                 <Text style={styles.pageTitle}> QR  support </Text>
             </View>

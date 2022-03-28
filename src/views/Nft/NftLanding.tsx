@@ -47,7 +47,7 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
               borderRadius: 30,
             }}
           >
-            <Icon name="close-circle-outline" color="#fff" size={30} />
+            <Icon name="close" color="#fff" size={30} />
           </TouchableOpacity>
 
           <QRCode
