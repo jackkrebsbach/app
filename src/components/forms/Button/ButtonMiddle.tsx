@@ -20,7 +20,7 @@ export const ButtonMiddle = ({
   return (
     <StyledButton {...props} onPress={props.onPress}>
       <StyledWrapper>
-        <StyledTitle {...props}>{title}</StyledTitle>
+        <StyledTitle color={color}>{title}</StyledTitle>
         {children}
       </StyledWrapper>
     </StyledButton>

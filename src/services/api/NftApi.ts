@@ -19,7 +19,6 @@ export const trasnferNft = async (metamaskId: string, nft_id: number) => {
     })
 }
 
-// header token
 export const getNft = async () => {
   return fetcher('/api/nft', {
     method: 'GET',
@@ -33,8 +32,11 @@ export const getNft = async () => {
             return response.data
           })
         })
+      } else {
+        deviceStorage.deleteNft()
       }
-      return []
+
+      return
     })
     .catch(function (error) {
       if (error.response) {

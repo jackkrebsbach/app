@@ -55,7 +55,6 @@ export const MetaMaskModal = ({
           }}
         >
           Add your Polygon address and we will send you your REZA NFT shortly
-          Testing
         </Text>
         <TextInputCenter
           onChangeText={(t: any) => setMetamaskId(t)}

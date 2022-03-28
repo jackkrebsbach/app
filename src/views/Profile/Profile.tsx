@@ -197,14 +197,14 @@ const Profile = ({ route, navigation }: Props) => {
             <View style={{ marginBottom: 10 }}>
               <Button onPress={onPressEdit} title="Edit my profile" />
             </View>
-            {/* <View style={{ marginBottom: 10 }}>
+            <View style={{ marginBottom: 10 }}>
               <Button
                 transparent={true}
-                color={'white'}
+                color="white"
                 onPress={onPressEdit}
                 title="Settings"
               />
-            </View> */}
+            </View>
 
             <Text
               onPress={onPressHandler}

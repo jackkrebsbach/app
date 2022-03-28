@@ -14,7 +14,7 @@ interface Props {
 export const Button = ({ color, title = 'default title', ...props }: Props) => {
   return (
     <StyledButton {...props} onPress={props.onPress} underlayColor={'#c0cddd'}>
-      <StyledTitle {...props}>{title}</StyledTitle>
+      <StyledTitle color={color}>{title}</StyledTitle>
     </StyledButton>
   )
 }
@@ -35,8 +35,9 @@ const StyledTitle = styled.Text<Props>`
   font-size: 20px;
   line-height: 24px;
   display: flex;
+
   align-items: center;
   text-align: center;
   letter-spacing: 1.5px;
-  color: ${(props) => (props.transparent ? '#ffffff ' : 'black')};
+  color: ${(props) => (props.color ? props.color : 'black ')};
 `

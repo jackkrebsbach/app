@@ -110,20 +110,22 @@ const NftView = ({ navigation }: { navigation: any }) => {
           style={{
             width: width - 100,
             height: height - 400,
-            borderStyle: 'dashed',
-            borderRadius: 1,
-            borderColor: 'white',
-            borderWidth: 1,
           }}
         />
       </View>
-      {!isLoading && !nft && (
-        <StyledText>
-          Each REZA shoe is tied to a unique NFT, once you purchase the shoes
-          you will be able to claim your NFT.
-        </StyledText>
-      )}
-      <View style={{ flex: 1 }}>
+
+      <View style={{ flex: 1, paddingTop: 20 }}>
+        {!isLoading && !nft && (
+          <>
+            <StyledText>
+              Each REZA shoe is tied to a unique NFT, once you purchase the
+              shoes you will be able to claim your NFT.
+            </StyledText>
+            <StyledText style={{ color: 'grey' }}>
+              [Contact us if you belive you should have access to claim an NFT]
+            </StyledText>
+          </>
+        )}
         {!isLoading && (
           <View style={{ flex: 1 }}>
             {nft && nft.nft_state == 'TRANSFERED' ? (
@@ -176,7 +178,7 @@ const NftView = ({ navigation }: { navigation: any }) => {
 
             {nft && nft.nft_state == 'PENDING' ? (
               <StyledText>
-                Your nft is pending. If you do not receive it shortly please
+                Your NFT is pending. If you do not receive it shortly please
                 contact us.
               </StyledText>
             ) : null}
