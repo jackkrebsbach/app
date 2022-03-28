@@ -15,20 +15,18 @@ export const Container = styled.View`
 `
 
 export const CardContainer = styled.View`
-  margin-top: ${Platform.OS == 'ios' ? '50px' : '40px'} ;
+  margin-top: ${Platform.OS == 'ios' ? '50px' : '40px'};
 `
 export const Footer = styled.View`
-    flex: 1;
-    align-items: center;
+  flex: 1;
+  align-items: center;
 `
 
-
 export const Title = styled.Text`
-  font-size: 18px;
-  letter-spacing: 0.25px;
+  font-size: 17px;
+  letter-spacing: 0px;
   text-align: center;
-  margin-left: 30px;
-  margin-right: auto;
+  margin: 0 25px;
   color: #ffffff;
 `
 

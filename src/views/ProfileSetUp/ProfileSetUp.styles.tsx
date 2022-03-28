@@ -10,7 +10,7 @@ export const Styles = StyleSheet.create({
 
   title: {
     color: '#FFFFFF',
-    fontSize: 24,
+    fontSize: 22,
     fontStyle: 'italic',
     marginStart: 30,
     margin: 5,

@@ -43,6 +43,7 @@ export type Profile = {
   created_at?: string
   updated_at?: string
   gallery?: Photo[]
+  display_name?: string
 }
 export type Photo = {
   id: number

@@ -35,7 +35,7 @@ const Experience = ({ navigation }: Props) => {
       <View style={{ flex: 2, alignItems: 'center', paddingBottom: 300 }}>
         <Image
           source={require('../../assets/floating_shoe.jpg')}
-          style={{ width: 500 }}
+          style={{ width: 300 }}
           resizeMode="contain"
         />
       </View>
@@ -55,10 +55,11 @@ export default Experience
 
 const TextDescription = styled.Text`
   letter-spacing: 0.5px;
-  line-height: 30px;
-  font-size: 25px;
-  margin-block-start: 20px;
-  margin-block-end: 20px;
+  line-height: 25px;
+  font-size: 20px;
+  width: 300px;
+  padding-bottom: 15px;
+  align-self: center;
   font-style: italic;
   text-align: center;
   color: #ffffff;

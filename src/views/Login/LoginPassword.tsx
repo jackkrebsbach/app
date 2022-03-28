@@ -36,6 +36,7 @@ const Login = ({ route, navigation }: Props) => {
   async function loginWithCode() {
     try {
       const res = await login(email, code)
+
       if (res.id) {
         console.log('success')
       }

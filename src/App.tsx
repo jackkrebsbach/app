@@ -1,11 +1,14 @@
-import React from 'react'
-import { StatusBar, View } from 'react-native'
-import { Provider as PaperProvider } from 'react-native-paper'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { DarkTheme, NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import SupportNft from '@views/Support/SupportNft'
+import SupportQr from '@views/Support/SupportQr'
+import React from 'react'
+import { StatusBar, View } from 'react-native'
+import { Provider as PaperProvider } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/FontAwesome'
-
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { navigationRef } from './RootNavigation'
 import { Experience, Experienceb, Experiencec } from './views/Experience/'
 import { Email, LoginPassword } from './views/Login/'
 import { NftLanding, NftView } from './views/Nft'
@@ -18,10 +21,6 @@ import SplashScreen from './views/SplashScreen/SplashScreen'
 import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
-import { navigationRef } from './RootNavigation'
-import SupportNft from '@views/Support/SupportNft'
-import SupportQr from '@views/Support/SupportQr'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
 export type RootStackParamList = {
   Home: undefined // undefined because you aren't passing any params to the home screen
@@ -39,6 +38,8 @@ export type RootStackParamList = {
   OnBoardingNft: undefined
   OnBoardingQr: undefined
   EditProfile: undefined
+  SupportNft: undefined
+  SupportQr: undefined
 }
 
 const App = () => {
@@ -139,10 +140,8 @@ const App = () => {
   }
 
   return (
-    <PaperProvider theme={DarkTheme}>
-
-      <StatusBar barStyle='light-content' />
-
+    <PaperProvider>
+      <StatusBar barStyle="light-content" />
 
       <NavigationContainer theme={DarkTheme} ref={navigationRef}>
         <Stack.Navigator
@@ -199,7 +198,11 @@ const App = () => {
           <Stack.Screen
             name="NftView"
             component={NftView}
-            options={{ presentation: 'modal', gestureEnabled: true, animation: "slide_from_bottom" }}
+            options={{
+              presentation: 'modal',
+              gestureEnabled: true,
+              animation: 'slide_from_bottom',
+            }}
           />
 
           <Stack.Screen
@@ -222,12 +225,20 @@ const App = () => {
           <Stack.Screen
             name="SupportNft"
             component={SupportNft}
-            options={{ presentation: 'modal', gestureEnabled: true, animation: "slide_from_bottom" }}
+            options={{
+              presentation: 'modal',
+              gestureEnabled: true,
+              animation: 'slide_from_bottom',
+            }}
           />
           <Stack.Screen
             name="SupportQr"
             component={SupportQr}
-            options={{ presentation: 'modal', gestureEnabled: true, animation: "slide_from_bottom" }}
+            options={{
+              presentation: 'modal',
+              gestureEnabled: true,
+              animation: 'slide_from_bottom',
+            }}
           />
 
           <Stack.Screen
@@ -239,11 +250,10 @@ const App = () => {
           <Stack.Screen
             name="EditProfile"
             component={EditProfile}
-            options={{ gestureEnabled: true, animation: "slide_from_bottom" }}
+            options={{ gestureEnabled: true, animation: 'slide_from_bottom' }}
           />
         </Stack.Navigator>
       </NavigationContainer>
-
     </PaperProvider>
   )
 }

@@ -18,7 +18,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
 import { ActivityIndicator } from 'react-native'
 import { getProfile, UpdateProfile } from '@services/api/UserApi'
-import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
+import deviceStorage, {
+  userData,
+  userProfile,
+} from '@services/storage/deviceStorage'
 import { deletePicture, uploadPicture } from '@services/api/PictureApi'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
@@ -37,6 +40,9 @@ type Props = {
 
 const EditProfile = ({ navigation }: Props) => {
   const [city, setCity] = useState(userProfile?.city || '')
+  const [displayName, setDisplayName] = useState(
+    userProfile?.display_name || userData?.full_name || ''
+  )
   const [story, setStory] = useState(userProfile?.description || '')
   const [shortDescription, setShortDescription] = useState(
     userProfile?.short_description || ''
@@ -59,7 +65,7 @@ const EditProfile = ({ navigation }: Props) => {
 
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(newProfilePicture, city, story, shortDescription)
+    UpdateProfile(newProfilePicture, city, story, shortDescription, displayName)
       .then((res) => {
         getProfile().then((res) => {
           deviceStorage.loadProfile().then(() => {
@@ -128,10 +134,12 @@ const EditProfile = ({ navigation }: Props) => {
         })
       })
       .catch((error: any) => {
-        Alert.alert(
-          'Could not open photo library, please ensure the correct permissions are enabled.'
-        )
-        console.log(JSON.stringify(error))
+        if (error.code !== 'E_PICKER_CANCELLED') {
+          Alert.alert(
+            'Could not open photo library, please ensure the correct permissions are enabled.'
+          )
+          console.log(JSON.stringify(error))
+        }
       })
   }
 
@@ -154,10 +162,12 @@ const EditProfile = ({ navigation }: Props) => {
         setNewProfilePicture(imageList[0].uri)
       })
       .catch((error) => {
-        Alert.alert(
-          'Could not open photo library, please ensure the correct permissions are enabled.'
-        )
-        console.log(JSON.stringify(error))
+        if (error.code !== 'E_PICKER_CANCELLED') {
+          Alert.alert(
+            'Could not open photo library, please ensure the correct permissions are enabled.'
+          )
+          console.log(JSON.stringify(error))
+        }
       })
   }
 
@@ -206,11 +216,11 @@ const EditProfile = ({ navigation }: Props) => {
       style={styles.container}
     >
       <Wrapper>
-        <View style={{
-
-          marginBottom: (Platform.OS == 'ios') ? 100 : 70
-
-        }}>
+        <View
+          style={{
+            marginBottom: Platform.OS == 'ios' ? 100 : 70,
+          }}
+        >
           <TouchableOpacity
             onPress={onPressBack}
             style={{
@@ -226,7 +236,7 @@ const EditProfile = ({ navigation }: Props) => {
           </TouchableOpacity>
           <Text style={styles.pageTitle}> Edit profile </Text>
         </View>
-        <View style={{ flex: 3 }}>
+        <View style={{ flex: 1 }}>
           <ScrollView>
             <View>
               <TouchableOpacity
@@ -241,6 +251,14 @@ const EditProfile = ({ navigation }: Props) => {
               </TouchableOpacity>
             </View>
             <View>
+              <Text style={styles.title}> Name </Text>
+              <ProfileTextInput
+                style={styles.textInput}
+                placeholder="How do you liked to be called?"
+                defaultValue={displayName}
+                value={displayName}
+                onChangeText={setDisplayName}
+              />
               <Text style={styles.title}> City </Text>
               <ProfileTextInput
                 style={styles.textInput}
@@ -314,6 +332,7 @@ const EditProfile = ({ navigation }: Props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
   },
   textInput: {
     marginStart: 25,

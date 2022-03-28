@@ -38,7 +38,8 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
             <Text
               style={{
                 fontSize: 20,
-                fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
+                fontFamily:
+                  Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
                 color: 'white',
                 textTransform: 'uppercase',
               }}
@@ -56,7 +57,7 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
                 style={{
                   color: 'white',
                   fontSize: 12,
-                  fontStyle: 'italic'
+                  fontStyle: 'italic',
                 }}
               >
                 {content}
@@ -72,7 +73,6 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
 export default SupportCardView
 
 const styles = StyleSheet.create({
-
   mainCardView: {
     height: 90,
     width: 300,
@@ -91,7 +91,6 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginLeft: 16,
     marginRight: 16,
-
   },
   subCardView: {
     height: 52,

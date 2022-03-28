@@ -19,7 +19,10 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { getProfile, UpdateProfile } from '@services/api/UserApi'
 import { deletePicture, uploadPicture } from '@services/api/PictureApi'
 
-import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
+import deviceStorage, {
+  userData,
+  userProfile,
+} from '@services/storage/deviceStorage'
 import { ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
 const { width, height } = Dimensions.get('window')
@@ -44,7 +47,9 @@ const ProfileSetUp = ({ navigation }: Props) => {
   const [shortDescription, setShortDescription] = useState(
     userProfile?.short_description || ''
   )
-
+  const [displayName, setDisplayName] = useState(
+    userProfile?.display_name || userData?.full_name || ''
+  )
   const [ressourcePath, setRessourcePath] = useState(userProfile?.gallery || [])
   const [isLoading, setLoading] = React.useState(false)
   const [profilePath, setprofilePath] = useState(
@@ -53,6 +58,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
   const isFocused = useIsFocused()
 
   const loadProfile = async () => await deviceStorage.loadProfile()
+
   useEffect(() => {
     if (isFocused) {
       loadProfile()
@@ -61,7 +67,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
 
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(profilePath, city, story, shortDescription)
+    UpdateProfile(profilePath, city, story, shortDescription, displayName)
       .then(() => {
         getProfile().then(() => {
           navigation.navigate('Home')
@@ -92,10 +98,12 @@ const ProfileSetUp = ({ navigation }: Props) => {
         setprofilePath(i.path)
       })
       .catch((error) => {
-        Alert.alert(
-          'Could not open photo library, please ensure the correct permissions are enabled.'
-        )
-        console.log(JSON.stringify(error))
+        if (error.code !== 'E_PICKER_CANCELLED') {
+          Alert.alert(
+            'Could not open photo library, please ensure the correct permissions are enabled.'
+          )
+          console.log(JSON.stringify(error))
+        }
       })
   }
 
@@ -161,10 +169,12 @@ const ProfileSetUp = ({ navigation }: Props) => {
         })
       })
       .catch((error: any) => {
-        Alert.alert(
-          'Could not open photo library, please ensure the correct permissions are enabled.'
-        )
-        console.log(JSON.stringify(error))
+        if (error.code !== 'E_PICKER_CANCELLED') {
+          Alert.alert(
+            'Could not open photo library, please ensure the correct permissions are enabled.'
+          )
+          console.log(JSON.stringify(error))
+        }
       })
   }
 
@@ -220,7 +230,12 @@ const ProfileSetUp = ({ navigation }: Props) => {
         )}
 
         <ScrollView>
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <View
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
             <TouchableOpacity onPress={() => pickProfilePicture()}>
               {renderProfilePicture(profilePath)}
             </TouchableOpacity>
@@ -231,6 +246,14 @@ const ProfileSetUp = ({ navigation }: Props) => {
             enabled
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
+            <Text style={Styles.title}> Name </Text>
+            <ProfileTextInput
+              style={Styles.textInput}
+              placeholder="How do you liked to be called?"
+              defaultValue={displayName}
+              value={displayName}
+              onChangeText={setDisplayName}
+            />
             <View>
               <Text style={Styles.title}> City </Text>
               <ProfileTextInput

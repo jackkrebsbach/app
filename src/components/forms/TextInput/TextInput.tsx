@@ -1,5 +1,11 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, KeyboardTypeOptions, Platform } from 'react-native'
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  KeyboardTypeOptions,
+  Platform,
+} from 'react-native'
 
 interface Props {
   style?: {}
@@ -76,13 +82,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     flex: 1,
     textAlign: 'center',
-    marginStart: 10
+    marginStart: 10,
   },
   textInputL: {
     fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
-    fontSize: 20,
+    fontSize: 19,
     flex: 1,
     textAlign: 'left',
-    marginStart: 10
-  }
+    paddingLeft: 25,
+  },
 })

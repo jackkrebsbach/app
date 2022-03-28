@@ -1,5 +1,11 @@
 import React, { useEffect } from 'react'
-import { TouchableOpacity, View, Text, Platform } from 'react-native'
+import {
+  TouchableOpacity,
+  View,
+  Text,
+  Platform,
+  Dimensions,
+} from 'react-native'
 import { Wrapper, ButtonAlignWrapper } from '@components/Wrappers'
 import { ButtonMiddle } from '@components/forms'
 import deviceStorage, { userData } from '@services/storage/deviceStorage'
@@ -12,6 +18,7 @@ import QRCode from 'react-native-qrcode-svg'
 import { generateInviteCode } from '@services/api/InviteApi'
 import { ActivityIndicator } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
+const { width, height } = Dimensions.get('window')
 
 const NftLanding = ({ navigation }: { navigation: any }) => {
   const [name, setName] = React.useState('')
@@ -22,18 +29,34 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
 
   const onPressHandlerB = () => navigation.navigate('NftView')
 
+  const init = async () => {
+    await deviceStorage.loadProfile()
+    await deviceStorage.loadNFT()
+    setName(userData?.full_name || '')
+  }
+
   useEffect(() => {
-    deviceStorage.loadUser()
-    deviceStorage.loadProfile()
-    setName(userData?.first_name + ' ' + userData?.last_name)
+    init()
   }, [])
 
   return (
     <Wrapper style={{ backgroundColor: '#282828' }}>
       <ModalPopup visible={visible}>
+        {isLoading && (
+          <View
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: width,
+              height: height,
+              zIndex: 100,
+            }}
+          >
+            <ActivityIndicator />
+          </View>
+        )}
         <View style={{ alignItems: 'center' }}>
-
-
           <TouchableOpacity
             onPress={() => setVisible(false)}
             style={{
@@ -61,7 +84,8 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
 
         <Text
           style={{
-            fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
+            fontFamily:
+              Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
             letterSpacing: 1,
             color: '#fff',
             marginVertical: 30,
@@ -80,25 +104,29 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
             textAlign: 'center',
           }}
         >
-          This is your unique QR code to invite users to the network. To invite
-          another user generate a new code by refreshing the page
+          This is a one-time QR code to invite users to the network. To invite
+          another user generate a new code
         </Text>
 
         <ButtonAlignWrapper style={{ marginTop: 10 }}>
-          <Icon name="refresh" color="#fff" size={30} />
-
           <ButtonMiddle
             color="black"
-            title="refresh"
-            onPress={() => {
-              generateInviteCode().then((response) => {
-                setUrl(response.invite_link)
-                setIsLoading(false)
-              })
+            title="regenerate"
+            onPress={async () => {
+              setIsLoading(true)
+              const response = await generateInviteCode()
+              setUrl(response.invite_link)
+              setIsLoading(false)
             }}
-          />
+          >
+            <Icon
+              name="refresh"
+              color="#a1c0da"
+              style={{ top: 1, left: 4 }}
+              size={20}
+            />
+          </ButtonMiddle>
         </ButtonAlignWrapper>
-
       </ModalPopup>
 
       <View style={{ flex: 1 }}>

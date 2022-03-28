@@ -16,13 +16,16 @@ type Props = {
   navigation: SpalshScreenNavigationProp
 }
 
+const init = async () => {
+  await deviceStorage.loadJWT()
+  await deviceStorage.loadUser()
+  await deviceStorage.loadProfile()
+  await deviceStorage.loadNFT()
+}
+
 const SplashScreen = ({ navigation }: Props) => {
   useEffect(() => {
-    console.log('starting SplashScreen')
-    deviceStorage.loadJWT()
-    deviceStorage.loadUser()
-    deviceStorage.loadProfile()
-    deviceStorage.loadNFT()
+    init()
     setTimeout(() => {
       navigation.navigate('Welcome')
     }, 3400)

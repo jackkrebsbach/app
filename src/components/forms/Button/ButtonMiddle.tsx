@@ -7,19 +7,30 @@ interface Props {
   color?: any
   title?: string
   transparent?: boolean
+  children?: JSX.Element | JSX.Element[] | string
+  transform?: string
 }
 
 export const ButtonMiddle = ({
   color,
   title = 'default title',
+  children,
   ...props
 }: Props) => {
   return (
     <StyledButton {...props} onPress={props.onPress}>
-      <StyledTitle>{title}</StyledTitle>
+      <StyledWrapper>
+        <StyledTitle {...props}>{title}</StyledTitle>
+        {children}
+      </StyledWrapper>
     </StyledButton>
   )
 }
+
+const StyledWrapper = styled.View`
+  display: flex;
+  flex-direction: row;
+`
 
 const StyledButton = styled.TouchableHighlight<Props>`
   background-color: ${(props) =>
@@ -36,12 +47,12 @@ const StyledButton = styled.TouchableHighlight<Props>`
   margin: 0 7px;
 `
 const StyledTitle = styled.Text<Props>`
-  font-family:  ${(Platform.OS === 'ios') ? 'Din Condensed' : 'DIN Condensed Bold'}; 
+  font-family: ${Platform.OS === 'ios'
+    ? 'Din Condensed'
+    : 'DIN Condensed Bold'};
   font-style: normal;
+  text-transform: ${(props) => (props.transform ? props.transform : 'none')};
   font-size: 20px;
-  padding-top: ${(Platform.OS === 'ios') ? '5px' : 0};
-  align-items: center;
-  text-align: center;
-  align-self: center;
+  padding-top: ${Platform.OS === 'ios' ? '3px' : 0};
   color: ${(props) => (props.transparent ? 'black ' : '#FFFFFF')};
 `

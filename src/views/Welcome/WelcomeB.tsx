@@ -36,7 +36,6 @@ const WelcomeB = ({ navigation }: Props) => {
           deviceStorage.loadProfile().then((data) => {
             navigation.navigate('Home')
           })
-          navigation.navigate('Experience')
         })
         .catch((error) => {
           console.log(error)

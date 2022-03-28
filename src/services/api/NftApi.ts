@@ -2,11 +2,12 @@ import deviceStorage from '../storage/deviceStorage'
 import fetcher from './fetcher'
 
 // header token
-export const trasnferNft = async (metamaskId: string) => {
-  return fetcher('/api/nft/create-nft', {
+export const trasnferNft = async (metamaskId: string, nft_id: number) => {
+  return fetcher('/api/nft/update-nft', {
     method: 'POST',
     data: {
       meta_mask_id: metamaskId,
+      nft_id: nft_id,
     },
   })
     .then((response) => {
@@ -25,11 +26,15 @@ export const getNft = async () => {
   })
     .then((response) => {
       const nft = response.data
-      deviceStorage.saveItem('nft', JSON.stringify(nft)).then(() => {
-        deviceStorage.loadNFT().then(() => {
-          return response.data
+
+      if (nft.length) {
+        deviceStorage.saveItem('nft', JSON.stringify(nft[0])).then(() => {
+          deviceStorage.loadNFT().then(() => {
+            return response.data
+          })
         })
-      })
+      }
+      return []
     })
     .catch(function (error) {
       if (error.response) {

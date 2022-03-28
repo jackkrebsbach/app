@@ -38,7 +38,7 @@ const Experienceb = ({ navigation }: Props) => {
   useEffect(() => {
     init()
     if (userData?.first_name) {
-      setName(userData?.first_name + ' ' + userData?.last_name || '')
+      setName(userData?.full_name || '')
       setLyop(userProfile?.lyop || '')
     }
   }, [userData, userProfile])
@@ -75,8 +75,7 @@ export const TextDescription = styled.Text`
   padding-left: 20px;
   padding-right: 20px;
   line-height: 30px;
-  justify-content: right;
-  font-size: 30px;
+  font-size: 25px;
   text-align: center;
   color: #ffffff;
   font-style: italic;

@@ -9,9 +9,15 @@ import Video from 'react-native-video'
 
 import { RootStackParamList } from '@App'
 import deviceStorage, { userData } from '@services/storage/deviceStorage'
-import { Footer, Contenaire, Header, styles, TextDescription, TextDescriptionB, Title } from './styles/Welcome.styles'
-import { SafeAreaView } from 'react-native-safe-area-context'
-
+import {
+  Footer,
+  Contenaire,
+  Header,
+  styles,
+  TextDescription,
+  TextDescriptionB,
+  Title,
+} from './styles/Welcome.styles'
 
 type WelcomeNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -28,7 +34,7 @@ const Welcome = ({ navigation }: Props) => {
     if (userData) {
       navigation.navigate('Home')
     } else {
-      navigation.navigate('Email')
+      navigation.navigate('WelcomeB')
     }
   }
 
@@ -43,10 +49,7 @@ const Welcome = ({ navigation }: Props) => {
   }, [])
 
   return (
-
-
     <Wrapper>
-
       <Header>
         <Logo />
         <LinearTextGradient
@@ -62,7 +65,6 @@ const Welcome = ({ navigation }: Props) => {
         </LinearTextGradient>
       </Header>
       <Contenaire>
-
         <Video
           source={require('../../assets/pir.mp4')}
           style={styles.backgroundVideo}
@@ -72,33 +74,19 @@ const Welcome = ({ navigation }: Props) => {
           ignoreSilentSwitch="obey"
           paused={!screenIsFocused}
         />
-
       </Contenaire>
 
       <Footer>
-        <TextDescription>
-          WELCOME TO THE
-        </TextDescription>
+        <TextDescription>WELCOME TO THE</TextDescription>
 
-        <TextDescriptionB>
-          Founders Edition Experience.
-        </TextDescriptionB>
-
+        <TextDescriptionB>Founders Edition Experience.</TextDescriptionB>
       </Footer>
 
       <ButtonWrapper>
-        <Button
-          onPress={onPressHandler}
-          title="UNLOCK"
-        />
+        <Button onPress={onPressHandler} title="UNLOCK" />
       </ButtonWrapper>
-
     </Wrapper>
-
   )
 }
 
 export default Welcome
-
-
-

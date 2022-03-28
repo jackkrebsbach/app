@@ -1,34 +1,30 @@
-import React, { useRef, useEffect } from 'react'
-import {
-  StyleSheet,
-  Modal,
-  View,
-  Dimensions,
-  Animated,
-  Text,
-  TouchableOpacity,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native'
-import { useIsFocused } from '@react-navigation/native'
-import FastImage from 'react-native-fast-image'
-import { RouteProp } from '@react-navigation/native'
-const { width } = Dimensions.get('window')
+import { RootStackParamList } from '@App'
 import { Button } from '@components/forms'
-import { Wrapper } from '@components/Wrappers'
+import { RouteProp, useIsFocused } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import deviceStorage, {
   userData,
   userProfile,
 } from '@services/storage/deviceStorage'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import React, { useEffect, useRef } from 'react'
+import {
+  Animated,
+  Dimensions,
+  KeyboardAvoidingView,
+  Modal,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import FastImage from 'react-native-fast-image'
 import Carousel from 'react-native-snap-carousel'
 import { LinearTextGradient } from 'react-native-text-gradient'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
+const { width } = Dimensions.get('window')
 const BANNER_H = width
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '@App'
-import { white } from 'react-native-paper/lib/typescript/styles/colors'
-
 type ProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
   'Profile'
@@ -116,7 +112,7 @@ const Profile = ({ route, navigation }: Props) => {
           </Animated.View>
         </View>
         <View style={{ borderRadius: 10 }}>
-          <View style={{ marginTop: 25, marginBottom: 5 }}>
+          <View style={{ marginTop: 20, marginBottom: 15 }}>
             <View
               style={{
                 marginBottom: 25,
@@ -124,7 +120,9 @@ const Profile = ({ route, navigation }: Props) => {
                 alignItems: 'center',
               }}
             >
-              <Text style={styles.name}> {userData?.first_name}</Text>
+              <Text style={styles.name}>
+                {userProfile?.display_name || userData?.full_name || ''}
+              </Text>
 
               <LinearTextGradient
                 locations={[0, 1]}
@@ -141,10 +139,7 @@ const Profile = ({ route, navigation }: Props) => {
             </View>
             <View style={{ marginBottom: 25 }}>
               <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
-              <Text style={styles.desription}>
-                {' '}
-                {userProfile?.description}
-              </Text>
+              <Text style={styles.desription}> {userProfile?.description}</Text>
             </View>
           </View>
 
@@ -202,23 +197,34 @@ const Profile = ({ route, navigation }: Props) => {
             <View style={{ marginBottom: 10 }}>
               <Button onPress={onPressEdit} title="Edit my profile" />
             </View>
+            {/* <View style={{ marginBottom: 10 }}>
+              <Button
+                transparent={true}
+                color={'white'}
+                onPress={onPressEdit}
+                title="Settings"
+              />
+            </View> */}
 
-            <Text onPress={onPressHandler}
+            <Text
+              onPress={onPressHandler}
               style={{
                 color: 'white',
                 fontStyle: 'italic',
                 fontFamily: 'DIN Condensed',
                 fontSize: 20,
-                marginTop: 10,
-                textDecorationLine: 'underline'
-              }}>LOG OUT </Text>
+                marginTop: 15,
+                paddingBottom: 45,
+                textDecorationLine: 'underline',
+              }}
+            >
+              LOG OUT
+            </Text>
           </View>
         </View>
       </Animated.ScrollView>
 
-      <View
-        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-      >
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         ></View>
@@ -326,20 +332,20 @@ const styles = StyleSheet.create<test>({
     marginStart: 15,
     marginEnd: 15,
     marginTop: 20,
-    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN Condensed Bold',
+    fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
     textAlign: 'center',
     textTransform: 'uppercase',
   },
   galleryTitle: {
     color: '#FFFFFF',
     fontSize: 24,
-    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN Condensed Bold',
+    fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
     marginStart: 10,
   },
   itemText: {
     color: 'black',
     fontSize: 20,
-    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN Condensed Bold',
+    fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
     margin: 5,
   },
   banner: (scrollA: {

@@ -6,7 +6,6 @@ export const deletePicture = async (pictureId: number) => {
       data: { photo_id: pictureId },
     })
     .then((response) => {
-      console.log(response.data)
       return response.data
     })
     .catch((error) => {
@@ -34,7 +33,6 @@ export const uploadPicture = async (pictures: any[]) => {
     data: dataForm,
   })
     .then((response) => {
-      console.log('Upload response', response.data)
       return response.data
     })
     .catch((error) => {

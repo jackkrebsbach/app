@@ -13,7 +13,7 @@ interface Props {
 
 export const Button = ({ color, title = 'default title', ...props }: Props) => {
   return (
-    <StyledButton onPress={props.onPress}>
+    <StyledButton {...props} onPress={props.onPress} underlayColor={'#c0cddd'}>
       <StyledTitle {...props}>{title}</StyledTitle>
     </StyledButton>
   )
@@ -24,7 +24,7 @@ const StyledButton = styled.TouchableHighlight<Props>`
   background-color: ${(props) =>
     props.transparent ? 'transparent' : '#f3f8ff'};
   padding: 15px;
-  border: ${(props) => (props.transparent ? '1px solid #f3f8ff ' : 0)};
+  border: ${(props) => (props.transparent ? '1px solid #a3a3a3 ' : 0)};
   justify-content: center;
   border-radius: 24px;
 `
