@@ -21,7 +21,6 @@ import SplashScreen from './views/SplashScreen/SplashScreen'
 import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
-import Settings from '@views/Settings/Settings'
 
 export type RootStackParamList = {
   Home: undefined // undefined because you aren't passing any params to the home screen
@@ -41,7 +40,6 @@ export type RootStackParamList = {
   EditProfile: undefined
   SupportNft: undefined
   SupportQr: undefined
-  Settings: undefined
 }
 
 const App = () => {
@@ -247,12 +245,6 @@ const App = () => {
             name="Profile"
             component={Profile}
             options={{ gestureEnabled: true }}
-          />
-
-          <Stack.Screen
-            name="Settings"
-            component={Settings}
-            options={{ gestureEnabled: true, animation: 'slide_from_bottom' }}
           />
 
           <Stack.Screen

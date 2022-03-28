@@ -1,33 +1,29 @@
+import { RootStackParamList } from '@App'
+import { Button, LargeTextInput, ProfileTextInput } from '@components/forms'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import { useIsFocused } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { deletePicture, uploadPicture } from '@services/api/PictureApi'
+import { getProfile, UpdateProfile } from '@services/api/UserApi'
+import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
+import { Photo } from '@services/storage/types'
 import React, { useEffect, useState } from 'react'
 import {
-  StyleSheet,
-  Text,
-  View,
-  TouchableOpacity,
-  ScrollView,
+  ActivityIndicator,
+  Alert,
+  Dimensions,
   KeyboardAvoidingView,
   Platform,
-  Dimensions,
-  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, ProfileTextInput, LargeTextInput } from '@components/forms'
-import ImagePicker from 'react-native-image-crop-picker'
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FastImage from 'react-native-fast-image'
-import { ActivityIndicator } from 'react-native'
-import { getProfile, UpdateProfile } from '@services/api/UserApi'
-import deviceStorage, {
-  userData,
-  userProfile,
-} from '@services/storage/deviceStorage'
-import { deletePicture, uploadPicture } from '@services/api/PictureApi'
+import ImagePicker from 'react-native-image-crop-picker'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '@App'
-import { Photo } from '@services/storage/types'
-import { useIsFocused } from '@react-navigation/native'
 const { width, height } = Dimensions.get('window')
 type EditProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -40,9 +36,7 @@ type Props = {
 
 const EditProfile = ({ navigation }: Props) => {
   const [city, setCity] = useState(userProfile?.city || '')
-  const [displayName, setDisplayName] = useState(
-    userProfile?.display_name || userData?.full_name || ''
-  )
+
   const [story, setStory] = useState(userProfile?.description || '')
   const [shortDescription, setShortDescription] = useState(
     userProfile?.short_description || ''
@@ -65,7 +59,7 @@ const EditProfile = ({ navigation }: Props) => {
 
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(newProfilePicture, city, story, shortDescription, displayName)
+    UpdateProfile(newProfilePicture, city, story, shortDescription)
       .then((res) => {
         getProfile().then((res) => {
           deviceStorage.loadProfile().then(() => {
@@ -251,14 +245,6 @@ const EditProfile = ({ navigation }: Props) => {
               </TouchableOpacity>
             </View>
             <View>
-              <Text style={styles.title}> Name </Text>
-              <ProfileTextInput
-                style={styles.textInput}
-                placeholder="How do you liked to be called?"
-                defaultValue={displayName}
-                value={displayName}
-                onChangeText={setDisplayName}
-              />
               <Text style={styles.title}> City </Text>
               <ProfileTextInput
                 style={styles.textInput}

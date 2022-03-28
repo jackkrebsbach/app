@@ -1,6 +1,11 @@
 import { Button, LargeTextInput, ProfileTextInput } from '@components/forms'
 import { Logo } from '@components/Logo'
 import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import { useIsFocused } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { deletePicture, uploadPicture } from '@services/api/PictureApi'
+import { getProfile, UpdateProfile } from '@services/api/UserApi'
+import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
 import React, { useEffect, useState } from 'react'
 import {
   ActivityIndicator,
@@ -13,24 +18,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
+import FastImage from 'react-native-fast-image'
 import ImagePicker from 'react-native-image-crop-picker'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
-import { getProfile, UpdateProfile } from '@services/api/UserApi'
-import { deletePicture, uploadPicture } from '@services/api/PictureApi'
-
-import deviceStorage, {
-  userData,
-  userProfile,
-} from '@services/storage/deviceStorage'
+import { RootStackParamList } from '../../App'
 import { ProfilePictureText, Styles } from './ProfileSetUp.styles'
 
 const { width, height } = Dimensions.get('window')
-
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../App'
-import FastImage from 'react-native-fast-image'
-import { useIsFocused } from '@react-navigation/native'
 
 type ProfileSetUpNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -47,9 +42,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
   const [shortDescription, setShortDescription] = useState(
     userProfile?.short_description || ''
   )
-  const [displayName, setDisplayName] = useState(
-    userProfile?.display_name || userData?.full_name || ''
-  )
+
   const [ressourcePath, setRessourcePath] = useState(userProfile?.gallery || [])
   const [isLoading, setLoading] = React.useState(false)
   const [profilePath, setprofilePath] = useState(
@@ -67,7 +60,7 @@ const ProfileSetUp = ({ navigation }: Props) => {
 
   const onPressHandler = () => {
     setLoading(true)
-    UpdateProfile(profilePath, city, story, shortDescription, displayName)
+    UpdateProfile(profilePath, city, story, shortDescription)
       .then(() => {
         getProfile().then(() => {
           navigation.navigate('Home')
@@ -246,14 +239,6 @@ const ProfileSetUp = ({ navigation }: Props) => {
             enabled
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           >
-            <Text style={Styles.title}> Name </Text>
-            <ProfileTextInput
-              style={Styles.textInput}
-              placeholder="How do you liked to be called?"
-              defaultValue={displayName}
-              value={displayName}
-              onChangeText={setDisplayName}
-            />
             <View>
               <Text style={Styles.title}> City </Text>
               <ProfileTextInput

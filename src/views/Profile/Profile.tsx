@@ -120,9 +120,7 @@ const Profile = ({ route, navigation }: Props) => {
                 alignItems: 'center',
               }}
             >
-              <Text style={styles.name}>
-                {userProfile?.display_name || userData?.full_name || ''}
-              </Text>
+              <Text style={styles.name}>{userData?.full_name || ''}</Text>
 
               <LinearTextGradient
                 locations={[0, 1]}
@@ -196,14 +194,6 @@ const Profile = ({ route, navigation }: Props) => {
           >
             <View style={{ marginBottom: 10 }}>
               <Button onPress={onPressEdit} title="Edit my profile" />
-            </View>
-            <View style={{ marginBottom: 10 }}>
-              <Button
-                transparent={true}
-                color="white"
-                onPress={() => navigation.navigate('Settings')}
-                title="Settings"
-              />
             </View>
 
             <Text

@@ -102,8 +102,7 @@ export const UpdateProfile = async (
   profilePicture: any,
   city: string,
   story: string,
-  shortDescription: string,
-  display_name: string
+  shortDescription: string
 ) => {
   let formData = new FormData()
   //check if picture is new
@@ -121,7 +120,6 @@ export const UpdateProfile = async (
   }
 
   formData.append('city', city.trim())
-  formData.append('display_name', display_name.trim())
   formData.append('short_description', shortDescription.trim())
   formData.append('description', story.trim())
 
