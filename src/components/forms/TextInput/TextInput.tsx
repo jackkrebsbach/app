@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, KeyboardTypeOptions } from 'react-native'
+import { StyleSheet, View, TextInput, KeyboardTypeOptions, Platform } from 'react-native'
 
 interface Props {
   style?: {}
@@ -11,7 +11,7 @@ interface Props {
   secureTextEntry?: boolean
   value?: string
 }
-const TextInputc = (props: Props) => {
+export const TextInputCenter = (props: Props) => {
   return (
     <View style={props.style}>
       <View style={styles.SectionStyle}>
@@ -31,7 +31,25 @@ const TextInputc = (props: Props) => {
   )
 }
 
-export default TextInputc
+export const TextInputLeft = (props: Props) => {
+  return (
+    <View style={props.style}>
+      <View style={styles.SectionStyle}>
+        <TextInput
+          keyboardType={props.type}
+          onChangeText={props.onChangeText}
+          returnKeyType="done"
+          style={styles.textInputL}
+          value={props.value}
+          placeholder={props.placeholder}
+          placeholderTextColor="grey"
+          underlineColorAndroid="transparent"
+          secureTextEntry={props.secureTextEntry}
+        />
+      </View>
+    </View>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -42,7 +60,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 100,
   },
-
   SectionStyle: {
     flexDirection: 'row',
     justifyContent: 'center',
@@ -54,16 +71,18 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     margin: 10,
   },
-  text: {
-    fontFamily: 'DIN Condensed',
-
-    marginLeft: 20,
-    fontSize: 20,
-  },
   textInput: {
-    fontFamily: 'DIN Condensed',
+    fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
     fontSize: 20,
     flex: 1,
     textAlign: 'center',
+    marginStart: 10
   },
+  textInputL: {
+    fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
+    fontSize: 20,
+    flex: 1,
+    textAlign: 'left',
+    marginStart: 10
+  }
 })

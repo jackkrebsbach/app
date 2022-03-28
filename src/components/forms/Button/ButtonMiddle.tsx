@@ -36,7 +36,7 @@ const StyledButton = styled.TouchableHighlight<Props>`
   margin: 0 7px;
 `
 const StyledTitle = styled.Text<Props>`
-  font-family:  ${(Platform.OS === 'ios') ? 'Din Condensed' : 'DIN Medium'}; 
+  font-family:  ${(Platform.OS === 'ios') ? 'Din Condensed' : 'DIN Condensed Bold'}; 
   font-style: normal;
   font-size: 20px;
   padding-top: ${(Platform.OS === 'ios') ? '5px' : 0};

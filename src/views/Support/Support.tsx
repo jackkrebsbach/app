@@ -3,9 +3,8 @@ import { Logo } from '@components/Logo'
 import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 import Intercom from '@intercom/intercom-react-native'
 import React from 'react'
-import { View } from 'react-native'
 
-import { Container, Header, Title } from './Support.style'
+import { Container, CardContainer, Footer, Header, Title } from './Support.style'
 import SupportCardView from './SupportCardView'
 
 const Support = ({ navigation }: { navigation: any }) => {
@@ -15,35 +14,42 @@ const Support = ({ navigation }: { navigation: any }) => {
     <Wrapper>
       <Header>
         <Logo />
+
+      </Header>
+
+      <Container>
+
         <Title>
           The REZA1 is the first rendition of this technology. By clicking the
           chat button, you can reach out to us 24/7 where we will support you
           with any questions or concerns you have
         </Title>
-      </Header>
-
-      <Container>
-        <View style={{ position: 'absolute', top: 100 }}>
+        <CardContainer>
           <SupportCardView
             navigation={navigation}
-            path="OnBoardingNft"
+            path="SupportNft"
             title="Nft"
             src="../../assets/nft.jpg"
             content="How to claim your nft?"
           />
           <SupportCardView
             navigation={navigation}
-            path="OnBoardingQr"
+            path="SupportQr"
             title="Qr Code"
             src="../../assets/nft.jpg"
             content="How to invite new member?"
           />
-        </View>
+        </CardContainer>
 
-        <ButtonWrapper style={{ top: 100 }}>
+
+
+      </Container>
+
+      <Footer>
+        <ButtonWrapper>
           <Button onPress={onPressHandler} title="Chat with us? " />
         </ButtonWrapper>
-      </Container>
+      </Footer>
     </Wrapper>
   )
 }

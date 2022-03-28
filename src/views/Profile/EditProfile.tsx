@@ -74,7 +74,15 @@ const EditProfile = ({ navigation }: Props) => {
       })
   }
 
-  const onPressBack = () => navigation.goBack()
+  const onPressBack = () => {
+    setLoading(true)
+    getProfile().then((res) => {
+      deviceStorage.loadProfile().then(() => {
+        setLoading(false)
+        navigation.goBack()
+      })
+    })
+  }
 
   const onActionDeleteDone = async (id: number, index: number) => {
     await deletePicture(id)
@@ -198,19 +206,23 @@ const EditProfile = ({ navigation }: Props) => {
       style={styles.container}
     >
       <Wrapper>
-        <View style={{ flex: 1, marginBottom: -100 }}>
+        <View style={{
+
+          marginBottom: (Platform.OS == 'ios') ? 100 : 70
+
+        }}>
           <TouchableOpacity
             onPress={onPressBack}
             style={{
               alignItems: 'center',
               position: 'absolute',
-              top: 50,
-              left: 30,
+              top: Platform.OS == 'ios' ? 20 : 0,
+              right: 30,
               justifyContent: 'center',
               borderRadius: 30,
             }}
           >
-            <Icon name="chevron-left" color="#FFFFFF" size={40} />
+            <Icon name="close-circle-outline" color="#FFFFFF" size={30} />
           </TouchableOpacity>
           <Text style={styles.pageTitle}> Edit profile </Text>
         </View>
@@ -306,8 +318,6 @@ const styles = StyleSheet.create({
   textInput: {
     marginStart: 25,
     height: 100,
-    textTransform: 'uppercase',
-    fontFamily: 'DIN Condensed',
   },
   title: {
     color: '#FFFFFF',
@@ -324,7 +334,7 @@ const styles = StyleSheet.create({
     width: 200,
     alignItems: 'center',
     position: 'absolute',
-    top: 50,
+    top: Platform.OS == 'ios' ? 30 : 0,
     left: 100,
   },
   profilePicture: {

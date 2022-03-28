@@ -9,7 +9,7 @@ import {
   MainView,
   Reza,
   TextDescription,
-} from './WelcomeB.style'
+} from './styles/WelcomeB.styles'
 import { jwt } from '@services/storage/deviceStorage'
 import { Button } from '@components/forms'
 import { Logo } from '@components/Logo'

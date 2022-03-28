@@ -58,163 +58,161 @@ const Profile = ({ route, navigation }: Props) => {
 
   return (
     <KeyboardAvoidingView behavior={'padding'} style={styles.container}>
-      <Wrapper>
-        <Animated.ScrollView
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollA } } }],
-            { useNativeDriver: true }
-          )}
-          scrollEventThrottle={16}
-        >
-          <ModalPoup visible={visible}>
+      <Animated.ScrollView
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollA } } }],
+          { useNativeDriver: true }
+        )}
+        scrollEventThrottle={16}
+      >
+        <ModalPoup visible={visible}>
+          <View
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, .8)',
+              alignItems: 'center',
+            }}
+          >
+            <Carousel
+              layout="stack"
+              data={userProfile?.gallery || []}
+              sliderWidth={width}
+              itemWidth={width}
+              inactiveSlideScale={1}
+              renderItem={({ item, index }) => (
+                <FastImage
+                  key={index}
+                  style={{ width: '100%', height: '100%', borderRadius: 30 }}
+                  resizeMode="contain"
+                  source={{ uri: item.url }}
+                />
+              )}
+            />
+          </View>
+          <TouchableOpacity
+            onPress={() => setVisible(false)}
+            style={{
+              alignItems: 'center',
+              position: 'absolute',
+              top: 50,
+              right: 20,
+              justifyContent: 'center',
+              backgroundColor: 'white',
+              width: 50,
+              height: 50,
+              borderRadius: 30,
+            }}
+          >
+            <Icon name="close" color="#000000" size={25} />
+          </TouchableOpacity>
+        </ModalPoup>
+        <View style={styles.bannerContainer}>
+          <Animated.View style={{ ...styles.banner(scrollA), flex: 1 }}>
+            <FastImage
+              resizeMode="contain"
+              source={{ uri: userProfile?.profile_picture }}
+              style={{ flex: 1 }}
+            />
+          </Animated.View>
+        </View>
+        <View style={{ borderRadius: 10 }}>
+          <View style={{ marginTop: 25, marginBottom: 5 }}>
             <View
               style={{
-                backgroundColor: 'rgba(0, 0, 0, .8)',
-                alignItems: 'center',
-              }}
-            >
-              <Carousel
-                layout="stack"
-                data={userProfile?.gallery || []}
-                sliderWidth={width}
-                itemWidth={width}
-                inactiveSlideScale={1}
-                renderItem={({ item, index }) => (
-                  <FastImage
-                    key={index}
-                    style={{ width: '100%', height: '100%', borderRadius: 30 }}
-                    resizeMode="contain"
-                    source={{ uri: item.url }}
-                  />
-                )}
-              />
-            </View>
-            <TouchableOpacity
-              onPress={() => setVisible(false)}
-              style={{
-                alignItems: 'center',
-                position: 'absolute',
-                top: 50,
-                right: 20,
+                marginBottom: 25,
                 justifyContent: 'center',
-                backgroundColor: 'white',
-                width: 50,
-                height: 50,
-                borderRadius: 30,
+                alignItems: 'center',
               }}
             >
-              <Icon name="close" color="#000000" size={25} />
-            </TouchableOpacity>
-          </ModalPoup>
-          <View style={styles.bannerContainer}>
-            <Animated.View style={{ ...styles.banner(scrollA), flex: 1 }}>
-              <FastImage
-                resizeMode="contain"
-                source={{ uri: userProfile?.profile_picture }}
-                style={{ flex: 1 }}
-              />
-            </Animated.View>
-          </View>
-          <View style={{ borderRadius: 10 }}>
-            <View style={{ marginTop: 25, marginBottom: 5 }}>
-              <View
-                style={{
-                  marginBottom: 25,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Text style={styles.name}> {userData?.first_name}</Text>
+              <Text style={styles.name}> {userData?.first_name}</Text>
 
-                <LinearTextGradient
-                  locations={[0, 1]}
-                  colors={['#ffffff', '#0076BA']}
-                  start={{ x: 0, y: 0 }}
-                  end={{ x: 1, y: 0 }}
-                >
-                  <Text style={styles.shortDescription}>
-                    {' '}
-                    {userProfile?.short_description}
-                  </Text>
-                </LinearTextGradient>
-                <Text style={styles.location}> {userProfile?.city}</Text>
-              </View>
-              <View style={{ marginBottom: 25 }}>
-                <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
-                <Text style={styles.desription}>
+              <LinearTextGradient
+                locations={[0, 1]}
+                colors={['#ffffff', '#0076BA']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+              >
+                <Text style={styles.shortDescription}>
                   {' '}
-                  {userProfile?.description}
+                  {userProfile?.short_description}
                 </Text>
-              </View>
+              </LinearTextGradient>
+              <Text style={styles.location}> {userProfile?.city}</Text>
             </View>
-
-            <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10 }}>
-              <Text style={styles.galleryTitle}> gallery</Text>
-              <View
-                style={{
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                  marginStart: 10,
-                  marginTop: 10,
-                }}
-              >
-                {userProfile?.gallery &&
-                  userProfile?.gallery.map((e, i = 0) => {
-                    let path = e.url
-
-                    if (i < 2) {
-                      return (
-                        <TouchableOpacity
-                          key={i}
-                          onPress={() => setVisible(true)}
-                        >
-                          <FastImage
-                            key={i}
-                            source={{ uri: path }}
-                            style={styles.galerryPicture}
-                          />
-                        </TouchableOpacity>
-                      )
-                    } else {
-                      return (
-                        <TouchableOpacity
-                          key={i}
-                          onPress={() => setVisible(true)}
-                        >
-                          <FastImage
-                            key={i}
-                            source={{ uri: path }}
-                            style={styles.galerryPictureB}
-                          />
-                        </TouchableOpacity>
-                      )
-                    }
-                  })}
-              </View>
-            </View>
-            <View
-              style={{
-                marginBottom: 100,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-            >
-              <View style={{ marginBottom: 10 }}>
-                <Button onPress={onPressEdit} title="Edit my profile" />
-              </View>
-              <Button onPress={onPressHandler} title="Log out" />
+            <View style={{ marginBottom: 25 }}>
+              <Text style={styles.lmop}> [HOW I LIGHT MY PATH]</Text>
+              <Text style={styles.desription}>
+                {' '}
+                {userProfile?.description}
+              </Text>
             </View>
           </View>
-        </Animated.ScrollView>
 
+          <View style={{ marginBottom: 50, marginStart: 10, marginTop: 10 }}>
+            <Text style={styles.galleryTitle}> gallery</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                marginStart: 10,
+                marginTop: 10,
+              }}
+            >
+              {userProfile?.gallery &&
+                userProfile?.gallery.map((e, i = 0) => {
+                  let path = e.url
+
+                  if (i < 2) {
+                    return (
+                      <TouchableOpacity
+                        key={i}
+                        onPress={() => setVisible(true)}
+                      >
+                        <FastImage
+                          key={i}
+                          source={{ uri: path }}
+                          style={styles.galerryPicture}
+                        />
+                      </TouchableOpacity>
+                    )
+                  } else {
+                    return (
+                      <TouchableOpacity
+                        key={i}
+                        onPress={() => setVisible(true)}
+                      >
+                        <FastImage
+                          key={i}
+                          source={{ uri: path }}
+                          style={styles.galerryPictureB}
+                        />
+                      </TouchableOpacity>
+                    )
+                  }
+                })}
+            </View>
+          </View>
+          <View
+            style={{
+              marginBottom: 100,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <View style={{ marginBottom: 10 }}>
+              <Button onPress={onPressEdit} title="Edit my profile" />
+            </View>
+            <Button onPress={onPressHandler} title="Log out" />
+          </View>
+        </View>
+      </Animated.ScrollView>
+
+      <View
+        style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+      >
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <View
-            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-          ></View>
-        </View>
-      </Wrapper>
+        ></View>
+      </View>
     </KeyboardAvoidingView>
   )
 }
@@ -309,7 +307,7 @@ const styles = StyleSheet.create<test>({
     width: width,
     overflow: 'hidden',
     marginTop: -1000,
-    paddingTop: 1000,
+    paddingTop: Platform.OS == 'ios' ? 1000 : 960,
   },
   desription: {
     color: 'white',
@@ -318,20 +316,20 @@ const styles = StyleSheet.create<test>({
     marginStart: 15,
     marginEnd: 15,
     marginTop: 20,
-    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN-BlackAlternate ',
+    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN Condensed Bold',
     textAlign: 'center',
     textTransform: 'uppercase',
   },
   galleryTitle: {
     color: '#FFFFFF',
     fontSize: 24,
-    fontFamily: 'DIN Condensed',
+    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN Condensed Bold',
     marginStart: 10,
   },
   itemText: {
     color: 'black',
     fontSize: 20,
-    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'AntＤesign ',
+    fontFamily: (Platform.OS == 'ios') ? 'DIN Condensed' : 'DIN Condensed Bold',
     margin: 5,
   },
   banner: (scrollA: {

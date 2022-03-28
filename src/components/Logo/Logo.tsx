@@ -1,4 +1,5 @@
 import React from 'react'
+import { Platform } from 'react-native'
 import styled from 'styled-components/native'
 
 export const Logo = () => {
@@ -16,7 +17,7 @@ export const Logo = () => {
 const LogoStyle = styled.Image`
   height: 100px;
   width: 350px;
-  margin-top: 10px;
+  margin-top: ${Platform.OS == 'ios' ? '10px' : 0};
 `
 
 const LogoView = styled.View`

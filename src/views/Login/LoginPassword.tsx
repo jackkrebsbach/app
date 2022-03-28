@@ -3,7 +3,7 @@ import { Alert, View } from 'react-native'
 import { login } from '@services/api'
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
-import { Button, TextInputc } from '@components/forms'
+import { Button, TextInputCenter } from '@components/forms'
 import { Title } from '@components/Text'
 import { ActivityIndicator } from 'react-native'
 import { getProfile, getUser } from '@services/api/UserApi'
@@ -69,7 +69,7 @@ const Login = ({ route, navigation }: Props) => {
       </View>
 
       <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
-        <TextInputc
+        <TextInputCenter
           style={{
             position: 'absolute',
             flex: 1,

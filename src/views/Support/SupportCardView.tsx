@@ -5,6 +5,7 @@ import {
   Text,
   TouchableWithoutFeedback,
   View,
+  Platform,
 } from 'react-native'
 
 type Props = {
@@ -27,7 +28,7 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
               source={require('../../assets/floating_shoe.jpg')}
               resizeMode="contain"
               style={{
-                borderRadius: 25,
+                borderRadius: 90,
                 height: 50,
                 width: 50,
               }}
@@ -36,7 +37,8 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
           <View style={{ marginLeft: 12 }}>
             <Text
               style={{
-                fontSize: 14,
+                fontSize: 20,
+                fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
                 color: 'white',
                 textTransform: 'uppercase',
               }}
@@ -54,6 +56,7 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
                 style={{
                   color: 'white',
                   fontSize: 12,
+                  fontStyle: 'italic'
                 }}
               >
                 {content}
@@ -69,9 +72,7 @@ const SupportCardView = ({ navigation, path, title, content }: Props) => {
 export default SupportCardView
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+
   mainCardView: {
     height: 90,
     width: 300,
@@ -87,9 +88,10 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     paddingRight: 14,
     marginTop: 6,
-    marginBottom: 6,
+    marginBottom: 20,
     marginLeft: 16,
     marginRight: 16,
+
   },
   subCardView: {
     height: 52,

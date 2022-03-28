@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, KeyboardTypeOptions } from 'react-native'
-import TextInputc from './TextInput'
+import { TextInputLeft } from './TextInput'
 
 interface Props {
   style?: {}
@@ -17,7 +17,7 @@ const ProfileTextInput = (props: Props) => {
   return (
     <View style={props.style}>
       <View style={styles.SectionStyle}>
-        <TextInputc
+        <TextInputLeft
           type={props.type}
           onChangeText={props.onChangeText}
           style={styles.textInput}
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'DIN Condensed',
     fontSize: 20,
+    backgroundColor: 'red'
   },
   textInput: {
     fontFamily: 'DIN Condensed',

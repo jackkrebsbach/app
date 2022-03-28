@@ -19,6 +19,9 @@ import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
 import { navigationRef } from './RootNavigation'
+import SupportNft from '@views/Support/SupportNft'
+import SupportQr from '@views/Support/SupportQr'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export type RootStackParamList = {
   Home: undefined // undefined because you aren't passing any params to the home screen
@@ -137,7 +140,7 @@ const App = () => {
 
   return (
     <PaperProvider>
-      <StatusBar hidden={true} translucent={true} />
+      <StatusBar hidden={false} />
       <NavigationContainer theme={DarkTheme} ref={navigationRef}>
         <Stack.Navigator
           screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
@@ -193,7 +196,7 @@ const App = () => {
           <Stack.Screen
             name="NftView"
             component={NftView}
-            options={{ gestureEnabled: true, animation: "slide_from_bottom" }}
+            options={{ presentation: 'modal', gestureEnabled: true, animation: "slide_from_bottom" }}
           />
 
           <Stack.Screen
@@ -211,6 +214,17 @@ const App = () => {
             name="OnBoardingQr"
             component={OnBoardingQr}
             options={{ gestureEnabled: true }}
+          />
+
+          <Stack.Screen
+            name="SupportNft"
+            component={SupportNft}
+            options={{ presentation: 'modal', gestureEnabled: true, animation: "slide_from_bottom" }}
+          />
+          <Stack.Screen
+            name="SupportQr"
+            component={SupportQr}
+            options={{ presentation: 'modal', gestureEnabled: true, animation: "slide_from_bottom" }}
           />
 
           <Stack.Screen

@@ -80,4 +80,4 @@ const OnBoardingNft = ({ navigation }: Props) => {
   )
 }
 
-export default OnBoardingNft
+export default OnBoardingNft;

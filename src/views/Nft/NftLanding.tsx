@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { TouchableOpacity, View, Text } from 'react-native'
+import { TouchableOpacity, View, Text, Platform } from 'react-native'
 import { Wrapper, ButtonAlignWrapper } from '@components/Wrappers'
 import { ButtonMiddle } from '@components/forms'
 import deviceStorage, { userData } from '@services/storage/deviceStorage'
@@ -32,13 +32,15 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
     <Wrapper style={{ backgroundColor: '#282828' }}>
       <ModalPopup visible={visible}>
         <View style={{ alignItems: 'center' }}>
+
+
           <TouchableOpacity
             onPress={() => setVisible(false)}
             style={{
               alignItems: 'center',
               position: 'absolute',
               top: -70,
-              left: -25,
+              right: -25,
               justifyContent: 'center',
               width: 50,
               height: 50,
@@ -59,7 +61,7 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
 
         <Text
           style={{
-            fontFamily: 'DIN Condensed',
+            fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
             letterSpacing: 1,
             color: '#fff',
             marginVertical: 30,
@@ -81,6 +83,22 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
           This is your unique QR code to invite users to the network. To invite
           another user generate a new code by refreshing the page
         </Text>
+
+        <ButtonAlignWrapper style={{ marginTop: 10 }}>
+          <Icon name="refresh" color="#fff" size={30} />
+
+          <ButtonMiddle
+            color="black"
+            title="refresh"
+            onPress={() => {
+              generateInviteCode().then((response) => {
+                setUrl(response.invite_link)
+                setIsLoading(false)
+              })
+            }}
+          />
+        </ButtonAlignWrapper>
+
       </ModalPopup>
 
       <View style={{ flex: 1 }}>

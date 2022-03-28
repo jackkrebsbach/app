@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, Text } from 'react-native'
+import { StyleSheet, View, TextInput, Text, Platform } from 'react-native'
 interface Props {
   style?: {}
   onChangeText?: (value: string) => void
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   textInput: {
-    fontFamily: 'DIN Condensed',
+    fontFamily: Platform.OS == 'ios' ? 'DIN Condensed' : 'DIN Condensed Bold',
     textTransform: 'uppercase',
     fontSize: 20,
     width: 100,

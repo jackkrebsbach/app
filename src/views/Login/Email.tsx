@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { getCode } from '@services/api'
 import { Logo } from '@components/Logo'
 import { Wrapper } from '@components/Wrappers'
-import { Button, TextInputc } from '@components/forms'
+import { Button, TextInputCenter } from '@components/forms'
 import { Title } from '@components/Text'
 
 import { ActivityIndicator, Alert } from 'react-native'
@@ -85,7 +85,7 @@ const Email = ({ navigation }: Props) => {
 
         {isLoading && <ActivityIndicator style={{ bottom: 100 }} />}
 
-        <TextInputc
+        <TextInputCenter
           style={{
             justifyContent: 'center',
             alignItems: 'center',

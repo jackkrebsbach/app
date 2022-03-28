@@ -4,13 +4,12 @@ import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 import { useIsFocused } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import React, { useEffect } from 'react'
-import { View } from 'react-native'
 import { LinearTextGradient } from 'react-native-text-gradient'
 import Video from 'react-native-video'
 
 import { RootStackParamList } from '@App'
 import deviceStorage, { userData } from '@services/storage/deviceStorage'
-import { Footer, Contenaire, Header, styles, TextDescription, TextDescriptionB, Title } from './Welcome.styles'
+import { Footer, Contenaire, Header, styles, TextDescription, TextDescriptionB, Title } from './styles/Welcome.styles'
 
 
 type WelcomeNavigationProp = NativeStackNavigationProp<
@@ -88,7 +87,6 @@ const Welcome = ({ navigation }: Props) => {
         <Button
           onPress={onPressHandler}
           title="UNLOCK"
-          styles={{ paddingTop: 50 }}
         />
       </ButtonWrapper>
     </Wrapper>
