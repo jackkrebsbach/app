@@ -139,8 +139,11 @@ const App = () => {
   }
 
   return (
-    <PaperProvider>
-      <StatusBar backgroundColor={'white'} hidden={true} />
+    <PaperProvider theme={DarkTheme}>
+
+      <StatusBar barStyle='light-content' />
+
+
       <NavigationContainer theme={DarkTheme} ref={navigationRef}>
         <Stack.Navigator
           screenOptions={{ headerShown: false, animation: 'slide_from_right' }}
@@ -240,6 +243,7 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+
     </PaperProvider>
   )
 }

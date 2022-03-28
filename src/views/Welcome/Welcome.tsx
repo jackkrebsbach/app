@@ -10,6 +10,7 @@ import Video from 'react-native-video'
 import { RootStackParamList } from '@App'
 import deviceStorage, { userData } from '@services/storage/deviceStorage'
 import { Footer, Contenaire, Header, styles, TextDescription, TextDescriptionB, Title } from './styles/Welcome.styles'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
 type WelcomeNavigationProp = NativeStackNavigationProp<
@@ -42,6 +43,8 @@ const Welcome = ({ navigation }: Props) => {
   }, [])
 
   return (
+
+
     <Wrapper>
 
       <Header>
@@ -89,7 +92,9 @@ const Welcome = ({ navigation }: Props) => {
           title="UNLOCK"
         />
       </ButtonWrapper>
+
     </Wrapper>
+
   )
 }
 
