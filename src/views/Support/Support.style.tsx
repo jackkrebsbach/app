@@ -59,10 +59,10 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
-    borderStyle: 'dashed',
-    borderRadius: 1,
-    borderColor: 'white',
-    borderWidth: 1,
+    // borderStyle: 'dashed',
+    // borderRadius: 1,
+    // borderColor: 'white',
+    // borderWidth: 1,
     marginTop: 10,
   },
   pageTitle: {

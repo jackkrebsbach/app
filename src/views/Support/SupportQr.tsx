@@ -33,7 +33,7 @@ const SupportQr = ({ navigation }: Props) => {
         >
           <Icon name="close" color="#FFFFFF" size={30} />
         </TouchableOpacity>
-        <Text style={styles.pageTitle}> QR support </Text>
+        <Text style={styles.pageTitle}> QR Invite </Text>
       </View>
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Image
@@ -56,7 +56,7 @@ const SupportQr = ({ navigation }: Props) => {
       >
         <TextDescriptionQr>
           To invite members and contribute to the communtiy you can share a
-          one-time-use invite link via a uniquely generated QR code.
+          one-time-use invite link via a unique QR code
         </TextDescriptionQr>
       </View>
     </Wrapper>
