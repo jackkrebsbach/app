@@ -27,6 +27,7 @@ import { LinearTextGradient } from 'react-native-text-gradient'
 const BANNER_H = width
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
+import { white } from 'react-native-paper/lib/typescript/styles/colors'
 
 type ProfileNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -68,7 +69,7 @@ const Profile = ({ route, navigation }: Props) => {
         <ModalPoup visible={visible}>
           <View
             style={{
-              backgroundColor: 'rgba(0, 0, 0, .8)',
+              backgroundColor: 'rgba(0, 0, 0, 0.99)',
               alignItems: 'center',
             }}
           >
@@ -201,7 +202,16 @@ const Profile = ({ route, navigation }: Props) => {
             <View style={{ marginBottom: 10 }}>
               <Button onPress={onPressEdit} title="Edit my profile" />
             </View>
-            <Button onPress={onPressHandler} title="Log out" />
+
+            <Text onPress={onPressHandler}
+              style={{
+                color: 'white',
+                fontStyle: 'italic',
+                fontFamily: 'DIN Condensed',
+                fontSize: 20,
+                marginTop: 10,
+                textDecorationLine: 'underline'
+              }}>LOG OUT </Text>
           </View>
         </View>
       </Animated.ScrollView>
