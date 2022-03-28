@@ -201,7 +201,7 @@ const Profile = ({ route, navigation }: Props) => {
               <Button
                 transparent={true}
                 color="white"
-                onPress={onPressEdit}
+                onPress={() => navigation.navigate('Settings')}
                 title="Settings"
               />
             </View>

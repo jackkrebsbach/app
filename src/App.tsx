@@ -7,7 +7,7 @@ import React from 'react'
 import { StatusBar, View } from 'react-native'
 import { Provider as PaperProvider } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import { SafeAreaView } from 'react-native-safe-area-context'
+
 import { navigationRef } from './RootNavigation'
 import { Experience, Experienceb, Experiencec } from './views/Experience/'
 import { Email, LoginPassword } from './views/Login/'
@@ -21,6 +21,7 @@ import SplashScreen from './views/SplashScreen/SplashScreen'
 import Support from './views/Support/Support'
 import Welcome from './views/Welcome/Welcome'
 import WelcomeB from './views/Welcome/WelcomeB'
+import Settings from '@views/Settings/Settings'
 
 export type RootStackParamList = {
   Home: undefined // undefined because you aren't passing any params to the home screen
@@ -40,6 +41,7 @@ export type RootStackParamList = {
   EditProfile: undefined
   SupportNft: undefined
   SupportQr: undefined
+  Settings: undefined
 }
 
 const App = () => {
@@ -245,6 +247,12 @@ const App = () => {
             name="Profile"
             component={Profile}
             options={{ gestureEnabled: true }}
+          />
+
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{ gestureEnabled: true, animation: 'slide_from_bottom' }}
           />
 
           <Stack.Screen
