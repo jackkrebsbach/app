@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
-import Video from 'react-native-video'
 import { Wrapper } from '@components/Wrappers'
 import deviceStorage from '@services/storage/deviceStorage'
 import { BackgroundVideo } from './SplashScreen.style'
+import DeviceInfo from 'react-native-device-info';
+
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
@@ -26,6 +27,9 @@ const init = async () => {
 const SplashScreen = ({ navigation }: Props) => {
   useEffect(() => {
     init()
+    const build = DeviceInfo.getBuildNumber()
+    console.log('build', build);
+
     setTimeout(() => {
       navigation.navigate('Welcome')
     }, 3400)
