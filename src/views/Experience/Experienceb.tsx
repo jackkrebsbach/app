@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
-import styled from 'styled-components/native'
 import { Logo } from '@components/Logo'
 import { Wrapper, ButtonWrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
@@ -8,9 +7,9 @@ import deviceStorage, {
   userData,
   userProfile,
 } from '@services/storage/deviceStorage'
-
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
+import { DescriptionContainer, Name, NameContainer, TextDescription } from './Experience.styles'
 
 type ExperiencebNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -45,38 +44,24 @@ const Experienceb = ({ navigation }: Props) => {
 
   return (
     <Wrapper>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Logo />
-        <TextDescription
-          style={{ position: 'absolute', bottom: 0, letterSpacing: 2 }}
-        >
+      <Logo />
+
+      <NameContainer>
+        <Name>
           {name.toUpperCase()}
-        </TextDescription>
-      </View>
+        </Name>
+      </NameContainer>
 
-      <View>
+      <DescriptionContainer>
         <TextDescription>{lyop}</TextDescription>
-      </View>
+      </DescriptionContainer>
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ButtonWrapper>
-          <Button onPress={onPressHandler} title="COMPLETE YOUR PROFILE" />
-        </ButtonWrapper>
-      </View>
+      <ButtonWrapper>
+        <Button onPress={onPressHandler} title="COMPLETE YOUR PROFILE" />
+      </ButtonWrapper>
     </Wrapper>
   )
 }
 
 export default Experienceb
 
-export const TextDescription = styled.Text`
-  letter-spacing: 0.5px;
-  padding-top: 50px;
-  padding-left: 20px;
-  padding-right: 20px;
-  line-height: 30px;
-  font-size: 25px;
-  text-align: center;
-  color: #ffffff;
-  font-style: italic;
-`

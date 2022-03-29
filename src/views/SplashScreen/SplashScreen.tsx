@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import Video from 'react-native-video'
 import { Wrapper } from '@components/Wrappers'
 import deviceStorage from '@services/storage/deviceStorage'
-import Styles from './SplashScreen.style'
+import { BackgroundVideo } from './SplashScreen.style'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
@@ -33,9 +33,8 @@ const SplashScreen = ({ navigation }: Props) => {
 
   return (
     <Wrapper>
-      <Video
+      <BackgroundVideo
         source={require('../../assets/loading.mp4')}
-        style={Styles.backgroundVideo}
         repeat={false}
         rate={1.0}
         resizeMode={'cover'}

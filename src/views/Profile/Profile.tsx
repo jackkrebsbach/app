@@ -93,13 +93,12 @@ const Profile = ({ route, navigation }: Props) => {
               top: 50,
               right: 20,
               justifyContent: 'center',
-              backgroundColor: 'white',
-              width: 50,
-              height: 50,
+              width: 25,
+              height: 25,
               borderRadius: 30,
             }}
           >
-            <Icon name="close" color="#000000" size={25} />
+            <Icon name="close" color="#FFFFFF" size={25} />
           </TouchableOpacity>
         </ModalPoup>
         <View style={styles.bannerContainer}>

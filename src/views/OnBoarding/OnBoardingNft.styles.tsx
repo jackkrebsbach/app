@@ -29,6 +29,7 @@ export const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   image: {
+
     borderStyle: 'dashed',
     borderRadius: 1,
     borderColor: 'white',

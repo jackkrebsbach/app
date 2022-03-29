@@ -210,6 +210,20 @@ const EditProfile = ({ navigation }: Props) => {
       style={styles.container}
     >
       <Wrapper>
+
+        {isLoading && (
+          <View
+            style={{
+              backgroundColor: 'rgba(0,0,0,0.8)',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: width,
+              height: height,
+            }}
+          >
+            <ActivityIndicator />
+          </View>
+        )}
         <View
           style={{
             marginBottom: Platform.OS == 'ios' ? 100 : 70,
@@ -296,20 +310,6 @@ const EditProfile = ({ navigation }: Props) => {
             </ButtonWrapper>
           </ScrollView>
         </View>
-
-        {isLoading && (
-          <View
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.8)',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: width,
-              height: height,
-            }}
-          >
-            <ActivityIndicator />
-          </View>
-        )}
       </Wrapper>
     </KeyboardAvoidingView>
   )

@@ -1,8 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { Dimensions } from 'react-native'
+import { LinearTextGradient } from 'react-native-text-gradient'
+import Video from 'react-native-video'
 import styled from 'styled-components/native'
 
-const { width } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 export const styles = StyleSheet.create({
   backgroundVideo: {
@@ -11,8 +13,18 @@ export const styles = StyleSheet.create({
     alignItems: 'stretch',
     position: 'absolute',
   }
-
 })
+
+export const BackgroundVideo = styled(Video)`
+    height: ${height / 2 - 100};
+    width: ${width}px;
+    align-items: stretch;
+    position: absolute;
+`;
+
+export const LinearContainer = styled(LinearTextGradient)`
+  text-align: center;
+`
 
 export const Header = styled.View`
     flex: 1;

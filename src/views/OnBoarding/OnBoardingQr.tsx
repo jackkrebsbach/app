@@ -4,7 +4,6 @@ import { Wrapper } from '@components/Wrappers'
 import { Button } from '@components/forms'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { styles, TextDescriptionQr } from './OnBoardingNft.styles'
-import { userData, userProfile } from '@services/storage/deviceStorage'
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
@@ -69,13 +68,9 @@ const OnBoardingQr = ({ navigation }: Props) => {
           alignItems: 'center',
         }}
       >
-        {!userProfile || !userData ? (
-          <View style={{ marginTop: 'auto', marginBottom: 30 }}>
-            <Button onPress={onPressHandler} title="Enter the network" />
-          </View>
-        ) : (
-          <View style={{ marginTop: 'auto', marginBottom: 30 }}></View>
-        )}
+        <View style={{ marginTop: 'auto' }}>
+          <Button onPress={onPressHandler} title="Enter the network" />
+        </View>
       </View>
     </Wrapper>
   )

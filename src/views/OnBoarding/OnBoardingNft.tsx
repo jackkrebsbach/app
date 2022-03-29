@@ -70,11 +70,9 @@ const OnBoardingNft = ({ navigation }: Props) => {
           alignItems: 'center',
         }}
       >
-        {(!userProfile || !userData) && (
-          <View style={{ marginTop: 'auto' }}>
-            <Button onPress={onPressHandler} title="share our community" />
-          </View>
-        )}
+        <View style={{ marginTop: 'auto' }}>
+          <Button onPress={onPressHandler} title="share our community" />
+        </View>
       </View>
     </Wrapper>
   )

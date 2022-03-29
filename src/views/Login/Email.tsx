@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { getCode } from '@services/api'
 import { Logo } from '@components/Logo'
-import { Wrapper } from '@components/Wrappers'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 import { Button, TextInputCenter } from '@components/forms'
 import { Title } from '@components/Text'
 
@@ -84,7 +84,6 @@ const Email = ({ navigation }: Props) => {
       <View style={{ flex: 2, alignItems: 'center', marginVertical: 100 }}>
         <Text style={styles.subtitle}>Same email you use for REZA</Text>
 
-        {isLoading && <ActivityIndicator style={{ bottom: 100 }} />}
 
         <TextInputCenter
           style={{
@@ -99,9 +98,14 @@ const Email = ({ navigation }: Props) => {
           value={email.toLowerCase()}
         />
 
-        <View>
+        {isLoading && <ActivityIndicator />}
+
+      </View>
+
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ButtonWrapper>
           <Button onPress={async () => await onPressHandler()} title="next" />
-        </View>
+        </ButtonWrapper>
       </View>
     </Wrapper>
   )

@@ -60,18 +60,16 @@ const Login = ({ route, navigation }: Props) => {
 
   return (
     <Wrapper>
-      <View style={{ flex: 1 }}>
-        <Logo />
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Title title={email} style={{ fontSize: 24 }} />
-          <Title
-            title="We just emailed you a code to verify its you"
-            style={{ fontSize: 15, color: 'cyan' }}
-          />
-        </View>
+      <Logo />
+      <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Title title={email} style={{ fontSize: 24 }} />
+        <Title
+          title="We just emailed you a code to verify its you"
+          style={{ fontSize: 15, fontStyle: 'italic', color: '#0076BA' }}
+        />
       </View>
 
-      <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <TextInputCenter
           style={{
             position: 'absolute',
@@ -89,11 +87,9 @@ const Login = ({ route, navigation }: Props) => {
 
         {isLoading && <ActivityIndicator style={{ bottom: 100 }} />}
       </View>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ButtonWrapper>
-          <Button onPress={onPressHandler} title="Enter the Network" />
-        </ButtonWrapper>
-      </View>
+      <ButtonWrapper>
+        <Button onPress={onPressHandler} title="Enter the Network" />
+      </ButtonWrapper>
     </Wrapper>
   )
 }

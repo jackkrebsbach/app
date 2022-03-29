@@ -13,10 +13,11 @@ import {
   Footer,
   Contenaire,
   Header,
-  styles,
   TextDescription,
   TextDescriptionB,
   Title,
+  LinearContainer,
+  BackgroundVideo
 } from './styles/Welcome.styles'
 
 type WelcomeNavigationProp = NativeStackNavigationProp<
@@ -52,8 +53,7 @@ const Welcome = ({ navigation }: Props) => {
     <Wrapper>
       <Header>
         <Logo />
-        <LinearTextGradient
-          style={{ textAlign: 'center' }}
+        <LinearContainer
           locations={[0, 1]}
           colors={['#ffffff', '#0076BA']}
           start={{ x: 0, y: 0 }}
@@ -62,12 +62,11 @@ const Welcome = ({ navigation }: Props) => {
           <Title>
             REZA is a footwear brand and community aimed to connect and inspire.
           </Title>
-        </LinearTextGradient>
+        </LinearContainer>
       </Header>
       <Contenaire>
-        <Video
+        <BackgroundVideo
           source={require('../../assets/pir.mp4')}
-          style={styles.backgroundVideo}
           repeat={true}
           rate={1.0}
           resizeMode="cover"

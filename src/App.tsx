@@ -9,7 +9,7 @@ import { Provider as PaperProvider } from 'react-native-paper'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 import { navigationRef } from './RootNavigation'
-import { Experience, Experienceb, Experiencec } from './views/Experience/'
+import { Experience, Experienceb } from './views/Experience/'
 import { Email, LoginPassword } from './views/Login/'
 import { NftLanding, NftView } from './views/Nft'
 import OnBoardingNft from './views/OnBoarding/OnBoardingNft'
@@ -181,11 +181,6 @@ const App = () => {
           <Stack.Screen
             name="Experienceb"
             component={Experienceb}
-            options={{ gestureEnabled: false }}
-          />
-          <Stack.Screen
-            name="Experiencec"
-            component={Experiencec}
             options={{ gestureEnabled: false }}
           />
 

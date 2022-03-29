@@ -38,6 +38,8 @@ export const MainView = styled.View`
 
 export const Footer = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `
 export const Reza = styled.Image`
   width: 100%;

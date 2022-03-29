@@ -58,7 +58,7 @@ const WelcomeB = ({ navigation }: Props) => {
         </MainText>
       </MainView>
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
         <TextDescription
           style={{
             fontStyle: 'italic',
@@ -73,11 +73,9 @@ const WelcomeB = ({ navigation }: Props) => {
         </TextDescription>
       </View>
       {/* footer */}
-      <Footer>
-        <ButtonWrapper>
-          <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
-        </ButtonWrapper>
-      </Footer>
+      <ButtonWrapper>
+        <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
+      </ButtonWrapper>
     </Wrapper>
   )
 }

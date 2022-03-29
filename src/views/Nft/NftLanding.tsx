@@ -93,7 +93,7 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
           another user generate a new code
         </Text>
 
-        <ButtonAlignWrapper style={{ marginTop: 10 }}>
+        <ButtonAlignWrapper style={{ marginTop: 20 }}>
           <ButtonMiddle
             color="black"
             title="regenerate"
