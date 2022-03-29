@@ -49,11 +49,11 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'DIN Condensed',
     fontSize: 20,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
   },
   textInput: {
     fontFamily: 'DIN Condensed',
-    fontSize: 20,
+    fontSize: 18,
     flex: 1,
     textAlign: 'left',
   },

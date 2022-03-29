@@ -32,7 +32,8 @@ const Email = ({ navigation }: Props) => {
   async function sendCode() {
     if (!isValid) {
       setLoading(false)
-      return Alert.alert('Invalid Email')
+      Alert.alert('Please Enter a Valid Email')
+      return
     }
     try {
       const res = await getCode(email)
@@ -99,11 +100,7 @@ const Email = ({ navigation }: Props) => {
         />
 
         <View>
-          <Button
-            onPress={async () => await onPressHandler()}
-            disabled={!isValid}
-            title="next"
-          />
+          <Button onPress={async () => await onPressHandler()} title="next" />
         </View>
       </View>
     </Wrapper>

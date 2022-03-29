@@ -1,17 +1,15 @@
-import * as React from 'react'
-import { Alert, View } from 'react-native'
-import { login } from '@services/api'
-import { Logo } from '@components/Logo'
-import { Wrapper, ButtonWrapper } from '@components/Wrappers'
+import { RootStackParamList } from '@App'
 import { Button, TextInputCenter } from '@components/forms'
+import { Logo } from '@components/Logo'
 import { Title } from '@components/Text'
-import { ActivityIndicator } from 'react-native'
+import { ButtonWrapper, Wrapper } from '@components/Wrappers'
+import { RouteProp } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { login } from '@services/api'
 import { getProfile, getUser } from '@services/api/UserApi'
 import deviceStorage, { userProfile } from '@services/storage/deviceStorage'
-
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RouteProp } from '@react-navigation/native'
-import { RootStackParamList } from '@App'
+import * as React from 'react'
+import { ActivityIndicator, Alert, View } from 'react-native'
 
 type LoginPasswordNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -65,7 +63,11 @@ const Login = ({ route, navigation }: Props) => {
       <View style={{ flex: 1 }}>
         <Logo />
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Title title={email} style={{ fontSize: 28 }} />
+          <Title title={email} style={{ fontSize: 24 }} />
+          <Title
+            title="We just emailed you a code to verify its you"
+            style={{ fontSize: 15, color: 'cyan' }}
+          />
         </View>
       </View>
 
@@ -87,7 +89,6 @@ const Login = ({ route, navigation }: Props) => {
 
         {isLoading && <ActivityIndicator style={{ bottom: 100 }} />}
       </View>
-
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ButtonWrapper>
           <Button onPress={onPressHandler} title="Enter the Network" />

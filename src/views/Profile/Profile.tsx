@@ -129,7 +129,7 @@ const Profile = ({ route, navigation }: Props) => {
                 end={{ x: 1, y: 0 }}
               >
                 <Text style={styles.shortDescription}>
-                  {' '}
+                  {'  '}
                   {userProfile?.short_description}
                 </Text>
               </LinearTextGradient>

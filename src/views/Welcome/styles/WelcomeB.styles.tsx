@@ -14,12 +14,12 @@ export const TextDescription = styled.Text`
 export const MainText = styled.Text`
   letter-spacing: 1px;
   font-style: normal;
-  line-height: 30px;
+  line-height: 25px;
   width: 95%;
   color: #ffffff;
   text-align: center;
   margin-top: 100px;
-  font-size: 20px;
+  font-size: 18px;
   text-transform: uppercase;
   display: flex;
   align-items: center;

@@ -1,24 +1,23 @@
+import { ButtonMiddle } from '@components/forms'
+import { Logo } from '@components/Logo'
+import { ButtonAlignWrapper, Wrapper } from '@components/Wrappers'
+import { useIsFocused } from '@react-navigation/native'
+import { generateInviteCode } from '@services/api/InviteApi'
+import deviceStorage, { userData } from '@services/storage/deviceStorage'
 import React, { useEffect } from 'react'
 import {
+  ActivityIndicator,
+  Platform,
+  Text,
   TouchableOpacity,
   View,
-  Text,
-  Platform,
-  Dimensions,
 } from 'react-native'
-import { Wrapper, ButtonAlignWrapper } from '@components/Wrappers'
-import { ButtonMiddle } from '@components/forms'
-import deviceStorage, { userData } from '@services/storage/deviceStorage'
+import QRCode from 'react-native-qrcode-svg'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import Video from 'react-native-video'
-import { TextDescription, styles } from './Nft.styles'
-import { Logo } from '@components/Logo'
+
 import ModalPopup from './ModalPopup'
-import QRCode from 'react-native-qrcode-svg'
-import { generateInviteCode } from '@services/api/InviteApi'
-import { ActivityIndicator } from 'react-native'
-import { useIsFocused } from '@react-navigation/native'
-const { width, height } = Dimensions.get('window')
+import { styles, TextDescription } from './Nft.styles'
 
 const NftLanding = ({ navigation }: { navigation: any }) => {
   const [name, setName] = React.useState('')
@@ -42,20 +41,6 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
   return (
     <Wrapper style={{ backgroundColor: '#282828' }}>
       <ModalPopup visible={visible}>
-        {isLoading && (
-          <View
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.8)',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: width,
-              height: height,
-              zIndex: 100,
-            }}
-          >
-            <ActivityIndicator />
-          </View>
-        )}
         <View style={{ alignItems: 'center' }}>
           <TouchableOpacity
             onPress={() => setVisible(false)}
@@ -119,12 +104,16 @@ const NftLanding = ({ navigation }: { navigation: any }) => {
               setIsLoading(false)
             }}
           >
-            <Icon
-              name="refresh"
-              color="#a1c0da"
-              style={{ top: 1, left: 4 }}
-              size={20}
-            />
+            {!isLoading ? (
+              <Icon
+                name="refresh"
+                color="#a1c0da"
+                style={{ top: 1, left: 4 }}
+                size={20}
+              />
+            ) : (
+              <ActivityIndicator style={{ top: 1, left: 4 }} />
+            )}
           </ButtonMiddle>
         </ButtonAlignWrapper>
       </ModalPopup>

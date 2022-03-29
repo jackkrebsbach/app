@@ -53,8 +53,8 @@ const WelcomeB = ({ navigation }: Props) => {
       </Header>
       <MainView>
         <MainText>
-          This is the start of our digital community. Where you can soon access
-          your NFT, future drops and digital profile
+          REZA connect is the base of our digital community. You will be able to
+          claim your NFT and have access to future drops.
         </MainText>
       </MainView>
 
@@ -69,7 +69,7 @@ const WelcomeB = ({ navigation }: Props) => {
             textAlign: 'center',
           }}
         >
-          Keep it downloaded as we will be updating it regularly.
+          We will be updating it frequently
         </TextDescription>
       </View>
       {/* footer */}
