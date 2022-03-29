@@ -29,7 +29,7 @@ type Props = {
 
 const WelcomeB = ({ navigation }: Props) => {
   const onPressHandler = async () => {
-    if (!jwt) navigation.navigate('OnBoardingNft')
+    if (jwt === undefined) navigation.navigate('OnBoardingNft')
     if (userData) {
       getProfile()
         .then((res) => {

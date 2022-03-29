@@ -37,7 +37,6 @@ export const styles = StyleSheet.create({
     height: height / 2,
     width: width,
     top: 200,
-    alignItems: 'stretch',
     position: 'absolute',
   },
 })
