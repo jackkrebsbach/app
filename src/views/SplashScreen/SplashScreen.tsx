@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { Wrapper } from '@components/Wrappers'
 import deviceStorage from '@services/storage/deviceStorage'
 import { BackgroundVideo } from './SplashScreen.style'
-import DeviceInfo from 'react-native-device-info';
 
 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
+import { getVersion } from '@services/api/Version';
 
 type SpalshScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -18,6 +18,7 @@ type Props = {
 }
 
 const init = async () => {
+  await getVersion()
   await deviceStorage.loadJWT()
   await deviceStorage.loadUser()
   await deviceStorage.loadProfile()
@@ -27,8 +28,7 @@ const init = async () => {
 const SplashScreen = ({ navigation }: Props) => {
   useEffect(() => {
     init()
-    const build = DeviceInfo.getBuildNumber()
-    console.log('build', build);
+
 
     setTimeout(() => {
       navigation.navigate('Welcome')
