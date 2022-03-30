@@ -204,23 +204,25 @@ const ProfileSetUp = ({ navigation }: Props) => {
 
   return (
     <Wrapper>
+
+      {isLoading && (
+        <View
+          style={{
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: width,
+            height: height,
+          }}
+        >
+          <ActivityIndicator />
+        </View>
+      )}
+
       <View>
         <Logo />
       </View>
       <View style={{ flex: 3 }}>
-        {isLoading && (
-          <View
-            style={{
-              backgroundColor: 'rgba(0,0,0,0.8)',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: width,
-              height: height,
-            }}
-          >
-            <ActivityIndicator />
-          </View>
-        )}
 
         <ScrollView>
           <View

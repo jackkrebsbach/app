@@ -6,17 +6,9 @@ import styled from 'styled-components/native'
 
 const { width, height } = Dimensions.get('window')
 
-export const styles = StyleSheet.create({
-  backgroundVideo: {
-    height: 250,
-    width: width,
-    alignItems: 'stretch',
-    position: 'absolute',
-  }
-})
 
 export const BackgroundVideo = styled(Video)`
-    height: ${height / 2 - 100};
+    height: ${height / 2 - 200}px;
     width: ${width}px;
     align-items: stretch;
     position: absolute;
@@ -24,6 +16,7 @@ export const BackgroundVideo = styled(Video)`
 
 export const LinearContainer = styled(LinearTextGradient)`
   text-align: center;
+  width: 95%;
 `
 
 export const Header = styled.View`
@@ -69,6 +62,7 @@ export const TextDescriptionB = styled.Text`
 export const Title = styled.Text`
   font-style: italic;
   text-transform: uppercase;
+  padding-top: 10px;
   font-size: 17px;
   text-align: center;
 `

@@ -47,7 +47,7 @@ const Support = ({ navigation }: { navigation: any }) => {
 
       <Footer>
         <ButtonWrapper>
-          <Button onPress={onPressHandler} title="Chat with us" />
+          <Button onPress={onPressHandler} title="REZA support" />
         </ButtonWrapper>
       </Footer>
     </Wrapper>

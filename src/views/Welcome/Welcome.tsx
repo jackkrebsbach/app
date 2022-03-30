@@ -51,8 +51,8 @@ const Welcome = ({ navigation }: Props) => {
 
   return (
     <Wrapper>
+      <Logo />
       <Header>
-        <Logo />
         <LinearContainer
           locations={[0, 1]}
           colors={['#ffffff', '#0076BA']}

@@ -15,10 +15,9 @@ export const MainText = styled.Text`
   letter-spacing: 1px;
   font-style: normal;
   line-height: 25px;
-  width: 95%;
+  width: 90%;
   color: #ffffff;
   text-align: center;
-  margin-top: 100px;
   font-size: 18px;
   text-transform: uppercase;
   display: flex;
@@ -28,31 +27,23 @@ export const MainText = styled.Text`
 
 export const Header = styled.View`
   flex: 1;
+  justify-content: center;
+  align-items: center;
 `
 
 export const MainView = styled.View`
   flex: 3;
   justify-content: center;
   align-items: center;
+
 `
 
 export const Footer = styled.View`
   flex: 1;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-end;
 `
 export const Reza = styled.Image`
-  width: 100%;
+  width: ${width - 100}px;
   height: 200px;
-  bottom: 25px;
 `
-
-export const styles = StyleSheet.create({
-  backgroundVideo: {
-    height: 200,
-    width: width,
-    bottom: height / 2 - 100,
-    alignItems: 'stretch',
-    position: 'absolute',
-  },
-})

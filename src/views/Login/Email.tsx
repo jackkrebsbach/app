@@ -4,11 +4,11 @@ import { getCode } from '@services/api'
 import { Logo } from '@components/Logo'
 import { ButtonWrapper, Wrapper } from '@components/Wrappers'
 import { Button, TextInputCenter } from '@components/forms'
-import { Title } from '@components/Text'
 
 import { ActivityIndicator, Alert } from 'react-native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '@App'
+import { Footer, Header, MainView, SubTitle, Title } from './Email.styles'
 
 type EmailNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -73,18 +73,15 @@ const Email = ({ navigation }: Props) => {
 
   return (
     <Wrapper>
-      <View style={{ flex: 1 }}>
-        <Logo />
 
-        <View style={{ alignItems: 'center' }}>
-          <Title title="ACCESS YOUR ACCOUNT" />
-        </View>
-      </View>
+      <Logo />
 
-      <View style={{ flex: 2, alignItems: 'center', marginVertical: 100 }}>
-        <Text style={styles.subtitle}>Same email you use for REZA</Text>
+      <Header>
+        <Title> ACCESS YOUR ACCOUNT </Title>
+      </Header>
 
-
+      <MainView>
+        <SubTitle>Same email you use for REZA</SubTitle>
         <TextInputCenter
           style={{
             justifyContent: 'center',
@@ -100,13 +97,13 @@ const Email = ({ navigation }: Props) => {
 
         {isLoading && <ActivityIndicator />}
 
-      </View>
+      </MainView>
 
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <Footer>
         <ButtonWrapper>
           <Button onPress={async () => await onPressHandler()} title="next" />
         </ButtonWrapper>
-      </View>
+      </Footer>
     </Wrapper>
   )
 }
@@ -124,11 +121,5 @@ const styles = StyleSheet.create({
     padding: 10,
     fontFamily: 'DIN Condensed',
     backgroundColor: 'white',
-  },
-  subtitle: {
-    color: 'white',
-    fontFamily: 'DIN Alternate',
-    fontSize: 22.5,
-    letterSpacing: 1.5,
   },
 })

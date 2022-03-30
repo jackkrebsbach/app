@@ -47,8 +47,8 @@ const WelcomeB = ({ navigation }: Props) => {
 
   return (
     <Wrapper>
+      <Logo />
       <Header>
-        <Logo />
         <Reza source={require('../../assets/reza_logo_w.png')} />
       </Header>
       <MainView>
@@ -58,24 +58,12 @@ const WelcomeB = ({ navigation }: Props) => {
         </MainText>
       </MainView>
 
-      <View style={{ flex: 2, justifyContent: 'center', alignItems: 'center' }}>
-        <TextDescription
-          style={{
-            fontStyle: 'italic',
-            paddingLeft: 20,
-            paddingRight: 20,
-            lineHeight: 30,
-            fontSize: 20,
-            textAlign: 'center',
-          }}
-        >
-          We will be updating it frequently
-        </TextDescription>
-      </View>
       {/* footer */}
-      <ButtonWrapper>
-        <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
-      </ButtonWrapper>
+      <Footer>
+        <ButtonWrapper>
+          <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
+        </ButtonWrapper>
+      </Footer>
     </Wrapper>
   )
 }

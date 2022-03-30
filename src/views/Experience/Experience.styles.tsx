@@ -39,14 +39,15 @@ export const Subtitle = styled.Text`
   color: #ffffff;
 `
 export const ExperienceContainer = styled.View`
-flex: 1; 
-justify-content: center;
+flex: 2; 
+justify-content: flex-start;
 align-items: center;
 `;
 
 export const FloatingShoes = styled.Image`
-     height: 300; 
-     width: ${width},
+     height: 300px; 
+     margin-top: 50px;
+     margin-bottom: 50px;
 `
 
 

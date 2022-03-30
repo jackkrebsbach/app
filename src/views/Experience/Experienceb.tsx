@@ -57,7 +57,7 @@ const Experienceb = ({ navigation }: Props) => {
       </DescriptionContainer>
 
       <ButtonWrapper>
-        <Button onPress={onPressHandler} title="COMPLETE YOUR PROFILE" />
+        <Button onPress={onPressHandler} title="COMPLETE MY PROFILE" />
       </ButtonWrapper>
     </Wrapper>
   )

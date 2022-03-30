@@ -10,7 +10,7 @@ export const Logo = () => {
     <LogoView>
       <LogoStyle
         source={require('../../assets/lyop.png')}
-        width={1000}
+        width={900}
         height={50}
         resizeMode="contain"
       />
@@ -19,7 +19,7 @@ export const Logo = () => {
 }
 const LogoStyle = styled.Image`
   height: 100px ;
-  width: ${width - 10}px ;
+  width: ${width - 50}px ;
   margin-top: ${Platform.OS == 'ios' ? '15px' : 0};
 `
 

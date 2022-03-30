@@ -33,7 +33,7 @@ const Experience = ({ navigation }: Props) => {
       <ExperienceContainer>
 
         <FloatingShoes
-          source={require('../../assets/floating.png')}
+          source={require('../../assets/floating_shoe.jpg')}
           resizeMode="contain"
         />
 
