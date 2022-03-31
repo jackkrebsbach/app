@@ -100,7 +100,7 @@ const NftView = ({ navigation }: { navigation: any }) => {
           <Icon name="close" color="#FFFFFF" size={30} />
         </TouchableOpacity>
         <View style={{ alignItems: 'center' }}>
-          <Text style={styles.pageTitle}> My nft </Text>
+          <Text style={styles.pageTitle}>My nft</Text>
         </View>
       </View>
       <View style={{ flex: 3, justifyContent: 'center', alignItems: 'center' }}>
@@ -162,15 +162,19 @@ const NftView = ({ navigation }: { navigation: any }) => {
                     }}
                   />
                 </View>
-                <ButtonWrapper>
-                  <Button onPress={onPressHandler} title="VIEW ON OPENSEA" />
-                </ButtonWrapper>
+                <View style={{ flex: 1, justifyContent: 'flex-end', alignItems: 'center' }}>
+
+                  <ButtonWrapper>
+                    <Button onPress={onPressHandler} title="VIEW ON OPENSEA" />
+                  </ButtonWrapper>
+                </View>
+
               </>
             ) : null}
 
             {nft &&
-            nft.nft_state != 'PENDING' &&
-            nft.nft_state != 'TRANSFERED' ? (
+              nft.nft_state != 'PENDING' &&
+              nft.nft_state != 'TRANSFERED' ? (
               <ButtonWrapper style={{ marginTop: 10 }}>
                 <Button onPress={() => setVisible(true)} title="Claim MY NFT" />
               </ButtonWrapper>
