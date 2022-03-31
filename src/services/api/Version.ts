@@ -13,7 +13,7 @@ export const getVersion = async () => {
             const code = response.data.ios_version_code
             const build = DeviceInfo.getBuildNumber()
 
-            if (code < build) {
+            if (code > build) {
                 Alert.alert("A new version of the app is available please update your app for new features")
 
             }
@@ -21,7 +21,7 @@ export const getVersion = async () => {
             const code = response.data.android_version_code
             const build = DeviceInfo.getBuildNumber()
 
-            if (code < build) {
+            if (code > build) {
                 Alert.alert("A new version of the app is available please update your app for new features")
 
             }

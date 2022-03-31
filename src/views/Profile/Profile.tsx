@@ -78,7 +78,7 @@ const Profile = ({ route, navigation }: Props) => {
               renderItem={({ item, index }) => (
                 <FastImage
                   key={index}
-                  style={{ width: '100%', height: '100%', borderRadius: 30 }}
+                  style={{ width: '100%', height: '100%', borderRadius: 30, backgroundColor: 'black' }}
                   resizeMode="contain"
                   source={{ uri: item.url }}
                 />
@@ -158,7 +158,7 @@ const Profile = ({ route, navigation }: Props) => {
                     return (
                       <TouchableOpacity
                         key={i}
-                        onPress={() => setVisible(true)}
+                        onPress={(i) => setVisible(true)}
                       >
                         <FastImage
                           key={i}
