@@ -82,7 +82,7 @@ const Welcome = ({ navigation }: Props) => {
       </Footer>
 
       <ButtonWrapper>
-        <Button onPress={onPressHandler} title="UNLOCK" />
+        <Button onPress={onPressHandler} light={true} color={'black'} title="UNLOCK" />
       </ButtonWrapper>
     </Wrapper>
   )

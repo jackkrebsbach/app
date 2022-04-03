@@ -192,7 +192,7 @@ const Profile = ({ route, navigation }: Props) => {
             }}
           >
             <View style={{ marginBottom: 10 }}>
-              <Button onPress={onPressEdit} title="Edit my profile" />
+              <Button onPress={onPressEdit} title="Edit my profile" light={true} color={'black'} />
             </View>
 
             <Text

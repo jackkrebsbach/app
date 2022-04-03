@@ -306,7 +306,7 @@ const EditProfile = ({ navigation }: Props) => {
             </View>
 
             <ButtonWrapper>
-              <Button onPress={onPressHandler} title="Update my profile" />
+              <Button onPress={onPressHandler} transparent={false} title="Update my profile" />
             </ButtonWrapper>
           </ScrollView>
         </View>

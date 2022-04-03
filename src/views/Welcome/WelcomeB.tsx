@@ -61,7 +61,7 @@ const WelcomeB = ({ navigation }: Props) => {
       {/* footer */}
       <Footer>
         <ButtonWrapper>
-          <Button onPress={onPressHandler} title="REDEEM YOUR NFT" />
+          <Button onPress={onPressHandler} title="REDEEM YOUR NFT" light={true} color={'black'} />
         </ButtonWrapper>
       </Footer>
     </Wrapper>

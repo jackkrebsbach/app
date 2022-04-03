@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <IntercomModule.h>
+#import <UserNotifications/UserNotifications.h>
 
 
 
@@ -52,6 +53,12 @@ static void InitializeFlipper(UIApplication *application) {
   self.window.rootViewController  = rootViewController;
   [self.window makeKeyAndVisible];
   
+  UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+  [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound)
+                        completionHandler:^(BOOL granted, NSError *_Nullable error) {
+                        }];
+  [[UIApplication sharedApplication] registerForRemoteNotifications];
+  
   
   return YES;
 }
@@ -64,5 +71,10 @@ static void InitializeFlipper(UIApplication *application) {
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
 }
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [IntercomModule setDeviceToken:deviceToken];
+}
+
 
 @end

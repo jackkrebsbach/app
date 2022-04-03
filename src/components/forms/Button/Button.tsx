@@ -6,7 +6,7 @@ interface Props {
   onPress?: (event: GestureResponderEvent) => void
   color?: any
   title?: string
-  transparent?: boolean
+  light?: boolean
   disabled?: boolean
   styles?: {}
 }
@@ -22,11 +22,12 @@ export const Button = ({ color, title = 'default title', ...props }: Props) => {
 const StyledButton = styled.TouchableHighlight<Props>`
   width: 300px;
   background-color: ${(props) =>
-    props.transparent ? 'transparent' : '#f3f8ff'};
-  padding: 15px;
-  border: ${(props) => (props.transparent ? '1px solid #a3a3a3 ' : 0)};
+    props.light ? 'white' : '#0076BA'};
+  border: ${(props) => (props.light ? '1px solid #a3a3a3 ' : 0)};
   justify-content: center;
-  border-radius: 24px;
+  align-items: center;
+  display: flex;
+  border-radius: 15px;
 `
 const StyledTitle = styled.Text<Props>`
   text-transform: uppercase;
@@ -35,9 +36,10 @@ const StyledTitle = styled.Text<Props>`
   font-size: 20px;
   line-height: 24px;
   display: flex;
-
+  margin-top: 12px;
+  margin-bottom: 10px;
   align-items: center;
   text-align: center;
   letter-spacing: 1.5px;
-  color: ${(props) => (props.color ? props.color : 'black ')};
+  color: ${(props) => (props.color ? props.color : 'white')};
 `

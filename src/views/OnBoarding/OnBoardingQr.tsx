@@ -69,7 +69,7 @@ const OnBoardingQr = ({ navigation }: Props) => {
         }}
       >
         <View style={{ marginTop: 'auto' }}>
-          <Button onPress={onPressHandler} title="Enter the network" />
+          <Button onPress={onPressHandler} title="Enter the network" light={true} color={'black'} />
         </View>
       </View>
     </Wrapper>

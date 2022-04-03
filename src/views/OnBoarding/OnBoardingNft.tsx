@@ -70,7 +70,7 @@ const OnBoardingNft = ({ navigation }: Props) => {
         }}
       >
         <View style={{ marginTop: 'auto' }}>
-          <Button onPress={onPressHandler} title="share our community" />
+          <Button onPress={onPressHandler} title="share our community" light={true} color={'black'} />
         </View>
       </View>
     </Wrapper>
